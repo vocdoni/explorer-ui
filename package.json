@@ -1,0 +1,57 @@
+{
+  "name": "explorer-ui",
+  "version": "1.0.0",
+  "description": "Frontend to explore the Vocdoni voting blockchain",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev -p 8080",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build && next export -o build",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet .",
+    "i18n-extract": "i18next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vocdoni/explorer-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/vocdoni/explorer-ui/issues"
+  },
+  "homepage": "https://github.com/vocdoni/explorer-ui#readme",
+  "dependencies": {
+    "@aragon/ui": "^1.7.0",
+    "@vocdoni/react-hooks": "0.9.10",
+    "blob-stream": "^0.1.3",
+    "bluebird": "^3.7.2",
+    "copy-to-clipboard": "^3.3.1",
+    "dvote-js": "1.10.1",
+    "ethers": "^5.4.1",
+    "hamburger-react": "^2.4.0",
+    "i18next": "^20.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "next": "^10.0.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.1",
+    "react-i18next": "^11.3.3",
+    "react-if": "^4.0.1",
+    "react-rainbow-components": "^1.26.0",
+    "react-svg-spinner": "^1.0.4",
+    "styled-components": "^5.3.0",
+    "token-amount": "^0.3.0",
+    "typescript": "^4.0.5",
+    "use-url-hash": "^0.1.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^10.2.3",
+    "@types/node": "^15.3.0",
+    "@types/react": "^17.0.8",
+    "@types/styled-components": "^5.1.7",
+    "eslint": "^7.12.1",
+    "eslint-plugin-react": "^7.23.2",
+    "i18next-parser": "^3.7.0"
+  }
+}
