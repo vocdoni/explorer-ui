@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+// import { useTranslation } from 'react-i18next'
+import i18n from '../i18n'
 
 // import { Button } from '../components/elements/button'
-import i18n from '../i18n'
 import { } from '@const/routes'
 import {
   TextAlign,
@@ -22,6 +23,8 @@ import { sizes } from 'theme/sizes'
 
 // MAIN COMPONENT
 const IndexPage = () => {
+  // const { i18n } = useTranslation()
+
   return (
     <div>
       <HeroBanner />
@@ -86,7 +89,7 @@ const IndexPage = () => {
             Total vote envelopes
             5,229
             Sync status
-            In sync 
+            In sync
           </code>
         </BlockContainer>
       </Section>
