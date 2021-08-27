@@ -27,9 +27,9 @@ export const QuestionResults = ({
     result?.voteResults[index].votes
 
   const getOptionPercentage = (index: number) => {
-    if (!resultsWeight || resultsWeight.isZero) return 0
+    if (!resultsWeight || resultsWeight.isZero()) return 0
 
-    return getOptionResult(index).div(resultsWeight).mul(10000).toNumber() / 100
+    return getOptionResult(index).mul(10000).div(resultsWeight).toNumber() / 100
   }
 
   return (

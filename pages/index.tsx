@@ -39,12 +39,12 @@ type Stats = {
   validator_count: number
 }
 type BlockInfo = {
-  hash: "cc7b3b554ebb1dc73112894125d7820797412bff830e7d979be9e159f5eaeef6",
-  height: 774859,
-  last_block_hash: "910df480ab6a79edcdbc51ef8b32c5357f8b48669aabfbac35cec3f761561588",
-  num_txs: 0,
-  proposer_address: "71aa2fefa96447bc5aef9fd928f3f8ed57e695cf",
-  timestamp: "2021-08-27T11:42:10.033766696Z"
+  hash: string
+  height: number,
+  last_block_hash: string
+  num_txs: number,
+  proposer_address: string
+  timestamp: string
 }
 
 // TODO: REMOVE
@@ -135,7 +135,7 @@ const IndexPage = () => {
       <Section>
         <BlockContainer>
           <Typography
-            variant={TypographyVariant.HeroBanner}
+            variant={TypographyVariant.H3}
             color={colors.blueText}
           >
             {i18n.t('home.recent_blocks')}
@@ -165,7 +165,7 @@ const IndexPage = () => {
         <BlockContainer>
 
           <Typography
-            variant={TypographyVariant.HeroBanner}
+            variant={TypographyVariant.H3}
             color={colors.blueText}
           >
             {i18n.t('home.blockchain_info')}

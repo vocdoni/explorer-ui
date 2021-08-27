@@ -10,7 +10,7 @@ import { sizes } from 'theme/sizes'
 import { Grid } from '@components/elements/grid'
 import { Card } from '@components/elements/cards'
 
-export const HeroBanner = () => (
+export const HeroBanner = (props: { proposals: number, organizations: number, averageBlockTime: number, envelopes: number }) => (
   <BannerContainer>
     <ContentContainer>
       <div>
@@ -21,21 +21,21 @@ export const HeroBanner = () => (
         </Title>
 
         <Grid>
-          <Card sm={6} md={4} lg={3}>
-          <h4>{i18n.t('home.total_proposals')}</h4>
-            <p>354 proposals</p>
-          </Card>
-          <Card sm={6} md={4} lg={3}>
-          <h4>{i18n.t('home.total_organizations')}</h4>
-            <p>142 organizations</p>
-          </Card>
-          <Card sm={6} md={4} lg={3}>
+          <Card sm={6} lg={3}>
             <h4>{i18n.t('home.average_block_time')}</h4>
-            <p>12 seconds</p>
+            <p>{i18n.t('home.n_seconds', { seconds: Number(props.averageBlockTime || 0).toFixed(1) })}</p>
           </Card>
-          <Card sm={6} md={4} lg={3}>
-          <h4>{i18n.t('home.total_votes')}</h4>
-            <p>12341234 votes</p>
+          <Card sm={6} lg={3}>
+            <h4>{i18n.t('home.total_proposals')}</h4>
+            <p>{i18n.t('home.n_proposals', { proposals: props.proposals })}</p>
+          </Card>
+          <Card sm={6} lg={3}>
+            <h4>{i18n.t('home.total_organizations')}</h4>
+            <p>{i18n.t('home.n_organizations', { organizations: props.organizations })}</p>
+          </Card>
+          <Card sm={6} lg={3}>
+            <h4>{i18n.t('home.total_votes')}</h4>
+            <p>{i18n.t('home.n_votes', { votes: props.envelopes })}</p>
           </Card>
         </Grid>
 
