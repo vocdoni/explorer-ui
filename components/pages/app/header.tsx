@@ -5,7 +5,7 @@ import { Unless } from 'react-if'
 
 import i18n from '@i18n'
 
-import { HOME_PATH } from '@const/routes'
+import { HOME_PATH, ORGANIZATIONS_PATH, PROPOSALS_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH } from '@const/routes'
 
 import { MenuIcon } from '@components/blocks/menu-icon'
 import { useIsMobile } from '@hooks/use-window-size'
@@ -15,47 +15,28 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 
 export const LINKS: HeaderLink[] = [
   {
-    url: HOME_PATH,
-    name: i18n.t("links.home"),
-    external: false,
-    logged: true,
-    guest: false
+    name: i18n.t("links.organizations"),
+    url: ORGANIZATIONS_PATH,
   },
   {
-    url: 'https://blog.vocdoni.io',
-    name: i18n.t("links.blog"),
-    external: true,
-    logged: true,
-    guest: true
+    name: i18n.t("links.proposals"),
+    url: PROPOSALS_PATH,
   },
   {
-    url: 'https://docs.vocdoni.io',
-    name: i18n.t("links.docs"),
-    external: true,
-    logged: true,
-    guest: true
+    name: i18n.t("links.blocks"),
+    url: BLOCKS_PATH,
   },
   {
-    // url: ABOUT_PATH,
-    url: "https://vocdoni.io",
-    name: i18n.t("links.about"),
-    external: false,
-    logged: false,
-    guest: true
+    name: i18n.t("links.transactions"),
+    url: TRANSACTIONS_PATH,
   },
   {
-    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-    name: i18n.t("links.help"),
-    external: true,
-    logged: true,
-    guest: true
+    name: i18n.t("links.validators"),
+    url: VALIDATORS_PATH,
   },
   {
-    url: 'https://discord.gg/sQCxgYs',
-    name: i18n.t("links.support"),
-    external: true,
-    logged: false,
-    guest: false
+    name: i18n.t("links.stats"),
+    url: STATS_PATH,
   },
 ]
 
@@ -233,8 +214,6 @@ interface HeaderLink {
   name: string;
   url: string;
   external?: boolean;
-  logged?: boolean;
-  guest?: boolean;
 }
 
 interface ILinkItemProps {
