@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { useMessageAlert } from '../../hooks/message-alert'
+import { useAlertMessage } from '../../hooks/message-alert'
 
 export const MessageAlert = () => {
-  const { message } = useMessageAlert()
+  const { message } = useAlertMessage()
 
   return (
     <AlertContainer visible={!!message?.length}>

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { UseEntityProvider, UsePoolProvider, UseProcessProvider, UseBlockStatusProvider } from '@vocdoni/react-hooks'
 import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 
-import { UseMessageAlertProvider } from '@hooks/message-alert'
+import { UseAlertMessageProvider } from '@hooks/message-alert'
 import { UseLoadingAlertProvider } from '@hooks/loading-alert'
 
 interface IDefaultProvidersProps {
@@ -17,7 +17,7 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
   const discoveryPoolSize = Number(process.env.DISCOVERY_POOL_SIZE)
 
   return (
-    <UseMessageAlertProvider>
+    <UseAlertMessageProvider>
       <UseLoadingAlertProvider>
         <UsePoolProvider
           bootnodeUri={bootnodeUri}
@@ -35,6 +35,6 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
           </UseBlockStatusProvider>
         </UsePoolProvider>
       </UseLoadingAlertProvider>
-    </UseMessageAlertProvider>
+    </UseAlertMessageProvider>
   )
 }

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 // import { useTranslation } from 'react-i18next'
 import i18n from '../i18n'
+import { GatewayPool } from "dvote-js"
 
 // import { Button } from '../components/elements/button'
-import { } from '@const/routes'
+// import { } from '@const/routes'
+import { usePool } from '@vocdoni/react-hooks'
+import { useAlertMessage } from '@hooks/message-alert'
 import {
   TextAlign,
   Typography,
@@ -20,14 +23,114 @@ import { Card, CardDiv } from '@components/elements/cards'
 import { EmptyProviders } from '@components/pages/app/providers/empty-providers'
 
 import { sizes } from 'theme/sizes'
+import { localizedDateDiff } from '@lib/date'
+
+type Stats = {
+  block_height: number,
+  block_time: [number, number, number, number, number],
+  block_time_stamp: number,
+  chain_id: string,
+  entity_count: number,
+  envelope_count: number,
+  genesis_time_stamp: string,
+  process_count: number,
+  syncing: boolean,
+  transaction_count: number,
+  validator_count: number
+}
+type BlockInfo = {
+  hash: "cc7b3b554ebb1dc73112894125d7820797412bff830e7d979be9e159f5eaeef6",
+  height: 774859,
+  last_block_hash: "910df480ab6a79edcdbc51ef8b32c5357f8b48669aabfbac35cec3f761561588",
+  num_txs: 0,
+  proposer_address: "71aa2fefa96447bc5aef9fd928f3f8ed57e695cf",
+  timestamp: "2021-08-27T11:42:10.033766696Z"
+}
+
+// TODO: REMOVE
+const TEMP_DEFAULT_STATS: Stats = {
+  "block_height": 774869,
+  "block_time": [
+    12000,
+    12000,
+    11881,
+    11894,
+    11895
+  ],
+  "block_time_stamp": 1630064649,
+  "chain_id": "vocdoni-release-1.0.1",
+  "entity_count": 126,
+  "envelope_count": 5229,
+  "genesis_time_stamp": "2021-05-12T12:38:33.672114557Z",
+  "process_count": 317,
+  "syncing": false,
+  "transaction_count": 1242,
+  "validator_count": 5
+}
+const TEMP_DEFAULT_BLOCK_INFO = {
+  hash: "cc7b3b554ebb1dc73112894125d7820797412bff830e7d979be9e159f5eaeef6",
+  height: 774859,
+  last_block_hash: "910df480ab6a79edcdbc51ef8b32c5357f8b48669aabfbac35cec3f761561588",
+  num_txs: 0,
+  proposer_address: "71aa2fefa96447bc5aef9fd928f3f8ed57e695cf",
+  timestamp: "2021-08-27T11:42:10.033766696Z"
+}
+
+const REFRSH_TIME = 15 * 1000
 
 // MAIN COMPONENT
 const IndexPage = () => {
   // const { i18n } = useTranslation()
+  const [stats, setStats] = useState<Stats>(TEMP_DEFAULT_STATS as any)
+  const [recentBlocks, setRecentBlocks] = useState<Array<BlockInfo>>([TEMP_DEFAULT_BLOCK_INFO, TEMP_DEFAULT_BLOCK_INFO, TEMP_DEFAULT_BLOCK_INFO, TEMP_DEFAULT_BLOCK_INFO])
+  const [loading, setLoading] = useState(false)
+  const { poolPromise } = usePool()
+  const { setAlertMessage } = useAlertMessage()
+
+  useEffect(() => {
+    const itv = setInterval(() => loadStats(), REFRSH_TIME)
+    loadStats()
+
+    return () => clearInterval(itv)
+  }, [poolPromise])
+
+  // Fetch data
+  const loadStats = () => {
+    if (loading || !poolPromise) return
+
+    setLoading(true)
+
+    let gwPool: GatewayPool
+
+    poolPromise
+      .then(pool => {
+        gwPool = pool
+        return gwPool.sendRequest({ method: "getStats" } as any)
+      })
+      .then(response => {
+        setStats(response.stats)
+
+        return gwPool.sendRequest({ method: "getBlockList" } as any)
+      })
+      .then(response => {
+        setRecentBlocks(response.blockList)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+      })
+  }
 
   return (
     <div>
-      <HeroBanner />
+      <HeroBanner
+        proposals={stats.process_count}
+        organizations={stats.entity_count}
+        averageBlockTime={(stats.block_time[0] || 0) / 1000}
+        envelopes={stats.envelope_count}
+      />
 
       <Section>
         <BlockContainer>
@@ -45,22 +148,14 @@ const IndexPage = () => {
           </Typography>
 
           <Grid>
-            <Card sm={6} md={4} lg={3}>
-              <h4>Block 1234</h4>
-              <p>Proposer: <code>0x1234</code></p>
-            </Card>
-            <Card sm={6} md={4} lg={3}>
-              <h4>Block 1234</h4>
-              <p>Proposer: <code>0x1234</code></p>
-            </Card>
-            <Card sm={6} md={4} lg={3}>
-              <h4>Block 1234</h4>
-              <p>Proposer: <code>0x1234</code></p>
-            </Card>
-            <Card sm={6} md={4} lg={3}>
-              <h4>Block 1234</h4>
-              <p>Proposer: <code>0x1234</code></p>
-            </Card>
+            {recentBlocks.map(item => (
+              <Card sm={6} md={4} lg={3} key={item.height}>
+                <h4>{i18n.t("home.block")} {item.height}</h4>
+                <p><small>{localizedDateDiff(new Date(item.timestamp))}</small></p>
+                <p>{i18n.t("home.transactions")}: {item.num_txs}</p>
+                <p>{i18n.t("home.proposer")}: <code>0x{item.proposer_address.substr(0, 6)}...</code></p>
+              </Card>
+            ))}
           </Grid>
 
         </BlockContainer>
@@ -68,29 +163,46 @@ const IndexPage = () => {
 
       <Section>
         <BlockContainer>
-          <code>
-            Blockchain information
-            ID
-            vocdoni-release-1.0.1
-            Blockchain genesis timestamp
-            Wed May 12 12:38:33 UTC 2021
-            Block height
-            646,821
-            Latest block timestamp
-            Mon Aug 9 21:26:47 UTC 2021
-            Total transactions
-            1,223
-            Total entities
-            120
-            Total processes
-            310
-            Number of validators
-            5
-            Total vote envelopes
-            5,229
-            Sync status
-            In sync
-          </code>
+
+          <Typography
+            variant={TypographyVariant.HeroBanner}
+            color={colors.blueText}
+          >
+            {i18n.t('home.blockchain_info')}
+          </Typography>
+          <Typography
+            variant={TypographyVariant.Small}
+            color={colors.blueText}
+          >
+            {i18n.t('home.network_details')}
+          </Typography>
+
+          <Grid>
+            <Card md={6}>
+              <h5>{i18n.t("home.network_id")}</h5>
+              <p>{stats.chain_id}</p>
+              <h5>{i18n.t("home.bloc_height")}</h5>
+              <p>{stats.block_height}</p>
+              <h5>{i18n.t("home.total_transactions")}</h5>
+              <p>{stats.transaction_count}</p>
+              <h5>{i18n.t("home.total_proposals")}</h5>
+              <p>{stats.process_count}</p>
+              <h5>{i18n.t("home.total_votes")}</h5>
+              <p>{stats.envelope_count}</p>
+            </Card>
+            <Card md={6}>
+              <h5>{i18n.t("home.genesis_block_date")}</h5>
+              <p>{localizedDateDiff(new Date(stats.genesis_time_stamp))}</p>
+              <h5>{i18n.t("home.latest_block_date")}</h5>
+              <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
+              <h5>{i18n.t("home.total_organizations")}</h5>
+              <p>{stats.entity_count}</p>
+              <h5>{i18n.t("home.number_of_validators")}</h5>
+              <p>{stats.validator_count}</p>
+              <h5>{i18n.t("home.sync_status")}</h5>
+              <p>{stats.syncing ? i18n.t("home.syncing") : i18n.t("home.in_sync")}</p>
+            </Card>
+          </Grid>
         </BlockContainer>
       </Section>
 
@@ -238,81 +350,16 @@ const IndexPage = () => {
           </Grid>
         </BlockContainer>
       </Section>
-
-      <Section>
-        <BlockContainer>
-          <ReadyToStartCard>
-            <Grid>
-              <Column sm={12} md={6}>
-                <ReadyTextContainer>
-                  <Typography variant={TypographyVariant.H1}>
-                    {i18n.t('home.ready_to_start')}
-                    <br />
-                    <strong>{i18n.t('home.try_vocdony_now')}</strong>
-                  </Typography>
-
-                  <Typography>
-                    {i18n.t(
-                      'home.a_full_anonymous_voting_system_ensuring_data_availability_and_anti_censorship'
-                    )}
-                  </Typography>
-                </ReadyTextContainer>
-              </Column>
-
-              <Column sm={12} md={6}>
-                <ImageContainer width="500px">
-                  <img
-                    src="/images/home/pc.png"
-                    alt={i18n.t('home.computer_with_vocdoni_alt')}
-                  />
-                </ImageContainer>
-              </Column>
-            </Grid>
-          </ReadyToStartCard>
-        </BlockContainer>
-      </Section>
     </div>
   )
 }
-
-IndexPage['Providers'] = EmptyProviders
 
 const ReadyTextContainer = styled.div`
   margin: 40px 0 40px 40px;
 `
 
-const ActionsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  & > a {
-    margin-right: 20px;
-  }
-`
-
 const ReadyToStartCard = styled(CardDiv)`
   background: linear-gradient(101.89deg, #f1ffdf 17.32%, #e1ffff 68.46%);
-`
-
-const QuestionCard = styled(CardDiv)`
-  max-width: 900px;
-  margin: 10px auto;
-  padding-right: 80px;
-  position: relative;
-
-  &::after {
-    text-align: center;
-    line-height: 40px;
-    color: #000;
-    position: absolute;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    right: 20px;
-    top: 23px;
-    background-color: #dfebf7;
-    content: '>';
-  }
 `
 
 const Section = styled.section<{ background?: string }>`

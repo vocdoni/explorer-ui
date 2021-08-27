@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from 'react'
 
-const UseMessageAlertContext = createContext({ message: '', setAlertMessage: (msg: string, seconds?: number) => { }, clearAlert: () => { } })
+const UseAlertMessageContext = createContext({ message: '', setAlertMessage: (msg: string, seconds?: number) => { }, clearAlert: () => { } })
 
-export function useMessageAlert() {
-  return useContext(UseMessageAlertContext)
+export function useAlertMessage() {
+  return useContext(UseAlertMessageContext)
 }
 
-export function UseMessageAlertProvider({ children }) {
+export function UseAlertMessageProvider({ children }) {
   const [message, setMessage] = useState('')
   const [timeout, setTimeoutTracker] = useState(null)
 
@@ -22,7 +22,7 @@ export function UseMessageAlertProvider({ children }) {
   }
   const clearAlert = () => setMessage('')
 
-  return <UseMessageAlertContext.Provider value={{ message, setAlertMessage, clearAlert }}>
+  return <UseAlertMessageContext.Provider value={{ message, setAlertMessage, clearAlert }}>
     {children}
-  </UseMessageAlertContext.Provider>
+  </UseAlertMessageContext.Provider>
 }

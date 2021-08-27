@@ -5,19 +5,88 @@ export enum DateDiffType {
   End = 'end-date'
 }
 
-export function localizedStrDateDiff(type: DateDiffType, target: Date): string {
+export function localizedDateDiff(target: Date): string {
   if (!target) return ''
-  let diff = (target.getTime() - Date.now()) / 1000
+  const diff = (target.getTime() - Date.now()) / 1000
 
-  if (diff > 3) return strDiffFuture(type, diff)
-  else if (diff < -3) return strDiffPast(type, -diff)
+  if (diff > 3) return strDiffFuture(diff)
+  else if (diff < -3) return strDiffPast(-diff)
+  return i18n.t("dates.right_now")
+}
+
+export function localizedStartEndDateDiff(type: DateDiffType, target: Date): string {
+  if (!target) return ''
+  const diff = (target.getTime() - Date.now()) / 1000
+
+  if (diff > 3) return strStartEndDiffFuture(type, diff)
+  else if (diff < -3) return strStartEndDiffPast(type, -diff)
   else if (type == DateDiffType.Start) return i18n.t("dates.starting_right_now")
   return i18n.t("dates.ending_right_now")
 }
 
 // Helpers
 
-function strDiffFuture(type: DateDiffType, secondDiff: number): string {
+function strDiffFuture(secondDiff: number): string {
+  let num: number
+
+  if (secondDiff > 60 * 60 * 24) {
+    // days
+    num = Math.floor(secondDiff / 60 / 60 / 24)
+
+    if (num > 1) return i18n.t("dates.in_n_days", { num })
+    return i18n.t("dates.tomorrow")
+  } else if (secondDiff > 60 * 60) {
+    // hours
+    num = Math.floor(secondDiff / 60 / 60)
+
+    if (num > 1) return i18n.t("dates.in_n_hours", { num })
+    return i18n.t("dates.in_one_hour")
+  } else if (secondDiff > 60) {
+    // minutes
+    num = Math.floor(secondDiff / 60)
+
+    if (num > 1) return i18n.t("dates.in_n_minutes", { num })
+    return i18n.t("dates.in_one_minute")
+  } else {
+    // seconds
+    num = Math.floor(secondDiff)
+
+    if (num > 1) return i18n.t("dates.in_n_seconds", { num })
+    return i18n.t("dates.right_now")
+  }
+}
+
+function strDiffPast(secondDiff: number): string {
+  let num: number
+
+  if (secondDiff > 60 * 60 * 24) {
+    // days
+    num = Math.floor(secondDiff / 60 / 60 / 24)
+
+    if (num > 1) return i18n.t("dates.n_days_ago", { num })
+    return i18n.t("dates.yesterday")
+  } else if (secondDiff > 60 * 60) {
+    // hours
+    num = Math.floor(secondDiff / 60 / 60)
+
+    if (num > 1) return i18n.t("dates.n_hours_ago", { num })
+    return i18n.t("dates.an_hour_ago")
+  } else if (secondDiff > 60) {
+    // minutes
+    num = Math.floor(secondDiff / 60)
+
+    if (num > 1) return i18n.t("dates.n_minutes_ago", { num })
+    return i18n.t("dates.a_minute_ago")
+  } else {
+    // seconds
+    num = Math.floor(secondDiff)
+
+    if (num > 1) return i18n.t("dates.n_seconds_ago", { num })
+    return i18n.t("dates.right_now")
+  }
+}
+
+function strStartEndDiffFuture(type: DateDiffType, secondDiff: number): string {
   let num: number
 
   if (secondDiff > 60 * 60 * 24) {
@@ -71,7 +140,7 @@ function strDiffFuture(type: DateDiffType, secondDiff: number): string {
   }
 }
 
-function strDiffPast(type: DateDiffType, secondDiff: number): string {
+function strStartEndDiffPast(type: DateDiffType, secondDiff: number): string {
   let num: number
 
   if (secondDiff > 60 * 60 * 24) {
