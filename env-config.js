@@ -27,7 +27,7 @@ module.exports = {
   // GATEWAYS
   BOOTNODES_URL: process.env.BOOTNODES_URL || bootnodes,
   DISCOVERY_TIMEOUT: process.env.DISCOVERY_TIMEOUT || 3000,// in milliseconds
-  DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 2,
+  DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 1,
 
   // HELPSCOUT
   HELPSCOUT_PROJECT_ID: '' // TODO: 

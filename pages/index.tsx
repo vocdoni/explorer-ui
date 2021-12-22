@@ -108,12 +108,14 @@ const IndexPage = () => {
         return gwPool.sendRequest({ method: "getStats" } as any)
       })
       .then(response => {
+        if (!response?.stats) throw new Error("Empty stats")
         setStats(response.stats)
 
         return gwPool.sendRequest({ method: "getBlockList" } as any)
       })
       .then(response => {
-        setRecentBlocks(response.blockList)
+        if (!response?.blockList) throw new Error("Empty block list")
+        setRecentBlocks(response.blockList || [])
         setLoading(false)
       })
       .catch(err => {

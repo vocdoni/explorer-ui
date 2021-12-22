@@ -21,7 +21,7 @@ import { VoteDescription } from '@components/blocks/vote-description'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Case, Else, If, Switch, Then, Unless, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import { BlockStatus, DigestedProcessResults, IProcessDetails, VotingApi, EnvelopeMeta } from 'dvote-js'
+import { BlockStatus, VochainProcessStatus, IProcessResults, VotingApi, ProcessDetails, Voting, ProcessResultsSingleChoice } from 'dvote-js'
 import { DateDiffType, localizedStartEndDateDiff } from '@lib/date'
 import { BigNumber } from 'ethers'
 import i18n from '@i18n'
@@ -33,7 +33,8 @@ import {
 import { colors } from '@theme/colors'
 import { useAlertMessage } from '@hooks/message-alert'
 import { Button } from '@components/elements/button'
-import { ProcessStatus } from 'dvote-js/dist/models/protobuf/build/ts/vochain/vochain'
+
+type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
 const ENVELOPES_PER_PAGE = 12
 
@@ -46,10 +47,10 @@ const VotingPageView = () => {
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const [rawResults, setRawResults] = useState<string[][]>([])
-  const [results, setResults] = useState<DigestedProcessResults>({ totalVotes: 0, questions: [] })
+  const [results, setResults] = useState<ProcessResultsSingleChoice>({ totalVotes: 0, questions: [] })
   const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
   const [envelopePage, setEnvelopePage] = useState(0)
-  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeMeta[]>([])
+  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
   const [loadingResults, setLoadingResults] = useState(false)
   const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
   // const { setAlertMessage } = useAlertMessage()
@@ -64,13 +65,12 @@ const VotingPageView = () => {
     setLoadingResults(true)
 
     poolPromise.then(pool => Promise.all([
-      VotingApi.getRawResults(processId, pool),
-      VotingApi.getResultsDigest(processId, pool),
+      VotingApi.getResults(processId, pool),
       VotingApi.getResultsWeight(processId, pool),
     ]))
-      .then(([rawResults, results, resultsWeight]) => {
+      .then(([rawResults, resultsWeight]) => {
         setRawResults(rawResults.results)
-        setResults(results)
+        setResults(Voting.digestSingleChoiceResults(rawResults, processInfo.metadata))
         setResultsWeight(resultsWeight)
 
         setLoadingResults(false)
@@ -138,19 +138,19 @@ const VotingPageView = () => {
 
         <p>{i18n.t("proposal.host_organization")}: {processInfo?.state?.entityId}</p>
         <Switch>
-          <Case condition={processInfo?.state?.status == ProcessStatus.READY}>
+          <Case condition={processInfo?.state?.status == VochainProcessStatus.READY}>
             <p>{i18n.t("proposal.status")} : {i18n.t("proposal.ready")}</p>
           </Case>
-          <Case condition={processInfo?.state?.status == ProcessStatus.PAUSED}>
+          <Case condition={processInfo?.state?.status == VochainProcessStatus.PAUSED}>
             <p>{i18n.t("proposal.status")} : {i18n.t("proposal.paused")}</p>
           </Case>
-          <Case condition={processInfo?.state?.status == ProcessStatus.ENDED}>
+          <Case condition={processInfo?.state?.status == VochainProcessStatus.ENDED}>
             <p>{i18n.t("proposal.status")} : {i18n.t("proposal.ended")}</p>
           </Case>
-          <Case condition={processInfo?.state?.status == ProcessStatus.CANCELED}>
+          <Case condition={processInfo?.state?.status == VochainProcessStatus.CANCELED}>
             <p>{i18n.t("proposal.status")} : {i18n.t("proposal.canceled")}</p>
           </Case>
-          <Case condition={processInfo?.state?.status == ProcessStatus.RESULTS}>
+          <Case condition={processInfo?.state?.status == VochainProcessStatus.RESULTS}>
             <p>{i18n.t("proposal.status")} : {i18n.t("proposal.results")}</p>
           </Case>
         </Switch>
@@ -228,7 +228,7 @@ const VotingPageView = () => {
   )
 }
 
-function resolveDate(processInfo: IProcessDetails, voteStatus: VoteStatus, blockHeight: number, blockStatus: BlockStatus) {
+function resolveDate(processInfo: ProcessDetails, voteStatus: VoteStatus, blockHeight: number, blockStatus: BlockStatus) {
   if (
     processInfo?.state?.startBlock &&
     (voteStatus == VoteStatus.Active ||
