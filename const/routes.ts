@@ -1,6 +1,6 @@
 export const HOME_PATH = "/"
 export const ORGANIZATIONS_PATH = "/organizations"
-export const PROPOSALS_PATH = "/proposals"
+export const ELECTIONS_PATH = "/elections"
 export const BLOCKS_PATH = "/blocks"
 export const TRANSACTIONS_PATH = "/transactions"
 export const VALIDATORS_PATH = "/validators"

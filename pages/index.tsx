@@ -128,7 +128,7 @@ const IndexPage = () => {
   return (
     <div>
       <HeroBanner
-        proposals={stats.process_count}
+        elections={stats.process_count}
         organizations={stats.entity_count}
         averageBlockTime={(stats.block_time[0] || 0) / 1000}
         envelopes={stats.envelope_count}
@@ -187,7 +187,7 @@ const IndexPage = () => {
               <p>{stats.block_height}</p>
               <h5>{i18n.t("home.total_transactions")}</h5>
               <p>{stats.transaction_count}</p>
-              <h5>{i18n.t("home.total_proposals")}</h5>
+              <h5>{i18n.t("home.total_elections")}</h5>
               <p>{stats.process_count}</p>
               <h5>{i18n.t("home.total_votes")}</h5>
               <p>{stats.envelope_count}</p>

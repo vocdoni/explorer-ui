@@ -10,7 +10,7 @@ import { sizes } from 'theme/sizes'
 import { Grid } from '@components/elements/grid'
 import { Card } from '@components/elements/cards'
 
-export const HeroBanner = (props: { proposals: number, organizations: number, averageBlockTime: number, envelopes: number }) => (
+export const HeroBanner = (props: { elections: number, organizations: number, averageBlockTime: number, envelopes: number }) => (
   <BannerContainer>
     <ContentContainer>
       <div>
@@ -26,8 +26,8 @@ export const HeroBanner = (props: { proposals: number, organizations: number, av
             <p>{i18n.t('home.n_seconds', { seconds: Number(props.averageBlockTime || 0).toFixed(1) })}</p>
           </Card>
           <Card sm={6} lg={3}>
-            <h4>{i18n.t('home.total_proposals')}</h4>
-            <p>{i18n.t('home.n_proposals', { proposals: props.proposals })}</p>
+            <h4>{i18n.t('home.total_elections')}</h4>
+            <p>{i18n.t('home.n_elections', { elections: props.elections })}</p>
           </Card>
           <Card sm={6} lg={3}>
             <h4>{i18n.t('home.total_organizations')}</h4>

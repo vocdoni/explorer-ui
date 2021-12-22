@@ -119,7 +119,7 @@ const VotingPageView = () => {
       />
 
       <When condition={loading}>
-        <p>{i18n.t("proposal.please_wait")}</p>
+        <p>{i18n.t("elections.please_wait")}</p>
       </When>
 
       <Unless condition={loading || !processInfo}>
@@ -136,25 +136,25 @@ const VotingPageView = () => {
           voteStatus={voteStatus}
         />
 
-        <p>{i18n.t("proposal.host_organization")}: {processInfo?.state?.entityId}</p>
+        <p>{i18n.t("elections.host_organization")}: {processInfo?.state?.entityId}</p>
         <Switch>
           <Case condition={processInfo?.state?.status == VochainProcessStatus.READY}>
-            <p>{i18n.t("proposal.status")} : {i18n.t("proposal.ready")}</p>
+            <p>{i18n.t("elections.status")} : {i18n.t("elections.ready")}</p>
           </Case>
           <Case condition={processInfo?.state?.status == VochainProcessStatus.PAUSED}>
-            <p>{i18n.t("proposal.status")} : {i18n.t("proposal.paused")}</p>
+            <p>{i18n.t("elections.status")} : {i18n.t("elections.paused")}</p>
           </Case>
           <Case condition={processInfo?.state?.status == VochainProcessStatus.ENDED}>
-            <p>{i18n.t("proposal.status")} : {i18n.t("proposal.ended")}</p>
+            <p>{i18n.t("elections.status")} : {i18n.t("elections.ended")}</p>
           </Case>
           <Case condition={processInfo?.state?.status == VochainProcessStatus.CANCELED}>
-            <p>{i18n.t("proposal.status")} : {i18n.t("proposal.canceled")}</p>
+            <p>{i18n.t("elections.status")} : {i18n.t("elections.canceled")}</p>
           </Case>
           <Case condition={processInfo?.state?.status == VochainProcessStatus.RESULTS}>
-            <p>{i18n.t("proposal.status")} : {i18n.t("proposal.results")}</p>
+            <p>{i18n.t("elections.status")} : {i18n.t("elections.results")}</p>
           </Case>
         </Switch>
-        <p>{i18n.t('proposal.total_votes')}: {results?.totalVotes || 0}</p>
+        <p>{i18n.t('elections.total_votes')}: {results?.totalVotes || 0}</p>
 
         {processInfo?.metadata?.questions?.map?.(
           (question: Question, index: number) => (
@@ -170,22 +170,22 @@ const VotingPageView = () => {
 
 
         <Typography variant={TypographyVariant.H3} color={colors.blueText} >
-          {i18n.t('proposal.technical_details')}
+          {i18n.t('elections.technical_details')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.blueText} >
-          {i18n.t('proposal.low_level_information')}
+          {i18n.t('elections.low_level_information')}
         </Typography>
 
         <Grid>
           <Card>
-            <h4>{i18n.t('proposal.results')}</h4>
+            <h4>{i18n.t('elections.results')}</h4>
             <If condition={processInfo?.state?.haveResults && !loadingResults}>
               <Then>
-                <p>{i18n.t('proposal.results_field_explanation')}</p>
+                <p>{i18n.t('elections.results_field_explanation')}</p>
                 <Grid>
                   {
                     rawResults.map((item, idx) => <Column md={6} lg={4} key={idx}>
-                      <strong>{i18n.t("proposals.field_n", { number: idx + 1 })}</strong>
+                      <strong>{i18n.t("elections.field_n", { number: idx + 1 })}</strong>
                       {item.map((result, i) => <Fragment key={i}>
                         <p><code><small>{i + 1}: {result}</small></code></p>
                       </Fragment>)}
@@ -194,29 +194,29 @@ const VotingPageView = () => {
                 </Grid>
               </Then>
               <Else>
-                <p>{i18n.t('proposal.the_results_are_not_yet_available')}</p>
+                <p>{i18n.t('elections.the_results_are_not_yet_available')}</p>
               </Else>
             </If>
           </Card>
 
           <Card>
-            <h4>{i18n.t('proposal.envelopes')} ({results.totalVotes || 0})</h4>
+            <h4>{i18n.t('elections.envelopes')} ({results.totalVotes || 0})</h4>
             <div>
-              <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>{i18n.t('proposal.back')}</Button> &nbsp;
-              <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>{i18n.t('proposal.next')}</Button> &nbsp;
-              <small>{i18n.t('proposal.page')} {envelopePage + 1}/{Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}</small>
+              <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>{i18n.t('elections.back')}</Button> &nbsp;
+              <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>{i18n.t('elections.next')}</Button> &nbsp;
+              <small>{i18n.t('elections.page')} {envelopePage + 1}/{Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}</small>
             </div>
 
             <Grid>
               {envelopeRange.map((envelope, idx) => <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
-                <strong>{i18n.t("proposals.envelope_n", { number: envelopePage * ENVELOPES_PER_PAGE + idx + 1 })}</strong>
-                <p>{i18n.t("proposals.block")}: {envelope.height || 0}</p>
-                <p>{i18n.t("proposals.transaction")}: {envelope.tx_hash || 0}</p>
+                <strong>{i18n.t("elections.envelope_n", { number: envelopePage * ENVELOPES_PER_PAGE + idx + 1 })}</strong>
+                <p>{i18n.t("elections.block")}: {envelope.height || 0}</p>
+                <p>{i18n.t("elections.transaction")}: {envelope.tx_hash || 0}</p>
               </Card>)}
             </Grid>
           </Card>
           <Card>
-            <h4>{i18n.t('proposal.details')}</h4>
+            <h4>{i18n.t('elections.details')}</h4>
             <pre>
               {JSON.stringify(processInfo?.state, null, 2)}
             </pre>

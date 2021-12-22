@@ -1,5 +1,5 @@
 const Page = () => {
-  return <h1>Proposals list</h1>
+  return <h1>Election list</h1>
 }
 
 export default Page

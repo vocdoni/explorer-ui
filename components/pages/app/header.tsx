@@ -5,7 +5,7 @@ import { Unless } from 'react-if'
 
 import i18n from '@i18n'
 
-import { HOME_PATH, ORGANIZATIONS_PATH, PROPOSALS_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH } from '@const/routes'
+import { HOME_PATH, ORGANIZATIONS_PATH, ELECTIONS_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH } from '@const/routes'
 
 import { MenuIcon } from '@components/blocks/menu-icon'
 import { useIsMobile } from '@hooks/use-window-size'
@@ -19,8 +19,8 @@ export const LINKS: HeaderLink[] = [
     url: ORGANIZATIONS_PATH,
   },
   {
-    name: i18n.t("links.proposals"),
-    url: PROPOSALS_PATH,
+    name: i18n.t("links.elections"),
+    url: ELECTIONS_PATH,
   },
   {
     name: i18n.t("links.blocks"),
