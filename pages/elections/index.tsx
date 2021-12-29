@@ -1,5 +1,7 @@
-const Page = () => {
-  return <h1>Election list</h1>
+import VotingPageView from './show'
+
+const ElectionsPage = () => {
+  return <VotingPageView></VotingPageView>
 }
 
-export default Page
+export default ElectionsPage
