@@ -22,7 +22,7 @@ import { VoteStatus, getVoteStatus } from '@lib/util'
 import { Case, Else, If, Switch, Then, Unless, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { BlockStatus, VochainProcessStatus, IProcessResults, VotingApi, ProcessDetails, Voting, ProcessResultsSingleChoice,
-  EntityMetadata } from 'dvote-js'
+  EntityMetadata} from 'dvote-js'
 import { DateDiffType, localizedStartEndDateDiff } from '@lib/date'
 import { BigNumber } from 'ethers'
 import i18n from '@i18n'
@@ -42,15 +42,19 @@ const ENVELOPES_PER_PAGE = 12
 const VotingPageView = () => {
   // const { i18n } = useTranslation()
   const { poolPromise } = usePool()
-  const processId = useUrlHash()
-  const [processInfo, setProcessInfo] = useState<ProcessDetails>(TEMP_DEFAULT_ENVELOPE)
-  const [loading, setLoading] = useState<boolean>(false)
-  // const { process: processInfo, error, loading } = useProcess(processId)
-  const [metadata, setMetadata] = useState<EntityMetadata>(TEMP_DEFAULT_ENTITY)
+  const processId = useUrlHash().slice(1)
+  // const [processInfo, setProcessInfo] = useState<ProcessDetails>(TEMP_DEFAULT_ENVELOPE)
+  // const [loading, setLoading] = useState<boolean>(false)
+  const { process: processInfo, error, loading } = useProcess(processId)
+  // const [metadata, setMetadata] = useState<EntityMetadata>(TEMP_DEFAULT_ENTITY)
   // const { metadata } = useEntity(processInfo?.state?.entityId)
+  // const { metadata } = useEntity("0xbba67694b054383dabbc52ee0df5252fa1c0cfd0")
+  const { metadata } = useEntity("0x9b2dd5db2b5ba506453a832fffa886e10ec9ac71")
+  const entityMetadata = metadata as EntityMetadata
+  
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
-  const [rawResults, setRawResults] = useState<string[][]>([])
+  const [rawResults, setRawResults] = useState<VotingApi.RawResults>()
   const [results, setResults] = useState<ProcessResultsSingleChoice>({ totalVotes: 0, questions: [] })
   const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
   const [envelopePage, setEnvelopePage] = useState(0)
@@ -64,26 +68,38 @@ const VotingPageView = () => {
     blockHeight
   )
 
-  // Results
+  // Election Results
   useEffect(() => {
     setLoadingResults(true)
 
     poolPromise.then(pool => Promise.all([
       VotingApi.getResults(processId, pool),
-      VotingApi.getResultsWeight(processId, pool),
+      // VotingApi.getResultsWeight(processId, pool),
     ]))
-      .then(([rawResults, resultsWeight]) => {
-        setRawResults(rawResults.results)
-        setResults(Voting.digestSingleChoiceResults(rawResults, processInfo.metadata))
-        setResultsWeight(resultsWeight)
+      // .then(([rawResults, resultsWeight]) => {
+      .then(([rawResults]) => {
+        setRawResults(rawResults)
+        // setResultsWeight(resultsWeight)
 
         setLoadingResults(false)
       })
       .catch(err => {
+        console.error(err)
+
         setLoadingResults(false)
       })
   }, [processId])
 
+  useEffect(() => {
+    console.debug("DEBUG:", "processInfo", processInfo)
+    console.debug("DEBUG:", "metadata", entityMetadata, processInfo?.state?.entityId)
+
+    if(processInfo && rawResults && processInfo?.metadata) {
+      setResults(Voting.digestSingleChoiceResults(rawResults, processInfo.metadata))
+    }
+  }, [processInfo, rawResults])
+
+  // Election Envelopes
   useEffect(() => {
     setLoadingEnvelopes(true)
 
@@ -93,8 +109,8 @@ const VotingPageView = () => {
         setLoadingEnvelopes(false)
         setEnvelopeRange(envelopes)
 
-        console.log(envelopes)
-      })
+        console.debug("DEBUG:",envelopes)
+       })
       .catch(err => {
         setLoadingEnvelopes(false)
 
@@ -118,8 +134,8 @@ const VotingPageView = () => {
       <CardImageHeader
         title={processInfo?.metadata?.title?.default}
         processImage={processInfo?.metadata?.media?.header}
-        subtitle={metadata?.name?.default}
-        entityImage={metadata?.media?.avatar}
+        subtitle={entityMetadata?.name?.default}
+        entityImage={entityMetadata?.media?.avatar}
       />
 
       <When condition={loading}>
@@ -128,8 +144,8 @@ const VotingPageView = () => {
 
       <Unless condition={loading || !processInfo}>
         <VoteDescription
-          description={processInfo?.metadata?.description.default}
-          liveStream={processInfo?.metadata?.media.streamUri}
+          description={processInfo?.metadata?.description?.default}
+          liveStream={processInfo?.metadata?.media?.streamUri}
           // discussionUrl={
           //   processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
           // }
@@ -183,12 +199,17 @@ const VotingPageView = () => {
         <Grid>
           <Card>
             <h4>{i18n.t('elections.results')}</h4>
-            <If condition={processInfo?.state?.haveResults && !loadingResults}>
+            <If condition={
+              processInfo?.state?.haveResults 
+              && !loadingResults 
+              && rawResults 
+              && rawResults.results.length > 0
+              }>
               <Then>
                 <p>{i18n.t('elections.results_field_explanation')}</p>
                 <Grid>
                   {
-                    rawResults.map((item, idx) => <Column md={6} lg={4} key={idx}>
+                    rawResults?.results.map((item, idx) => <Column md={6} lg={4} key={idx}>
                       <strong>{i18n.t("elections.field_n", { number: idx + 1 })}</strong>
                       {item.map((result, i) => <Fragment key={i}>
                         <p><code><small>{i + 1}: {result}</small></code></p>
