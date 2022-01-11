@@ -1,7 +1,7 @@
-import VotingPageView from './show'
+import ElectionDetailPage from "@components/pages/elections/details"
 
 const ElectionsPage = () => {
-  return <VotingPageView></VotingPageView>
+  return <ElectionDetailPage></ElectionDetailPage>
 }
 
 export default ElectionsPage

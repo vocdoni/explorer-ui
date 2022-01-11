@@ -35,11 +35,13 @@ import { colors } from '@theme/colors'
 import { useAlertMessage } from '@hooks/message-alert'
 import { Button } from '@components/elements/button'
 
+import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin} from 'dvote-js'
+
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
 const ENVELOPES_PER_PAGE = 12
 
-const VotingPageView = () => {
+const ElectionDetailPage = () => {
   // const { i18n } = useTranslation()
   const { poolPromise } = usePool()
   const processId = useUrlHash().slice(1)
@@ -47,9 +49,9 @@ const VotingPageView = () => {
   // const [loading, setLoading] = useState<boolean>(false)
   const { process: processInfo, error, loading } = useProcess(processId)
   // const [metadata, setMetadata] = useState<EntityMetadata>(TEMP_DEFAULT_ENTITY)
-  // const { metadata } = useEntity(processInfo?.state?.entityId)
-  // const { metadata } = useEntity("0xbba67694b054383dabbc52ee0df5252fa1c0cfd0")
-  const { metadata } = useEntity("0x9b2dd5db2b5ba506453a832fffa886e10ec9ac71")
+  const { metadata } = useEntity(processInfo?.state?.entityId)
+  // const { metadata } = useEntity("0xbba67694b054383dabbc52ee0df5252fa1c0cfd0") // Entity for 1a098a6551329077bdb6661fb384f8c9c40d8de9055108c5959c9fd79e0e4a17
+  // const { metadata } = useEntity("0x9b2dd5db2b5ba506453a832fffa886e10ec9ac71") // This Entity works
   const entityMetadata = metadata as EntityMetadata
   
   const { blockStatus } = useBlockStatus()
@@ -90,14 +92,19 @@ const VotingPageView = () => {
       })
   }, [processId])
 
+  // Set voting results
   useEffect(() => {
     console.debug("DEBUG:", "processInfo", processInfo)
-    console.debug("DEBUG:", "metadata", entityMetadata, processInfo?.state?.entityId)
 
     if(processInfo && rawResults && processInfo?.metadata) {
       setResults(Voting.digestSingleChoiceResults(rawResults, processInfo.metadata))
     }
   }, [processInfo, rawResults])
+
+  // DEBUG metadata 
+  useEffect(() => {
+    console.debug("DEBUG:", "metadata", entityMetadata, processInfo?.state?.entityId)
+  }, [metadata])
 
   // Election Envelopes
   useEffect(() => {
@@ -109,9 +116,9 @@ const VotingPageView = () => {
         setLoadingEnvelopes(false)
         setEnvelopeRange(envelopes)
 
-        console.debug("DEBUG:",envelopes)
+        console.debug("DEBUG:", "envelopes" ,envelopes)
        })
-      .catch(err => {
+      .catch(err => { 
         setLoadingEnvelopes(false)
 
         console.error(err)
@@ -175,6 +182,9 @@ const VotingPageView = () => {
           </Case>
         </Switch>
         <p>{i18n.t('elections.total_votes')}: {results?.totalVotes || 0}</p>
+        <p>{i18n.t('elections.envelope_type')}: {"todo"}</p>
+        <p>{i18n.t('elections.census_origin')}: {"todo"}</p>
+        <p>{i18n.t('elections.process_mode')}: {"todo"}</p>
 
         {processInfo?.metadata?.questions?.map?.(
           (question: Question, index: number) => (
@@ -419,4 +429,4 @@ const TEMP_DEFAULT_ENVELOPE: ProcessDetails = {
 }
 
 
-export default VotingPageView
+export default ElectionDetailPage
