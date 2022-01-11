@@ -36,6 +36,7 @@ import { useAlertMessage } from '@hooks/message-alert'
 import { Button } from '@components/elements/button'
 
 import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin} from 'dvote-js'
+import { ElectionStatusBadge } from '../components/election-status-badge'
 
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
@@ -164,23 +165,7 @@ const ElectionDetailPage = () => {
         />
 
         <p>{i18n.t("elections.host_organization")}: {processInfo?.state?.entityId}</p>
-        <Switch>
-          <Case condition={processInfo?.state?.status == VochainProcessStatus.READY}>
-            <p>{i18n.t("elections.status")} : {i18n.t("elections.ready")}</p>
-          </Case>
-          <Case condition={processInfo?.state?.status == VochainProcessStatus.PAUSED}>
-            <p>{i18n.t("elections.status")} : {i18n.t("elections.paused")}</p>
-          </Case>
-          <Case condition={processInfo?.state?.status == VochainProcessStatus.ENDED}>
-            <p>{i18n.t("elections.status")} : {i18n.t("elections.ended")}</p>
-          </Case>
-          <Case condition={processInfo?.state?.status == VochainProcessStatus.CANCELED}>
-            <p>{i18n.t("elections.status")} : {i18n.t("elections.canceled")}</p>
-          </Case>
-          <Case condition={processInfo?.state?.status == VochainProcessStatus.RESULTS}>
-            <p>{i18n.t("elections.status")} : {i18n.t("elections.results")}</p>
-          </Case>
-        </Switch>
+        <ElectionStatusBadge status={processInfo?.state?.status} />
         <p>{i18n.t('elections.total_votes')}: {results?.totalVotes || 0}</p>
         <p>{i18n.t('elections.envelope_type')}: {"todo"}</p>
         <p>{i18n.t('elections.census_origin')}: {"todo"}</p>
