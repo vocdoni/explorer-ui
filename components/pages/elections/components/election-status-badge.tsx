@@ -14,19 +14,19 @@ export const ElectionStatusBadge = ({
   return (
     <Switch>
     <Case condition={ status == VochainProcessStatus.READY}>
-      <p>{i18n.t("elections.status")} : {i18n.t("elections.ready")}</p>
+      {i18n.t("elections.ready")}
     </Case>
     <Case condition={ status == VochainProcessStatus.PAUSED}>
-      <p>{i18n.t("elections.status")} : {i18n.t("elections.paused")}</p>
+      {i18n.t("elections.paused")}
     </Case>
     <Case condition={ status == VochainProcessStatus.ENDED}>
-      <p>{i18n.t("elections.status")} : {i18n.t("elections.ended")}</p>
+      {i18n.t("elections.ended")}
     </Case>
     <Case condition={ status == VochainProcessStatus.CANCELED}>
-      <p>{i18n.t("elections.status")} : {i18n.t("elections.canceled")}</p>
+      {i18n.t("elections.canceled")}
     </Case>
     <Case condition={ status == VochainProcessStatus.RESULTS}>
-      <p>{i18n.t("elections.status")} : {i18n.t("elections.results")}</p>
+      {i18n.t("elections.results")}
     </Case>
   </Switch>
   )

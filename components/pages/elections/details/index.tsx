@@ -37,6 +37,10 @@ import { Button } from '@components/elements/button'
 
 import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin} from 'dvote-js'
 import { ElectionStatusBadge } from '../components/election-status-badge'
+import { EntityLink } from '@components/pages/app/components/entity'
+import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
+import { CensusOriginBadge } from '../components/election-censusorigin-badge'
+import { ProcessModeBadge } from '../components/election-processmode-badge'
 
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
@@ -163,13 +167,25 @@ const ElectionDetailPage = () => {
           timeComment={dateDiffStr}
           voteStatus={voteStatus}
         />
-
-        <p>{i18n.t("elections.host_organization")}: {processInfo?.state?.entityId}</p>
-        <ElectionStatusBadge status={processInfo?.state?.status} />
+        <p>
+          {i18n.t("elections.host_organization")}: 
+          <EntityLink entityId={processInfo?.state?.entityId}>
+            {entityMetadata?.name?.default ? entityMetadata?.name?.default : processInfo?.state?.entityId }
+          </EntityLink>
+        </p>
+        <p>{i18n.t("elections.status")}: 
+          <ElectionStatusBadge status={processInfo?.state?.status} />
+        </p>
         <p>{i18n.t('elections.total_votes')}: {results?.totalVotes || 0}</p>
-        <p>{i18n.t('elections.envelope_type')}: {"todo"}</p>
-        <p>{i18n.t('elections.census_origin')}: {"todo"}</p>
-        <p>{i18n.t('elections.process_mode')}: {"todo"}</p>
+        <p>{i18n.t('elections.envelope_type')}: 
+          <EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}/>
+        </p>
+        <p>{i18n.t('elections.census_origin')}:
+          <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin}/> 
+        </p>
+        <p>{i18n.t('elections.process_mode')}: 
+          <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart}/>
+        </p>
 
         {processInfo?.metadata?.questions?.map?.(
           (question: Question, index: number) => (
