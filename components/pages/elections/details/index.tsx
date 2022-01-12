@@ -37,7 +37,7 @@ import { Button } from '@components/elements/button'
 
 import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin} from 'dvote-js'
 import { ElectionStatusBadge } from '../components/election-status-badge'
-import { EntityLink } from '@components/pages/app/components/entity'
+import { EntityCardLittle, EntityLink } from '@components/pages/app/components/entity'
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/election-censusorigin-badge'
 import { ProcessModeBadge } from '../components/election-processmode-badge'
@@ -167,11 +167,12 @@ const ElectionDetailPage = () => {
           timeComment={dateDiffStr}
           voteStatus={voteStatus}
         />
+
         <p>
           {i18n.t("elections.host_organization")}: 
-          <EntityLink entityId={processInfo?.state?.entityId}>
+          <EntityCardLittle icon={entityMetadata?.media?.avatar} entityId={processInfo?.state?.entityId}>
             {entityMetadata?.name?.default ? entityMetadata?.name?.default : processInfo?.state?.entityId }
-          </EntityLink>
+          </EntityCardLittle>
         </p>
         <p>{i18n.t("elections.status")}: 
           <ElectionStatusBadge status={processInfo?.state?.status} />
