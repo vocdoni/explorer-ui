@@ -11,7 +11,7 @@ import {
 import { Question } from '@lib/types'
 
 import { Column, Grid } from '@components/elements/grid'
-import { Card, PageCard } from '@components/elements/cards'
+import { Card, PageCard, StatusCard } from '@components/elements/cards'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 // import { MetadataFields } from '@components/pages/votes/new/metadata'
 
@@ -37,10 +37,11 @@ import { Button } from '@components/elements/button'
 
 import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin} from 'dvote-js'
 import { ElectionStatusBadge } from '../components/election-status-badge'
-import { EntityCardLittle, EntityLink } from '@components/pages/app/components/entity'
+import { EntityCardLittle, EntityCardMedium, EntityLink } from '@components/pages/app/components/entity'
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/election-censusorigin-badge'
 import { ProcessModeBadge } from '../components/election-processmode-badge'
+import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
@@ -155,7 +156,15 @@ const ElectionDetailPage = () => {
       </When>
 
       <Unless condition={loading || !processInfo}>
-        <VoteDescription
+        <Typography variant={TypographyVariant.H3} color={colors.blueText} >
+          {i18n.t('elections.process_details')}
+        </Typography>
+        <Typography variant={TypographyVariant.Small} color={colors.lightText} >
+          {dateDiffStr}
+        </Typography>
+
+
+        {/* <VoteDescription
           description={processInfo?.metadata?.description?.default}
           liveStream={processInfo?.metadata?.media?.streamUri}
           // discussionUrl={
@@ -166,28 +175,34 @@ const ElectionDetailPage = () => {
           // }
           timeComment={dateDiffStr}
           voteStatus={voteStatus}
-        />
-
-        <p>
-          {i18n.t("elections.host_organization")}: 
-          <EntityCardLittle icon={entityMetadata?.media?.avatar} entityId={processInfo?.state?.entityId}>
-            {entityMetadata?.name?.default ? entityMetadata?.name?.default : processInfo?.state?.entityId }
-          </EntityCardLittle>
-        </p>
-        <p>{i18n.t("elections.status")}: 
+        /> */}
+        <Grid>
+          <ProcessStatusLabel status={voteStatus} />
           <ElectionStatusBadge status={processInfo?.state?.status} />
-        </p>
-        <p>{i18n.t('elections.total_votes')}: {results?.totalVotes || 0}</p>
-        <p>{i18n.t('elections.envelope_type')}: 
-          <EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}/>
-        </p>
-        <p>{i18n.t('elections.census_origin')}:
-          <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin}/> 
-        </p>
-        <p>{i18n.t('elections.process_mode')}: 
-          <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart}/>
-        </p>
+          <p>
+            {/* {i18n.t('elections.census_origin')}: */" "} -
+            <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin}/> 
+          </p>
+          <p>
+            {/* {i18n.t('elections.process_mode')}:  */ " "} -
+            <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart}/>
+          </p>
+        </Grid>
 
+        
+        <Grid>
+          <EntityCardMedium md={4} icon={entityMetadata?.media?.avatar} entityId={processInfo?.state?.entityId}>
+            {entityMetadata?.name?.default ? entityMetadata?.name?.default : processInfo?.state?.entityId }
+          </EntityCardMedium>
+          <StatusCard md={4} title={i18n.t("elections.total_votes")} >
+              <h2>{results?.totalVotes || 0}</h2>
+          </StatusCard>
+
+          <StatusCard md={4} title={i18n.t("elections.envelope_type")} >
+              <h2><EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}/></h2>
+          </StatusCard>
+        </Grid>
+        
         {processInfo?.metadata?.questions?.map?.(
           (question: Question, index: number) => (
             <VoteQuestionCard

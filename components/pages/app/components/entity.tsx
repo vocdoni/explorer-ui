@@ -2,11 +2,16 @@ import Link from 'next/link'
 import { ORGANIZATIONS_PATH } from '@const/routes'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import React, { ReactNode } from 'react'
+import i18n from '@i18n'
 
 import styled from "styled-components"
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
+import { StatusCard } from '@components/elements/cards'
+
+
+function getOrganizationPath (entityId:string) {return ORGANIZATIONS_PATH + '/#/' + entityId};
 
 interface EntityLinkProps {
     entityId: string,
@@ -19,11 +24,11 @@ export const EntityLink = ({
     children
 }: EntityLinkProps) => {
 
-  return (<Link href={ORGANIZATIONS_PATH + '/#/' + entityId}>{children}</Link>)
+  return (<Link href={getOrganizationPath(entityId)}>{children}</Link>)
 }
 
 
-type EntityCardLittleProps = EntityLinkProps & {
+type EntityCardIconProps = EntityLinkProps & {
   icon: string,
 }
 
@@ -32,7 +37,7 @@ export const EntityCardLittle = ({
   icon,
   entityId,
   children
-}: EntityCardLittleProps) => {
+}: EntityCardIconProps) => {
 
 return (
     <FlexContainer  alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start} >
@@ -44,10 +49,45 @@ return (
   )
 }
 
+type EntityCardMediumProps = EntityCardIconProps & {
+  md: number,
+}
+
+// Wrap a entityId into a link to its entity page and an icon.
+export const EntityCardMedium = ({
+  icon,
+  entityId,
+  md,
+  children
+}: EntityCardMediumProps) => {
+
+return (
+  <StatusCard title={i18n.t("elections.host_organization")} 
+  href={getOrganizationPath(entityId)} 
+  rightText={i18n.t("elections.host_explore")}
+  md={md}>
+    <FlexContainer alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start} >
+        <ImageContainer width="30px" height="30px">
+          <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+        </ImageContainer> 
+        <EntityNameBig><EntityLink entityId={entityId}>{children}</EntityLink></EntityNameBig>
+    </FlexContainer>
+  </StatusCard>
+  )
+}
+
+
 const EntityName = styled.h5`
   display: inline-block;
   margin: 0 6px 0px;
   font-weight: normal;
   font-size: 100%;
-  color: ${props => props.theme.text};
-`
+  color: ${props => props.theme.text}`;
+
+const EntityNameBig = styled.h2`
+  display: inline-block;
+  margin: 6px;
+  font-weight: bold;
+  // font-size: 18px; 
+  color: ${props => props.theme.text}`;
+
