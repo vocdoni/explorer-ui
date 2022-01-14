@@ -23,7 +23,7 @@ import { Case, Else, If, Switch, Then, Unless, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { BlockStatus, VochainProcessStatus, IProcessResults, VotingApi, ProcessDetails, Voting, ProcessResultsSingleChoice,
   EntityMetadata} from 'dvote-js'
-import { DateDiffType, localizedStartEndDateDiff } from '@lib/date'
+import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date'
 import { BigNumber } from 'ethers'
 import i18n from '@i18n'
 import {
@@ -42,6 +42,8 @@ import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/election-censusorigin-badge'
 import { ProcessModeBadge } from '../components/election-processmode-badge'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
+import styled from 'styled-components'
+import { SectionText } from '@components/elements/text'
 
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
@@ -70,6 +72,8 @@ const ElectionDetailPage = () => {
   const [loadingResults, setLoadingResults] = useState(false)
   const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
   // const { setAlertMessage } = useAlertMessage()
+  const [showDescription, setShowDescription] = useState(false)
+  const [showQuestions, setShowQuestions] = useState(true)
 
   const voteStatus: VoteStatus = getVoteStatus(
     processInfo?.state,
@@ -103,6 +107,7 @@ const ElectionDetailPage = () => {
     console.debug("DEBUG:", "processInfo", processInfo)
 
     if(processInfo && rawResults && processInfo?.metadata) {
+      console.debug("DEBUG:", "processMetadata", processInfo?.metadata)
       setResults(Voting.digestSingleChoiceResults(rawResults, processInfo.metadata))
     }
   }, [processInfo, rawResults])
@@ -157,10 +162,14 @@ const ElectionDetailPage = () => {
 
       <Unless condition={loading || !processInfo}>
         <Typography variant={TypographyVariant.H3} color={colors.blueText} >
-          {i18n.t('elections.process_details')}
+          {i18n.t('elections.process_details')} 
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText} >
           {dateDiffStr}
+        </Typography>
+        <Typography variant={TypographyVariant.Small} color={colors.lightText} >
+          <span>{i18n.t('elections.created_on' )}: </span>
+          <span>{localizedDateDiff(new Date(processInfo?.state?.creationTime)) }</span>
         </Typography>
 
 
@@ -176,15 +185,17 @@ const ElectionDetailPage = () => {
           timeComment={dateDiffStr}
           voteStatus={voteStatus}
         /> */}
+
+
         <Grid>
-          <Column>
+          <Column >
             <ProcessStatusLabel status={voteStatus} />
             <ElectionStatusBadge status={processInfo?.state?.status} />
             <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin}/> 
             <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart}/>
+            <EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}/>
           </Column>
         </Grid>
-
         
         <Grid>
           <EntityCardMedium md={4} icon={entityMetadata?.media?.avatar} entityId={processInfo?.state?.entityId}>
@@ -193,23 +204,47 @@ const ElectionDetailPage = () => {
           <StatusCard md={4} title={i18n.t("elections.total_votes")} >
               <h2>{results?.totalVotes || 0}</h2>
           </StatusCard>
-
-          <StatusCard md={4} title={i18n.t("elections.envelope_type")} >
-              <h2><EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}/></h2>
+          <StatusCard md={4} title={i18n.t("elections.total_questions")} >
+              <h2>{processInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
-        
+
+        <DivWithMarginChildren>
+          <Button onClick={() => {
+              setShowDescription(!showDescription)
+              if(showQuestions) setShowQuestions(false)
+            } } small positive>
+            {showDescription ? '\u02C5' : '\u02C4'} {i18n.t("elections.show_description")}
+          </Button>
+
+          <Button onClick={() =>{ 
+              setShowQuestions(!showQuestions)
+              if(showDescription) setShowDescription(false)
+            }} small positive>
+            {showQuestions ? '\u02C5' : '\u02C4'} {i18n.t("elections.show_questions")}
+          </Button>
+            
+        </DivWithMarginChildren>
+
+        <If condition={showDescription}>
+              <SectionText color={colors.lightText}>{processInfo?.metadata?.description?.default}</SectionText>
+        </If>
         {processInfo?.metadata?.questions?.map?.(
-          (question: Question, index: number) => (
-            <VoteQuestionCard
-              questionIdx={index}
-              key={index}
-              question={question}
-              resultsWeight={resultsWeight}
-              result={results?.questions[index]}
-            />
-          )
-        )}
+              (question: Question, index: number) => (
+                <If condition={showQuestions}>
+                  <VoteQuestionCard
+                    questionIdx={index}
+                    key={index}
+                    question={question}
+                    resultsWeight={resultsWeight}
+                    result={results?.questions[index]}
+                  />
+                </If>
+              )
+            )}
+
+        
+        
 
 
         <Typography variant={TypographyVariant.H3} color={colors.blueText} >
@@ -271,7 +306,6 @@ const ElectionDetailPage = () => {
           </Card>
         </Grid>
       </Unless>
-
     </PageCard>
   )
 }
@@ -299,6 +333,14 @@ function resolveDate(processInfo: ProcessDetails, voteStatus: VoteStatus, blockH
     }
   }
 }
+
+
+const DivWithMarginChildren = styled.div`
+& > * {
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+`
 
 // TODO: remove hardcoded data
 const TEMP_DEFAULT_ENTITY: EntityMetadata = {

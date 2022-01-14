@@ -1,4 +1,5 @@
 
+import { EndedBadge, ActiveBadge } from '@components/elements/text-badge'
 import i18n from '@i18n'
 
 interface EnvelopeTypeBadgeProps {
@@ -9,8 +10,9 @@ export const EnvelopeTypeBadge = ({
     encryptedVotes,
 }: EnvelopeTypeBadgeProps) => {
 
-  return ( 
-    <span> 
-        {encryptedVotes ? i18n.t("elections.encryptedVotes") : i18n.t("elections.notEncryptedVotes")}</span>
+  return ( <>
+        {encryptedVotes 
+          ? <ActiveBadge>{i18n.t("elections.encryptedVotes")}</ActiveBadge> 
+          : <EndedBadge>{i18n.t("elections.notEncryptedVotes")}</EndedBadge>}</>
   )
 }
