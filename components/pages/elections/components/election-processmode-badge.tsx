@@ -1,6 +1,7 @@
 
 import i18n from '@i18n'
-import { Switch, Case } from 'react-if'
+import { UpcomingBadge } from '@components/elements/text-badge'
+
 
 interface ProcessModeBadgeProps {
     autostart: boolean
@@ -11,7 +12,7 @@ export const ProcessModeBadge = ({
 }: ProcessModeBadgeProps) => {
 
   return ( 
-    <span> 
-        {autostart ? i18n.t("elections.autostart") : i18n.t("elections.notAutostart")}</span>
+    <UpcomingBadge> 
+        {autostart ? i18n.t("elections.autostart") : i18n.t("elections.notAutostart")}</UpcomingBadge>
   )
 }

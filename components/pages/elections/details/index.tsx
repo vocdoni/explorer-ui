@@ -177,16 +177,12 @@ const ElectionDetailPage = () => {
           voteStatus={voteStatus}
         /> */}
         <Grid>
-          <ProcessStatusLabel status={voteStatus} />
-          <ElectionStatusBadge status={processInfo?.state?.status} />
-          <p>
-            {/* {i18n.t('elections.census_origin')}: */" "} -
+          <Column>
+            <ProcessStatusLabel status={voteStatus} />
+            <ElectionStatusBadge status={processInfo?.state?.status} />
             <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin}/> 
-          </p>
-          <p>
-            {/* {i18n.t('elections.process_mode')}:  */ " "} -
             <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart}/>
-          </p>
+          </Column>
         </Grid>
 
         
