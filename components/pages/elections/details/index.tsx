@@ -73,7 +73,7 @@ const ElectionDetailPage = () => {
   const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
   // const { setAlertMessage } = useAlertMessage()
   const [showDescription, setShowDescription] = useState(false)
-  const [showQuestions, setShowQuestions] = useState(true)
+  const [showQuestions, setShowQuestions] = useState(false)
 
   const voteStatus: VoteStatus = getVoteStatus(
     processInfo?.state,
@@ -90,6 +90,8 @@ const ElectionDetailPage = () => {
     ]))
       // .then(([rawResults, resultsWeight]) => {
       .then(([rawResults]) => {
+        // console.debug("DEBUG:", "resultsWeight", resultsWeight)
+
         setRawResults(rawResults)
         // setResultsWeight(resultsWeight)
 
@@ -172,21 +174,6 @@ const ElectionDetailPage = () => {
           <span>{localizedDateDiff(new Date(processInfo?.state?.creationTime)) }</span>
         </Typography>
 
-
-        {/* <VoteDescription
-          description={processInfo?.metadata?.description?.default}
-          liveStream={processInfo?.metadata?.media?.streamUri}
-          // discussionUrl={
-          //   processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
-          // }
-          // attachmentUrl={
-          //   processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
-          // }
-          timeComment={dateDiffStr}
-          voteStatus={voteStatus}
-        /> */}
-
-
         <Grid>
           <Column >
             <ProcessStatusLabel status={voteStatus} />
@@ -227,18 +214,22 @@ const ElectionDetailPage = () => {
         </DivWithMarginChildren>
 
         <If condition={showDescription}>
+          <Then>
               <SectionText color={colors.lightText}>{processInfo?.metadata?.description?.default}</SectionText>
+          </Then>
         </If>
         {processInfo?.metadata?.questions?.map?.(
               (question: Question, index: number) => (
                 <If condition={showQuestions}>
-                  <VoteQuestionCard
-                    questionIdx={index}
-                    key={index}
-                    question={question}
-                    resultsWeight={resultsWeight}
-                    result={results?.questions[index]}
-                  />
+                  <Then>
+                    <VoteQuestionCard
+                      questionIdx={index}
+                      key={index}
+                      question={question}
+                      resultsWeight={resultsWeight}
+                      result={results?.questions[index]}
+                    />
+                  </Then>
                 </If>
               )
             )}
