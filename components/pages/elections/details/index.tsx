@@ -60,6 +60,7 @@ import { ProcessModeBadge } from '../components/election-processmode-badge'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import styled from 'styled-components'
 import { SectionText } from '@components/elements/text'
+import { Tabs, Tab } from '@components/blocks/tabs'
 
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
@@ -91,8 +92,9 @@ const ElectionDetailPage = () => {
   const [loadingResults, setLoadingResults] = useState(false)
   const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
   // const { setAlertMessage } = useAlertMessage()
-  const [showDescription, setShowDescription] = useState(false)
+  const [showDescription, setShowDescription] = useState(true)
   const [showQuestions, setShowQuestions] = useState(false)
+  const [showEnvelopes, setShowEnvelopes] = useState(false)
 
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
 
@@ -110,7 +112,7 @@ const ElectionDetailPage = () => {
       // .then(([rawResults, resultsWeight]) => {
       .then(([rawResults]) => {
         // console.debug("DEBUG:", "resultsWeight", resultsWeight)
-
+        console.debug('DEBUG:', 'rawResults', rawResults)
         setRawResults(rawResults)
         // setResultsWeight(resultsWeight)
 
@@ -248,55 +250,6 @@ const ElectionDetailPage = () => {
           </StatusCard>
         </Grid>
 
-        <DivWithMarginChildren>
-          <Button
-            onClick={() => {
-              setShowDescription(!showDescription)
-              if (showQuestions) setShowQuestions(false)
-            }}
-            small
-            positive
-          >
-            {showDescription ? '\u02C5' : '\u02C4'}{' '}
-            {i18n.t('elections.show_description')}
-          </Button>
-
-          <Button
-            onClick={() => {
-              setShowQuestions(!showQuestions)
-              if (showDescription) setShowDescription(false)
-            }}
-            small
-            positive
-          >
-            {showQuestions ? '\u02C5' : '\u02C4'}{' '}
-            {i18n.t('elections.show_questions')}
-          </Button>
-        </DivWithMarginChildren>
-
-        <If condition={showDescription}>
-          <Then>
-            <SectionText color={colors.lightText}>
-              {processInfo?.metadata?.description?.default}
-            </SectionText>
-          </Then>
-        </If>
-        <If condition={showQuestions}>
-          <Then>
-            {processInfo?.metadata?.questions?.map?.(
-              (question: Question, index: number) => (
-                <VoteQuestionCard
-                  questionIdx={index}
-                  key={index}
-                  question={question}
-                  resultsWeight={resultsWeight}
-                  result={results?.questions[index]}
-                />
-              )
-            )}
-          </Then>
-        </If>
-
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
           {i18n.t('elections.technical_details')}
         </Typography>
@@ -304,8 +257,35 @@ const ElectionDetailPage = () => {
           {i18n.t('elections.low_level_information')}
         </Typography>
 
+        <Tabs>
+          <Tab label={i18n.t('elections.show_description')}>
+            <SectionText color={colors.lightText}>
+              {processInfo?.metadata?.description?.default}
+            </SectionText>
+          </Tab>
+          <Tab label={i18n.t('elections.show_questions')}>
+            <>
+              {processInfo?.metadata?.questions?.map?.(
+                (question: Question, index: number) => (
+                  <VoteQuestionCard
+                    questionIdx={index}
+                    key={index}
+                    question={question}
+                    resultsWeight={resultsWeight}
+                    result={results?.questions[index]}
+                  />
+                )
+              )}
+            </>
+          </Tab>
+          <Tab label={i18n.t('elections.show_envelopes')}>
+            <Button>ccc</Button>
+          </Tab>
+        </Tabs>
+
         <Grid>
-          <Card>
+          {/* disable Results because are shown on questions card */}
+          {/* <Card>
             <h4>{i18n.t('elections.results')}</h4>
             <If
               condition={
@@ -340,7 +320,7 @@ const ElectionDetailPage = () => {
                 <p>{i18n.t('elections.the_results_are_not_yet_available')}</p>
               </Else>
             </If>
-          </Card>
+          </Card> */}
 
           <Card>
             <h4>
@@ -425,13 +405,6 @@ function resolveDate(
     }
   }
 }
-
-const DivWithMarginChildren = styled.div`
-  & > * {
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
-`
 
 // TODO: remove hardcoded data
 const TEMP_DEFAULT_ENTITY: EntityMetadata = {
