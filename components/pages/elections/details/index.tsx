@@ -106,15 +106,13 @@ const ElectionDetailPage = () => {
       .then((pool) =>
         Promise.all([
           VotingApi.getResults(processId, pool),
-          // VotingApi.getResultsWeight(processId, pool),
+          VotingApi.getResultsWeight(processId, pool),
         ])
       )
-      // .then(([rawResults, resultsWeight]) => {
-      .then(([rawResults]) => {
-        // console.debug("DEBUG:", "resultsWeight", resultsWeight)
+      .then(([rawResults, resultsWeight]) => {
         console.debug('DEBUG:', 'rawResults', rawResults)
         setRawResults(rawResults)
-        // setResultsWeight(resultsWeight)
+        setResultsWeight(resultsWeight)
 
         setLoadingResults(false)
       })
