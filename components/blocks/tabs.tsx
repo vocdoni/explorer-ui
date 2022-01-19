@@ -40,7 +40,7 @@ export const Tabs = ({ children }: TabsProps) => {
             <TabButton
               label={tab.props.label}
               activeTab={activeTab}
-              onClick={() => setActiveTab(tab.props.label)}
+              onClick={() => tab.props.label === activeTab ? setActiveTab("") : setActiveTab(tab.props.label)}
             ></TabButton>
           </span>
         ))}
@@ -59,6 +59,7 @@ const DivWithMarginChildren = styled.div`
   & > * {
     margin-right: 20px;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
 `
 
