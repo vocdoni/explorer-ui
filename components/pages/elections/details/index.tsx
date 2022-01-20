@@ -61,10 +61,8 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import styled from 'styled-components'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
+import { EnvelopeExplorer } from '../components/election-envelope-explorer'
 
-type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
-
-const ENVELOPES_PER_PAGE = 12
 
 const ElectionDetailPage = () => {
   // const { i18n } = useTranslation()
@@ -87,8 +85,8 @@ const ElectionDetailPage = () => {
     questions: [],
   })
   const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
-  const [envelopePage, setEnvelopePage] = useState(0)
-  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
+  // const [envelopePage, setEnvelopePage] = useState(0)
+  // const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
   const [loadingResults, setLoadingResults] = useState(false)
   const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
   // const { setAlertMessage } = useAlertMessage()
@@ -145,40 +143,7 @@ const ElectionDetailPage = () => {
     )
   }, [metadata])
 
-  // Election Envelopes
-  useEffect(() => {
-    setLoadingEnvelopes(true)
-
-    poolPromise
-      .then((pool) =>
-        VotingApi.getEnvelopeList(
-          processId,
-          envelopePage * ENVELOPES_PER_PAGE,
-          ENVELOPES_PER_PAGE,
-          pool
-        )
-      )
-      .then((envelopes) => {
-        setLoadingEnvelopes(false)
-        setEnvelopeRange(envelopes)
-
-        console.debug('DEBUG:', 'envelopes', envelopes)
-      })
-      .catch((err) => {
-        setLoadingEnvelopes(false)
-
-        console.error(err)
-      })
-  }, [envelopePage])
-
-  const nextEnvelopeRange = () => {
-    if ((envelopePage + 1) * ENVELOPES_PER_PAGE >= results.totalVotes) return
-    setEnvelopePage(envelopePage + 1)
-  }
-  const prevEnvelopeRange = () => {
-    if (envelopePage <= 0) return
-    setEnvelopePage(envelopePage - 1)
-  }
+  
 
   const dateDiffStr = resolveDate(
     processInfo,
@@ -201,6 +166,8 @@ const ElectionDetailPage = () => {
       </When>
 
       <Unless condition={loading || !processInfo}>
+
+        {/* Created on and ends on */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
           {i18n.t('elections.process_details')}
         </Typography>
@@ -214,6 +181,7 @@ const ElectionDetailPage = () => {
           </span>
         </Typography>
 
+        {/* Labels and badges */}
         <Grid>
           <Column>
             <ProcessStatusLabel status={voteStatus} />
@@ -230,6 +198,7 @@ const ElectionDetailPage = () => {
           </Column>
         </Grid>
 
+        {/* Three cards grid with various info */}
         <Grid>
           <EntityCardMedium
             md={4}
@@ -248,6 +217,7 @@ const ElectionDetailPage = () => {
           </StatusCard>
         </Grid>
 
+        {/* Technical details */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
           {i18n.t('elections.technical_details')}
         </Typography>
@@ -255,6 +225,7 @@ const ElectionDetailPage = () => {
           {i18n.t('elections.low_level_information')}
         </Typography>
 
+        {/* Tabs */}
         <Tabs>
           <Tab label={i18n.t('elections.show_description')}>
             <SectionText color={colors.lightText}>
@@ -282,6 +253,7 @@ const ElectionDetailPage = () => {
         </Tabs>
 
         <Grid>
+        <EnvelopeExplorer processId={processId} results={results} />
           {/* disable Results because are shown on questions card */}
           {/* <Card>
             <h4>{i18n.t('elections.results')}</h4>
@@ -320,7 +292,7 @@ const ElectionDetailPage = () => {
             </If>
           </Card> */}
 
-          <Card>
+          {/* <Card>
             <h4>
               {i18n.t('elections.envelopes')} ({results.totalVotes || 0})
             </h4>
@@ -364,11 +336,11 @@ const ElectionDetailPage = () => {
                 </Card>
               ))}
             </Grid>
-          </Card>
-          <Card>
+          </Card> */}
+           {/* <Card>
             <h4>{i18n.t('elections.details')}</h4>
             <pre>{JSON.stringify(processInfo?.state, null, 2)}</pre>
-          </Card>
+          </Card>  */}
         </Grid>
       </Unless>
     </PageCard>
