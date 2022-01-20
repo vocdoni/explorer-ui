@@ -1,30 +1,33 @@
 import { Button } from '@components/elements/button'
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
+import { EnvelopeLink } from '@components/pages/app/components/envelopes'
 import i18n from '@i18n'
 import { usePool } from '@vocdoni/react-hooks'
 import { ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
 import React, { Fragment, useEffect, useState } from 'react'
 
+const ENVELOPES_PER_PAGE = 6
 
-const ENVELOPES_PER_PAGE = 12
 type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
 interface EnvelopeExplorerProps {
-    results?: ProcessResultsSingleChoice
-    processId: string
-  }
+  results?: ProcessResultsSingleChoice
+  processId: string
+}
 
-export const EnvelopeExplorer = ({ results, processId }: EnvelopeExplorerProps) => {
-
-    const [envelopePage, setEnvelopePage] = useState(0)
-    const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
-    const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
-    const { poolPromise } = usePool()
+export const EnvelopeExplorer = ({
+  results,
+  processId,
+}: EnvelopeExplorerProps) => {
+  const [envelopePage, setEnvelopePage] = useState(0)
+  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
+  const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
+  const { poolPromise } = usePool()
 
   // Election Envelopes
   useEffect(() => {
-setLoadingEnvelopes(true)
+    setLoadingEnvelopes(true)
 
     poolPromise
       .then((pool) =>
@@ -85,11 +88,13 @@ setLoadingEnvelopes(true)
                 number: envelopePage * ENVELOPES_PER_PAGE + idx + 1,
               })}
             </strong>
-            <p>
+            {/* <p>
               {i18n.t('elections.block')}: {envelope.height || 0}
-            </p>
-            <p>
-              {i18n.t('elections.transaction')}: {envelope.tx_hash || 0}
+            </p> */}
+            <p> 
+              <EnvelopeLink envelopId={envelope.tx_hash}>
+                {i18n.t('elections.transaction_details')}
+              </EnvelopeLink>
             </p>
           </Card>
         ))}
