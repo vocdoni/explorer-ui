@@ -46,12 +46,14 @@ import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/election-envelope-explorer'
 
+interface ElectionDetailPageProps {
+  processId: string,
+  processInfo: ProcessDetails,
+}
 
-const ElectionDetailPage = () => {
+const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps) => {
   // const { i18n } = useTranslation()
   const { poolPromise } = usePool()
-  const processId = useUrlHash().slice(1)
-  const { process: processInfo, error, loading } = useProcess(processId)
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const entityMetadata = metadata as EntityMetadata
 
@@ -130,11 +132,11 @@ const ElectionDetailPage = () => {
         entityImage={entityMetadata?.media?.avatar}
       />
 
-      <When condition={loading}>
+      {/* <When condition={loading}>
         <p>{i18n.t('elections.please_wait')}</p>
-      </When>
+      </When> */}
 
-      <Unless condition={loading || !processInfo}>
+      {/* <Unless condition={loading || !processInfo}> */}
 
         {/* Created on and ends on */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
@@ -225,7 +227,7 @@ const ElectionDetailPage = () => {
             <h4>{i18n.t('elections.details')}</h4>
             <pre>{JSON.stringify(processInfo?.state, null, 2)}</pre>
           </Card>  */}
-      </Unless>
+      {/* </Unless> */}
     </PageCard>
   )
 }
