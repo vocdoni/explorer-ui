@@ -219,10 +219,10 @@ const ElectionDetailPage = () => {
 
         {/* Technical details */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-          {i18n.t('elections.technical_details')}
+          {i18n.t('elections.detailed_data')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-          {i18n.t('elections.low_level_information')}
+          {i18n.t('elections.elections_additional_information')}
         </Typography>
 
         {/* Tabs */}
