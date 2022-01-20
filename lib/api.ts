@@ -1,5 +1,6 @@
-import { IProcessDetails, GatewayPool, VotingApi } from 'dvote-js'
+import { IProcessDetails, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
+import { GatewayPool } from '@vocdoni/react-hooks/node_modules/dvote-js'
 
 // VOCDONI API wrappers
 
