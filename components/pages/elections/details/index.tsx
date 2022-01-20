@@ -1,30 +1,21 @@
 import React, { Fragment, useEffect, useState } from 'react'
-// import { useTranslation } from 'react-i18next'
 import {
   useEntity,
-  useBlockHeight,
   useBlockStatus,
   useProcess,
   usePool,
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
-
 import { Column, Grid } from '@components/elements/grid'
-import { Card, PageCard, StatusCard } from '@components/elements/cards'
+import { PageCard, StatusCard } from '@components/elements/cards'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
-// import { MetadataFields } from '@components/pages/votes/new/metadata'
-
 import { CardImageHeader } from '@components/blocks/card/image-header'
-import { VoteDescription } from '@components/blocks/vote-description'
-
 import { VoteStatus, getVoteStatus } from '@lib/util'
-import { Case, Else, If, Switch, Then, Unless, When } from 'react-if'
+import { Unless, When } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import {
   BlockStatus,
-  VochainProcessStatus,
-  IProcessResults,
   VotingApi,
   ProcessDetails,
   Voting,
@@ -39,26 +30,18 @@ import {
 import { BigNumber } from 'ethers'
 import i18n from '@i18n'
 import {
-  TextAlign,
   Typography,
   TypographyVariant,
 } from '@components/elements/typography'
 import { colors } from '@theme/colors'
-import { useAlertMessage } from '@hooks/message-alert'
-import { Button } from '@components/elements/button'
-
-import { ProcessEnvelopeType, ProcessMode, ProcessCensusOrigin } from 'dvote-js'
 import { ElectionStatusBadge } from '../components/election-status-badge'
 import {
-  EntityCardLittle,
   EntityCardMedium,
-  EntityLink,
 } from '@components/pages/app/components/entity'
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/election-censusorigin-badge'
 import { ProcessModeBadge } from '../components/election-processmode-badge'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
-import styled from 'styled-components'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/election-envelope-explorer'
@@ -68,13 +51,8 @@ const ElectionDetailPage = () => {
   // const { i18n } = useTranslation()
   const { poolPromise } = usePool()
   const processId = useUrlHash().slice(1)
-  // const [processInfo, setProcessInfo] = useState<ProcessDetails>(TEMP_DEFAULT_ENVELOPE)
-  // const [loading, setLoading] = useState<boolean>(false)
   const { process: processInfo, error, loading } = useProcess(processId)
-  // const [metadata, setMetadata] = useState<EntityMetadata>(TEMP_DEFAULT_ENTITY)
   const { metadata } = useEntity(processInfo?.state?.entityId)
-  // const { metadata } = useEntity("0xbba67694b054383dabbc52ee0df5252fa1c0cfd0") // Entity for 1a098a6551329077bdb6661fb384f8c9c40d8de9055108c5959c9fd79e0e4a17
-  // const { metadata } = useEntity("0x9b2dd5db2b5ba506453a832fffa886e10ec9ac71") // This Entity works
   const entityMetadata = metadata as EntityMetadata
 
   const { blockStatus } = useBlockStatus()
@@ -85,15 +63,7 @@ const ElectionDetailPage = () => {
     questions: [],
   })
   const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
-  // const [envelopePage, setEnvelopePage] = useState(0)
-  // const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
   const [loadingResults, setLoadingResults] = useState(false)
-  const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
-  // const { setAlertMessage } = useAlertMessage()
-  const [showDescription, setShowDescription] = useState(true)
-  const [showQuestions, setShowQuestions] = useState(false)
-  const [showEnvelopes, setShowEnvelopes] = useState(false)
-
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
 
   // Election Results
@@ -143,7 +113,6 @@ const ElectionDetailPage = () => {
     )
   }, [metadata])
 
-  
 
   const dateDiffStr = resolveDate(
     processInfo,
@@ -248,100 +217,14 @@ const ElectionDetailPage = () => {
             </>
           </Tab>
           <Tab label={i18n.t('elections.show_envelopes')}>
-            <Button>ccc</Button>
+            <EnvelopeExplorer processId={processId} results={results} />
           </Tab>
         </Tabs>
 
-        <Grid>
-        <EnvelopeExplorer processId={processId} results={results} />
-          {/* disable Results because are shown on questions card */}
-          {/* <Card>
-            <h4>{i18n.t('elections.results')}</h4>
-            <If
-              condition={
-                processInfo?.state?.haveResults &&
-                !loadingResults &&
-                rawResults &&
-                rawResults.results.length > 0
-              }
-            >
-              <Then>
-                <p>{i18n.t('elections.results_field_explanation')}</p>
-                {rawResults?.results.map((item, idx) => (
-                  <Column md={6} lg={4} key={idx}>
-                    <strong>
-                      {i18n.t('elections.field_n', { number: idx + 1 })}
-                    </strong>
-                    {item.map((result, i) => (
-                      <Fragment key={i}>
-                        <p>
-                          <code>
-                            <small>
-                              {i + 1}: {result}
-                            </small>
-                          </code>
-                        </p>
-                      </Fragment>
-                    ))}
-                  </Column>
-                ))}
-              </Then>
-              <Else>
-                <p>{i18n.t('elections.the_results_are_not_yet_available')}</p>
-              </Else>
-            </If>
-          </Card> */}
-
-          {/* <Card>
-            <h4>
-              {i18n.t('elections.envelopes')} ({results.totalVotes || 0})
-            </h4>
-            <div>
-              <Button
-                small
-                disabled={loadingEnvelopes}
-                onClick={prevEnvelopeRange}
-              >
-                {i18n.t('elections.back')}
-              </Button>{' '}
-              &nbsp;
-              <Button
-                small
-                disabled={loadingEnvelopes}
-                onClick={nextEnvelopeRange}
-              >
-                {i18n.t('elections.next')}
-              </Button>{' '}
-              &nbsp;
-              <small>
-                {i18n.t('elections.page')} {envelopePage + 1}/
-                {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
-              </small>
-            </div>
-
-            <Grid>
-              {envelopeRange.map((envelope, idx) => (
-                <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
-                  <strong>
-                    {i18n.t('elections.envelope_n', {
-                      number: envelopePage * ENVELOPES_PER_PAGE + idx + 1,
-                    })}
-                  </strong>
-                  <p>
-                    {i18n.t('elections.block')}: {envelope.height || 0}
-                  </p>
-                  <p>
-                    {i18n.t('elections.transaction')}: {envelope.tx_hash || 0}
-                  </p>
-                </Card>
-              ))}
-            </Grid>
-          </Card> */}
            {/* <Card>
             <h4>{i18n.t('elections.details')}</h4>
             <pre>{JSON.stringify(processInfo?.state, null, 2)}</pre>
           </Card>  */}
-        </Grid>
       </Unless>
     </PageCard>
   )
