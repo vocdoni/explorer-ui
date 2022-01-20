@@ -11,7 +11,7 @@ import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { When } from 'react-if'
-import { HelpText } from '@components/blocks/help-text'
+// import { HelpText } from '@components/blocks/help-text'
 
 interface IVotePageProps {
   description: string
