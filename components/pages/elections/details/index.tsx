@@ -128,7 +128,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
       <CardImageHeader
         title={processInfo?.metadata?.title?.default}
         processImage={processInfo?.metadata?.media?.header}
-        subtitle={entityMetadata?.name?.default}
+        subtitle={i18n.t('elections.id') + ': #' + processId}
         entityImage={entityMetadata?.media?.avatar}
       />
 
