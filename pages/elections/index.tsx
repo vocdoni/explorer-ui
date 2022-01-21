@@ -1,5 +1,6 @@
 import { Loader } from '@components/blocks/loader'
 import ElectionDetailPage from '@components/pages/elections/details'
+import { DashboardProcessList } from '@components/pages/elections/list'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useProcess } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
@@ -20,7 +21,7 @@ const ElectionsPage = () => {
   else {
     const renderShowElectionPage = new ViewStrategy(
       () => true,
-      <h1>Election list</h1>
+      <DashboardProcessList></DashboardProcessList>
     )
     strategies.push(renderShowElectionPage)
   }
