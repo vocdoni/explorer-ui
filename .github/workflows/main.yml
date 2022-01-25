@@ -1,207 +1,75 @@
-# ---
+---
+name: Main
 
-# name: Main
+on: [push, pull_request]
 
-# on: [push, pull_request]
+jobs:
+  node-tests:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-# jobs:
-#   node-tests:
-#     runs-on: self-hosted
-#     steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
 
-#     - name: Checkout code
-#       uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+          npm test
 
-#     - name: Use Node.js ${{ matrix.node-version }}
-#       uses: actions/setup-node@v1
-#       with:
-#         node-version: 14.x
+      - name: Run tests
+        run: npm test
 
-#     - name: Install dependencies
-#       run: npm install
-#         npm test
+  docker-release:
+    runs-on: self-hosted
+    needs:
+      - node-tests
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stage' || startsWith(github.ref, 'refs/heads/release') || github.ref == 'refs/heads/wip/mockup'
+    steps:
+      - uses: AutoModality/action-clean@v1.1.0
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - uses: docker/setup-buildx-action@v1
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Get short branch name and sha
+        id: var
+        shell: bash
+        # Grab the short branch name, convert slashes to dashes
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-' )"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Push to Docker Hub and ghcr.io (dynamic)
+        uses: docker/build-push-action@v2
+        if: github.ref == 'refs/heads/master'
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+            DISCOVERY_POOL_SIZE=1
+          tags: |
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
 
-#     - name: Run tests
-#       run: npm test
-
-#   docker-release:
-#     runs-on: self-hosted
-#     needs:
-#      - node-tests
-#     if:
-#       github.ref == 'refs/heads/main' || github.ref == 'refs/heads/stage' || startsWith(github.ref, 'refs/heads/release')
-#     steps:
-#       - uses: AutoModality/action-clean@v1.1.0
-#       - name: Check out the repo
-#         uses: actions/checkout@v2
-#       - uses: docker/setup-buildx-action@v1
-#       - name: Login to DockerHub
-#         uses: docker/login-action@v1
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-#       - name: Login to GitHub Container Registry
-#         uses: docker/login-action@v1
-#         with:
-#           registry: ghcr.io
-#           username: ${{ github.repository_owner }}
-#           password: ${{ secrets.CR_PAT }}
-#       - name: Get short branch name and sha
-#         id: var
-#         shell: bash
-#         # Grab the short branch name, convert slashes to dashes
-#         run: |
-#          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/} | tr '/' '-' )"
-#          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-#       - name: Push to Docker Hub and ghcr.io (main)
-#         uses: docker/build-push-action@v2
-#         if: github.ref == 'refs/heads/main'
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           platforms: linux/amd64
-#           push: true
-#           build-args: |
-#             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
-#             DISCOVERY_POOL_SIZE=1
-#           tags: |
-#             vocdoni/${{ github.event.repository.name }}:latest, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-#             ghcr.io/vocdoni/${{ github.event.repository.name }}:latest,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
-
-#       - name: Push to Docker Hub and ghcr.io (main static, development)
-#         uses: docker/build-push-action@v2
-#         if: github.ref == 'refs/heads/main'
-#         with:
-#           context: .
-#           file: ./Dockerfile.static
-#           platforms: linux/amd64
-#           push: true
-#           build-args: |
-#             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
-#             DISCOVERY_POOL_SIZE=1
-#           tags: |
-#             vocdoni/${{ github.event.repository.name }}:latest-static, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static,
-#             ghcr.io/vocdoni/${{ github.event.repository.name }}:latest-static,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static
-
-#       - name: Push to Docker Hub and ghcr.io (stage)
-#         uses: docker/build-push-action@v2
-#         if: github.ref == 'refs/heads/stage'
-#         with:
-#           context: .
-#           file: ./Dockerfile.static
-#           platforms: linux/amd64
-#           build-args: |
-#             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
-#             VOCDONI_ENVIRONMENT=stg
-#             ETH_NETWORK_ID=rinkeby
-#             APP_TITLE="Explorer Staging"
-#             BLOCK_TIME=12
-#             BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.stg.priv.json
-#             DISCOVERY_POOL_SIZE=1
-#           push: true
-#           tags: |
-#             vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-#             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
-
-#       - name: Push to Docker Hub and ghcr.io (release)
-#         uses: docker/build-push-action@v2
-#         if: startsWith(github.ref, 'refs/heads/release')
-#         with:
-#           context: .
-#           file: ./Dockerfile.static
-#           platforms: linux/amd64
-#           build-args: |
-#             COMMIT_SHA=${{ steps.var.outputs.sha_short }}
-#             VOCDONI_ENVIRONMENT=prod
-#             DEVELOPMENT=false
-#             ETH_NETWORK_ID=homestead
-#             BLOCK_TIME=12
-#             BOOTNODES_URL=https://bootnodes.vocdoni.net/gateways.priv.json
-#           push: true
-#           tags: |
-#             vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }},
-#             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
-
-#   gcs-release-production:
-#     runs-on: self-hosted
-#     environment: production
-#     needs:
-#      - node-tests
-#     if:
-#       github.ref == 'refs/heads/release'
-#     steps:
-#       - name: Check out the repo
-#         uses: actions/checkout@v2
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 14.x
-#       - name: Get short sha
-#         id: var
-#         shell: bash
-#         run: |
-#          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-#       - name: Install dependencies and build
-#         run: |
-#           npm install
-#           npm run export
-#         env:
-#           COMMIT_SHA: ${{ steps.var.outputs.sha_short }}
-#           DEVELOPMENT: "false"
-#           VOCDONI_ENVIRONMENT: "prod"
-#           APP_TITLE: "Explorer"
-#           ETH_NETWORK_ID: "homestead"
-#           BLOCK_TIME: "12"
-#           BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.priv.json"
-
-#       - name: Set up Cloud SDK
-#         uses: google-github-actions/setup-gcloud@master
-#         with:
-#           service_account_key: ${{ secrets.GCP_PRODUCTION }}
-#           export_default_credentials: true
-
-#       - name: Upload static site to GCP
-#         run: |
-#           gsutil -m cp -r build/* gs://vocdoni.app
-
-#   gcs-release-staging:
-#     runs-on: self-hosted
-#     environment: staging
-#     needs:
-#      - node-tests
-#     if:
-#       github.ref == 'refs/heads/stage'
-#     steps:
-#       - name: Check out the repo
-#         uses: actions/checkout@v2
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 14.x
-#       - name: Get short sha
-#         id: var
-#         shell: bash
-#         run: |
-#          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-#       - name: Install dependencies and build (staging)
-#         run: |
-#           npm install
-#           npm run export
-#         env:
-#           COMMIT_SHA: ${{ steps.var.outputs.sha_short }}
-#           DEVELOPMENT: "false"
-#           VOCDONI_ENVIRONMENT: "stg"
-#           APP_TITLE: "Explorer Staging"
-#           ETH_NETWORK_ID: "homestead"
-#           BLOCK_TIME: "12"
-#           BOOTNODES_URL: "https://bootnodes.vocdoni.net/gateways.stg.priv.json"
-#           DISCOVERY_POOL_SIZE: "1"
-#       - name: Set up Cloud SDK (staging)
-#         uses: google-github-actions/setup-gcloud@master
-#         with:
-#           service_account_key: ${{ secrets.GCP_STAGING }}
-#           export_default_credentials: true
-
-#       - name: Upload static site to GCP (staging)
-#         run: |
-#           gsutil -m cp -r build/* gs://stg.vocdoni.app
+      - name: Push to Docker Hub and ghcr.io (static)
+        uses: docker/build-push-action@v2
+        if: github.ref == 'refs/heads/master'
+        with:
+          context: .
+          file: ./Dockerfile.static
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+            DISCOVERY_POOL_SIZE=1
+          tags: |
+            vocdoni/${{ github.event.repository.name }}:latest-static, vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static,
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest-static,ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}-static
