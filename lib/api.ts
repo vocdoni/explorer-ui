@@ -1,4 +1,4 @@
-import { IProcessDetails, VotingApi } from 'dvote-js'
+import { IProcessDetails, ProcessSummary, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
 import { GatewayPool } from '@vocdoni/react-hooks/node_modules/dvote-js'
 
@@ -42,3 +42,22 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
     from += processList.length
   }
 }
+
+/** Same as `getProcessList` but for a list of entity ids */
+export async function getEntityIdsProcessList(entityIds: string[], pool: GatewayPool): Promise<string[]> {
+  let promiseArray: string[] = []
+  for(let id of entityIds) {
+    promiseArray.push(...await getProcessList(id, pool))
+  }
+  return promiseArray
+}
+  
+/** For a list of process id get their summaries */
+export async function getProcessListSummaries(processIds: string[], pool: GatewayPool): Promise<ProcessSummary[]> {
+  let promiseArray: ProcessSummary[] = []
+  for(let id of processIds) {
+    promiseArray.push(await VotingApi.getProcessSummary(id, pool))
+  }
+  return promiseArray
+}
+  

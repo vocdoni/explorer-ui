@@ -13,6 +13,7 @@ import { Card } from '@components/elements/cards'
 // import { EmptyProposalCard } from './empty-proposal-card'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
+import { getAllProcess } from '@hooks/get-processes'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -48,6 +49,12 @@ export const DashboardProcessList = ({
   loading,
   skeletonItems = 3,
 }: IDashboardProcessListProps) => {
+
+
+  getAllProcess({});
+  // getAllProcess({from: 64});
+
+
     // const navItems: Map<ProcessTypes, IProcessItem> = new Map([
     //   [
     //     ProcessTypes.ActiveVotes,
@@ -118,6 +125,8 @@ export const DashboardProcessList = ({
 //   useEffect(() => {
 //     setActiveList(initialActiveItem)
 //   }, [initialActiveItem])
+
+
 
   return (
     <>
