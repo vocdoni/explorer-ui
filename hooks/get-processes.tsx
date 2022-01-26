@@ -8,7 +8,7 @@ import {
 import { useAlertMessage } from './message-alert'
 import { VotingApi, EntityApi } from 'dvote-js'
 import i18n from '../i18n'
-import { GatewayPool } from '@vocdoni/react-hooks/node_modules/dvote-js'
+import { GatewayPool } from "dvote-js"
 
 const ENTITY_LIST_SIZE = 12
 

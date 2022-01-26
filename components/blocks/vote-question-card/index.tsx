@@ -1,7 +1,7 @@
 import React from 'react'
 import i18n from '@i18n'
 import styled from 'styled-components'
-import { DigestedProcessResultItem, VochainProcessStatus } from 'dvote-js'
+import { SingleChoiceQuestionResults, VochainProcessStatus } from 'dvote-js'
 import { colors } from 'theme/colors'
 import { Question } from '@lib/types'
 import { Card } from '@components/elements/cards'
@@ -22,7 +22,7 @@ type IVoteQuestionCardProps = {
   question: Question
   questionIdx: number
   resultsWeight: BigNumber
-  result?: DigestedProcessResultItem
+  result?: SingleChoiceQuestionResults
 }
 
 export const VoteQuestionCard = ({

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
-import { DigestedProcessResultItem } from 'dvote-js'
+import { SingleChoiceQuestionResults } from 'dvote-js'
 
 import i18n from '@i18n'
 import { colors } from 'theme/colors'
@@ -15,7 +15,7 @@ import { BigNumber } from 'ethers'
 
 interface IQuestionResultsProps {
   question: Question
-  result: DigestedProcessResultItem
+  result: SingleChoiceQuestionResults
   resultsWeight: BigNumber
 }
 export const QuestionResults = ({
