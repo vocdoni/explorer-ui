@@ -7,5 +7,5 @@ node_modules
 .idea
 
 # Lockfiles
-package-lock.json
+#package-lock.json
 yarn.lock
