@@ -1,5 +1,5 @@
 # Static web site compiler
-FROM node:14 as builder
+FROM node:16 as builder
 
 ARG COMMIT_SHA
 ENV COMMIT_SHA=${COMMIT_SHA}
@@ -18,13 +18,13 @@ ENV DISCOVERY_POOL_SIZE=${DISCOVERY_POOL_SIZE}
 
 WORKDIR /app
 ADD package.json /app
-# ADD package-lock.json /app
+ADD package-lock.json /app
 RUN npm install
 
 ADD . /app
 RUN npm run export
 
-FROM node:14
+FROM node:16
 
 RUN apt update && apt install nginx -y && apt clean
 
