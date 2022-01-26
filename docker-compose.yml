@@ -1,17 +1,17 @@
 version: "3"
 services:
-  vocdoni-ui:
-    image: ghcr.io/vocdoni/vocdoni-ui:${VOCDONI_UI_TAG:-main}
+  explorer-ui:
+    image: ghcr.io/vocdoni/explorer-ui:${EXPLORER_UI_TAG:-master-static}
     env_file:
       - .env
-    container_name: "vocdoni-ui"
+    container_name: "explorer-ui"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.bootnodes.rule=Host(`${DOMAIN}`)"
-      - "traefik.http.routers.bootnodes.entrypoints=websecure"
-      - "traefik.http.routers.bootnodes.tls.certresolver=le"
-      - "traefik.http.routers.bootnodes.service=bootnodes"
-      - "traefik.http.services.bootnodes.loadbalancer.server.port=80"
+      - "traefik.http.routers.explorer-ui.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.explorer-ui.entrypoints=websecure"
+      - "traefik.http.routers.explorer-ui.tls.certresolver=le"
+      - "traefik.http.routers.explorer-ui.service=explorer-ui"
+      - "traefik.http.services.explorer-ui.loadbalancer.server.port=80"
     restart: always
   traefik:
     image: "traefik:v2.2"
@@ -42,3 +42,4 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable="false"
     command: --interval 30 --include-stopped --revive-stopped --cleanup
+
