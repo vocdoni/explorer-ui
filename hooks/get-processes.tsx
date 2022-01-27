@@ -34,6 +34,7 @@ export const getAllProcess = ({
 
   const getProcessList = () => {
     let gwPool: GatewayPool
+    setLoadingProcessList(true)
 
     poolPromise
       .then((pool) => {
@@ -54,17 +55,19 @@ export const getAllProcess = ({
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
         setProcessIds(response)        
+        setLoadingProcessList(false)
       })
       .catch((err) => {
+        setLoadingProcessList(false)
         console.error(err)
         // setLoading(false)
         setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
       })
   }
 
-  // useEffect(() => {
-  //   getProcessList()
-  // }, [from])
+  useEffect(() => {
+    getProcessList()
+  }, [from])
 
   // useEffect(() => {
   //   console.debug('DEBUG', 'processesGet', processes)
