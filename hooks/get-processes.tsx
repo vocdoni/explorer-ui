@@ -41,7 +41,6 @@ export const getAllProcess = ({
         gwPool = pool
         return pool.sendRequest({
           method: 'getEntityList',
-          timestamp: Math.floor(Date.now() / 1000),
           from: from,
           searchTerm: entitySearchTerm,
           listSize: ENTITY_LIST_SIZE,
