@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import { getEntityIdsProcessList, getProcessList } from '../lib/api'
 import { useAlertMessage } from './message-alert'
-import { VotingApi, EntityApi, GatewayPool } from 'dvote-js'
+import { VotingApi, EntityApi, GatewayPool, Random } from 'dvote-js'
 import i18n from '../i18n'
 
 const ENTITY_LIST_SIZE = 12
@@ -92,21 +92,33 @@ export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const getProcessCountReq = () => {
     poolPromise
       .then((pool) => {
-        return pool.sendRequest({
-          method: 'getProcessCount',
-          entityId: entityId,
+        let url = pool.activeGateway.dvoteUri
+        // todo(kon): this is a bypass because `getProcessCount` method is not exposed. Expose it on VotingAPI
+        return fetch(url, {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "id": Random.getHex().substr(2, 10),
+            "request": {
+              "method": 'getProcessCount',
+              "timestamp": Math.floor(Date.now() / 1000),
+              "entityId": entityId,
+            },
+          }),
         } as any)
       })
+      .then((response) => response.json())
       .then((response) => {
-        console.debug('DEBUG', 'getProcessCount', response['size'])
-        setProcessCount(response['size'])
+        console.debug('DEBUG', 'getProcessCount', response['response'])
+        if(!response['response']['ok']) throw new Error('Error retrieving getProcessCount')
+        setProcessCount(response['response']['size'])
       })
       .catch((err) => {
         console.error(err)
         setAlertMessage(i18n.t('error.could_not_fetch_elections_count'))
       })
   }
-  
+
   useEffect(() => {
     getProcessCountReq()
   }, [entityId])
