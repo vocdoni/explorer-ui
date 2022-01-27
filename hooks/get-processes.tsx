@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react'
 import { usePool, useProcesses } from '@vocdoni/react-hooks'
-import {
-  getEntityIdsProcessList,
-  getProcessList,
-} from '../lib/api'
+import { getEntityIdsProcessList, getProcessList } from '../lib/api'
 import { useAlertMessage } from './message-alert'
-import { VotingApi, EntityApi } from 'dvote-js'
+import { VotingApi, EntityApi, GatewayPool } from 'dvote-js'
 import i18n from '../i18n'
-import { GatewayPool } from "dvote-js"
 
 const ENTITY_LIST_SIZE = 12
 
@@ -20,7 +16,6 @@ export const getAllProcess = ({
   from = 0,
   entitySearchTerm = '',
 }: IGetAllProcessProps) => {
-
   const [entityIds, setEntityIds] = useState([] as string[])
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
@@ -54,13 +49,12 @@ export const getAllProcess = ({
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        setProcessIds(response)        
+        setProcessIds(response)
         setLoadingProcessList(false)
       })
       .catch((err) => {
         setLoadingProcessList(false)
         console.error(err)
-        // setLoading(false)
         setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
       })
   }
@@ -82,5 +76,42 @@ export const getAllProcess = ({
     loadingProcessList,
     loadingProcessesDetails,
     error,
+  }
+}
+
+interface IgetProcessCountProps {
+  entityId?: string
+}
+
+/** Returns the number of processes registered on the Vochain. */
+export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
+  const { poolPromise } = usePool()
+  const { setAlertMessage } = useAlertMessage()
+  const [processCount, setProcessCount] = useState(0)
+
+  const getProcessCountReq = () => {
+    poolPromise
+      .then((pool) => {
+        return pool.sendRequest({
+          method: 'getProcessCount',
+          entityId: entityId,
+        } as any)
+      })
+      .then((response) => {
+        console.debug('DEBUG', 'getProcessCount', response['size'])
+        setProcessCount(response['size'])
+      })
+      .catch((err) => {
+        console.error(err)
+        setAlertMessage(i18n.t('error.could_not_fetch_elections_count'))
+      })
+  }
+  
+  useEffect(() => {
+    getProcessCountReq()
+  }, [entityId])
+
+  return {
+    processCount,
   }
 }
