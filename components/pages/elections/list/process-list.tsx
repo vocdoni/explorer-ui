@@ -14,6 +14,7 @@ import { Card } from '@components/elements/cards'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
 import { getAllProcess, getProcessCount } from '@hooks/get-processes'
+import { ELECTIONS_PATH } from '@const/routes'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -37,6 +38,7 @@ interface IDashboardProcessListProps {
 //   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
+  processesPerPage?: number,
 }
 
 export const DashboardProcessList = ({
@@ -48,6 +50,7 @@ export const DashboardProcessList = ({
 //   entityMetadata,
   // loading,
   skeletonItems = 3,
+  processesPerPage = 10,
 }: IDashboardProcessListProps) => {
   const [loading, setLoading] = useState(true)
   const [processList, setProcessList] = useState<Processes>()
@@ -64,7 +67,6 @@ export const DashboardProcessList = ({
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessesDetails, loadingProcessList])
-//   const {processCount} = getProcessCount({});
 
 
     // const navItems: Map<ProcessTypes, IProcessItem> = new Map([
@@ -94,6 +96,7 @@ export const DashboardProcessList = ({
     //   ],
     // ])
 
+
   const renderProcessItem = (process: SummaryProcess) => (
     <div key={process.id}>
       <DashboardProcessListItem
@@ -103,7 +106,7 @@ export const DashboardProcessList = ({
         accountName="todo: add entity_name"
         // accountName={account?.name}
         // entityLogo={entityMetadata?.media?.avatar}
-        link={'SHOW_PROCESS_PATH' + '#/' + process.id}
+        link={ELECTIONS_PATH + '#/' + process.id}
       />
     </div>
   )
