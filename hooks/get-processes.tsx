@@ -3,7 +3,6 @@ import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import {
   getEntityIdsProcessList,
   getProcessList,
-  getProcessListSummaries,
 } from '../lib/api'
 import { useAlertMessage } from './message-alert'
 import { VotingApi, EntityApi } from 'dvote-js'
@@ -54,11 +53,7 @@ export const getAllProcess = ({
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        setProcessIds(response)
-        return getProcessListSummaries(response, gwPool)
-      })
-      .then((response) => {
-        console.debug('DEBUG', 'getProcessListSummaries', response)
+        setProcessIds(response)        
       })
       .catch((err) => {
         console.error(err)
@@ -67,9 +62,13 @@ export const getAllProcess = ({
       })
   }
 
-  useEffect(() => {
-    getProcessList()
-  }, [from])
+  // useEffect(() => {
+  //   getProcessList()
+  // }, [from])
+
+  // useEffect(() => {
+  //   console.debug('DEBUG', 'processesGet', processes)
+  // }, [processes])
 
   console.debug('DEBUG', 'getAllProcess', from)
 

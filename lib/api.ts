@@ -52,12 +52,3 @@ export async function getEntityIdsProcessList(entityIds: string[], pool: Gateway
     return entityProcs.reduce((prev, cur) => prev.concat(cur), [])
   })
 }
-
-/** For a list of process id get their summaries */
-export async function getProcessListSummaries(processIds: string[], pool: GatewayPool): Promise<ProcessSummary[]> {
-  let promiseArray: ProcessSummary[] = []
-  for (let id of processIds) {
-    promiseArray.push(await VotingApi.getProcessSummary(id, pool))
-  }
-  return promiseArray
-}
