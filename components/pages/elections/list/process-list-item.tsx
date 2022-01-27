@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useBlockStatus,  SummaryProcess} from '@vocdoni/react-hooks'
 import { VotingApi } from 'dvote-js'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
+import i18n from '@i18n'
 
 import { DateDiffType, localizedDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
@@ -31,7 +32,7 @@ export const DashboardProcessListItem = ({
   entityLogo,
   link
 }: IDashboardProcessListItemProps) => {
-  const { i18n } = useTranslation()
+  // const { i18n } = useTranslation()
 
   const [date, setDate] = useState<string>('')
   const { blockStatus } = useBlockStatus()
@@ -78,6 +79,7 @@ export const DashboardProcessListItem = ({
     }
   }, [blockStatus])
 
+
   return (
     <VoteItemWrapper>
       <VoteListItem
@@ -87,8 +89,8 @@ export const DashboardProcessListItem = ({
           </ImageContainer>
         }
         link={link}
-        description={process?.metadata?.description.default}
-        title={process?.metadata?.title.default}
+        description={process?.metadata?.description?.default ?? "ERROR: no description"}
+        title={process?.metadata?.title?.default ?? "ERROR: no title"}
         entityName={accountName}
         dateText={date}
         status={status}

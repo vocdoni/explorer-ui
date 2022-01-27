@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js'
-import { SummaryProcess } from '@vocdoni/react-hooks'
+import { Processes, SummaryProcess, useBlockHeight } from '@vocdoni/react-hooks'
 import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
-import { VoteStatus } from '@lib/util'
+import { getVoteStatus, VoteStatus } from '@lib/util'
 import { Skeleton } from '@components/blocks/skeleton'
 import { Card } from '@components/elements/cards'
 
@@ -13,7 +13,7 @@ import { Card } from '@components/elements/cards'
 // import { EmptyProposalCard } from './empty-proposal-card'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
-import { getAllProcess } from '@hooks/get-processes'
+import { getAllProcess, getProcessCount } from '@hooks/get-processes'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -46,12 +46,28 @@ export const DashboardProcessList = ({
 //   votesResults,
 //   upcomingVoting,
 //   entityMetadata,
-  loading,
+  // loading,
   skeletonItems = 3,
 }: IDashboardProcessListProps) => {
+  const [loading, setLoading] = useState(true)
+  const [processList, setProcessList] = useState<Processes>()
+  const { blockHeight } = useBlockHeight()
+  const {
+    entityIds,
+    processIds,
+    processes,
+    loadingProcessList,
+    loadingProcessesDetails,
+    error,
+  } = getAllProcess({})
+
+  useEffect(() => {
+    setLoading(loadingProcessList || loadingProcessesDetails)
+  }, [loadingProcessesDetails, loadingProcessList])
 
 
-  getAllProcess({});
+  // getProcessCount({});
+  // getAllProcess({});
   // getAllProcess({from: 64});
 
 
@@ -86,7 +102,8 @@ export const DashboardProcessList = ({
     <div key={process.id}>
       <DashboardProcessListItem
         process={process}
-        status={processList.status}
+        // status={processList.status}
+        status={getVoteStatus(process.summary, blockHeight)}
         accountName="todo: add entity_name"
         // accountName={account?.name}
         // entityLogo={entityMetadata?.media?.avatar}
@@ -116,17 +133,20 @@ export const DashboardProcessList = ({
   )
     // const processList = navItems.get(activeList)
     // todo(kon): just adapt this to new necessities, this is a copy paste from 
-  const processList: IProcessItem = {
-    label: 'string',
-    items: [],
-    status: VoteStatus.Active
-  }
+  // const processList: IProcessItem = {
+  //   label: 'string',
+  //   items: [],
+  //   status: VoteStatus.Active
+  // }
+  
 
 //   useEffect(() => {
 //     setActiveList(initialActiveItem)
 //   }, [initialActiveItem])
 
-
+  useEffect(() => {
+    setProcessList(processes)
+  }, [processes])
 
   return (
     <>
@@ -139,9 +159,9 @@ export const DashboardProcessList = ({
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : processList?.items && processList.items.length ? (
+        ) : processList != null && processList.length ? (
           <Column md={8} sm={12}>
-            {processList.items.map(renderProcessItem)}
+            {processList.map(renderProcessItem)}
           </Column>
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>
