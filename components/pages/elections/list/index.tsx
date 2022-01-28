@@ -24,7 +24,7 @@ export const DashboardShowProcesses = ({
           {i18n.t('elections_list.total_n_processes')} {processCount}
         </Typography>
 
-      <DashboardProcessList processCount={processCount} processesPerPage={PROCESS_PER_PAGE}/>
+      <DashboardProcessList processCount={processCount} pageSize={PROCESS_PER_PAGE}/>
     </>
   )
 }
