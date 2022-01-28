@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js'
 import { Processes, SummaryProcess, useBlockHeight } from '@vocdoni/react-hooks'
@@ -15,6 +15,9 @@ import { Card } from '@components/elements/cards'
 import { DashboardProcessListItem } from './process-list-item'
 import { getAllProcess, getProcessCount } from '@hooks/get-processes'
 import { ELECTIONS_PATH } from '@const/routes'
+import { Button } from '@components/elements/button'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { colors } from '@theme/colors'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -30,30 +33,36 @@ export interface IProcessItem {
 }
 
 interface IDashboardProcessListProps {
-//   account: Account
-//   initialActiveItem: ProcessTypes
-//   activeVotes: SummaryProcess[]
-//   votesResults: SummaryProcess[]
-//   upcomingVoting: SummaryProcess[]
-//   entityMetadata: EntityMetadata
+  //   account: Account
+  //   initialActiveItem: ProcessTypes
+  //   activeVotes: SummaryProcess[]
+  //   votesResults: SummaryProcess[]
+  //   upcomingVoting: SummaryProcess[]
+  //   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
-  processesPerPage?: number,
+  pageSize?: number
+  processCount?: number
 }
 
+/** This sets pagination next offset for entity pagination */
+const ENTITY_PAGINATION_FROM = 64
+
 export const DashboardProcessList = ({
-//   account,
-//   initialActiveItem,
-//   activeVotes,
-//   votesResults,
-//   upcomingVoting,
-//   entityMetadata,
+  //   account,
+  //   initialActiveItem,
+  //   activeVotes,
+  //   votesResults,
+  //   upcomingVoting,
+  //   entityMetadata,
   // loading,
   skeletonItems = 3,
-  processesPerPage = 10,
+  pageSize = 10,
+  processCount = 0, 
 }: IDashboardProcessListProps) => {
+  const [entityPagination, setEntityPagination] = useState(0)
   const [loading, setLoading] = useState(true)
-  const [processList, setProcessList] = useState<Processes>()
+  // const [renderedProcessList, setRenderedProcessList] = useState<Processes>()
   const { blockHeight } = useBlockHeight()
   const {
     entityIds,
@@ -62,40 +71,13 @@ export const DashboardProcessList = ({
     loadingProcessList,
     loadingProcessesDetails,
     error,
-  } = getAllProcess({})
+  } = getAllProcess({
+    from: entityPagination,
+  })
 
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessesDetails, loadingProcessList])
-
-
-    // const navItems: Map<ProcessTypes, IProcessItem> = new Map([
-    //   [
-    //     ProcessTypes.ActiveVotes,
-    //     {
-    //       label: i18n.t('dashboard.active_votes'),
-    //       items: activeVotes,
-    //       status: VoteStatus.Active,
-    //     },
-    //   ],
-    //   [
-    //     ProcessTypes.VoteResults,
-    //     {
-    //       label: i18n.t('dashboard.vote_results'),
-    //       items: votesResults,
-    //       status: VoteStatus.Ended,
-    //     },
-    //   ],
-    //   [
-    //     ProcessTypes.UpcomingVotes,
-    //     {
-    //       label: i18n.t('dashboard.upcoming_votes'),
-    //       items: upcomingVoting,
-    //       status: VoteStatus.Upcoming,
-    //     },
-    //   ],
-    // ])
-
 
   const renderProcessItem = (process: SummaryProcess) => (
     <div key={process.id}>
@@ -103,7 +85,7 @@ export const DashboardProcessList = ({
         process={process}
         // status={processList.status}
         status={getVoteStatus(process.summary, blockHeight)}
-        accountName="todo: add entity_name"
+        accountName="todo: add entity_name" // todo(kon) : add entity_name
         // accountName={account?.name}
         // entityLogo={entityMetadata?.media?.avatar}
         link={ELECTIONS_PATH + '#/' + process.id}
@@ -124,43 +106,52 @@ export const DashboardProcessList = ({
     )
   }
 
-  const handleClick = (navItem: ProcessTypes) => {
-    setActiveList(navItem)
+  // PAGINATOR
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const paginate = (nextPage)=>{
+    if(nextPage < 1 || nextPage > totalPageCount) return
+    else setCurrentPage(nextPage)
   }
-  const [activeList, setActiveList] = useState<ProcessTypes>(
-    ProcessTypes.ActiveVotes
-  )
-    // const processList = navItems.get(activeList)
-    // todo(kon): just adapt this to new necessities, this is a copy paste from 
-  // const processList: IProcessItem = {
-  //   label: 'string',
-  //   items: [],
-  //   status: VoteStatus.Active
-  // }
-  
 
-//   useEffect(() => {
-//     setActiveList(initialActiveItem)
-//   }, [initialActiveItem])
+  const renderedProcessList = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return processes.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, processes]);
 
-  useEffect(() => {
-    setProcessList(processes)
+  const totalPageCount = useMemo(() => {
+    let pageCount = Math.ceil(processCount / pageSize);
+    return pageCount
   }, [processes])
+
 
   return (
     <>
-      {/* <DashboardProcessListNav
-        activeItem={activeList}
-        navItems={navItems}
-        onClick={handleClick}
-      /> */}
+      <Grid>
+        <Button small onClick={
+            () => paginate(1)}>«</Button>
+        <Button small onClick={
+            () => paginate(currentPage - 1)}
+            >{'<'}</Button>
+        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+          {currentPage}
+          {i18n.t('elections_list.page_n_of_n')}
+          {totalPageCount}
+        </Typography>
+        <Button small onClick={
+            () => paginate(currentPage + 1)}
+            >{'>'}</Button>
+        <Button small onClick={
+            () => paginate(totalPageCount)}>»</Button>
+      </Grid>
 
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : processList != null && processList.length ? (
+        ) : renderedProcessList != null && renderedProcessList.length ? (
           <Column md={8} sm={12}>
-            {processList.map(renderProcessItem)}
+            {renderedProcessList.map(renderProcessItem)}
           </Column>
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>

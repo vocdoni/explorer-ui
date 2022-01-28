@@ -8,7 +8,7 @@ import { colors } from '@theme/colors'
 interface IDashboardShowProcessesProps {
 }
 
-const PROCESS_PER_PAGE = 10
+const PROCESS_PER_PAGE = 3
 
 export const DashboardShowProcesses = ({
 }: IDashboardShowProcessesProps) => {
@@ -24,7 +24,7 @@ export const DashboardShowProcesses = ({
           {i18n.t('elections_list.total_n_processes')} {processCount}
         </Typography>
 
-      <DashboardProcessList processesPerPage={PROCESS_PER_PAGE}/>
+      <DashboardProcessList processCount={processCount} pageSize={PROCESS_PER_PAGE}/>
     </>
   )
 }
