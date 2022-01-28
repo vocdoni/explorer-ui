@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { useBlockStatus,  SummaryProcess} from '@vocdoni/react-hooks'
-import { VotingApi } from 'dvote-js'
+import { useBlockStatus, SummaryProcess, useEntity } from '@vocdoni/react-hooks'
+import { EntityMetadata, VotingApi } from 'dvote-js'
 // import { useTranslation } from 'react-i18next'
 import i18n from '@i18n'
 
 import { DateDiffType, localizedDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
 import { IProcessesSummary } from '@lib/types'
-
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Image } from '@components/elements/image'
@@ -20,22 +19,24 @@ import moment from 'moment'
 interface IDashboardProcessListItemProps {
   process: SummaryProcess
   status: VoteStatus
-  accountName?: string
+  entityId?: string
   entityLogo?: string
   link?: string
 }
 
 export const DashboardProcessListItem = ({
   process,
-  accountName,
+  entityId,
   status,
   entityLogo,
-  link
+  link,
 }: IDashboardProcessListItemProps) => {
   // const { i18n } = useTranslation()
 
   const [date, setDate] = useState<string>('')
   const { blockStatus } = useBlockStatus()
+  const { metadata } = useEntity(entityId)
+  const entityMetadata = metadata as EntityMetadata
 
   useEffect(() => {
     let startDate
@@ -79,19 +80,24 @@ export const DashboardProcessListItem = ({
     }
   }, [blockStatus])
 
-
   return (
     <VoteItemWrapper>
       <VoteListItem
         icon={
           <ImageContainer width="30px" height="30px">
-            <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
+            <Image src={entityMetadata?.media?.avatar || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         }
         link={link}
-        description={process?.metadata?.description?.default ?? "ERROR: no description"}
-        title={process?.metadata?.title?.default ?? "ERROR: no title"}
-        entityName={accountName}
+        description={
+          process?.metadata?.description?.default ?? 'ERROR: no description'
+        }
+        title={process?.metadata?.title?.default ?? 'ERROR: no title'}
+        entityName={
+          entityMetadata?.name?.default
+            ? entityMetadata?.name?.default
+            : entityId
+        }
         dateText={date}
         status={status}
       />
