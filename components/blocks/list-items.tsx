@@ -9,7 +9,44 @@ import { VoteStatus } from "@lib/util"
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import i18n from '@i18n'
+import { EntityLink } from "@components/pages/app/components/entity"
 
+/** Same as VoteListItem but with a browsawle entity link and other properties to
+ * show for the elections list page
+ */
+type ProcessSummaryProps = ColumnProps & {
+  icon: ReactNode,
+  link: string,
+  entityName: string,
+  entityId: string,
+  title: string,
+  description: string,
+  status: VoteStatus,
+  dateText: string
+}
+
+
+export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title, description, status, dateText }: ProcessSummaryProps) => {
+  // const { i18n } = useTranslation()
+
+  return (
+    <Link href={link || ''}>
+      <a>
+        <ListItemDiv>
+          <TopDiv>
+            <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
+              {icon}<EntityLink entityId={entityId}>{entityName}</EntityLink>
+            </FlexContainer>
+            <ProcessStatusLabel status={status}></ProcessStatusLabel>
+          </TopDiv>
+
+          <VoteListItemTitle>{title}</VoteListItemTitle>
+          <VoteListItemDate>{dateText}</VoteListItemDate>
+        </ListItemDiv>
+      </a>
+    </Link>
+  )
+}
 
 type VoteListItemProps = ColumnProps & {
   icon: ReactNode,

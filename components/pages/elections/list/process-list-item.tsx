@@ -13,7 +13,7 @@ import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Image } from '@components/elements/image'
 import { ImageContainer } from '@components/elements/images'
 
-import { VoteListItem } from '@components/blocks/list-items'
+import { ProcessSummaryListItem } from '@components/blocks/list-items'
 import moment from 'moment'
 
 interface IDashboardProcessListItemProps {
@@ -82,7 +82,7 @@ export const DashboardProcessListItem = ({
 
   return (
     <VoteItemWrapper>
-      <VoteListItem
+      <ProcessSummaryListItem
         icon={
           <ImageContainer width="30px" height="30px">
             <Image src={entityMetadata?.media?.avatar || FALLBACK_ACCOUNT_ICON} />
@@ -93,6 +93,7 @@ export const DashboardProcessListItem = ({
           process?.metadata?.description?.default ?? 'ERROR: no description'
         }
         title={process?.metadata?.title?.default ?? 'ERROR: no title'}
+        entityId={entityId}
         entityName={
           entityMetadata?.name?.default
             ? entityMetadata?.name?.default
