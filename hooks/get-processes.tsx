@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import { getEntityIdsProcessList, getProcessList } from '../lib/api'
 import { useAlertMessage } from './message-alert'
@@ -6,12 +6,23 @@ import { VotingApi, EntityApi, GatewayPool, Random } from 'dvote-js'
 import i18n from '../i18n'
 
 const ENTITY_LIST_SIZE = 12
+const ENTITY_FROM_OFFSET = 64 // Size of the pagination offset retrieved when `getEntityList`
 
 interface IGetAllProcessProps {
   from?: number
   entitySearchTerm?: string
 }
 
+/**
+ * Get all process list
+ *
+ * Get all process id's existing on the vochain and all the entities.
+ * To get all process you need to retrieve all entities and then,
+ * for each, get all process.
+ *
+ * It return `entityIds` and `processIds`. After that you should
+ * retrieve processes info using the `useProcesses` hook.
+ */
 export const getAllProcess = ({
   from = 0,
   entitySearchTerm = '',
@@ -67,7 +78,7 @@ export const getAllProcess = ({
   //   console.debug('DEBUG', 'processesGet', processes)
   // }, [processes])
 
-  console.debug('DEBUG', 'getAllProcess', from)
+  // console.debug('DEBUG', 'getAllProcess', from)  
 
   return {
     entityIds,
@@ -83,7 +94,12 @@ interface IgetProcessCountProps {
   entityId?: string
 }
 
-/** Returns the number of processes registered on the Vochain. */
+/**
+ * Returns the number of processes registered on the Vochain.
+ *
+ * Use param `entityId` to specify specific entity Id to retrieve process count.
+ *
+ * */
 export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const { poolPromise } = usePool()
   const { setAlertMessage } = useAlertMessage()
@@ -98,11 +114,11 @@ export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            "id": Random.getHex().substr(2, 10),
-            "request": {
-              "method": 'getProcessCount',
-              "timestamp": Math.floor(Date.now() / 1000),
-              "entityId": entityId,
+            id: Random.getHex().substr(2, 10),
+            request: {
+              method: 'getProcessCount',
+              timestamp: Math.floor(Date.now() / 1000),
+              entityId: entityId,
             },
           }),
         } as any)
@@ -110,7 +126,8 @@ export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
       .then((response) => response.json())
       .then((response) => {
         console.debug('DEBUG', 'getProcessCount', response['response'])
-        if(!response['response']['ok']) throw new Error('Error retrieving getProcessCount')
+        if (!response['response']['ok'])
+          throw new Error('Error retrieving getProcessCount')
         setProcessCount(response['response']['size'])
       })
       .catch((err) => {
