@@ -27,15 +27,22 @@ type ProcessSummaryProps = ColumnProps & {
 
 
 export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title, description, status, dateText }: ProcessSummaryProps) => {
-  // const { i18n } = useTranslation()
-
   return (
-    <Link href={link || ''}>
-      <a>
+     <Link href={link || ''}  as={link}>
+       {/* todo(kon): Fix <a> cannot appear as a descendant of <a> 
+        If we are using `EntityLink` down there this warning shows up
+       */}
+       {/* todo(kon): Fix need to open in a new tab when base route is the same
+       as original. For example, clicking to /elections/#/electionsId from the 
+       /elections page. Seems that Link don't respond, probably we have to 
+       refactor route system.
+       */}
+      <a target="_blank">
         <ListItemDiv>
           <TopDiv>
             <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
-              {icon}<EntityLink entityId={entityId}>{entityName}</EntityLink>
+              {icon}
+              <EntityLink entityId={entityId}>{entityName}</EntityLink>
             </FlexContainer>
             <ProcessStatusLabel status={status}></ProcessStatusLabel>
           </TopDiv>
@@ -44,7 +51,7 @@ export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title
           <VoteListItemDate>{dateText}</VoteListItemDate>
         </ListItemDiv>
       </a>
-    </Link>
+     </Link>
   )
 }
 
