@@ -31,13 +31,8 @@ export const getAllProcess = ({
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
-  const {
-    processes,
-    error,
-    loading: loadingProcessesDetails,
-  } = useProcesses(processIds || [])
   const { poolPromise } = usePool()
-
+  
   const getProcessList = () => {
     let gwPool: GatewayPool
     setLoadingProcessList(true)
@@ -86,10 +81,7 @@ export const getAllProcess = ({
   return {
     entityIds,
     processIds,
-    processes,
     loadingProcessList,
-    loadingProcessesDetails,
-    error,
   }
 }
 

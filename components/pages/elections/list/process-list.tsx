@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js'
-import { Processes, SummaryProcess, useBlockHeight } from '@vocdoni/react-hooks'
+import { Processes, SummaryProcess, useBlockHeight, useProcesses } from '@vocdoni/react-hooks'
 import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
@@ -63,25 +63,17 @@ export const DashboardProcessList = ({
 }: IDashboardProcessListProps) => {
   const [entityPagination, setEntityPagination] = useState(0)
   const [loading, setLoading] = useState(true)
-  // const [renderedProcessList, setRenderedProcessList] = useState<Processes>()
   const { blockHeight } = useBlockHeight()
+  
   const {
     entityIds,
     processIds,
-    processes,
     loadingProcessList,
-    loadingProcessesDetails,
-    error,
   } = getAllProcess({
     from: entityPagination,
   })
 
-  useEffect(() => {
-    setLoading(loadingProcessList || loadingProcessesDetails)
-  }, [loadingProcessesDetails, loadingProcessList])
-
   const renderProcessItem = (process: SummaryProcess) => {
-
     const electionDetailPath 
       = RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id })
     return (
@@ -135,14 +127,24 @@ export const DashboardProcessList = ({
   const renderedProcessList = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
     const lastPageIndex = firstPageIndex + pageSize;
-    return processes.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, processes]);
+    setLoading(true)
+    return processIds.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, processIds]);
 
   const totalPageCount = useMemo(() => {
     let pageCount = Math.ceil(processCount / pageSize);
     return pageCount
-  }, [processes])
+  }, [processIds])
 
+  const {
+    processes,
+    error,
+    loading: loadingProcessesDetails,
+  } = useProcesses(renderedProcessList || [])
+
+  useEffect(() => {
+    setLoading(loadingProcessList || loadingProcessesDetails)
+  }, [loadingProcessList, loadingProcessesDetails])
 
   return (
     <>
@@ -167,9 +169,9 @@ export const DashboardProcessList = ({
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : renderedProcessList != null && renderedProcessList.length ? (
+        ) : processes != null && processes.length ? (
           <Column md={8} sm={12}>
-            {renderedProcessList.map(renderProcessItem)}
+            {processes.map(renderProcessItem)}
           </Column>
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>
