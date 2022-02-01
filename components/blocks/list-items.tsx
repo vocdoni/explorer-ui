@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Link from "next/link"
-import { useTranslation } from "react-i18next"
 import { ColumnProps } from "../elements/grid"
 import { ReactNode } from "react"
 // import { SHOW_PROCESS_PATH } from "../../const/routes"
@@ -10,6 +9,8 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import i18n from '@i18n'
 import { EntityLink } from "@components/pages/app/components/entity"
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 
 /** Same as VoteListItem but with a browsawle entity link and other properties to
  * show for the elections list page
@@ -27,8 +28,9 @@ type ProcessSummaryProps = ColumnProps & {
 
 
 export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title, description, status, dateText }: ProcessSummaryProps) => {
+
   return (
-     <Link href={link || ''}  as={link}>
+     <Link href={link || '' } passHref>
        {/* todo(kon): Fix <a> cannot appear as a descendant of <a> 
         If we are using `EntityLink` down there this warning shows up
        */}
@@ -37,7 +39,7 @@ export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title
        /elections page. Seems that Link don't respond, probably we have to 
        refactor route system.
        */}
-      <a target="_blank">
+      <a target={'_self'}>
         <ListItemDiv>
           <TopDiv>
             <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>

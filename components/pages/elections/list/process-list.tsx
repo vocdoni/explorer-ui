@@ -14,10 +14,11 @@ import { Card } from '@components/elements/cards'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
 import { getAllProcess, getProcessCount } from '@hooks/get-processes'
-import { ELECTIONS_PATH } from '@const/routes'
+import { ELECTIONS_DETAILS, ELECTIONS_PATH } from '@const/routes'
 import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
+import RouterService from '@lib/router'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -79,7 +80,11 @@ export const DashboardProcessList = ({
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessesDetails, loadingProcessList])
 
-  const renderProcessItem = (process: SummaryProcess) => (
+  const renderProcessItem = (process: SummaryProcess) => {
+
+    const electionDetailPath 
+      = RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id })
+    return (
     <div key={process.id}>
       <DashboardProcessListItem
         process={process}
@@ -88,10 +93,11 @@ export const DashboardProcessList = ({
         entityId={process.summary.entityId}
         // accountName={account?.name}
         // entityLogo={entityMetadata?.media?.avatar}
-        link={ELECTIONS_PATH + '/#/' + process.id}
+        // link={ELECTIONS_PATH + '/#/' + process.id}
+        link={electionDetailPath}
       />
     </div>
-  )
+  )}
   const renderSkeleton = () => {
     return (
       <Column md={8} sm={12}>
