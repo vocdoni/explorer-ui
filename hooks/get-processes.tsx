@@ -55,12 +55,15 @@ export const getAllProcess = ({
       .then((response) => {
         console.debug('DEBUG', 'getEntityList', response['entityIds'])
         if (!response?.ok) throw new Error('Response error ')
-        setEntityIds(response['entityIds'])
+        else if (response['entityIds'] === undefined) {
+          return // No more process entities to load
+        }
+        setEntityIds(entityIds.concat(response['entityIds']))
         return getEntityIdsProcessList(response['entityIds'], gwPool)
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        setProcessIds(response)
+        setProcessIds(processIds.concat(response))
         setLoadingProcessList(false)
       })
       .catch((err) => {
@@ -89,6 +92,7 @@ export const getAllProcess = ({
     error,
   }
 }
+
 
 interface IgetProcessCountProps {
   entityId?: string

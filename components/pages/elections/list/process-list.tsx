@@ -116,9 +116,21 @@ export const DashboardProcessList = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const paginate = (nextPage)=>{
+    // Used to load process from next 64 identities
+    // If next page is the last and we don't have enough processIds,
+    // Load next 64 identities processes
+    // todo(kon): Check if is better to load all identities and all the process
+    // from them instead of this pagination. The process number could change, 
+    // And probably is better to load all on memory instead 
+    // todo(kon): for some reason process count return one process more that all
+    // the process that I can get from a vochain with less than 64 identities
+    if(nextPage == totalPageCount && processIds.length + 1 < processCount) {
+      setEntityPagination(entityPagination + ENTITY_PAGINATION_FROM)
+    }
     if(nextPage < 1 || nextPage > totalPageCount) return
     else setCurrentPage(nextPage)
   }
+
 
   const renderedProcessList = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
