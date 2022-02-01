@@ -19,6 +19,7 @@ import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
+import { Paginator } from '@components/blocks/paginator'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -107,7 +108,15 @@ export const DashboardProcessList = ({
   // PAGINATOR
   const [currentPage, setCurrentPage] = useState(1);
 
-  const paginate = (nextPage)=>{
+  const renderedProcessList = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    setLoading(true)
+    return processIds.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, processIds]);
+
+  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
+    console.debug('DEBUG', 'Getting more entity process')
     // Used to load process from next 64 identities
     // If next page is the last and we don't have enough processIds,
     // Load next 64 identities processes
@@ -116,26 +125,13 @@ export const DashboardProcessList = ({
     // And probably is better to load all on memory instead 
     // todo(kon): for some reason process count return one process more that all
     // the process that I can get from a vochain with less than 64 identities
-    if(nextPage == totalPageCount && processIds.length + 1 < processCount) {
+    if(nextPage + 1 == totalPageCount && processIds.length + 1 < processCount) {
+      console.debug('DEBUG', 'Getting more entity process')
       setEntityPagination(entityPagination + ENTITY_PAGINATION_FROM)
     }
-    if(nextPage < 1 || nextPage > totalPageCount) return
-    else setCurrentPage(nextPage)
+    return true
   }
-
-
-  const renderedProcessList = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
-    setLoading(true)
-    return processIds.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, processIds]);
-
-  const totalPageCount = useMemo(() => {
-    let pageCount = Math.ceil(processCount / pageSize);
-    return pageCount
-  }, [processIds])
-
+  
   const {
     processes,
     error,
@@ -148,24 +144,17 @@ export const DashboardProcessList = ({
 
   return (
     <>
-      <Grid>
-        <Button small onClick={
-            () => paginate(1)}>«</Button>
-        <Button small onClick={
-            () => paginate(currentPage - 1)}
-            >{'<'}</Button>
-        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {currentPage}
-          {i18n.t('elections_list.page_n_of_n')}
-          {totalPageCount}
-        </Typography>
-        <Button small onClick={
-            () => paginate(currentPage + 1)}
-            >{'>'}</Button>
-        <Button small onClick={
-            () => paginate(totalPageCount)}>»</Button>
-      </Grid>
-
+      <Paginator 
+        totalCount={processCount} 
+        pageSize={pageSize} 
+        currentPage={currentPage}
+        onPageChange={page => setCurrentPage(page)}
+        paginateBeforeCb={loadMoreProcesses}
+        // elements={processIds} 
+        // renderedCb={(rendered) => setRenderedProcessList(rendered)} ></Paginator>
+        // renderedCb={renderPagination}
+         ></Paginator>
+        {/* renderedCb={(rendered) => console.debug("AAA", rendered)} ></Paginator> */}
       <Grid>
         {loading ? (
           renderSkeleton()
