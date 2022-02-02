@@ -32,8 +32,9 @@ export const getAllProcess = ({
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
-  
-  const getProcessList = () => {
+
+  /** If concat is true, it concatenate the previous results to the new ones */
+  const getProcessList = (concat: boolean) => {
     let gwPool: GatewayPool
     setLoadingProcessList(true)
 
@@ -51,14 +52,22 @@ export const getAllProcess = ({
         console.debug('DEBUG', 'getEntityList', response['entityIds'])
         if (!response?.ok) throw new Error('Response error ')
         else if (response['entityIds'] === undefined) {
+          setEntityIds([])
           return // No more process entities to load
         }
-        setEntityIds(entityIds.concat(response['entityIds']))
+        concat
+          ? setEntityIds(entityIds.concat(response['entityIds']))
+          : setEntityIds(response['entityIds'])
         return getEntityIdsProcessList(response['entityIds'], gwPool)
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        setProcessIds(processIds.concat(response))
+        if (response === undefined) setProcessIds([])
+        else {
+          concat
+            ? setProcessIds(processIds.concat(response))
+            : setProcessIds(response)
+        }
         setLoadingProcessList(false)
       })
       .catch((err) => {
@@ -69,14 +78,18 @@ export const getAllProcess = ({
   }
 
   useEffect(() => {
-    getProcessList()
+    getProcessList(true)
   }, [from])
+
+  useEffect(() => {
+    getProcessList(false)
+  }, [entitySearchTerm])
 
   // useEffect(() => {
   //   console.debug('DEBUG', 'processesGet', processes)
   // }, [processes])
 
-  // console.debug('DEBUG', 'getAllProcess', from)  
+  console.debug('DEBUG', 'getAllProcess', from)
 
   return {
     entityIds,
@@ -84,7 +97,6 @@ export const getAllProcess = ({
     loadingProcessList,
   }
 }
-
 
 interface IgetProcessCountProps {
   entityId?: string

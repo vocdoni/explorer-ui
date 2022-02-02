@@ -25,6 +25,8 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 import { Paginator } from '@components/blocks/paginator'
+import { Input } from '@components/elements/inputs'
+import styled from 'styled-components'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 
 export enum ProcessTypes {
@@ -70,9 +72,12 @@ export const DashboardProcessList = ({
   const [entityPagination, setEntityPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
+  const [entitySearchTerm, setEntitySearchTerm] = useState('')
+  const [inputTextValue, setInputTextValue] = useState('')
 
   const { entityIds, processIds, loadingProcessList } = getAllProcess({
     from: entityPagination,
+    entitySearchTerm: entitySearchTerm,
   })
 
   const renderProcessItem = (process: SummaryProcess) => {
@@ -114,18 +119,20 @@ export const DashboardProcessList = ({
   const _getPageIndexes = (page: number) => {
     const firstPageIndex = (page - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
-    // return processIds.slice(firstPageIndex, lastPageIndex);
     return { firstPageIndex, lastPageIndex }
   }
 
   const renderedProcessList = useMemo(() => {
+    if (processIds.length === 0) {
+      // setLoading(false)
+      return processIds
+    }
     setLoading(true)
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     return processIds.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, processIds])
 
   const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
-    console.debug('DEBUG', 'Getting more entity process')
     // Used to load process from next 64 identities
     // If next page is the last and we don't have enough processIds,
     // Load next 64 identities processes
@@ -135,6 +142,7 @@ export const DashboardProcessList = ({
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
 
     if (
+      entitySearchTerm === '' &&
       nextPage > currentPage &&
       lastPageIndex >= processIds.length &&
       processIds.length + 1 < processCount
@@ -155,10 +163,23 @@ export const DashboardProcessList = ({
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
+  const searchById = () => {
+    setEntitySearchTerm(inputTextValue)
+  }
+
   return (
     <>
+      <DivWithMarginChildren>
+        <Input
+          placeholder="Search by organization id"
+          onChange={(ev) => setInputTextValue(ev.target.value)}
+        />
+        <Button positive small onClick={searchById}>
+          Go!
+        </Button>
+      </DivWithMarginChildren>
       <Paginator
-        totalCount={processCount}
+        totalCount={entitySearchTerm === '' ? processCount : processIds.length}
         pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={(page) => setCurrentPage(page)}
@@ -168,15 +189,23 @@ export const DashboardProcessList = ({
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : processes != null && processes.length ? (
+        ) : processes != null &&
+          processes.length &&
+          renderedProcessList.length ? (
           <Column md={8} sm={12}>
             {processes.map(renderProcessItem)}
           </Column>
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>
         )}
-
       </Grid>
     </>
   )
 }
+
+const DivWithMarginChildren = styled.div`
+  & > * {
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+`
