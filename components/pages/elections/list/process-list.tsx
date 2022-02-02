@@ -133,6 +133,7 @@ export const DashboardProcessList = ({
     // from them instead of this pagination. The process number could change,
     // And probably is better to load all on memory instead
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
+
     if (
       nextPage > currentPage &&
       lastPageIndex >= processIds.length &&
@@ -162,6 +163,7 @@ export const DashboardProcessList = ({
         currentPage={currentPage}
         onPageChange={(page) => setCurrentPage(page)}
         paginateBeforeCb={loadMoreProcesses}
+        disableGoLastBtn
       ></Paginator>
       <Grid>
         {loading ? (

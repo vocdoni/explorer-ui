@@ -11,6 +11,8 @@ type PaginatorProps = {
   currentPage: number
   onPageChange: (number) => void
   paginateBeforeCb?: (nextPage: number, totalPageCount: number) => boolean
+  disableGoFirstBtn?: boolean
+  disableGoLastBtn?: boolean
 }
 
 export const Paginator = ({
@@ -19,8 +21,9 @@ export const Paginator = ({
   currentPage,
   onPageChange,
   paginateBeforeCb,
-}: 
-PaginatorProps) => {
+  disableGoFirstBtn = false,
+  disableGoLastBtn = false,
+}: PaginatorProps) => {
   const paginate = (nextPage) => {
     if (paginateBeforeCb(nextPage, totalPageCount)) {
       if (nextPage < 1 || nextPage > totalPageCount) return
@@ -36,9 +39,11 @@ PaginatorProps) => {
   return (
     <>
       <Grid>
-        <Button small onClick={() => paginate(1)}>
-          «
-        </Button>
+        {!disableGoFirstBtn && (
+          <Button small onClick={() => paginate(1)}>
+            «
+          </Button>
+        )}
         <Button small onClick={() => paginate(currentPage - 1)}>
           {'<'}
         </Button>
@@ -50,9 +55,11 @@ PaginatorProps) => {
         <Button small onClick={() => paginate(currentPage + 1)}>
           {'>'}
         </Button>
-        <Button small onClick={() => paginate(totalCount)}>
-          »
-        </Button>
+        {!disableGoLastBtn && (
+          <Button small onClick={() => paginate(totalCount)}>
+            »
+          </Button>
+        )}
       </Grid>
     </>
   )
