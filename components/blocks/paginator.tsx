@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import i18n from '@i18n'
+import styled from 'styled-components'
 
 type PaginatorProps = {
   totalCount: number
@@ -39,28 +40,52 @@ export const Paginator = ({
   return (
     <>
       <Grid>
-        {!disableGoFirstBtn && (
-          <Button small onClick={() => paginate(1)}>
-            «
+        <GroupButtonMargin>
+          {!disableGoFirstBtn && (
+            <Button small onClick={() => paginate(1)}>
+              «
+            </Button>
+          )}
+          <Button small onClick={() => paginate(currentPage - 1)}>
+            {'<'}
           </Button>
-        )}
-        <Button small onClick={() => paginate(currentPage - 1)}>
-          {'<'}
-        </Button>
-        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {currentPage}
-          {i18n.t('components.paginator.page_n_of_n')}
-          {totalPageCount}
-        </Typography>
-        <Button small onClick={() => paginate(currentPage + 1)}>
-          {'>'}
-        </Button>
-        {!disableGoLastBtn && (
-          <Button small onClick={() => paginate(totalCount)}>
-            »
+        </GroupButtonMargin>
+        <TextDiv>
+          <Typography
+            variant={TypographyVariant.Small}
+            color={colors.lightText}
+          >
+            {currentPage}
+            {i18n.t('components.paginator.page_n_of_n')}
+            {totalPageCount}
+          </Typography>
+        </TextDiv>
+        <GroupButtonMargin>
+          <Button small onClick={() => paginate(currentPage + 1)}>
+            {'>'}
           </Button>
-        )}
+
+          {!disableGoLastBtn && (
+            <Button small onClick={() => paginate(totalCount)}>
+              »
+            </Button>
+          )}
+        </GroupButtonMargin>
       </Grid>
     </>
   )
 }
+
+const GroupButtonMargin = styled.div`
+  & > * {
+    margin-right: 2px;
+    margin-left: 2px;
+  }
+`
+
+const TextDiv = styled.div`
+  & {
+    margin-right: 12px;
+    margin-left: 12px;
+  }
+`

@@ -178,23 +178,29 @@ export const DashboardProcessList = ({
           Go!
         </Button>
       </DivWithMarginChildren>
-      <Paginator
-        totalCount={entitySearchTerm === '' ? processCount : processIds.length}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-        paginateBeforeCb={loadMoreProcesses}
-        disableGoLastBtn
-      ></Paginator>
       <Grid>
         {loading ? (
           renderSkeleton()
         ) : processes != null &&
           processes.length &&
           renderedProcessList.length ? (
-          <Column md={8} sm={12}>
-            {processes.map(renderProcessItem)}
-          </Column>
+          <>
+            <Column md={8} sm={12}>
+              <Paginator
+                totalCount={
+                  entitySearchTerm === '' ? processCount : processIds.length
+                }
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={(page) => setCurrentPage(page)}
+                paginateBeforeCb={loadMoreProcesses}
+                disableGoLastBtn
+              ></Paginator>
+            </Column>
+            <Column md={8} sm={12}>
+              {processes.map(renderProcessItem)}
+            </Column>
+          </>
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>
         )}

@@ -89,7 +89,7 @@ export const getAllProcess = ({
   //   console.debug('DEBUG', 'processesGet', processes)
   // }, [processes])
 
-  console.debug('DEBUG', 'getAllProcess', from)
+  // console.debug('DEBUG', 'getAllProcess', from)
 
   return {
     entityIds,
