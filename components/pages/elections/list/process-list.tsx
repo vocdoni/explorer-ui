@@ -132,36 +132,7 @@ export const DashboardProcessList = ({
     // todo(kon): Check if is better to load all identities and all the process
     // from them instead of this pagination. The process number could change,
     // And probably is better to load all on memory instead
-    // todo(kon): for some reason process count return one process more that all
-    // the process that I can get from a vochain with less than 64 identities
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
-    // console.debug(
-    //   'DEBUG_ENTITYCOUNT',
-    //   'lastPageIndex',
-    //   lastPageIndex,
-    //   processIds.length,
-    //   lastPageIndex >= processIds.length
-    // )
-    // console.debug(
-    //   'DEBUG_ENTITYCOUNT',
-    //   'processCount',
-    //   processCount,
-    //   processIds.length + 1 < processCount
-    // )
-
-    // console.debug(
-    //   'DEBUG_ENTITYCOUNT',
-    //   'entityCount',
-    //   // entityIds, 
-    //   entityIds.length
-    // )
-    // console.debug(
-    //   'DEBUG_ENTITYCOUNT',
-    //   'offset',
-    //   // entityIds, 
-    //   entityPagination
-    // )
-
     if (
       nextPage > currentPage &&
       lastPageIndex >= processIds.length &&
@@ -203,7 +174,6 @@ export const DashboardProcessList = ({
           <h1>{i18n.t('elections.no_elections_found')}</h1>
         )}
 
-        {/* <DashboardCreateProposalCard /> */}
       </Grid>
     </>
   )
