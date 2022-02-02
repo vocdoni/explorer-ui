@@ -1,17 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import { getEntityIdsProcessList, getProcessList } from '../lib/api'
 import { useAlertMessage } from './message-alert'
 import { VotingApi, EntityApi, GatewayPool, Random } from 'dvote-js'
 import i18n from '../i18n'
 
-const ENTITY_LIST_SIZE = 12
+// const ENTITY_LIST_SIZE = 12
+const ENTITY_FROM_OFFSET = 64 // Size of the pagination offset retrieved when `getEntityList`
 
 interface IGetAllProcessProps {
   from?: number
   entitySearchTerm?: string
 }
 
+/**
+ * Get all process list
+ *
+ * Get all process id's existing on the vochain and all the entities.
+ * To get all process you need to retrieve all entities and then,
+ * for each, get all process.
+ *
+ * It return `entityIds` and `processIds`. After that you should
+ * retrieve processes info using the `useProcesses` hook.
+ */
 export const getAllProcess = ({
   from = 0,
   entitySearchTerm = '',
@@ -20,14 +31,10 @@ export const getAllProcess = ({
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
-  const {
-    processes,
-    error,
-    loading: loadingProcessesDetails,
-  } = useProcesses(processIds || [])
   const { poolPromise } = usePool()
 
-  const getProcessList = () => {
+  /** If concat is true, it concatenate the previous results to the new ones */
+  const getProcessList = (concat: boolean) => {
     let gwPool: GatewayPool
     setLoadingProcessList(true)
 
@@ -38,18 +45,29 @@ export const getAllProcess = ({
           method: 'getEntityList',
           from: from,
           searchTerm: entitySearchTerm,
-          listSize: ENTITY_LIST_SIZE,
+          // listSize: ENTITY_LIST_SIZE,
         } as any)
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityList', response['entityIds'])
         if (!response?.ok) throw new Error('Response error ')
-        setEntityIds(response['entityIds'])
+        else if (response['entityIds'] === undefined) {
+          setEntityIds([])
+          return // No more process entities to load
+        }
+        concat
+          ? setEntityIds(entityIds.concat(response['entityIds']))
+          : setEntityIds(response['entityIds'])
         return getEntityIdsProcessList(response['entityIds'], gwPool)
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        setProcessIds(response)
+        if (response === undefined) setProcessIds([])
+        else {
+          concat
+            ? setProcessIds(processIds.concat(response))
+            : setProcessIds(response)
+        }
         setLoadingProcessList(false)
       })
       .catch((err) => {
@@ -60,22 +78,23 @@ export const getAllProcess = ({
   }
 
   useEffect(() => {
-    getProcessList()
+    getProcessList(true)
   }, [from])
+
+  useEffect(() => {
+    getProcessList(false)
+  }, [entitySearchTerm])
 
   // useEffect(() => {
   //   console.debug('DEBUG', 'processesGet', processes)
   // }, [processes])
 
-  console.debug('DEBUG', 'getAllProcess', from)
+  // console.debug('DEBUG', 'getAllProcess', from)
 
   return {
     entityIds,
     processIds,
-    processes,
     loadingProcessList,
-    loadingProcessesDetails,
-    error,
   }
 }
 
@@ -83,7 +102,12 @@ interface IgetProcessCountProps {
   entityId?: string
 }
 
-/** Returns the number of processes registered on the Vochain. */
+/**
+ * Returns the number of processes registered on the Vochain.
+ *
+ * Use param `entityId` to specify specific entity Id to retrieve process count.
+ *
+ * */
 export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const { poolPromise } = usePool()
   const { setAlertMessage } = useAlertMessage()
@@ -98,11 +122,11 @@ export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            "id": Random.getHex().substr(2, 10),
-            "request": {
-              "method": 'getProcessCount',
-              "timestamp": Math.floor(Date.now() / 1000),
-              "entityId": entityId,
+            id: Random.getHex().substr(2, 10),
+            request: {
+              method: 'getProcessCount',
+              timestamp: Math.floor(Date.now() / 1000),
+              entityId: entityId,
             },
           }),
         } as any)
@@ -110,7 +134,8 @@ export const getProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
       .then((response) => response.json())
       .then((response) => {
         console.debug('DEBUG', 'getProcessCount', response['response'])
-        if(!response['response']['ok']) throw new Error('Error retrieving getProcessCount')
+        if (!response['response']['ok'])
+          throw new Error('Error retrieving getProcessCount')
         setProcessCount(response['response']['size'])
       })
       .catch((err) => {
