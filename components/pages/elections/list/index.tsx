@@ -8,7 +8,7 @@ import { colors } from '@theme/colors'
 interface IDashboardShowProcessesProps {
 }
 
-const PROCESS_PER_PAGE = 3
+const PROCESS_PER_PAGE = 10
 
 export const DashboardShowProcesses = ({
 }: IDashboardShowProcessesProps) => {

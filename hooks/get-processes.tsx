@@ -5,7 +5,7 @@ import { useAlertMessage } from './message-alert'
 import { VotingApi, EntityApi, GatewayPool, Random } from 'dvote-js'
 import i18n from '../i18n'
 
-const ENTITY_LIST_SIZE = 12
+// const ENTITY_LIST_SIZE = 12
 const ENTITY_FROM_OFFSET = 64 // Size of the pagination offset retrieved when `getEntityList`
 
 interface IGetAllProcessProps {
@@ -44,7 +44,7 @@ export const getAllProcess = ({
           method: 'getEntityList',
           from: from,
           searchTerm: entitySearchTerm,
-          listSize: ENTITY_LIST_SIZE,
+          // listSize: ENTITY_LIST_SIZE,
         } as any)
       })
       .then((response) => {

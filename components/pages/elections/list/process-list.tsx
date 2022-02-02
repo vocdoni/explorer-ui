@@ -1,7 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Account } from '@lib/types'
 import { EntityMetadata } from 'dvote-js'
-import { Processes, SummaryProcess, useBlockHeight, useProcesses } from '@vocdoni/react-hooks'
+import {
+  Processes,
+  SummaryProcess,
+  useBlockHeight,
+  useProcesses,
+} from '@vocdoni/react-hooks'
 import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
@@ -60,37 +65,35 @@ export const DashboardProcessList = ({
   // loading,
   skeletonItems = 3,
   pageSize = 10,
-  processCount = 0, 
+  processCount = 0,
 }: IDashboardProcessListProps) => {
   const [entityPagination, setEntityPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-  
-  const {
-    entityIds,
-    processIds,
-    loadingProcessList,
-  } = getAllProcess({
+
+  const { entityIds, processIds, loadingProcessList } = getAllProcess({
     from: entityPagination,
   })
 
   const renderProcessItem = (process: SummaryProcess) => {
-    const electionDetailPath 
-      = RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id })
+    const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
+      electionsId: process.id,
+    })
     return (
-    <div key={process.id}>
-      <DashboardProcessListItem
-        process={process}
-        // status={processList.status}
-        status={getVoteStatus(process.summary, blockHeight)}
-        entityId={process.summary.entityId}
-        // accountName={account?.name}
-        // entityLogo={entityMetadata?.media?.avatar}
-        // link={ELECTIONS_PATH + '/#/' + process.id}
-        link={electionDetailPath}
-      />
-    </div>
-  )}
+      <div key={process.id}>
+        <DashboardProcessListItem
+          process={process}
+          // status={processList.status}
+          status={getVoteStatus(process.summary, blockHeight)}
+          entityId={process?.summary?.entityId || 'ERROR'}
+          // accountName={account?.name}
+          // entityLogo={entityMetadata?.media?.avatar}
+          // link={ELECTIONS_PATH + '/#/' + process.id}
+          link={electionDetailPath}
+        />
+      </div>
+    )
+  }
   const renderSkeleton = () => {
     return (
       <Column md={8} sm={12}>
@@ -106,14 +109,20 @@ export const DashboardProcessList = ({
   }
 
   // PAGINATOR
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const _getPageIndexes = (page: number) => {
+    const firstPageIndex = (page - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    // return processIds.slice(firstPageIndex, lastPageIndex);
+    return { firstPageIndex, lastPageIndex }
+  }
 
   const renderedProcessList = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
     setLoading(true)
-    return processIds.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, processIds]);
+    const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
+    return processIds.slice(firstPageIndex, lastPageIndex)
+  }, [currentPage, processIds])
 
   const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
     console.debug('DEBUG', 'Getting more entity process')
@@ -121,17 +130,49 @@ export const DashboardProcessList = ({
     // If next page is the last and we don't have enough processIds,
     // Load next 64 identities processes
     // todo(kon): Check if is better to load all identities and all the process
-    // from them instead of this pagination. The process number could change, 
-    // And probably is better to load all on memory instead 
+    // from them instead of this pagination. The process number could change,
+    // And probably is better to load all on memory instead
     // todo(kon): for some reason process count return one process more that all
     // the process that I can get from a vochain with less than 64 identities
-    if(nextPage + 1 == totalPageCount && processIds.length + 1 < processCount) {
-      console.debug('DEBUG', 'Getting more entity process')
+    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
+    // console.debug(
+    //   'DEBUG_ENTITYCOUNT',
+    //   'lastPageIndex',
+    //   lastPageIndex,
+    //   processIds.length,
+    //   lastPageIndex >= processIds.length
+    // )
+    // console.debug(
+    //   'DEBUG_ENTITYCOUNT',
+    //   'processCount',
+    //   processCount,
+    //   processIds.length + 1 < processCount
+    // )
+
+    // console.debug(
+    //   'DEBUG_ENTITYCOUNT',
+    //   'entityCount',
+    //   // entityIds, 
+    //   entityIds.length
+    // )
+    // console.debug(
+    //   'DEBUG_ENTITYCOUNT',
+    //   'offset',
+    //   // entityIds, 
+    //   entityPagination
+    // )
+
+    if (
+      nextPage > currentPage &&
+      lastPageIndex >= processIds.length &&
+      processIds.length + 1 < processCount
+    ) {
+      setLoading(true)
       setEntityPagination(entityPagination + ENTITY_PAGINATION_FROM)
     }
     return true
   }
-  
+
   const {
     processes,
     error,
@@ -144,17 +185,13 @@ export const DashboardProcessList = ({
 
   return (
     <>
-      <Paginator 
-        totalCount={processCount} 
-        pageSize={pageSize} 
+      <Paginator
+        totalCount={processCount}
+        pageSize={pageSize}
         currentPage={currentPage}
-        onPageChange={page => setCurrentPage(page)}
+        onPageChange={(page) => setCurrentPage(page)}
         paginateBeforeCb={loadMoreProcesses}
-        // elements={processIds} 
-        // renderedCb={(rendered) => setRenderedProcessList(rendered)} ></Paginator>
-        // renderedCb={renderPagination}
-         ></Paginator>
-        {/* renderedCb={(rendered) => console.debug("AAA", rendered)} ></Paginator> */}
+      ></Paginator>
       <Grid>
         {loading ? (
           renderSkeleton()
