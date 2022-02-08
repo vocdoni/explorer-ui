@@ -171,7 +171,7 @@ export const DashboardProcessList = ({
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder="Search by organization id"
+          placeholder={i18n.t('elections.search_by_organization_id')}
           onChange={(ev) => setInputTextValue(ev.target.value)}
         />
         <Button positive small onClick={searchById}>
