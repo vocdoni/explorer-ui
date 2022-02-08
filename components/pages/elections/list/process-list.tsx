@@ -25,9 +25,11 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 import { Paginator } from '@components/blocks/paginator'
-import { Input } from '@components/elements/inputs'
+import { Input, Select } from '@components/elements/inputs'
 import styled from 'styled-components'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
+import { OptionTypeBase } from 'react-select'
+
 
 export enum ProcessTypes {
   ActiveVotes = 'activeVotes',
@@ -167,6 +169,21 @@ export const DashboardProcessList = ({
     setEntitySearchTerm(inputTextValue)
   }
 
+  // Filter
+  const voteStatusSelectId = 'vote_status_select'
+  const [voteStatusFilter, setVoteStatusFilter] = useState('')
+  const [applyFilter, setApplyFilter] = useState(false)
+  const voteStatusOpts = useMemo(() => {
+    return Object.keys(VoteStatus)
+      .filter((el) => {
+        return isNaN(Number(el))
+      })
+      .map((value) => {
+        return { value: value, label: value }
+      })
+  }, [])
+
+  // JSX 
   return (
     <>
       <DivWithMarginChildren>
@@ -175,9 +192,32 @@ export const DashboardProcessList = ({
           onChange={(ev) => setInputTextValue(ev.target.value)}
         />
         <Button positive small onClick={searchById}>
-          Go!
+          {i18n.t('elections.search_by_id')}
         </Button>
       </DivWithMarginChildren>
+      <Grid>
+        <Column sm={4} md={4} lg={4}>
+          <Select
+            instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
+            id={voteStatusSelectId}
+            placeholder={i18n.t('elections.select_by_vote_status')}
+            options={voteStatusOpts}
+            onChange={(selectedValue: OptionTypeBase) => {
+              setVoteStatusFilter(selectedValue.value)
+            }}
+          />
+        </Column>
+        <Column sm={8} md={8} lg={8}>
+          <DivWithMarginChildren>
+            <Button positive small onClick={() => {setApplyFilter(true)}}>
+              {i18n.t('elections.apply_filters')}
+            </Button>
+            <Button small onClick={() => {setApplyFilter(false)}}>
+              {i18n.t('elections.clear_filters')}
+            </Button>
+          </DivWithMarginChildren>
+        </Column>
+      </Grid>
       <Grid>
         {loading ? (
           renderSkeleton()
