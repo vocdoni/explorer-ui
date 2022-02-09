@@ -1,4 +1,4 @@
-import { ProcessDetails, ProcessSummary, VotingApi } from 'dvote-js'
+import { ProcessDetails, ProcessSummary, VochainProcessStatus, Voting, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
 import { GatewayPool } from "dvote-js"
 
@@ -41,14 +41,4 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
     result = result.concat(processList.map(id => '0x' + id))
     from += processList.length
   }
-}
-
-/** Same as `getProcessList` but for a list of entity ids */
-export async function getEntityIdsProcessList(entityIds: string[], pool: GatewayPool): Promise<string[]> {
-  return Promise.all(entityIds.map(entityId => {
-    return getProcessList(entityId, pool)
-  })).then(entityProcs => {
-    // flatten the array[][] into array[]
-    return entityProcs.reduce((prev, cur) => prev.concat(cur), [])
-  })
 }

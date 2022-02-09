@@ -18,7 +18,7 @@ import { Card } from '@components/elements/cards'
 // import { EmptyProposalCard } from './empty-proposal-card'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
-import { getAllProcess, getProcessCount } from '@hooks/get-processes'
+// import { getAllProcess, getProcessCount } from '@hooks/get-processes'
 import { ELECTIONS_DETAILS, ELECTIONS_PATH } from '@const/routes'
 import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
@@ -29,7 +29,7 @@ import { Input, Select } from '@components/elements/inputs'
 import styled from 'styled-components'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 import { OptionTypeBase } from 'react-select'
-
+import { useProcessesList } from '@hooks/use-processes'
 
 export enum ProcessTypes {
   ActiveVotes = 'activeVotes',
@@ -44,42 +44,34 @@ export interface IProcessItem {
 }
 
 interface IDashboardProcessListProps {
-  //   account: Account
-  //   initialActiveItem: ProcessTypes
-  //   activeVotes: SummaryProcess[]
-  //   votesResults: SummaryProcess[]
-  //   upcomingVoting: SummaryProcess[]
-  //   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
   pageSize?: number
-  processCount?: number
+  totalProcessCount?: number
 }
 
-/** This sets pagination next offset for entity pagination */
-const ENTITY_PAGINATION_FROM = 64
+/** This sets pagination next offset for process pagination */
+const PROCESS_PAGINATION_FROM = 64
 
 export const DashboardProcessList = ({
-  //   account,
-  //   initialActiveItem,
-  //   activeVotes,
-  //   votesResults,
-  //   upcomingVoting,
-  //   entityMetadata,
-  // loading,
   skeletonItems = 3,
-  pageSize = 10,
-  processCount = 0,
+  pageSize = 8,
+  totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
-  const [entityPagination, setEntityPagination] = useState(0)
+  const [processPagination, setProcessPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
   const [entitySearchTerm, setEntitySearchTerm] = useState('')
   const [inputTextValue, setInputTextValue] = useState('')
-
-  const { entityIds, processIds, loadingProcessList } = getAllProcess({
-    from: entityPagination,
-    entitySearchTerm: entitySearchTerm,
+  const {
+    processIds,
+    processes,
+    loadingProcessList,
+    loadingProcessesDetails,
+    error,
+  } = useProcessesList({
+    from: processPagination,
+    entityId: entitySearchTerm
   })
 
   const renderProcessItem = (process: SummaryProcess) => {
@@ -115,7 +107,9 @@ export const DashboardProcessList = ({
     )
   }
 
+  ///////////////////////////////
   // PAGINATOR
+  ///////////////////////////////
   const [currentPage, setCurrentPage] = useState(1)
 
   const _getPageIndexes = (page: number) => {
@@ -124,42 +118,16 @@ export const DashboardProcessList = ({
     return { firstPageIndex, lastPageIndex }
   }
 
-  const renderedProcessList = useMemo(() => {
-    if (processIds.length === 0) {
-      // setLoading(false)
-      return processIds
+  const renderedProcess = useMemo(() => {
+    console.debug('PROCESSES', processIds.length)
+    if (processes.length === 0) {
+      setLoading(false)
+      return
     }
-    setLoading(true)
+    // setLoading(true)
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
-    return processIds.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, processIds])
-
-  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
-    // Used to load process from next 64 identities
-    // If next page is the last and we don't have enough processIds,
-    // Load next 64 identities processes
-    // todo(kon): Check if is better to load all identities and all the process
-    // from them instead of this pagination. The process number could change,
-    // And probably is better to load all on memory instead
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
-
-    if (
-      entitySearchTerm === '' &&
-      nextPage > currentPage &&
-      lastPageIndex >= processIds.length &&
-      processIds.length + 1 < processCount
-    ) {
-      setLoading(true)
-      setEntityPagination(entityPagination + ENTITY_PAGINATION_FROM)
-    }
-    return true
-  }
-
-  const {
-    processes,
-    error,
-    loading: loadingProcessesDetails,
-  } = useProcesses(renderedProcessList || [])
+    return processes.slice(firstPageIndex, lastPageIndex)
+  }, [currentPage, processes])
 
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
@@ -169,21 +137,26 @@ export const DashboardProcessList = ({
     setEntitySearchTerm(inputTextValue)
   }
 
-  // Filter
-  const voteStatusSelectId = 'vote_status_select'
-  const [voteStatusFilter, setVoteStatusFilter] = useState('')
-  const [applyFilter, setApplyFilter] = useState(false)
-  const voteStatusOpts = useMemo(() => {
-    return Object.keys(VoteStatus)
-      .filter((el) => {
-        return isNaN(Number(el))
-      })
-      .map((value) => {
-        return { value: value, label: value }
-      })
-  }, [])
+  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
+    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
+    if (
+      nextPage > currentPage &&
+      lastPageIndex >= processIds.length + processPagination &&
+      processIds.length + processPagination + 1 < totalProcessCount
+    ) {
+      setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
+    }
+    return true
+  }
 
-  // JSX 
+  ///////////////////////////////
+  // Filter
+  ///////////////////////////////
+
+
+  ///////////////////////////////
+  // JSX
+  ///////////////////////////////
   return (
     <>
       <DivWithMarginChildren>
@@ -197,7 +170,7 @@ export const DashboardProcessList = ({
       </DivWithMarginChildren>
       <Grid>
         <Column sm={4} md={4} lg={4}>
-          <Select
+          {/* <Select
             instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
             id={voteStatusSelectId}
             placeholder={i18n.t('elections.select_by_vote_status')}
@@ -205,14 +178,25 @@ export const DashboardProcessList = ({
             onChange={(selectedValue: OptionTypeBase) => {
               setVoteStatusFilter(selectedValue.value)
             }}
-          />
+          /> */}
         </Column>
         <Column sm={8} md={8} lg={8}>
           <DivWithMarginChildren>
-            <Button positive small onClick={() => {setApplyFilter(true)}}>
+            <Button
+              positive
+              small
+              onClick={() => {
+                // setApplyFilter(true)
+              }}
+            >
               {i18n.t('elections.apply_filters')}
             </Button>
-            <Button small onClick={() => {setApplyFilter(false)}}>
+            <Button
+              small
+              onClick={() => {
+                // setApplyFilter(false)
+              }}
+            >
               {i18n.t('elections.clear_filters')}
             </Button>
           </DivWithMarginChildren>
@@ -223,22 +207,22 @@ export const DashboardProcessList = ({
           renderSkeleton()
         ) : processes != null &&
           processes.length &&
-          renderedProcessList.length ? (
+          renderedProcess.length ? (
           <>
             <Column md={8} sm={12}>
               <Paginator
                 totalCount={
-                  entitySearchTerm === '' ? processCount : processIds.length
+                  entitySearchTerm === '' ? totalProcessCount : processIds.length
                 }
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={(page) => setCurrentPage(page)}
-                paginateBeforeCb={loadMoreProcesses}
+                beforePaginateCb={loadMoreProcesses}
                 disableGoLastBtn
               ></Paginator>
             </Column>
             <Column md={8} sm={12}>
-              {processes.map(renderProcessItem)}
+              {renderedProcess.map(renderProcessItem)}
             </Column>
           </>
         ) : (

@@ -1,9 +1,9 @@
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { getProcessCount } from '@hooks/get-processes';
 import React, { useEffect, useState } from 'react'
 import { DashboardProcessList } from './process-list'
 import i18n from '@i18n'
 import { colors } from '@theme/colors'
+import { useProcessCount } from '@hooks/use-processes';
 
 interface IDashboardShowProcessesProps {
 }
@@ -12,7 +12,7 @@ const PROCESS_PER_PAGE = 10
 
 export const DashboardShowProcesses = ({
 }: IDashboardShowProcessesProps) => {
-  const {processCount} = getProcessCount({});
+  const {processCount} = useProcessCount({});
  
 
   return (
@@ -25,7 +25,7 @@ export const DashboardShowProcesses = ({
         </Typography>
 
       <DashboardProcessList 
-        processCount={processCount} 
+        totalProcessCount={processCount} 
         pageSize={PROCESS_PER_PAGE}/>
     </>
   )

@@ -11,7 +11,7 @@ type PaginatorProps = {
   pageSize: number
   currentPage: number
   onPageChange: (number) => void
-  paginateBeforeCb?: (nextPage: number, totalPageCount: number) => boolean
+  beforePaginateCb?: (nextPage: number, totalPageCount: number) => boolean
   disableGoFirstBtn?: boolean
   disableGoLastBtn?: boolean
 }
@@ -21,16 +21,20 @@ export const Paginator = ({
   pageSize,
   currentPage,
   onPageChange,
-  paginateBeforeCb,
+  beforePaginateCb, // Callback used before paginate, for example, if you need to load more data from the backend for the next page
   disableGoFirstBtn = false,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
   const paginate = (nextPage) => {
-    if (paginateBeforeCb(nextPage, totalPageCount)) {
-      if (nextPage < 1 || nextPage > totalPageCount) return
-      else onPageChange(nextPage)
-    }
+    if(beforePaginateCb !== null && !beforePaginateCb(nextPage, totalPageCount) ) return
+    if (nextPage < 1 || nextPage > totalPageCount) return
+    else onPageChange(nextPage)
   }
+
+  useEffect(() => {
+    console.debug("CURRRENT PAGE CHANGED")
+
+  }, [currentPage])
 
   const totalPageCount = useMemo(() => {
     let pageCount = Math.ceil(totalCount / pageSize)
