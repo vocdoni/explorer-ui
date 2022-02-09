@@ -24,12 +24,6 @@ export const useProcessesList = (
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
 
-  const {
-    processes,
-    error,
-    loading: loadingProcessesDetails,
-  } = useProcesses(processIds || [])
-
   useEffect(() => {
     updateProcessIds()
   }, [entityId, namespace, status, withResults, from])
@@ -58,10 +52,7 @@ export const useProcessesList = (
 
   return {
     processIds,
-    processes,
     loadingProcessList,
-    loadingProcessesDetails,
-    error,
   }
 }
 

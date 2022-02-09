@@ -63,12 +63,10 @@ export const DashboardProcessList = ({
   const { blockHeight } = useBlockHeight()
   const [entitySearchTerm, setEntitySearchTerm] = useState('')
   const [inputTextValue, setInputTextValue] = useState('')
+  const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
   const {
     processIds,
-    processes,
     loadingProcessList,
-    loadingProcessesDetails,
-    error,
   } = useProcessesList({
     from: processPagination,
     entityId: entitySearchTerm
@@ -117,17 +115,26 @@ export const DashboardProcessList = ({
     const lastPageIndex = firstPageIndex + pageSize
     return { firstPageIndex, lastPageIndex }
   }
+  
+  useEffect(() => {
+    setCachedProcessesIds(cachedProcessesIds.concat(processIds))
+  }, [processIds])
 
   const renderedProcess = useMemo(() => {
-    console.debug('PROCESSES', processIds.length)
-    if (processes.length === 0) {
+    if (cachedProcessesIds.length === 0) {
       setLoading(false)
       return
     }
     // setLoading(true)
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
-    return processes.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, processes])
+    return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
+  }, [currentPage, cachedProcessesIds])
+
+  const {
+    processes,
+    error,
+    loading: loadingProcessesDetails,
+  } = useProcesses(renderedProcess || [])
 
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
@@ -141,9 +148,10 @@ export const DashboardProcessList = ({
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
     if (
       nextPage > currentPage &&
-      lastPageIndex >= processIds.length + processPagination &&
-      processIds.length + processPagination + 1 < totalProcessCount
+      lastPageIndex >= cachedProcessesIds.length &&
+      cachedProcessesIds.length + 1 < totalProcessCount
     ) {
+      setLoading(true)
       setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
     }
     return true
@@ -222,7 +230,7 @@ export const DashboardProcessList = ({
               ></Paginator>
             </Column>
             <Column md={8} sm={12}>
-              {renderedProcess.map(renderProcessItem)}
+              {processes.map(renderProcessItem)}
             </Column>
           </>
         ) : (

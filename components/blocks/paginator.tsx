@@ -31,11 +31,6 @@ export const Paginator = ({
     else onPageChange(nextPage)
   }
 
-  useEffect(() => {
-    console.debug("CURRRENT PAGE CHANGED")
-
-  }, [currentPage])
-
   const totalPageCount = useMemo(() => {
     let pageCount = Math.ceil(totalCount / pageSize)
     return pageCount
