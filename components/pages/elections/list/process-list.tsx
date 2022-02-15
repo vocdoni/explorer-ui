@@ -30,6 +30,8 @@ import styled from 'styled-components'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
 import { OptionTypeBase } from 'react-select'
 import { useProcessesList } from '@hooks/use-processes'
+import { FlexContainer } from '@components/elements/flex'
+import { Checkbox } from '@components/elements/checkbox'
 
 export enum ProcessTypes {
   ActiveVotes = 'activeVotes',
@@ -64,16 +66,17 @@ export const DashboardProcessList = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [searchTermIT, setSearchTermIT] = useState('')
   const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
-  // Used to send filter to the useProcessesList hook 
+  // Used to send filter to the useProcessesList hook
   interface IFilterProcesses {
     status?: VochainProcessStatus
-    // withResults?: boolean
+    withResults?: boolean
   }
-  const [filter, setFilter] = useState<IFilterProcesses>()    
+  const [filter, setFilter] = useState<IFilterProcesses>()
   const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
     searchTerm: searchTerm,
-    status: filter?.status
+    status: filter?.status,
+    withResults: filter?.withResults
   })
 
   ///////////////////////////////
@@ -86,11 +89,11 @@ export const DashboardProcessList = ({
   // When processIds are retrieved, update the list of already loaded process ids
   // Used for pagination, if we need to load next 64 processes
   useEffect(() => {
-    if(loading != true) setLoading(true)
+    if (loading != true) setLoading(true)
     setCachedProcessesIds(cachedProcessesIds.concat(processIds))
   }, [processIds])
 
-  // Get index for first and last process index on the current page 
+  // Get index for first and last process index on the current page
   const _getPageIndexes = (page: number) => {
     const firstPageIndex = (page - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
@@ -99,7 +102,7 @@ export const DashboardProcessList = ({
 
   // Split process array for pagination
   const renderedProcess = useMemo(() => {
-    if(cachedProcessesIds.length == 0) {
+    if (cachedProcessesIds.length == 0) {
       setLoading(false)
       return
     }
@@ -126,10 +129,11 @@ export const DashboardProcessList = ({
       nextPage > currentPage &&
       lastPageIndex >= cachedProcessesIds.length &&
       cachedProcessesIds.length + 1 < totalProcessCount &&
-      // todo: add pagination when searching using filters. Ex: if the 
+      // todo: add pagination when searching using filters. Ex: if the
       // searchTerm result return more than 64 process, now simply doesn't load
       // next 64 batch.
-      searchTerm === '' && filter === null
+      searchTerm === '' &&
+      filter === null
     ) {
       setLoading(true)
       setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
@@ -150,32 +154,35 @@ export const DashboardProcessList = ({
   const [voteStatusSelect, setVoteStatusSelect] =
     useState<VochainProcessStatus>()
 
-  const clearSearch = () =>  {
+  const [withResults, setWithResults] =
+    useState(false)
+
+  const clearSearch = () => {
     setCurrentPage(1)
     setCachedProcessesIds([])
   }
 
-  const disableFilter = () =>  {
+  const disableFilter = () => {
     clearSearch()
     setVoteStatusSelect(null)
     setFilter(null)
   }
 
-  const enableFilter = () =>  {
+  const enableFilter = () => {
     clearSearch()
     setFilter({
-      status: voteStatusSelect
+      status: voteStatusSelect,
+      withResults: withResults,
     })
   }
-    
+
   const searchById = () => {
-    if(searchTermIT !== searchTerm) {
+    if (searchTermIT !== searchTerm) {
       setLoading(true)
       clearSearch()
       setSearchTerm(searchTermIT)
     }
   }
-
 
   ///////////////////////////////
   // JSX
@@ -229,27 +236,41 @@ export const DashboardProcessList = ({
         </Button>
       </DivWithMarginChildren>
       <Grid>
-        <Column sm={4} md={4} lg={4}>
-          <Select
-            instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
-            id={voteStatusSelectId}
-            placeholder={i18n.t('elections.select_by_vote_status')}
-            options={voteStatusOpts}
-            value={
-              voteStatusSelect ?
-               { value: voteStatusSelect, label: VochainProcessStatus[voteStatusSelect]} 
-               : null
-            }
-            onChange={(selectedValue: OptionTypeBase) => {
-              setVoteStatusSelect(
-                VochainProcessStatus[
-                  selectedValue.label
-                ] as any as VochainProcessStatus
-              )
-            }}
-          />
-        </Column>
-        <Column sm={8} md={8} lg={8}>
+        <FlexContainer>
+          <SelectContainer>
+            <Select
+              instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
+              id={voteStatusSelectId}
+              placeholder={i18n.t('elections.select_by_vote_status')}
+              options={voteStatusOpts}
+              value={
+                voteStatusSelect
+                  ? {
+                      value: voteStatusSelect,
+                      label: VochainProcessStatus[voteStatusSelect],
+                    }
+                  : null
+              }
+              onChange={(selectedValue: OptionTypeBase) => {
+                setVoteStatusSelect(
+                  VochainProcessStatus[
+                    selectedValue.label
+                  ] as any as VochainProcessStatus
+                )
+              }}
+            />
+          </SelectContainer>
+        </FlexContainer>
+        <FlexContainer>
+          <Checkbox
+              id="with_results"
+              checked={withResults}
+              onChange={(ack: boolean) => setWithResults(ack)}
+              text={i18n.t('elections.check_with_results')}
+              labelColor={colors.lightText}
+            />
+        </FlexContainer>
+        <FlexContainer>
           <DivWithMarginChildren>
             <Button
               positive
@@ -269,7 +290,7 @@ export const DashboardProcessList = ({
               {i18n.t('elections.clear_filters')}
             </Button>
           </DivWithMarginChildren>
-        </Column>
+        </FlexContainer>
       </Grid>
       <Grid>
         {loading ? (
@@ -306,5 +327,11 @@ const DivWithMarginChildren = styled.div`
   & > * {
     margin-right: 20px;
     margin-bottom: 20px;
+  }
+`
+
+const SelectContainer = styled.div`
+  & > * {
+    min-width: 200px;
   }
 `
