@@ -90,9 +90,9 @@ export const DashboardProcessListItem = ({
         }
         link={link}
         description={
-          process?.metadata?.description?.default ?? 'ERROR: no description'
+          process?.metadata?.description?.default ?? ''
         }
-        title={process?.metadata?.title?.default ?? 'ERROR: no title'}
+        title={process?.metadata?.title?.default ?? process?.id}
         entityId={entityId}
         entityName={
           entityMetadata?.name?.default

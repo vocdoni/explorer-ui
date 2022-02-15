@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Account } from '@lib/types'
-import { EntityMetadata } from 'dvote-js'
+import { EntityMetadata, VochainProcessStatus } from 'dvote-js'
 import {
   Processes,
   SummaryProcess,
@@ -18,16 +18,20 @@ import { Card } from '@components/elements/cards'
 // import { EmptyProposalCard } from './empty-proposal-card'
 // import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
-import { getAllProcess, getProcessCount } from '@hooks/get-processes'
+// import { getAllProcess, getProcessCount } from '@hooks/get-processes'
 import { ELECTIONS_DETAILS, ELECTIONS_PATH } from '@const/routes'
 import { Button } from '@components/elements/button'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import RouterService from '@lib/router'
 import { Paginator } from '@components/blocks/paginator'
-import { Input } from '@components/elements/inputs'
+import { Input, Select } from '@components/elements/inputs'
 import styled from 'styled-components'
 // import { SHOW_PROCESS_PATH } from '@const/routes';
+import { OptionTypeBase } from 'react-select'
+import { useProcessesList } from '@hooks/use-processes'
+import { FlexContainer } from '@components/elements/flex'
+import { Checkbox } from '@components/elements/checkbox'
 
 export enum ProcessTypes {
   ActiveVotes = 'activeVotes',
@@ -42,44 +46,149 @@ export interface IProcessItem {
 }
 
 interface IDashboardProcessListProps {
-  //   account: Account
-  //   initialActiveItem: ProcessTypes
-  //   activeVotes: SummaryProcess[]
-  //   votesResults: SummaryProcess[]
-  //   upcomingVoting: SummaryProcess[]
-  //   entityMetadata: EntityMetadata
   loading?: boolean
   skeletonItems?: number
   pageSize?: number
-  processCount?: number
+  totalProcessCount?: number
 }
 
-/** This sets pagination next offset for entity pagination */
-const ENTITY_PAGINATION_FROM = 64
+/** This sets pagination next offset for process pagination */
+const PROCESS_PAGINATION_FROM = 64
 
 export const DashboardProcessList = ({
-  //   account,
-  //   initialActiveItem,
-  //   activeVotes,
-  //   votesResults,
-  //   upcomingVoting,
-  //   entityMetadata,
-  // loading,
   skeletonItems = 3,
-  pageSize = 10,
-  processCount = 0,
+  pageSize = 8,
+  totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
-  const [entityPagination, setEntityPagination] = useState(0)
+  const [processPagination, setProcessPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-  const [entitySearchTerm, setEntitySearchTerm] = useState('')
-  const [inputTextValue, setInputTextValue] = useState('')
-
-  const { entityIds, processIds, loadingProcessList } = getAllProcess({
-    from: entityPagination,
-    entitySearchTerm: entitySearchTerm,
+  // const [searchTerm, setSearchTerm] = useState('')
+  const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
+  // Used to send filter to the useProcessesList hook
+  interface IFilterProcesses {
+    status?: VochainProcessStatus
+    withResults?: boolean
+    searchTerm?: string
+  }
+  const [filter, setFilter] = useState<IFilterProcesses>({})
+  const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
+  const { processIds, loadingProcessList } = useProcessesList({
+    from: processPagination,
+    searchTerm: filter?.searchTerm,
+    status: filter?.status,
+    withResults: filter?.withResults,
   })
 
+  ///////////////////////////////
+  // PAGINATOR
+  ///////////////////////////////
+
+  // Paginator current page
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // When processIds are retrieved, update the list of already loaded process ids
+  // Used for pagination, if we need to load next 64 processes
+  useEffect(() => {
+    // if (loading != true) setLoading(true)
+    setCachedProcessesIds(cachedProcessesIds.concat(processIds))
+  }, [processIds])
+
+  // Get index for first and last process index on the current page
+  const _getPageIndexes = (page: number) => {
+    const firstPageIndex = (page - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    return { firstPageIndex, lastPageIndex }
+  }
+
+  // Split process array for pagination
+  const renderedProcess = useMemo(() => {
+    if (cachedProcessesIds.length === 0) {
+      setLoading(false)
+      return []
+    }
+    const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
+    return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
+  }, [currentPage, cachedProcessesIds])
+
+  useEffect(() => {
+    console.debug("RENDERED" , renderedProcess)
+  },[renderedProcess])
+
+  // Get processes details
+  const {
+    processes,
+    error,
+    loading: loadingProcessesDetails,
+  } = useProcesses(renderedProcess || [])
+
+  // Set loading
+  useEffect(() => {
+    setLoading(loadingProcessList || loadingProcessesDetails)
+  }, [loadingProcessList, loadingProcessesDetails])
+
+  /** Load next 64 process */
+  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
+    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
+    if (
+      nextPage > currentPage &&
+      lastPageIndex >= cachedProcessesIds.length &&
+      cachedProcessesIds.length + 1 < totalProcessCount &&
+      // todo: add pagination when searching using filters. Ex: if the
+      // searchTerm result return more than 64 process, now simply doesn't load
+      // next 64 batch.
+      Object.keys(filter).length === 0
+    ) {
+      setLoading(true)
+      setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
+    }
+    return true
+  }
+
+  ///////////////////////////////
+  // Filter
+  ///////////////////////////////
+  const voteStatusSelectId = 'vote_status_select_id_1'
+  // Map vote status select options
+  const voteStatusOpts = Object.keys(VochainProcessStatus)
+    .filter((value) => isNaN(Number(value)) === false)
+    .map((key) => {
+      return { value: key, label: VochainProcessStatus[key] }
+    })
+  const [searchTermIT, setSearchTermIT] = useState('')
+
+  const filterIsChanged = () => JSON.stringify(filter) !== JSON.stringify(tempFilter)
+
+  const resetPage = () => {
+    setCurrentPage(1)
+    setCachedProcessesIds([])
+  }
+
+  const enableFilter = () => {    
+    console.debug(filterIsChanged())
+    console.debug(filter, tempFilter)
+    if(filterIsChanged()){
+      resetPage()
+      setFilter(Object.assign({}, tempFilter))
+    } 
+  }
+    
+  const disableFilter = () => {
+    if(filterIsChanged() 
+      && Object.keys(filter).length !== 0 // Check if filter is already reset
+    ){
+      resetPage()
+      setFilter({})
+    }
+    setTempFilter({})
+    setSearchTermIT('')
+  }
+
+  ///////////////////////////////
+  // JSX
+  ///////////////////////////////
+
+  // Render item on the list from it summary
   const renderProcessItem = (process: SummaryProcess) => {
     const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
       electionsId: process.id,
@@ -90,7 +199,7 @@ export const DashboardProcessList = ({
           process={process}
           // status={processList.status}
           status={getVoteStatus(process.summary, blockHeight)}
-          entityId={process?.summary?.entityId || 'ERROR'}
+          entityId={process?.summary?.entityId || ''}
           // accountName={account?.name}
           // entityLogo={entityMetadata?.media?.avatar}
           // link={ELECTIONS_PATH + '/#/' + process.id}
@@ -99,6 +208,8 @@ export const DashboardProcessList = ({
       </div>
     )
   }
+
+  // Loading skeleton
   const renderSkeleton = () => {
     return (
       <Column md={8} sm={12}>
@@ -113,87 +224,99 @@ export const DashboardProcessList = ({
     )
   }
 
-  // PAGINATOR
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const _getPageIndexes = (page: number) => {
-    const firstPageIndex = (page - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    return { firstPageIndex, lastPageIndex }
-  }
-
-  const renderedProcessList = useMemo(() => {
-    if (processIds.length === 0) {
-      // setLoading(false)
-      return processIds
-    }
-    setLoading(true)
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
-    return processIds.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, processIds])
-
-  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
-    // Used to load process from next 64 identities
-    // If next page is the last and we don't have enough processIds,
-    // Load next 64 identities processes
-    // todo(kon): Check if is better to load all identities and all the process
-    // from them instead of this pagination. The process number could change,
-    // And probably is better to load all on memory instead
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
-
-    if (
-      entitySearchTerm === '' &&
-      nextPage > currentPage &&
-      lastPageIndex >= processIds.length &&
-      processIds.length + 1 < processCount
-    ) {
-      setLoading(true)
-      setEntityPagination(entityPagination + ENTITY_PAGINATION_FROM)
-    }
-    return true
-  }
-
-  const {
-    processes,
-    error,
-    loading: loadingProcessesDetails,
-  } = useProcesses(renderedProcessList || [])
-
-  useEffect(() => {
-    setLoading(loadingProcessList || loadingProcessesDetails)
-  }, [loadingProcessList, loadingProcessesDetails])
-
-  const searchById = () => {
-    setEntitySearchTerm(inputTextValue)
-  }
-
   return (
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder="Search by organization id"
-          onChange={(ev) => setInputTextValue(ev.target.value)}
+          placeholder={i18n.t('elections.search_by_organization_id')}
+          value={searchTermIT}
+          onChange={(ev) => {
+            setSearchTermIT(ev.target.value)
+            tempFilter.searchTerm = ev.target.value
+            setTempFilter(Object.assign({}, tempFilter))
+            }
+          }
         />
-        <Button positive small onClick={searchById}>
-          Go!
-        </Button>
       </DivWithMarginChildren>
+      <Grid>
+        <FlexContainer>
+          <SelectContainer>
+            <Select
+              instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
+              id={voteStatusSelectId}
+              placeholder={i18n.t('elections.select_by_vote_status')}
+              options={voteStatusOpts}
+              value={
+                tempFilter.status
+                  ? {
+                      value: tempFilter.status,
+                      label: VochainProcessStatus[tempFilter.status],
+                    }
+                  : null
+              }
+              onChange={(selectedValue: OptionTypeBase) => {
+                tempFilter.status =
+                  VochainProcessStatus[
+                    selectedValue.label
+                  ] as any as VochainProcessStatus
+                setTempFilter(Object.assign({}, tempFilter))
+              }}
+            />
+          </SelectContainer>
+        </FlexContainer>
+        <FlexContainer>
+          <Checkbox
+              id="with_results"
+              checked={tempFilter.withResults}
+              onChange={(ack: boolean) => {
+                  // setWithResults(ack)
+                  tempFilter.withResults = ack
+                
+                  setTempFilter(Object.assign({}, tempFilter))
+                }
+              }
+              text={i18n.t('elections.check_with_results')}
+              labelColor={colors.lightText}
+            />
+        </FlexContainer>
+        <FlexContainer>
+          <DivWithMarginChildren>
+            <Button
+              positive
+              small
+              onClick={() => {
+                enableFilter()
+              }}
+            >
+              {i18n.t('elections.apply_filters')}
+            </Button>
+            <Button
+              small
+              onClick={() => {
+                disableFilter()
+              }}
+            >
+              {i18n.t('elections.clear_filters')}
+            </Button>
+          </DivWithMarginChildren>
+        </FlexContainer>
+      </Grid>
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : processes != null &&
-          processes.length &&
-          renderedProcessList.length ? (
+        ) : processes != null && processes.length && renderedProcess?.length ? (
           <>
             <Column md={8} sm={12}>
               <Paginator
                 totalCount={
-                  entitySearchTerm === '' ? processCount : processIds.length
+                  Object.keys(filter).length === 0
+                    ? totalProcessCount
+                    : processIds.length
                 }
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={(page) => setCurrentPage(page)}
-                paginateBeforeCb={loadMoreProcesses}
+                beforePaginateCb={loadMoreProcesses}
                 disableGoLastBtn
               ></Paginator>
             </Column>
@@ -213,5 +336,11 @@ const DivWithMarginChildren = styled.div`
   & > * {
     margin-right: 20px;
     margin-bottom: 20px;
+  }
+`
+
+const SelectContainer = styled.div`
+  & > * {
+    min-width: 200px;
   }
 `
