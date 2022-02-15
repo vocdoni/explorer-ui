@@ -5,6 +5,7 @@ import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { utils } from 'ethers'
 import { Random, VochainProcessStatus, VotingApi } from 'dvote-js'
+import { getProcessList } from '@lib/api'
 
 export interface useProcessListProps {
   entityId?: string // Deprecated, use search terms instead
@@ -31,6 +32,8 @@ export const useProcessesList = (
 
   // Loaders
   const updateProcessIds = () => {
+    console.debug('DEBUG', 'Updating processes list', 
+      entityId, namespace, status, withResults, from, searchTerm )
     setLoadingProcessList(true)
     poolPromise
       .then((pool) =>
@@ -40,6 +43,8 @@ export const useProcessesList = (
         )
       )
       .then((ids) => {
+        console.debug('DEBUG', 'Retrieved process list', ids)
+
         setLoadingProcessList(false)
         setProcessIds(ids)
       })
@@ -109,4 +114,45 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   return {
     processCount,
   }
+}
+
+
+export const useProcessesFromAccount = (entityId: string) => {
+  if (entityId) entityId = utils.getAddress(entityId)
+
+  const [processIds, setProcessIds] = useState([] as string[])
+  const [loadingProcessList, setLoadingProcessList] = useState(true)
+  const { setAlertMessage } = useAlertMessage()
+//   const { wallet } = useWallet()
+  const { processes, error, loading: loadingProcessesDetails } = useProcesses(
+    processIds || []
+  )
+  const { poolPromise } = usePool()
+
+  useEffect(() => {
+    updateProcessIds()
+  }, [entityId])
+// }, [wallet, entityId])
+
+
+  // Loaders
+  const updateProcessIds = () => {
+    if (!entityId) return
+    setLoadingProcessList(true)
+
+    poolPromise
+      .then((pool) => getProcessList(entityId, pool))
+      .then((ids) => {
+        setLoadingProcessList(false)
+        setProcessIds(ids)
+      })
+      .catch((err) => {
+        setLoadingProcessList(false)
+
+        console.error(err)
+        // setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
+      })
+  }
+
+  return { processIds, processes, loadingProcessList, loadingProcessesDetails, error }
 }
