@@ -63,20 +63,21 @@ export const DashboardProcessList = ({
   const [processPagination, setProcessPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [searchTermIT, setSearchTermIT] = useState('')
+  // const [searchTerm, setSearchTerm] = useState('')
   const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
   // Used to send filter to the useProcessesList hook
   interface IFilterProcesses {
     status?: VochainProcessStatus
     withResults?: boolean
+    searchTerm?: string
   }
-  const [filter, setFilter] = useState<IFilterProcesses>()
+  const [filter, setFilter] = useState<IFilterProcesses>({})
+  const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
   const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
-    searchTerm: searchTerm,
+    searchTerm: filter?.searchTerm,
     status: filter?.status,
-    withResults: filter?.withResults
+    withResults: filter?.withResults,
   })
 
   ///////////////////////////////
@@ -89,7 +90,7 @@ export const DashboardProcessList = ({
   // When processIds are retrieved, update the list of already loaded process ids
   // Used for pagination, if we need to load next 64 processes
   useEffect(() => {
-    if (loading != true) setLoading(true)
+    // if (loading != true) setLoading(true)
     setCachedProcessesIds(cachedProcessesIds.concat(processIds))
   }, [processIds])
 
@@ -109,6 +110,10 @@ export const DashboardProcessList = ({
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, cachedProcessesIds])
+
+  useEffect(() => {
+    console.debug("RENDERED" , renderedProcess)
+  },[renderedProcess])
 
   // Get processes details
   const {
@@ -132,8 +137,7 @@ export const DashboardProcessList = ({
       // todo: add pagination when searching using filters. Ex: if the
       // searchTerm result return more than 64 process, now simply doesn't load
       // next 64 batch.
-      searchTerm === '' &&
-      filter === null
+      Object.keys(filter).length === 0
     ) {
       setLoading(true)
       setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
@@ -145,42 +149,28 @@ export const DashboardProcessList = ({
   // Filter
   ///////////////////////////////
   const voteStatusSelectId = 'vote_status_select_id_1'
+  // Map vote status select options
   const voteStatusOpts = Object.keys(VochainProcessStatus)
     .filter((value) => isNaN(Number(value)) === false)
     .map((key) => {
       return { value: key, label: VochainProcessStatus[key] }
     })
-  // Used for the selector component
-  const [voteStatusSelect, setVoteStatusSelect] =
-    useState<VochainProcessStatus>()
 
-  const [withResults, setWithResults] =
-    useState(false)
+  const filterIsChanged = () => JSON.stringify(filter) !== JSON.stringify(tempFilter)
 
-  const clearSearch = () => {
-    setCurrentPage(1)
-    setCachedProcessesIds([])
-  }
-
-  const disableFilter = () => {
-    clearSearch()
-    setVoteStatusSelect(null)
-    setFilter(null)
-  }
-
-  const enableFilter = () => {
-    clearSearch()
-    setFilter({
-      status: voteStatusSelect,
-      withResults: withResults,
-    })
-  }
-
-  const searchById = () => {
-    if (searchTermIT !== searchTerm) {
-      setLoading(true)
-      clearSearch()
-      setSearchTerm(searchTermIT)
+  const enableFilter = (enabled:boolean = true) => {    
+    if(filterIsChanged() 
+      && (!enabled && Object.keys(filter).length !== 0) // Check if filter is already reset
+    ){
+      setCurrentPage(1)
+      setCachedProcessesIds([])
+    } 
+    if(enabled) {
+      setFilter(Object.assign({}, tempFilter))
+    }
+    else {
+      setFilter({})
+      setTempFilter({})
     }
   }
 
@@ -229,11 +219,14 @@ export const DashboardProcessList = ({
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t('elections.search_by_organization_id')}
-          onChange={(ev) => setSearchTermIT(ev.target.value)}
+          onChange={(ev) => {
+
+            tempFilter.searchTerm = ev.target.value
+            setTempFilter(Object.assign({}, tempFilter))
+            // setSearchTerm(ev.target.value)
+            }
+          }
         />
-        <Button positive small onClick={searchById}>
-          {i18n.t('elections.search_by_id')}
-        </Button>
       </DivWithMarginChildren>
       <Grid>
         <FlexContainer>
@@ -244,19 +237,19 @@ export const DashboardProcessList = ({
               placeholder={i18n.t('elections.select_by_vote_status')}
               options={voteStatusOpts}
               value={
-                voteStatusSelect
+                tempFilter.status
                   ? {
-                      value: voteStatusSelect,
-                      label: VochainProcessStatus[voteStatusSelect],
+                      value: tempFilter.status,
+                      label: VochainProcessStatus[tempFilter.status],
                     }
                   : null
               }
               onChange={(selectedValue: OptionTypeBase) => {
-                setVoteStatusSelect(
+                tempFilter.status =
                   VochainProcessStatus[
                     selectedValue.label
                   ] as any as VochainProcessStatus
-                )
+                setTempFilter(Object.assign({}, tempFilter))
               }}
             />
           </SelectContainer>
@@ -264,8 +257,14 @@ export const DashboardProcessList = ({
         <FlexContainer>
           <Checkbox
               id="with_results"
-              checked={withResults}
-              onChange={(ack: boolean) => setWithResults(ack)}
+              checked={tempFilter.withResults}
+              onChange={(ack: boolean) => {
+                  // setWithResults(ack)
+                  tempFilter.withResults = ack
+                
+                  setTempFilter(Object.assign({}, tempFilter))
+                }
+              }
               text={i18n.t('elections.check_with_results')}
               labelColor={colors.lightText}
             />
@@ -284,7 +283,7 @@ export const DashboardProcessList = ({
             <Button
               small
               onClick={() => {
-                disableFilter()
+                enableFilter(false)
               }}
             >
               {i18n.t('elections.clear_filters')}
@@ -300,7 +299,7 @@ export const DashboardProcessList = ({
             <Column md={8} sm={12}>
               <Paginator
                 totalCount={
-                  searchTerm === '' && filter === null
+                  Object.keys(filter).length === 0
                     ? totalProcessCount
                     : processIds.length
                 }
