@@ -103,9 +103,9 @@ export const DashboardProcessList = ({
 
   // Split process array for pagination
   const renderedProcess = useMemo(() => {
-    if (cachedProcessesIds.length == 0) {
+    if (cachedProcessesIds.length === 0) {
       setLoading(false)
-      return
+      return []
     }
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
@@ -155,23 +155,33 @@ export const DashboardProcessList = ({
     .map((key) => {
       return { value: key, label: VochainProcessStatus[key] }
     })
+  const [searchTermIT, setSearchTermIT] = useState('')
 
   const filterIsChanged = () => JSON.stringify(filter) !== JSON.stringify(tempFilter)
 
-  const enableFilter = (enabled:boolean = true) => {    
-    if(filterIsChanged() 
-      && (!enabled && Object.keys(filter).length !== 0) // Check if filter is already reset
-    ){
-      setCurrentPage(1)
-      setCachedProcessesIds([])
-    } 
-    if(enabled) {
+  const resetPage = () => {
+    setCurrentPage(1)
+    setCachedProcessesIds([])
+  }
+
+  const enableFilter = () => {    
+    console.debug(filterIsChanged())
+    console.debug(filter, tempFilter)
+    if(filterIsChanged()){
+      resetPage()
       setFilter(Object.assign({}, tempFilter))
-    }
-    else {
+    } 
+  }
+    
+  const disableFilter = () => {
+    if(filterIsChanged() 
+      && Object.keys(filter).length !== 0 // Check if filter is already reset
+    ){
+      resetPage()
       setFilter({})
-      setTempFilter({})
     }
+    setTempFilter({})
+    setSearchTermIT('')
   }
 
   ///////////////////////////////
@@ -219,11 +229,11 @@ export const DashboardProcessList = ({
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t('elections.search_by_organization_id')}
+          value={searchTermIT}
           onChange={(ev) => {
-
+            setSearchTermIT(ev.target.value)
             tempFilter.searchTerm = ev.target.value
             setTempFilter(Object.assign({}, tempFilter))
-            // setSearchTerm(ev.target.value)
             }
           }
         />
@@ -283,7 +293,7 @@ export const DashboardProcessList = ({
             <Button
               small
               onClick={() => {
-                enableFilter(false)
+                disableFilter()
               }}
             >
               {i18n.t('elections.clear_filters')}
