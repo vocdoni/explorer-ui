@@ -76,55 +76,28 @@ export const DashboardProcessList = ({
     status: filter?.status
   })
 
-  const renderProcessItem = (process: SummaryProcess) => {
-    const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
-      electionsId: process.id,
-    })
-    return (
-      <div key={process.id}>
-        <DashboardProcessListItem
-          process={process}
-          // status={processList.status}
-          status={getVoteStatus(process.summary, blockHeight)}
-          entityId={process?.summary?.entityId || ''}
-          // accountName={account?.name}
-          // entityLogo={entityMetadata?.media?.avatar}
-          // link={ELECTIONS_PATH + '/#/' + process.id}
-          link={electionDetailPath}
-        />
-      </div>
-    )
-  }
-  const renderSkeleton = () => {
-    return (
-      <Column md={8} sm={12}>
-        {Array(skeletonItems)
-          .fill(0)
-          .map((value, index: number) => (
-            <Card key={index}>
-              <Skeleton />
-            </Card>
-          ))}
-      </Column>
-    )
-  }
-
   ///////////////////////////////
   // PAGINATOR
   ///////////////////////////////
+
+  // Paginator current page
   const [currentPage, setCurrentPage] = useState(1)
 
+  // When processIds are retrieved, update the list of already loaded process ids
+  // Used for pagination, if we need to load next 64 processes
   useEffect(() => {
     if(loading != true) setLoading(true)
     setCachedProcessesIds(cachedProcessesIds.concat(processIds))
   }, [processIds])
 
+  // Get index for first and last process index on the current page 
   const _getPageIndexes = (page: number) => {
     const firstPageIndex = (page - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
     return { firstPageIndex, lastPageIndex }
   }
 
+  // Split process array for pagination
   const renderedProcess = useMemo(() => {
     if(cachedProcessesIds.length == 0) {
       setLoading(false)
@@ -134,12 +107,14 @@ export const DashboardProcessList = ({
     return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, cachedProcessesIds])
 
+  // Get processes details
   const {
     processes,
     error,
     loading: loadingProcessesDetails,
   } = useProcesses(renderedProcess || [])
 
+  // Set loading
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
@@ -205,6 +180,43 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   // JSX
   ///////////////////////////////
+
+  // Render item on the list from it summary
+  const renderProcessItem = (process: SummaryProcess) => {
+    const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
+      electionsId: process.id,
+    })
+    return (
+      <div key={process.id}>
+        <DashboardProcessListItem
+          process={process}
+          // status={processList.status}
+          status={getVoteStatus(process.summary, blockHeight)}
+          entityId={process?.summary?.entityId || ''}
+          // accountName={account?.name}
+          // entityLogo={entityMetadata?.media?.avatar}
+          // link={ELECTIONS_PATH + '/#/' + process.id}
+          link={electionDetailPath}
+        />
+      </div>
+    )
+  }
+
+  // Loading skeleton
+  const renderSkeleton = () => {
+    return (
+      <Column md={8} sm={12}>
+        {Array(skeletonItems)
+          .fill(0)
+          .map((value, index: number) => (
+            <Card key={index}>
+              <Skeleton />
+            </Card>
+          ))}
+      </Column>
+    )
+  }
+
   return (
     <>
       <DivWithMarginChildren>
