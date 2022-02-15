@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Account } from '@lib/types'
-import { EntityMetadata } from 'dvote-js'
+import { EntityMetadata, VochainProcessStatus } from 'dvote-js'
 import {
   Processes,
   SummaryProcess,
@@ -64,9 +64,16 @@ export const DashboardProcessList = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [searchTermIT, setSearchTermIT] = useState('')
   const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
+  // Used to send filter to the useProcessesList hook 
+  interface IFilterProcesses {
+    status?: VochainProcessStatus
+    // withResults?: boolean
+  }
+  const [filter, setFilter] = useState<IFilterProcesses>()    
   const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
     searchTerm: searchTerm,
+    status: filter?.status
   })
 
   const renderProcessItem = (process: SummaryProcess) => {
@@ -119,6 +126,10 @@ export const DashboardProcessList = ({
   }
 
   const renderedProcess = useMemo(() => {
+    if(cachedProcessesIds.length == 0) {
+      setLoading(false)
+      return
+    }
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, cachedProcessesIds])
@@ -143,7 +154,7 @@ export const DashboardProcessList = ({
       // todo: add pagination when searching using filters. Ex: if the 
       // searchTerm result return more than 64 process, now simply doesn't load
       // next 64 batch.
-      searchTerm === ''
+      searchTerm === '' && filter === null
     ) {
       setLoading(true)
       setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
@@ -154,11 +165,38 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   // Filter
   ///////////////////////////////
+  const voteStatusSelectId = 'vote_status_select_id_1'
+  const voteStatusOpts = Object.keys(VochainProcessStatus)
+    .filter((value) => isNaN(Number(value)) === false)
+    .map((key) => {
+      return { value: key, label: VochainProcessStatus[key] }
+    })
+  // Used for the selector component
+  const [voteStatusSelect, setVoteStatusSelect] =
+    useState<VochainProcessStatus>()
+
+  const clearSearch = () =>  {
+    setCurrentPage(1)
+    setCachedProcessesIds([])
+  }
+
+  const disableFilter = () =>  {
+    clearSearch()
+    setVoteStatusSelect(null)
+    setFilter(null)
+  }
+
+  const enableFilter = () =>  {
+    clearSearch()
+    setFilter({
+      status: voteStatusSelect
+    })
+  }
+    
   const searchById = () => {
     if(searchTermIT !== searchTerm) {
       setLoading(true)
-      setCurrentPage(1)
-      setCachedProcessesIds([])
+      clearSearch()
       setSearchTerm(searchTermIT)
     }
   }
@@ -180,15 +218,24 @@ export const DashboardProcessList = ({
       </DivWithMarginChildren>
       <Grid>
         <Column sm={4} md={4} lg={4}>
-          {/* <Select
+          <Select
             instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
             id={voteStatusSelectId}
             placeholder={i18n.t('elections.select_by_vote_status')}
             options={voteStatusOpts}
+            value={
+              voteStatusSelect ?
+               { value: voteStatusSelect, label: VochainProcessStatus[voteStatusSelect]} 
+               : null
+            }
             onChange={(selectedValue: OptionTypeBase) => {
-              setVoteStatusFilter(selectedValue.value)
+              setVoteStatusSelect(
+                VochainProcessStatus[
+                  selectedValue.label
+                ] as any as VochainProcessStatus
+              )
             }}
-          /> */}
+          />
         </Column>
         <Column sm={8} md={8} lg={8}>
           <DivWithMarginChildren>
@@ -196,7 +243,7 @@ export const DashboardProcessList = ({
               positive
               small
               onClick={() => {
-                // setApplyFilter(true)
+                enableFilter()
               }}
             >
               {i18n.t('elections.apply_filters')}
@@ -204,7 +251,7 @@ export const DashboardProcessList = ({
             <Button
               small
               onClick={() => {
-                // setApplyFilter(false)
+                disableFilter()
               }}
             >
               {i18n.t('elections.clear_filters')}
@@ -220,7 +267,7 @@ export const DashboardProcessList = ({
             <Column md={8} sm={12}>
               <Paginator
                 totalCount={
-                  searchTerm === ''
+                  searchTerm === '' && filter === null
                     ? totalProcessCount
                     : processIds.length
                 }
