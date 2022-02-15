@@ -61,15 +61,12 @@ export const DashboardProcessList = ({
   const [processPagination, setProcessPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-  const [entitySearchTerm, setEntitySearchTerm] = useState('')
-  const [inputTextValue, setInputTextValue] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTermIT, setSearchTermIT] = useState('')
   const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
-  const {
-    processIds,
-    loadingProcessList,
-  } = useProcessesList({
+  const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
-    entityId: entitySearchTerm
+    searchTerm: searchTerm,
   })
 
   const renderProcessItem = (process: SummaryProcess) => {
@@ -110,22 +107,18 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   const [currentPage, setCurrentPage] = useState(1)
 
+  useEffect(() => {
+    if(loading != true) setLoading(true)
+    setCachedProcessesIds(cachedProcessesIds.concat(processIds))
+  }, [processIds])
+
   const _getPageIndexes = (page: number) => {
     const firstPageIndex = (page - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
     return { firstPageIndex, lastPageIndex }
   }
-  
-  useEffect(() => {
-    setCachedProcessesIds(cachedProcessesIds.concat(processIds))
-  }, [processIds])
 
   const renderedProcess = useMemo(() => {
-    if (cachedProcessesIds.length === 0) {
-      setLoading(false)
-      return
-    }
-    // setLoading(true)
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, cachedProcessesIds])
@@ -140,16 +133,17 @@ export const DashboardProcessList = ({
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
-  const searchById = () => {
-    setEntitySearchTerm(inputTextValue)
-  }
-
+  /** Load next 64 process */
   const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
     if (
       nextPage > currentPage &&
       lastPageIndex >= cachedProcessesIds.length &&
-      cachedProcessesIds.length + 1 < totalProcessCount
+      cachedProcessesIds.length + 1 < totalProcessCount &&
+      // todo: add pagination when searching using filters. Ex: if the 
+      // searchTerm result return more than 64 process, now simply doesn't load
+      // next 64 batch.
+      searchTerm === ''
     ) {
       setLoading(true)
       setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
@@ -160,6 +154,14 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   // Filter
   ///////////////////////////////
+  const searchById = () => {
+    if(searchTermIT !== searchTerm) {
+      setLoading(true)
+      setCurrentPage(1)
+      setCachedProcessesIds([])
+      setSearchTerm(searchTermIT)
+    }
+  }
 
 
   ///////////////////////////////
@@ -170,7 +172,7 @@ export const DashboardProcessList = ({
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t('elections.search_by_organization_id')}
-          onChange={(ev) => setInputTextValue(ev.target.value)}
+          onChange={(ev) => setSearchTermIT(ev.target.value)}
         />
         <Button positive small onClick={searchById}>
           {i18n.t('elections.search_by_id')}
@@ -213,14 +215,14 @@ export const DashboardProcessList = ({
       <Grid>
         {loading ? (
           renderSkeleton()
-        ) : processes != null &&
-          processes.length &&
-          renderedProcess.length ? (
+        ) : processes != null && processes.length && renderedProcess?.length ? (
           <>
             <Column md={8} sm={12}>
               <Paginator
                 totalCount={
-                  entitySearchTerm === '' ? totalProcessCount : processIds.length
+                  searchTerm === ''
+                    ? totalProcessCount
+                    : processIds.length
                 }
                 pageSize={pageSize}
                 currentPage={currentPage}

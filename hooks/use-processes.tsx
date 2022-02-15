@@ -7,17 +7,18 @@ import { utils } from 'ethers'
 import { Random, VochainProcessStatus, VotingApi } from 'dvote-js'
 
 export interface useProcessListProps {
-  entityId?: string
+  entityId?: string // Deprecated, use search terms instead
   namespace?: number
   status?: VochainProcessStatus
   withResults?: boolean
   from?: number
+  searchTerm?: string
 }
 
 export const useProcessesList = (
-  { entityId, namespace, status, withResults, from }: useProcessListProps
+  { entityId, namespace, status, withResults, from, searchTerm }: useProcessListProps
 ) => {
-  if (entityId) entityId = utils.getAddress(entityId)
+  // if (entityId) entityId = utils.getAddress(entityId)
 
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
@@ -26,16 +27,15 @@ export const useProcessesList = (
 
   useEffect(() => {
     updateProcessIds()
-  }, [entityId, namespace, status, withResults, from])
+  }, [entityId, namespace, status, withResults, from, searchTerm])
 
   // Loaders
   const updateProcessIds = () => {
     setLoadingProcessList(true)
     poolPromise
       .then((pool) =>
-        // getProcessList(pool, { entityId, namespace, status, withResults, from })
         VotingApi.getProcessList(
-          { entityId, namespace, status, withResults, from },
+          { entityId, namespace, status, withResults, from, searchTerm } as any,
           pool
         )
       )
