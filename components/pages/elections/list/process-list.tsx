@@ -174,14 +174,13 @@ export const DashboardProcessList = ({
   }
     
   const disableFilter = () => {
-    if(filterIsChanged() 
-      && Object.keys(filter).length !== 0 // Check if filter is already reset
+    setTempFilter({})
+    setSearchTermIT('')
+    if(Object.keys(filter).length !== 0 // Check if filter is already reset
     ){
       resetPage()
       setFilter({})
     }
-    setTempFilter({})
-    setSearchTermIT('')
   }
 
   ///////////////////////////////
