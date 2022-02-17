@@ -1,6 +1,36 @@
-import { ProcessDetails, ProcessSummary, VochainProcessStatus, Voting, VotingApi } from 'dvote-js'
+import { ProcessDetails, ProcessSummary, Random, VochainProcessStatus, Voting, VotingApi } from 'dvote-js'
 import { BigNumber, providers } from 'ethers'
 import { GatewayPool } from "dvote-js"
+
+/**
+ * Used to fetch directly with the active gateway a method that is not
+ * wrapped on dvote-js, example `getProcessCount`
+ * @returns Response to json
+ */
+export async function fetchMethod (
+  pool: GatewayPool, 
+  {method, params}: {
+    method: string,
+    params: any
+  }
+) : Promise<any> {
+  let url = pool.activeGateway.dvoteUri
+  return fetch(url, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id: Random.getHex().substr(2, 10),
+      request: {
+        method: method,
+        timestamp: Math.floor(Date.now() / 1000),
+        ...params
+      },
+    }),
+  } as any)
+  .then((response) => {
+    return response.json()
+  })
+}
 
 // VOCDONI API wrappers
 
