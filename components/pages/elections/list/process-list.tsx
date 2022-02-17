@@ -18,6 +18,7 @@ import { Paginator } from '@components/blocks/paginator'
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/election-filter'
+import { PaginatedListTemplate } from '@components/pages/app/page-templates/paginated-list-template'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
@@ -41,25 +42,19 @@ export const DashboardProcessList = ({
   pageSize = 8,
   totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
-  const [processPagination, setProcessPagination] = useState(0)
   const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-  // const [searchTerm, setSearchTerm] = useState('')
-  const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
-  // // Used to send filter to the useProcessesList hook
-  // interface IFilterProcesses {
-  //   status?: VochainProcessStatus
-  //   withResults?: boolean
-  //   searchTerm?: string
-  // }
+
   const [filter, setFilter] = useState<IFilterProcesses>({})
-  // const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
+
+  const [processPagination, setProcessPagination] = useState(0)
   const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
     searchTerm: filter?.searchTerm,
     status: filter?.status,
     withResults: filter?.withResults,
   })
+  const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
 
   ///////////////////////////////
   // PAGINATOR
@@ -81,28 +76,10 @@ export const DashboardProcessList = ({
     setCachedProcessesIds(cachedProcessesIds.concat(processIds))
   }, [processIds])
 
-  // Get index for first and last process index on the current page
-  const _getPageIndexes = (page: number) => {
-    const firstPageIndex = (page - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    return { firstPageIndex, lastPageIndex }
-  }
 
-  // Split process array for pagination
-  const renderedProcess = useMemo(() => {
-    if (cachedProcessesIds.length === 0) {
-      setLoading(false)
-      return []
-    }
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
-    return cachedProcessesIds.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, cachedProcessesIds])
+  const [renderedProcess, setRenderedProcess] = useState<string[]>([])
 
-  useEffect(() => {
-    console.debug('RENDERED', renderedProcess)
-  }, [renderedProcess])
-
-  // Get processes details
+  // Get processes details to show on the list
   const {
     processes,
     error,
@@ -114,22 +91,8 @@ export const DashboardProcessList = ({
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
-  /** Load next 64 process */
-  const loadMoreProcesses = (nextPage: number, totalPageCount: number) => {
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
-    if (
-      nextPage > currentPage &&
-      lastPageIndex >= cachedProcessesIds.length &&
-      cachedProcessesIds.length + 1 < totalProcessCount &&
-      // todo: add pagination when searching using filters. Ex: if the
-      // searchTerm result return more than 64 process, now simply doesn't load
-      // next 64 batch.
-      Object.keys(filter).length === 0
-    ) {
-      setLoading(true)
-      setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
-    }
-    return true
+  const loadMoreProcesses = () => {
+    setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
   }
 
   ///////////////////////////////
@@ -184,21 +147,6 @@ export const DashboardProcessList = ({
     )
   }
 
-  // Loading skeleton
-  const renderSkeleton = () => {
-    return (
-      <Column md={8} sm={12}>
-        {Array(skeletonItems)
-          .fill(0)
-          .map((value, index: number) => (
-            <Card key={index}>
-              <Skeleton />
-            </Card>
-          ))}
-      </Column>
-    )
-  }
-
   return (
     <>
       <ProcessFilter
@@ -206,7 +154,36 @@ export const DashboardProcessList = ({
         onEnableFilter={enableFilter}
         onDisableFilter={disableFilter}
       ></ProcessFilter>
-      <Grid>
+      <PaginatedListTemplate
+        loading={loading}
+        setLoading={setLoading}
+        pageSize={pageSize}
+
+        totalElementsCount={
+          // todo: add pagination when searching using filters. Ex: if the
+          // searchTerm result return more than 64 process, now simply doesn't load
+          // next 64 batch.
+          Object.keys(filter).length === 0
+            ? totalProcessCount
+            : processIds.length
+        }
+
+        cachedElements={cachedProcessesIds}
+        renderedElements={processes}
+
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+
+        loadMoreElements={loadMoreProcesses}
+        setRendererElements={setRenderedProcess}
+        renderElementItem={renderProcessItem}
+
+        
+
+      >
+        <></>
+      </PaginatedListTemplate>
+      {/* <Grid>
         {loading ? (
           renderSkeleton()
         ) : processes != null && processes.length && renderedProcess?.length ? (
@@ -232,7 +209,7 @@ export const DashboardProcessList = ({
         ) : (
           <h1>{i18n.t('elections.no_elections_found')}</h1>
         )}
-      </Grid>
+      </Grid> */}
     </>
   )
 }
