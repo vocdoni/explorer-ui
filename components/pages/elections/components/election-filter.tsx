@@ -10,6 +10,7 @@ import { OptionTypeBase } from 'react-select'
 import { FlexContainer } from '@components/elements/flex'
 import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
+import { DivWithMarginChildren } from '@components/elements/styled-divs'
 
 
 export const ProcessFilter = ({
@@ -118,16 +119,8 @@ export const ProcessFilter = ({
     </>
   )
 }
-
-const DivWithMarginChildren = styled.div`
-  & > * {
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
-`
-
-const SelectContainer = styled.div`
-  & > * {
-    min-width: 200px;
-  }
+export const SelectContainer = styled.div`
+& > * {
+  min-width: 200px;
+}
 `
