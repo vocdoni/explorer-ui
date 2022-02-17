@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Account } from '@lib/types'
-import { EntityMetadata, VochainProcessStatus } from 'dvote-js'
 import {
-  Processes,
   SummaryProcess,
   useBlockHeight,
   useProcesses,
@@ -10,39 +7,23 @@ import {
 import i18n from '@i18n'
 
 import { Column, Grid } from '@components/elements/grid'
-import { getVoteStatus, VoteStatus } from '@lib/util'
+import { getVoteStatus } from '@lib/util'
 import { Skeleton } from '@components/blocks/skeleton'
 import { Card } from '@components/elements/cards'
 
-// import { DashboardCreateProposalCard } from './create-proposal-card'
-// import { EmptyProposalCard } from './empty-proposal-card'
-// import { DashboardProcessListNav } from './process-list-nav'
 import { DashboardProcessListItem } from './process-list-item'
-// import { getAllProcess, getProcessCount } from '@hooks/get-processes'
-import { ELECTIONS_DETAILS, ELECTIONS_PATH } from '@const/routes'
-import { Button } from '@components/elements/button'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { colors } from '@theme/colors'
+import { ELECTIONS_DETAILS } from '@const/routes'
 import RouterService from '@lib/router'
 import { Paginator } from '@components/blocks/paginator'
-import { Input, Select } from '@components/elements/inputs'
-import styled from 'styled-components'
-// import { SHOW_PROCESS_PATH } from '@const/routes';
-import { OptionTypeBase } from 'react-select'
 import { useProcessesList } from '@hooks/use-processes'
-import { FlexContainer } from '@components/elements/flex'
-import { Checkbox } from '@components/elements/checkbox'
+import { VochainProcessStatus } from 'dvote-js'
+import { ProcessFilter } from '../components/election-filter'
 
-export enum ProcessTypes {
-  ActiveVotes = 'activeVotes',
-  VoteResults = 'voteResults',
-  UpcomingVotes = 'upcomingVotes',
-}
-
-export interface IProcessItem {
-  label: string
-  items?: SummaryProcess[]
-  status: VoteStatus
+// Used to send filter to the useProcessesList hook
+export interface IFilterProcesses {
+  status?: VochainProcessStatus
+  withResults?: boolean
+  searchTerm?: string
 }
 
 interface IDashboardProcessListProps {
@@ -65,14 +46,14 @@ export const DashboardProcessList = ({
   const { blockHeight } = useBlockHeight()
   // const [searchTerm, setSearchTerm] = useState('')
   const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
-  // Used to send filter to the useProcessesList hook
-  interface IFilterProcesses {
-    status?: VochainProcessStatus
-    withResults?: boolean
-    searchTerm?: string
-  }
+  // // Used to send filter to the useProcessesList hook
+  // interface IFilterProcesses {
+  //   status?: VochainProcessStatus
+  //   withResults?: boolean
+  //   searchTerm?: string
+  // }
   const [filter, setFilter] = useState<IFilterProcesses>({})
-  const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
+  // const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
   const { processIds, loadingProcessList } = useProcessesList({
     from: processPagination,
     searchTerm: filter?.searchTerm,
@@ -83,6 +64,12 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   // PAGINATOR
   ///////////////////////////////
+
+  // Set the page at initial state
+  const resetPage = () => {
+    setCurrentPage(1)
+    setCachedProcessesIds([])
+  }
 
   // Paginator current page
   const [currentPage, setCurrentPage] = useState(1)
@@ -112,8 +99,8 @@ export const DashboardProcessList = ({
   }, [currentPage, cachedProcessesIds])
 
   useEffect(() => {
-    console.debug("RENDERED" , renderedProcess)
-  },[renderedProcess])
+    console.debug('RENDERED', renderedProcess)
+  }, [renderedProcess])
 
   // Get processes details
   const {
@@ -148,36 +135,25 @@ export const DashboardProcessList = ({
   ///////////////////////////////
   // Filter
   ///////////////////////////////
-  const voteStatusSelectId = 'vote_status_select_id_1'
-  // Map vote status select options
-  const voteStatusOpts = Object.keys(VochainProcessStatus)
-    .filter((value) => isNaN(Number(value)) === false)
-    .map((key) => {
-      return { value: key, label: VochainProcessStatus[key] }
-    })
-  const [searchTermIT, setSearchTermIT] = useState('')
 
-  const filterIsChanged = () => JSON.stringify(filter) !== JSON.stringify(tempFilter)
+  const filterIsChanged = (filter, tempFilter) =>
+    JSON.stringify(filter) !== JSON.stringify(tempFilter)
 
-  const resetPage = () => {
-    setCurrentPage(1)
-    setCachedProcessesIds([])
-  }
-
-  const enableFilter = () => {    
-    console.debug(filterIsChanged())
-    console.debug(filter, tempFilter)
-    if(filterIsChanged()){
+  const enableFilter = (tempFilter: IFilterProcesses) => {
+    if (filterIsChanged(filter, tempFilter)) {
       resetPage()
       setFilter(Object.assign({}, tempFilter))
-    } 
+    }
   }
-    
-  const disableFilter = () => {
-    setTempFilter({})
-    setSearchTermIT('')
-    if(Object.keys(filter).length !== 0 // Check if filter is already reset
-    ){
+
+  const disableFilter = (
+    tempFilter: IFilterProcesses,
+    resetForm: { (): void }
+  ) => {
+    resetForm()
+    if (
+      Object.keys(filter).length !== 0 // Check if filter is already reset
+    ) {
       resetPage()
       setFilter({})
     }
@@ -225,81 +201,11 @@ export const DashboardProcessList = ({
 
   return (
     <>
-      <DivWithMarginChildren>
-        <Input
-          placeholder={i18n.t('elections.search_by_organization_id')}
-          value={searchTermIT}
-          onChange={(ev) => {
-            setSearchTermIT(ev.target.value)
-            tempFilter.searchTerm = ev.target.value
-            setTempFilter(Object.assign({}, tempFilter))
-            }
-          }
-        />
-      </DivWithMarginChildren>
-      <Grid>
-        <FlexContainer>
-          <SelectContainer>
-            <Select
-              instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
-              id={voteStatusSelectId}
-              placeholder={i18n.t('elections.select_by_vote_status')}
-              options={voteStatusOpts}
-              value={
-                tempFilter.status
-                  ? {
-                      value: tempFilter.status,
-                      label: VochainProcessStatus[tempFilter.status],
-                    }
-                  : null
-              }
-              onChange={(selectedValue: OptionTypeBase) => {
-                tempFilter.status =
-                  VochainProcessStatus[
-                    selectedValue.label
-                  ] as any as VochainProcessStatus
-                setTempFilter(Object.assign({}, tempFilter))
-              }}
-            />
-          </SelectContainer>
-        </FlexContainer>
-        <FlexContainer>
-          <Checkbox
-              id="with_results"
-              checked={tempFilter.withResults}
-              onChange={(ack: boolean) => {
-                  // setWithResults(ack)
-                  tempFilter.withResults = ack
-                
-                  setTempFilter(Object.assign({}, tempFilter))
-                }
-              }
-              text={i18n.t('elections.check_with_results')}
-              labelColor={colors.lightText}
-            />
-        </FlexContainer>
-        <FlexContainer>
-          <DivWithMarginChildren>
-            <Button
-              positive
-              small
-              onClick={() => {
-                enableFilter()
-              }}
-            >
-              {i18n.t('elections.apply_filters')}
-            </Button>
-            <Button
-              small
-              onClick={() => {
-                disableFilter()
-              }}
-            >
-              {i18n.t('elections.clear_filters')}
-            </Button>
-          </DivWithMarginChildren>
-        </FlexContainer>
-      </Grid>
+      <ProcessFilter
+        filter={undefined}
+        onEnableFilter={enableFilter}
+        onDisableFilter={disableFilter}
+      ></ProcessFilter>
       <Grid>
         {loading ? (
           renderSkeleton()
@@ -330,16 +236,3 @@ export const DashboardProcessList = ({
     </>
   )
 }
-
-const DivWithMarginChildren = styled.div`
-  & > * {
-    margin-right: 20px;
-    margin-bottom: 20px;
-  }
-`
-
-const SelectContainer = styled.div`
-  & > * {
-    min-width: 200px;
-  }
-`
