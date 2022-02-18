@@ -11,7 +11,7 @@ import { Image } from '@components/elements/image'
 import { StatusCard } from '@components/elements/cards'
 
 
-function getOrganizationPath (entityId:string) {return ORGANIZATIONS_PATH + '/#/' + entityId}
+function getOrganizationPath (entityId:string) {return ORGANIZATIONS_PATH + '/#/' + entityId};
 
 interface EntityLinkProps {
     entityId: string,
