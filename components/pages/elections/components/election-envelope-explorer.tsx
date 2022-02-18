@@ -5,7 +5,7 @@ import { EnvelopeLink } from '@components/pages/app/components/envelopes'
 import i18n from '@i18n'
 import { usePool } from '@vocdoni/react-hooks'
 import { ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ENVELOPES_PER_PAGE = 6
 
@@ -49,7 +49,7 @@ export const EnvelopeExplorer = ({
 
         console.error(err)
       })
-  }, [envelopePage])
+  }, [envelopePage, poolPromise, processId])
 
   const nextEnvelopeRange = () => {
     if ((envelopePage + 1) * ENVELOPES_PER_PAGE >= results.totalVotes) return

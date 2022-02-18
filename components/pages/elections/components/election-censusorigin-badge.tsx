@@ -1,7 +1,7 @@
 import i18n from '@i18n'
 import { Switch, Case, Default } from 'react-if'
 import { CensusOrigin } from 'dvote-js/dist/models/protobuf/build/ts/vochain/vochain'
-import { ActiveBadge, UpcomingBadge, EndedBadge, CanceledBadge } from '@components/elements/text-badge'
+import { ActiveBadge, UpcomingBadge } from '@components/elements/text-badge'
 
 interface CensusOriginBadgeProps {
     censusOrigin: CensusOrigin

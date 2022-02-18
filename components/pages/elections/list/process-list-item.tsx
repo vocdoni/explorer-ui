@@ -42,7 +42,7 @@ export const DashboardProcessListItem = ({
     let startDate
 
     switch (status) {
-      case VoteStatus.Active:
+      case VoteStatus.Active: {
         const endDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.endBlock,
           blockStatus
@@ -50,31 +50,25 @@ export const DashboardProcessListItem = ({
         const timeLeft = localizedDateDiff(endDate)
         setDate(timeLeft)
         break
+      }
 
       case VoteStatus.Ended:
         setDate(i18n.t('dashboard.process_ended'))
         break
-
+        
       case VoteStatus.Paused:
-        startDate = VotingApi.estimateDateAtBlockSync(
-          process?.summary?.startBlock,
-          blockStatus
-        )
-
-        if (!moment(startDate).isAfter(moment.now())) {
-          setDate(i18n.t('dashboard.process_paused'))
-          break
-        }
-
       case VoteStatus.Upcoming:
         startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus
         )
 
-        const timetoStart = localizedDateDiff(startDate)
+        if (!moment(startDate).isAfter(moment.now()) && status === VoteStatus.Paused) {
+          setDate(i18n.t('dashboard.process_paused'))
+          break
+        }
 
-        setDate(timetoStart)
+        setDate(localizedDateDiff(startDate))
         status = VoteStatus.Upcoming
         break
     }
@@ -85,13 +79,13 @@ export const DashboardProcessListItem = ({
       <ProcessSummaryListItem
         icon={
           <ImageContainer width="30px" height="30px">
-            <Image src={entityMetadata?.media?.avatar || FALLBACK_ACCOUNT_ICON} />
+            <Image
+              src={entityMetadata?.media?.avatar || FALLBACK_ACCOUNT_ICON}
+            />
           </ImageContainer>
         }
         link={link}
-        description={
-          process?.metadata?.description?.default ?? ''
-        }
+        description={process?.metadata?.description?.default ?? ''}
         title={process?.metadata?.title?.default ?? process?.id}
         entityId={entityId}
         entityName={

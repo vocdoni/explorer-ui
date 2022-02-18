@@ -88,10 +88,10 @@ const IndexPage = () => {
   const { setAlertMessage } = useAlertMessage()
 
   useEffect(() => {
-    const itv = setInterval(() => loadStats(), REFRSH_TIME)
+    // const itv = setInterval(() => loadStats(), REFRSH_TIME)
     loadStats()
 
-    return () => clearInterval(itv)
+    // return () => clearInterval(itv)
   }, [poolPromise])
 
   // Fetch data
@@ -149,7 +149,9 @@ const IndexPage = () => {
             {i18n.t('home.the_last_four_blocks')}
           </Typography>
 
-          <Grid>
+          <div>aaaaa</div>
+
+          {/* <Grid>
             {recentBlocks.map(item => (
               <Card sm={6} md={4} lg={3} key={item.height}>
                 <h4>{i18n.t("home.block")} {item.height}</h4>
@@ -158,7 +160,7 @@ const IndexPage = () => {
                 <p>{i18n.t("home.proposer")}: <code>0x{item.proposer_address.substr(0, 6)}...</code></p>
               </Card>
             ))}
-          </Grid>
+          </Grid> */}
 
         </BlockContainer>
       </Section>

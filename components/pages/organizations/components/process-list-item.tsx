@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useBlockStatus,  SummaryProcess} from '@vocdoni/react-hooks'
 import { VotingApi } from 'dvote-js'
-import { useTranslation } from 'react-i18next'
 
-import { DateDiffType, localizedDateDiff } from '@lib/date'
+import { localizedDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
-import { IProcessesSummary } from '@lib/types'
 
 
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
@@ -43,7 +41,7 @@ export const DashboardProcessListItem = ({
     let startDate
 
     switch (status) {
-      case VoteStatus.Active:
+      case VoteStatus.Active:{
         const endDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.endBlock,
           blockStatus
@@ -51,33 +49,29 @@ export const DashboardProcessListItem = ({
         const timeLeft = localizedDateDiff(endDate)
         setDate(timeLeft)
         break
-
+}
       case VoteStatus.Ended:
         setDate(i18n.t('dashboard.process_ended'))
         break
 
       case VoteStatus.Paused:
+      case VoteStatus.Upcoming:{
         startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus
         )
 
-        if (!moment(startDate).isAfter(moment.now())) {
+        if (!moment(startDate).isAfter(moment.now()) && status === VoteStatus.Paused) {
           setDate(i18n.t('dashboard.process_paused'))
           break
         }
-
-      case VoteStatus.Upcoming:
-        startDate = VotingApi.estimateDateAtBlockSync(
-          process?.summary?.startBlock,
-          blockStatus
-        )
 
         const timetoStart = localizedDateDiff(startDate)
 
         setDate(timetoStart)
         status = VoteStatus.Upcoming
         break
+      }
     }
   }, [blockStatus])
 

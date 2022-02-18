@@ -1,38 +1,4 @@
-// import { CardImageHeader } from '@components/blocks/card/image-header'
-// import { PageCard } from '@components/elements/cards'
-// import React, { Fragment, useEffect, useState } from 'react'
-// import { Unless, When } from 'react-if'
-// import i18n from '@i18n'
-
-// const OrganizationDetailPage = () => {
-//   const [loading, setLoading] = useState(false)
-
-//   return (
-//     <PageCard>
-//       <CardImageHeader
-//         title={processInfo?.metadata?.title?.default}
-//         processImage={processInfo?.metadata?.media?.header}
-//         subtitle={entityMetadata?.name?.default}
-//         entityImage={entityMetadata?.media?.avatar}
-//       />
-
-//       <When condition={loading}>
-//         <p>{i18n.t('elections.please_wait')}</p>
-//       </When>
-
-//       <Unless condition={loading || !processInfo}>
-//         <p>{i18n.t('elections.loaded')}</p>
-
-//       </Unless>
-//     </PageCard>
-//   )
-// }
-
-// export default OrganizationDetailPage
-
-import react from 'react'
 import { EntityMetadata } from 'dvote-js'
-// import { useTranslation } from 'react-i18next'
 import { SummaryProcess } from '@vocdoni/react-hooks'
 
 import { getVoteStatus } from '@lib/util'
@@ -42,7 +8,6 @@ import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { DashboardProcessListItem } from '@components/pages/organizations/components/process-list-item'
-// import { VOTING_PATH } from '@const/routes'
 import i18n from '@i18n'
 
 
@@ -53,7 +18,6 @@ interface IEntityViewProps {
   blockHeight: number,
 }
 export const EntityView = ({ address, metadata, processes, blockHeight }: IEntityViewProps) => {
-  // const { i18n } = useTranslation()
   const explorerUrl = `${process.env.EXPLORER_URL}/entity/${address}`
 
   return (
