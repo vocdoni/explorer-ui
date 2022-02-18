@@ -55,21 +55,16 @@ export const DashboardProcessListItem = ({
         break
 
       case VoteStatus.Paused:
-        startDate = VotingApi.estimateDateAtBlockSync(
-          process?.summary?.startBlock,
-          blockStatus
-        )
-
-        if (!moment(startDate).isAfter(moment.now())) {
-          setDate(i18n.t('dashboard.process_paused'))
-          break
-        }
-
       case VoteStatus.Upcoming:{
         startDate = VotingApi.estimateDateAtBlockSync(
           process?.summary?.startBlock,
           blockStatus
         )
+
+        if (!moment(startDate).isAfter(moment.now()) && status === VoteStatus.Paused) {
+          setDate(i18n.t('dashboard.process_paused'))
+          break
+        }
 
         const timetoStart = localizedDateDiff(startDate)
 
