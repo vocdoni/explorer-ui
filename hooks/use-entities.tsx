@@ -1,19 +1,17 @@
 import { usePool } from '@vocdoni/react-hooks'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { fetchMethod } from '@lib/api'
 
-export interface useEntityCountProps {}
-
 /** Get entity count */
-export const useEntityCount = ({}: useEntityCountProps) => {
+export const useEntityCount = () => {
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
 
   const [entitiesCount, setEntitiesCount] = useState(0)
 
-  const getEntitiesCountReq = () => {
+  const getEntitiesCountReq = useCallback(() => {
     poolPromise
       .then((pool) => {
         // todo(kon): this method is not exposed yet to dvotejs
@@ -32,9 +30,9 @@ export const useEntityCount = ({}: useEntityCountProps) => {
         console.error(err)
         setAlertMessage(i18n.t('error.could_not_fetch_entities_count'))
       })
-  }
-
-  useEffect(() => getEntitiesCountReq(), [])
+  }, [poolPromise, setAlertMessage])
+  
+  useEffect(() => getEntitiesCountReq(), [getEntitiesCountReq])
 
   return {
     entitiesCount,

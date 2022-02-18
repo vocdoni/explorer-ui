@@ -3,7 +3,7 @@ import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { utils } from 'ethers'
-import { Random, VochainProcessStatus, VotingApi } from 'dvote-js'
+import { VochainProcessStatus, VotingApi } from 'dvote-js'
 import { fetchMethod, getProcessList } from '@lib/api'
 
 export interface useProcessListProps {

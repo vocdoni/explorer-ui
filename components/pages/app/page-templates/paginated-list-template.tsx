@@ -1,6 +1,6 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
-import { ReactNode, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import i18n from '@i18n'
 import { Card } from '@components/elements/cards'
 import { Skeleton } from '@components/blocks/skeleton'
@@ -18,7 +18,6 @@ interface IPaginatedListTemplateProps {
   currentPage: number
   setCurrentPage: (currentPage: number) => void
 
-  elements: []
   loadMoreElements: () => void
   setRendererElements: (toRender: any[]) => void
   renderElementItem: (element: any) => void
@@ -26,18 +25,18 @@ interface IPaginatedListTemplateProps {
 
 export const PaginatedListTemplate = ({
   loading,
-  setLoading, 
+  setLoading,
   skeletonItems = 3,
   pageSize = 10,
 
-  // The total elements that are going to be shown. Could be bigger than cached 
+  // The total elements that are going to be shown. Could be bigger than cached
   // elements
   totalElementsCount,
-  // Total elements cached. Used to load next batch of cached elements. See 
+  // Total elements cached. Used to load next batch of cached elements. See
   // _beforePaginateCb function
   cachedElements,
-  // Elements to be rendered. Length will be pageSize. This are defined outside 
-  // so we can get the information from outside using specific hooks. See 
+  // Elements to be rendered. Length will be pageSize. This are defined outside
+  // so we can get the information from outside using specific hooks. See
   // processes example
   renderedElements,
 
@@ -52,6 +51,15 @@ export const PaginatedListTemplate = ({
   // Function to render a element item. For example, write info inside JXS code
   renderElementItem,
 }: IPaginatedListTemplateProps) => {
+  // Get index for first and last process index on the current page
+  const _getPageIndexes = useCallback(
+    (page: number) => {
+      const firstPageIndex = (page - 1) * pageSize
+      const lastPageIndex = firstPageIndex + pageSize
+      return { firstPageIndex, lastPageIndex }
+    },
+    [pageSize]
+  )
 
   // const renderedProcess = useMemo(() => {
   useEffect(() => {
@@ -61,25 +69,23 @@ export const PaginatedListTemplate = ({
     }
     const { firstPageIndex, lastPageIndex } = _getPageIndexes(currentPage)
     setRendererElements(cachedElements.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage, cachedElements])
+  }, [
+    currentPage,
+    cachedElements,
+    _getPageIndexes,
+    setRendererElements,
+    setLoading,
+  ])
 
-
-  // Get index for first and last process index on the current page
-  const _getPageIndexes = (page: number) => {
-    const firstPageIndex = (page - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    return { firstPageIndex, lastPageIndex }
-  }
-
-  /** 
+  /**
    * This is used when the total count of elements is less than cachedElements
    * lenght
-   * 
-   * This could happend when loading data from 64 to 64 pagination from the 
+   *
+   * This could happend when loading data from 64 to 64 pagination from the
    * backend.
    */
-  const _beforePaginateCb = (nextPage: number, totalPageCount: number) => {
-    const { firstPageIndex, lastPageIndex } = _getPageIndexes(nextPage)
+  const _beforePaginateCb = (nextPage: number, ) => {
+    const { lastPageIndex } = _getPageIndexes(nextPage)
     if (
       nextPage > currentPage &&
       lastPageIndex >= cachedElements.length &&
@@ -109,7 +115,9 @@ export const PaginatedListTemplate = ({
     <Grid>
       {loading ? (
         renderSkeleton()
-      ) : cachedElements != null && cachedElements.length && renderedElements?.length ? (
+      ) : cachedElements != null &&
+        cachedElements.length &&
+        renderedElements?.length ? (
         <>
           <Column md={8} sm={12}>
             <Paginator
