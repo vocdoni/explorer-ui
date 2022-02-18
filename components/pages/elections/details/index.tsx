@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import {
   useEntity,
   useBlockStatus,
-  useProcess,
   usePool,
 } from '@vocdoni/react-hooks'
 
@@ -12,8 +11,6 @@ import { PageCard, StatusCard } from '@components/elements/cards'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteStatus, getVoteStatus } from '@lib/util'
-import { Unless, When } from 'react-if'
-import { useUrlHash } from 'use-url-hash'
 import {
   BlockStatus,
   VotingApi,
@@ -91,7 +88,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
 
         setLoadingResults(false)
       })
-  }, [processId])
+  }, [poolPromise, processId])
 
   // Set voting results
   useEffect(() => {
@@ -113,7 +110,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
       entityMetadata,
       processInfo?.state?.entityId
     )
-  }, [metadata])
+  }, [entityMetadata, metadata, processInfo?.state?.entityId])
 
 
   const dateDiffStr = resolveDate(
@@ -131,12 +128,6 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
         subtitle={i18n.t('elections.id') + ': #' + processId}
         entityImage={entityMetadata?.media?.avatar}
       />
-
-      {/* <When condition={loading}>
-        <p>{i18n.t('elections.please_wait')}</p>
-      </When> */}
-
-      {/* <Unless condition={loading || !processInfo}> */}
 
         {/* Created on and ends on */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
@@ -222,12 +213,6 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
             <EnvelopeExplorer processId={processId} results={results} />
           </Tab>
         </Tabs>
-
-           {/* <Card>
-            <h4>{i18n.t('elections.details')}</h4>
-            <pre>{JSON.stringify(processInfo?.state, null, 2)}</pre>
-          </Card>  */}
-      {/* </Unless> */}
     </PageCard>
   )
 }

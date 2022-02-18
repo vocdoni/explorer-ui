@@ -1,5 +1,4 @@
-import { ProcessDetails, ProcessSummary, Random, VochainProcessStatus, Voting, VotingApi } from 'dvote-js'
-import { BigNumber, providers } from 'ethers'
+import { ProcessDetails, Random, VotingApi } from 'dvote-js'
 import { GatewayPool } from "dvote-js"
 
 /**
@@ -14,7 +13,7 @@ export async function fetchMethod (
     params: any
   }
 ) : Promise<any> {
-  let url = pool.activeGateway.dvoteUri
+  const url = pool.activeGateway.dvoteUri
   return fetch(url, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -66,7 +65,7 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 
   while (true) {
     const processList = await VotingApi.getProcessList({ entityId, from }, pool)
-    if (processList.length == 0) return result
+    if (processList.length == 0) 
 
     result = result.concat(processList.map(id => '0x' + id))
     from += processList.length

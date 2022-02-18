@@ -2,7 +2,7 @@ import { ENVELOPES_PATH } from "@const/routes"
 import Link from "next/link"
 import { ReactNode } from "react"
 
-function getPath (envelopId:string) {return ENVELOPES_PATH + '/#/' + envelopId};
+function getPath (envelopId:string) {return ENVELOPES_PATH + '/#/' + envelopId}
 
 interface EntityLinkProps {
     envelopId: string,

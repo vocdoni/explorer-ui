@@ -1,17 +1,14 @@
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { DashboardProcessList } from './process-list'
 import i18n from '@i18n'
-import { colors } from '@theme/colors'
 import { useProcessCount } from '@hooks/use-processes'
 import { ListPageTemplate } from '@components/pages/app/page-templates/list-page-template'
 
-interface IDashboardShowProcessesProps {}
-
 const PROCESS_PER_PAGE = 10
 
-export const DashboardShowProcesses = ({}: IDashboardShowProcessesProps) => {
-  const { processCount } = useProcessCount({})
+export const DashboardShowProcesses = () => {
+  const {processCount} = useProcessCount({});
+ 
 
   return (
     <ListPageTemplate
