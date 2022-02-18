@@ -1,5 +1,4 @@
-import { ProcessDetails, ProcessSummary, VochainProcessStatus, Voting, VotingApi } from 'dvote-js'
-import { BigNumber, providers } from 'ethers'
+import { ProcessDetails, VotingApi } from 'dvote-js'
 import { GatewayPool } from "dvote-js"
 
 // VOCDONI API wrappers
@@ -36,7 +35,7 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 
   while (true) {
     const processList = await VotingApi.getProcessList({ entityId, from }, pool)
-    if (processList.length == 0) return result
+    if (processList.length == 0) 
 
     result = result.concat(processList.map(id => '0x' + id))
     from += processList.length
