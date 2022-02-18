@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePool, useProcesses } from '@vocdoni/react-hooks'
-// import { useWallet } from './use-wallet'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { utils } from 'ethers'
@@ -26,19 +25,15 @@ export const useProcessesList = (
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
 
-  useEffect(() => {
-    updateProcessIds()
-  }, [entityId, namespace, status, withResults, from, searchTerm])
-
   // Loaders
-  const updateProcessIds = () => {
+  const updateProcessIds = useCallback(() => {
     console.debug('DEBUG', 'Updating processes list', 
       entityId, namespace, status, withResults, from, searchTerm )
     setLoadingProcessList(true)
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status, withResults, from, searchTerm } as any,
+          { entityId, namespace, status, withResults, from, searchTerm } as unknown,
           pool
         )
       )
@@ -53,7 +48,13 @@ export const useProcessesList = (
         console.error(err)
         setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'))
       })
-  }
+  },[entityId, from, namespace, poolPromise, searchTerm, setAlertMessage, status, withResults])
+
+
+  useEffect(() => {
+    updateProcessIds()
+  }, [entityId, namespace, status, withResults, from, searchTerm, updateProcessIds])
+
 
   return {
     processIds,
@@ -76,10 +77,10 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const { setAlertMessage } = useAlertMessage()
   const [processCount, setProcessCount] = useState(0)
 
-  const getProcessCountReq = () => {
+  const getProcessCountReq = useCallback (() => {
     poolPromise
       .then((pool) => {
-        let url = pool.activeGateway.dvoteUri
+        const url = pool.activeGateway.dvoteUri
         // todo(kon): this is a bypass because `getProcessCount` method is not exposed. Expose it on VotingAPI
         return fetch(url, {
           method: 'post',
@@ -105,11 +106,11 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
         console.error(err)
         setAlertMessage(i18n.t('error.could_not_fetch_elections_count'))
       })
-  }
+  }, [entityId, poolPromise, setAlertMessage])
 
   useEffect(() => {
     getProcessCountReq()
-  }, [entityId])
+  }, [entityId, getProcessCountReq])
 
   return {
     processCount,
@@ -123,20 +124,13 @@ export const useProcessesFromAccount = (entityId: string) => {
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
-//   const { wallet } = useWallet()
   const { processes, error, loading: loadingProcessesDetails } = useProcesses(
     processIds || []
   )
   const { poolPromise } = usePool()
 
-  useEffect(() => {
-    updateProcessIds()
-  }, [entityId])
-// }, [wallet, entityId])
-
-
   // Loaders
-  const updateProcessIds = () => {
+  const updateProcessIds = useCallback(() => {
     if (!entityId) return
     setLoadingProcessList(true)
 
@@ -148,11 +142,15 @@ export const useProcessesFromAccount = (entityId: string) => {
       })
       .catch((err) => {
         setLoadingProcessList(false)
-
         console.error(err)
-        // setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
+        setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
       })
-  }
+  }, [entityId, poolPromise, setAlertMessage])
+
+
+  useEffect(() => {
+    updateProcessIds()
+  }, [entityId, updateProcessIds])
 
   return { processIds, processes, loadingProcessList, loadingProcessesDetails, error }
 }
