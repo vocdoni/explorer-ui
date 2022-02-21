@@ -111,23 +111,26 @@ export const DashboardEntityList = ({
   )
 }
 
-type Filter = any
-type DataList = any[]
 // todo: move this arguments to generic types
-export const usePaginatedList = ({
-  filter,
-  setFilter,
-  dataList,
-  dataPagination,
-  setDataPagination,
-}: {
+// export const usePaginatedList = ({
+
+interface IUsePaginatedListProps<Filter, DataList> {
   filter: Filter
   setFilter: (Filter) => void
   dataList: DataList
   dataPagination: number
   setDataPagination: (number) => void
-}) => {
-  const [cachedData, setCachedData] = useState<string[]>([])
+}
+
+export function usePaginatedList <F, DataList>({
+  filter,
+  setFilter,
+  dataList,
+  dataPagination,
+  setDataPagination,
+}: IUsePaginatedListProps<F, DataList>) {
+
+  const [cachedData, setCachedData] = useState<DataList[]>([])
 
   ///////////////////////////////
   // PAGINATOR
@@ -149,7 +152,7 @@ export const usePaginatedList = ({
     setCachedData(cachedData.concat(dataList))
   }, [dataList])
 
-  const [renderedData, setRenderedData] = useState<string[]>([])
+  const [renderedData, setRenderedData] = useState<DataList[]>([])
 
   const loadMoreData = () => {
     setDataPagination(dataPagination + PAGINATION_FROM)
