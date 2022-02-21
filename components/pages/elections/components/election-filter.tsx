@@ -11,6 +11,7 @@ import { FlexContainer } from '@components/elements/flex'
 import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
+import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 
 
 export const ProcessFilter = ({
@@ -40,6 +41,13 @@ export const ProcessFilter = ({
   const resetFilter = () => {
     setTempFilter({})
     setSearchTermIT('')
+  }
+
+  const _onEnableFilter = () => {
+    onEnableFilter(tempFilter)
+  }
+  const _onDisableFilter = () => {
+    onDisableFilter(tempFilter, resetFilter)
   }
 
   return (
@@ -96,23 +104,7 @@ export const ProcessFilter = ({
         </FlexContainer>
         <FlexContainer>
           <DivWithMarginChildren>
-            <Button
-              positive
-              small
-              onClick={() => {
-                onEnableFilter(tempFilter)
-              }}
-            >
-              {i18n.t('elections.apply_filters')}
-            </Button>
-            <Button
-              small
-              onClick={() => {
-                onDisableFilter(tempFilter, resetFilter)
-              }}
-            >
-              {i18n.t('elections.clear_filters')}
-            </Button>
+            <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
           </DivWithMarginChildren>
         </FlexContainer>
       </Grid>
