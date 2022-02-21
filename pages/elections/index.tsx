@@ -1,14 +1,15 @@
 import { DashboardShowProcesses } from '@components/pages/elections/list'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
+import { useUrlHash } from 'use-url-hash';
 
 const ElectionsPage = () => {
   const strategies: ViewStrategy[] = [];
-  // const entityId = useUrlHash().slice(1)
+  const entityId = useUrlHash().slice(1)
 
   // todo(ritmo): loading/error page
   const renderShowElectionPage = new ViewStrategy(
     () => true,
-    <DashboardShowProcesses></DashboardShowProcesses>
+    <DashboardShowProcesses entityId={entityId}></DashboardShowProcesses>
   )
   strategies.push(renderShowElectionPage)
   

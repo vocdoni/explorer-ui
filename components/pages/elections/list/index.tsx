@@ -7,7 +7,7 @@ import { useProcessCount } from '@hooks/use-processes';
 
 const PROCESS_PER_PAGE = 10
 
-export const DashboardShowProcesses = () => {
+export const DashboardShowProcesses = ({entityId}: {entityId?: string}) => {
   const {processCount} = useProcessCount({});
  
 
@@ -21,6 +21,7 @@ export const DashboardShowProcesses = () => {
         </Typography>
 
       <DashboardProcessList 
+        entityId={entityId}
         totalProcessCount={processCount} 
         pageSize={PROCESS_PER_PAGE}/>
     </>
