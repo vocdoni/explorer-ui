@@ -14,8 +14,6 @@ import { PaginatedListTemplate } from '@components/pages/app/page-templates/pagi
 import { EntitiesFilter, IFilterEntity } from '../components/entities-filter'
 import { useEntityList } from '@hooks/use-entities'
 
-
-
 interface IDashboardProcessListProps {
   loading?: boolean
   pageSize?: number
@@ -29,16 +27,107 @@ export const DashboardEntityList = ({
   pageSize = 8,
   totalCount = 0,
 }: IDashboardProcessListProps) => {
+  ///////////////////////////////
+  // JSX
+  ///////////////////////////////
+
+  // Render item on the list from it summary
+  const renderProcessItem = (identity: string) => {
+    return (
+      <div key={identity}>
+        {' '}
+        {identity}
+        {/* <DashboardProcessListItem
+          process={process}
+          // status={processList.status}
+          status={getVoteStatus(process.summary, blockHeight)}
+          entityId={process?.summary?.entityId || ''}
+          // accountName={account?.name}
+          // entityLogo={entityMetadata?.media?.avatar}
+          // link={ELECTIONS_PATH + '/#/' + process.id}
+          link={electionDetailPath}
+        /> */}
+      </div>
+    )
+  }
   const [loading, setLoading] = useState(true)
-
   const [filter, setFilter] = useState<IFilterEntity>({})
+  const [dataPagination, setDataPagination] = useState(0)
 
-  const [entitiesPagination, setEntitiesPagination] = useState(0)
   const { entitiesList, loadingEntitiesList } = useEntityList({
-    from: entitiesPagination,
+    from: dataPagination,
     searchTerm: filter?.searchTerm,
   })
-  const [cachedEntitiesIds, setCachedEntitiesIds] = useState<string[]>([])
+
+  // Set loading
+  useEffect(() => {
+    setLoading(loadingEntitiesList)
+  }, [loadingEntitiesList])
+
+  const {
+    cachedData,
+    renderedData,
+    currentPage,
+    methods: {
+      enableFilter,
+      disableFilter,
+      setRenderedData,
+      setCurrentPage,
+      loadMoreData,
+    },
+  } = usePaginatedList({
+    filter: filter,
+    setFilter: setFilter,
+    dataList: entitiesList,
+    dataPagination,
+    setDataPagination,
+  })
+
+  return (
+    <>
+      <EntitiesFilter
+        onEnableFilter={enableFilter}
+        onDisableFilter={disableFilter}
+      ></EntitiesFilter>
+      <PaginatedListTemplate
+        loading={loading}
+        setLoading={setLoading}
+        pageSize={pageSize}
+        totalElementsCount={
+          // todo: add pagination when searching using filters. Ex: if the
+          // searchTerm result return more than 64 process, now simply doesn't load
+          // next 64 batch.
+          Object.keys(filter).length === 0 ? totalCount : entitiesList.length
+        }
+        cachedElements={cachedData}
+        renderedElements={renderedData}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        loadMoreElements={loadMoreData}
+        setRendererElements={setRenderedData}
+        renderElementItem={renderProcessItem}
+      />
+    </>
+  )
+}
+
+type Filter = any
+type DataList = any[]
+// todo: move this arguments to generic types
+export const usePaginatedList = ({
+  filter,
+  setFilter,
+  dataList,
+  dataPagination,
+  setDataPagination,
+}: {
+  filter: Filter
+  setFilter: (Filter) => void
+  dataList: DataList
+  dataPagination: number
+  setDataPagination: (number) => void
+}) => {
+  const [cachedData, setCachedData] = useState<string[]>([])
 
   ///////////////////////////////
   // PAGINATOR
@@ -47,7 +136,7 @@ export const DashboardEntityList = ({
   // Set the page at initial state
   const resetPage = useCallback(() => {
     setCurrentPage(1)
-    setCachedEntitiesIds([])
+    setCachedData([])
   }, [])
 
   // Paginator current page
@@ -57,18 +146,13 @@ export const DashboardEntityList = ({
   // Used for pagination, if we need to load next 64 processes
   useEffect(() => {
     // if (loading != true) setLoading(true)
-    setCachedEntitiesIds(cachedEntitiesIds.concat(entitiesList))
-  }, [entitiesList])
+    setCachedData(cachedData.concat(dataList))
+  }, [dataList])
 
-  const [renderedEntities, setRenderedEntities] = useState<string[]>([])
+  const [renderedData, setRenderedData] = useState<string[]>([])
 
-  // Set loading
-  useEffect(() => {
-    setLoading(loadingEntitiesList)
-  }, [loadingEntitiesList])
-
-  const loadMoreEntities = () => {
-    setEntitiesPagination(entitiesPagination + PAGINATION_FROM)
+  const loadMoreData = () => {
+    setDataPagination(dataPagination + PAGINATION_FROM)
   }
 
   ///////////////////////////////
@@ -85,10 +169,7 @@ export const DashboardEntityList = ({
     }
   }
 
-  const disableFilter = (
-    tempFilter,
-    resetForm: { (): void }
-  ) => {
+  const disableFilter = (tempFilter, resetForm: { (): void }) => {
     resetForm()
     if (
       Object.keys(filter).length !== 0 // Check if filter is already reset
@@ -98,54 +179,17 @@ export const DashboardEntityList = ({
     }
   }
 
-  ///////////////////////////////
-  // JSX
-  ///////////////////////////////
-
-  // Render item on the list from it summary
-  const renderProcessItem = (identity: string) => {
-    return (
-      <div key={identity}> {identity}
-        {/* <DashboardProcessListItem
-          process={process}
-          // status={processList.status}
-          status={getVoteStatus(process.summary, blockHeight)}
-          entityId={process?.summary?.entityId || ''}
-          // accountName={account?.name}
-          // entityLogo={entityMetadata?.media?.avatar}
-          // link={ELECTIONS_PATH + '/#/' + process.id}
-          link={electionDetailPath}
-        /> */}
-      </div>
-    )
+  return {
+    cachedData,
+    renderedData,
+    currentPage,
+    dataPagination,
+    methods: {
+      enableFilter,
+      disableFilter,
+      setRenderedData,
+      setCurrentPage,
+      loadMoreData,
+    },
   }
-
-  return (
-    <>
-      <EntitiesFilter
-        onEnableFilter={enableFilter}
-        onDisableFilter={disableFilter}
-      ></EntitiesFilter>
-      <PaginatedListTemplate
-        loading={loading}
-        setLoading={setLoading}
-        pageSize={pageSize}
-        totalElementsCount={
-          // todo: add pagination when searching using filters. Ex: if the
-          // searchTerm result return more than 64 process, now simply doesn't load
-          // next 64 batch.
-          Object.keys(filter).length === 0
-            ? totalCount
-            : entitiesList.length
-        }
-        cachedElements={cachedEntitiesIds}
-        renderedElements={renderedEntities}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        loadMoreElements={loadMoreEntities}
-        setRendererElements={setRenderedEntities}
-        renderElementItem={renderProcessItem}
-      />
-    </>
-  )
 }
