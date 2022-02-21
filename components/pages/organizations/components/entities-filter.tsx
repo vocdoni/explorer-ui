@@ -10,15 +10,13 @@ import { useState } from 'react'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterEntity {
-    entityId?: string 
+    searchTerm?: string 
   }
 
-export const ProcessFilter = ({
-  filter,
+export const EntitiesFilter = ({
   onEnableFilter,
   onDisableFilter,
 }: {
-  filter: IFilterEntity
   onEnableFilter: { (tempFilter: IFilterEntity): void }
   onDisableFilter: {
     (tempFilter: IFilterEntity, resetFilter: { (): void }): void
@@ -49,7 +47,7 @@ export const ProcessFilter = ({
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)
-            tempFilter.entityId = ev.target.value
+            tempFilter.searchTerm = ev.target.value
             setTempFilter(Object.assign({}, tempFilter))
           }}
         />
@@ -62,8 +60,3 @@ export const ProcessFilter = ({
     </>
   )
 }
-export const SelectContainer = styled.div`
-& > * {
-  min-width: 200px;
-}
-`
