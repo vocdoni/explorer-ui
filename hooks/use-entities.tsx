@@ -24,6 +24,7 @@ export const useEntityList = ({searchTerm, from}: {searchTerm?: string, from?: n
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityList', response['response'])
+        setLoadingEntitiesList(false)
         if (!response['response']['ok'])
           throw new Error('Error retrieving getProcessCount')
           setEntitiesList(response['response']['entityIds'])
