@@ -67,7 +67,7 @@ export const DashboardProcessList = ({
   useEffect(() => {
     // if (loading != true) setLoading(true)
     setCachedProcessesIds(cachedProcessesIds.concat(processIds))
-  }, [cachedProcessesIds, processIds])
+  }, [processIds])
 
   const [renderedProcess, setRenderedProcess] = useState<string[]>([])
 
