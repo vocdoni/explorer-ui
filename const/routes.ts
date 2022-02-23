@@ -1,5 +1,6 @@
 export const HOME_PATH = "/"
 export const ORGANIZATIONS_PATH = "/organizations"
+export const ORGANIZATIONS_DETAILS = "/organizations/show/#/{organizationId}"
 export const ENVELOPES_PATH = "/envelopes"
 export const ELECTIONS_PATH = "/elections"
 export const ELECTIONS_DETAILS = '/elections/show/#/{electionsId}'

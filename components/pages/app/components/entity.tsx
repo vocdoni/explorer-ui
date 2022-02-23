@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ORGANIZATIONS_PATH } from '@const/routes'
+import { ORGANIZATIONS_DETAILS, ORGANIZATIONS_PATH } from '@const/routes'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import React, { ReactNode } from 'react'
 import i18n from '@i18n'
@@ -9,9 +9,13 @@ import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/el
 import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
 import { StatusCard } from '@components/elements/cards'
+import RouterService from '@lib/router'
 
-
-function getOrganizationPath (entityId:string) {return ORGANIZATIONS_PATH + '/#/' + entityId}
+function getOrganizationPath (entityId:string) {
+  return RouterService.instance.get(ORGANIZATIONS_DETAILS, {
+    organizationId: entityId,
+  })
+}
 
 interface EntityLinkProps {
     entityId: string,
