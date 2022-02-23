@@ -19,7 +19,7 @@ interface IPaginatedListTemplateProps<Elements, RenderedElements> {
   setCurrentPage: (currentPage: number) => void
 
   loadMoreElements: () => void
-  setRendererElements: (toRender: Elements) => void
+  setRendererElements:{(toRender:Elements[]): void}
   renderElementItem: (element: ReactNode) => void
 }
 
@@ -143,7 +143,7 @@ export const PaginatedListTemplate = <Elements, RenderedElements>({
 interface IUsePaginatedListProps<Filter, DataList> {
   filter: Filter
   setFilter: (Filter: Filter) => void
-  dataList: DataList
+  dataList: DataList[]
   backendDataPagination: number
   setBackendDataPagination: (number) => void
   backendPaginationIncrement?: number
@@ -180,7 +180,7 @@ export function usePaginatedList <Filter, DataList>({
     setCachedData(cachedData.concat(dataList))
   }, [dataList])
 
-  const [renderedData, setRenderedData] = useState<DataList>()
+  const [renderedData, setRenderedData] = useState<DataList[]>()
 
   const loadMoreData = () => {
     setBackendDataPagination(backendDataPagination + backendPaginationIncrement)

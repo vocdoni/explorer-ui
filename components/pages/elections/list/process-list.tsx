@@ -53,7 +53,7 @@ export const DashboardProcessList = ({
       setCurrentPage,
       loadMoreData,
     },
-  } = usePaginatedList<IFilterProcesses, string[]>({
+  } = usePaginatedList<IFilterProcesses, string>({
     filter: filter,
     setFilter: setFilter,
     dataList: processIds,
