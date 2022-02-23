@@ -18,7 +18,6 @@ export const DashboardShowProcesses = ({entityId}: {entityId?: string}) => {
       <DashboardProcessList
         totalProcessCount={processCount}
         pageSize={PROCESS_PER_PAGE}
-        entityId={entityId}
       />
     </ListPageTemplate>
   )
