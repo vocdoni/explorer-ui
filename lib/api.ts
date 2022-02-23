@@ -65,7 +65,7 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 
   while (true) {
     const processList = await VotingApi.getProcessList({ entityId, from }, pool)
-    if (processList.length == 0) 
+    if (processList.length == 0) return result
 
     result = result.concat(processList.map(id => '0x' + id))
     from += processList.length
