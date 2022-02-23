@@ -18,7 +18,6 @@ const ElectionsDetailPage = () => {
 
   const renderEntityPage = new ViewStrategy(
     () =>
-      // !!metadata &&
       !loading &&
       !loadingProcessList &&
       !loadingProcessesDetails,
