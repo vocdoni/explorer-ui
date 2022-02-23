@@ -13,7 +13,7 @@ import RouterService from '@lib/router'
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/election-filter'
-import { PaginatedListTemplate } from '@components/pages/app/page-templates/paginated-list-template'
+import { PaginatedListTemplate, usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
@@ -35,91 +35,55 @@ export const DashboardProcessList = ({
   pageSize = 8,
   totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
-  const [loading, setLoading] = useState(true)
   const { blockHeight } = useBlockHeight()
-
+  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterProcesses>({})
-
-  const [processPagination, setProcessPagination] = useState(0)
+  const [dataPagination, setDataPagination] = useState(0)
   const { processIds, loadingProcessList } = useProcessesList({
-    from: processPagination,
+    from: dataPagination,
     searchTerm: filter?.searchTerm,
     status: filter?.status,
     withResults: filter?.withResults,
   })
-  const [cachedProcessesIds, setCachedProcessesIds] = useState<string[]>([])
+  // const [renderedProcess, setRenderedProcess] = useState<string[]>([])
 
-  ///////////////////////////////
-  // PAGINATOR
-  ///////////////////////////////
+  const {
+    cachedData,
+    renderedData,
+    currentPage,
+    methods: {
+      enableFilter,
+      disableFilter,
+      setRenderedData,
+      setCurrentPage,
+      loadMoreData,
+    },
+  } = usePaginatedList<IFilterProcesses, string[]>({
+    filter: filter,
+    setFilter: setFilter,
+    dataList: processIds,
+    backendDataPagination: dataPagination,
+    setBackendDataPagination: setDataPagination,
+  })
 
-  // Set the page at initial state
-  const resetPage = useCallback(() => {
-    setCurrentPage(1)
-    setCachedProcessesIds([])
-  }, [])
-
-  // Paginator current page
-  const [currentPage, setCurrentPage] = useState(1)
-
-  // When processIds are retrieved, update the list of already loaded process ids
-  // Used for pagination, if we need to load next 64 processes
-  useEffect(() => {
-    // if (loading != true) setLoading(true)
-    setCachedProcessesIds(cachedProcessesIds.concat(processIds))
-  }, [processIds])
-
-  const [renderedProcess, setRenderedProcess] = useState<string[]>([])
 
   // Get processes details to show on the list
   const {
     processes,
     error,
     loading: loadingProcessesDetails,
-  } = useProcesses(renderedProcess || [])
+  } = useProcesses(renderedData || [])
 
   // Set loading
   useEffect(() => {
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
-  const loadMoreProcesses = () => {
-    setProcessPagination(processPagination + PROCESS_PAGINATION_FROM)
-  }
 
-  ///////////////////////////////
-  // Filter
-  ///////////////////////////////
-
-  const filterIsChanged = (filter, tempFilter) =>
-    JSON.stringify(filter) !== JSON.stringify(tempFilter)
-
-  const enableFilter = (tempFilter: IFilterProcesses) => {
-    if (filterIsChanged(filter, tempFilter)) {
-      resetPage()
-      setFilter(Object.assign({}, tempFilter))
-    }
-  }
-
-  const disableFilter = (
-    tempFilter: IFilterProcesses,
-    resetForm: { (): void }
-  ) => {
-    resetForm()
-    if (
-      Object.keys(filter).length !== 0 // Check if filter is already reset
-    ) {
-      resetPage()
-      setFilter({})
-    }
-  }
-
-  ///////////////////////////////
-  // JSX
-  ///////////////////////////////
 
   // Render item on the list from it summary
   const renderProcessItem = (process: SummaryProcess) => {
+
     const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
       electionsId: process.id,
     })
@@ -158,12 +122,12 @@ export const DashboardProcessList = ({
             ? totalProcessCount
             : processIds.length
         }
-        cachedElements={cachedProcessesIds}
+        cachedElements={cachedData}
         renderedElements={processes}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        loadMoreElements={loadMoreProcesses}
-        setRendererElements={setRenderedProcess}
+        loadMoreElements={loadMoreData}
+        setRendererElements={setRenderedData}
         renderElementItem={renderProcessItem}
       />
     </>
