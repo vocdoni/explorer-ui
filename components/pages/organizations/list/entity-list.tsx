@@ -1,18 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import {
-  SummaryProcess,
-  useBlockHeight,
-  useEntityProcessIdList,
-  useProcesses,
-} from '@vocdoni/react-hooks'
+import React, { useEffect, useState } from 'react'
 
-import { getVoteStatus } from '@lib/util'
 
-import { ELECTIONS_DETAILS } from '@const/routes'
-import RouterService from '@lib/router'
 import { PaginatedListTemplate, usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
 import { EntitiesFilter, IFilterEntity } from '../components/entities-filter'
 import { useEntityList } from '@hooks/use-entities'
+import { DashboardEntityListItem } from './entity-list-item'
 
 interface IDashboardProcessListProps {
   loading?: boolean
@@ -29,18 +21,9 @@ export const DashboardEntityList = ({
   const renderProcessItem = (identity: string) => {
     return (
       <div key={identity}>
-        {' '}
-        {identity}
-        {/* <DashboardProcessListItem
-          process={process}
-          // status={processList.status}
-          status={getVoteStatus(process.summary, blockHeight)}
-          entityId={process?.summary?.entityId || ''}
-          // accountName={account?.name}
-          // entityLogo={entityMetadata?.media?.avatar}
-          // link={ELECTIONS_PATH + '/#/' + process.id}
-          link={electionDetailPath}
-        /> */}
+        <DashboardEntityListItem
+          entityId={identity}
+        />
       </div>
     )
   }
