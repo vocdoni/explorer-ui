@@ -9,6 +9,8 @@ import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { DashboardProcessListItem } from '@components/pages/organizations/components/process-list-item'
 import i18n from '@i18n'
+import RouterService from '@lib/router'
+import { ELECTIONS_DETAILS } from '@const/routes'
 
 
 interface IEntityViewProps {
@@ -18,7 +20,7 @@ interface IEntityViewProps {
   blockHeight: number,
 }
 export const EntityView = ({ address, metadata, processes, blockHeight }: IEntityViewProps) => {
-  const explorerUrl = `${process.env.EXPLORER_URL}/entity/${address}`
+  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/0x${address}`
 
   return (
     <PageCard>
@@ -39,7 +41,7 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
       <Grid>
         <Column sm={12}>
           <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_address')} </Typography>
-          <Typography variant={TypographyVariant.Small}>{address}<a href={explorerUrl} target='blank'>({i18n.t('entity.home.view_in_explorer')})</a></Typography>
+          <Typography variant={TypographyVariant.Small}>{address}<a href={plazaUrl} target='blank'>({i18n.t('entity.home.view_profile')})</a></Typography>
         </Column>
       </Grid>
 
@@ -56,7 +58,7 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
                 status={processStatus}
                 accountName={metadata?.name.default}
                 entityLogo={metadata?.media.header}
-                link={ 'VOTING_PATH' + "#/" + process.id }
+                link={ RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id }) }
               />
             )
           })}
