@@ -1,29 +1,29 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
-import { useCallback, useEffect, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import i18n from '@i18n'
 import { Card } from '@components/elements/cards'
 import { Skeleton } from '@components/blocks/skeleton'
 
-interface IPaginatedListTemplateProps {
+interface IPaginatedListTemplateProps<Elements, RenderedElements> {
   loading?: boolean
   setLoading: (loading: boolean) => void
   skeletonItems?: number
   pageSize?: number
 
   totalElementsCount: number
-  cachedElements: any[]
-  renderedElements: any[]
+  cachedElements: Elements[]
+  renderedElements: RenderedElements[]
 
   currentPage: number
   setCurrentPage: (currentPage: number) => void
 
   loadMoreElements: () => void
-  setRendererElements: (toRender: any[]) => void
-  renderElementItem: (element: any) => void
+  setRendererElements: (toRender: Elements) => void
+  renderElementItem: (element: ReactNode) => void
 }
 
-export const PaginatedListTemplate = ({
+export const PaginatedListTemplate = <Elements, RenderedElements>({
   loading,
   setLoading,
   skeletonItems = 3,
@@ -50,7 +50,7 @@ export const PaginatedListTemplate = ({
   setRendererElements,
   // Function to render a element item. For example, write info inside JXS code
   renderElementItem,
-}: IPaginatedListTemplateProps) => {
+}: IPaginatedListTemplateProps<Elements, RenderedElements> ) => {
   // Get index for first and last process index on the current page
   const _getPageIndexes = useCallback(
     (page: number) => {
@@ -180,7 +180,7 @@ export function usePaginatedList <Filter, DataList>({
     setCachedData(cachedData.concat(dataList))
   }, [dataList])
 
-  const [renderedData, setRenderedData] = useState<DataList[]>([])
+  const [renderedData, setRenderedData] = useState<DataList>()
 
   const loadMoreData = () => {
     setBackendDataPagination(backendDataPagination + backendPaginationIncrement)

@@ -69,7 +69,7 @@ export const DashboardEntityList = ({
       setCurrentPage,
       loadMoreData,
     },
-  } = usePaginatedList({
+  } = usePaginatedList<IFilterEntity, string[]>({
     filter: filter,
     setFilter: setFilter,
     dataList: entitiesList,
