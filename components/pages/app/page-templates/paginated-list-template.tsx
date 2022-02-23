@@ -1,6 +1,6 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import i18n from '@i18n'
 import { Card } from '@components/elements/cards'
 import { Skeleton } from '@components/blocks/skeleton'
@@ -138,4 +138,89 @@ export const PaginatedListTemplate = ({
       )}
     </Grid>
   )
+}
+
+interface IUsePaginatedListProps<Filter, DataList> {
+  filter: Filter
+  setFilter: (Filter: Filter) => void
+  dataList: DataList
+  backendDataPagination: number
+  setBackendDataPagination: (number) => void
+  backendPaginationIncrement?: number
+}
+
+export function usePaginatedList <Filter, DataList>({
+  filter,
+  setFilter,
+  dataList,
+  backendDataPagination,
+  setBackendDataPagination,
+  backendPaginationIncrement = 64,
+}: IUsePaginatedListProps<Filter, DataList>) {
+
+  const [cachedData, setCachedData] = useState<DataList[]>([])
+
+  ///////////////////////////////
+  // PAGINATOR
+  ///////////////////////////////
+
+  // Set the page at initial state
+  const resetPage = useCallback(() => {
+    setCurrentPage(1)
+    setCachedData([])
+  }, [])
+
+  // Paginator current page
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // When processIds are retrieved, update the list of already loaded process ids
+  // Used for pagination, if we need to load next 64 processes
+  useEffect(() => {
+    // if (loading != true) setLoading(true)
+    setCachedData(cachedData.concat(dataList))
+  }, [dataList])
+
+  const [renderedData, setRenderedData] = useState<DataList[]>([])
+
+  const loadMoreData = () => {
+    setBackendDataPagination(backendDataPagination + backendPaginationIncrement)
+  }
+
+  ///////////////////////////////
+  // Filter
+  ///////////////////////////////
+
+  const filterIsChanged = (filter, tempFilter) =>
+    JSON.stringify(filter) !== JSON.stringify(tempFilter)
+
+  const enableFilter = (tempFilter) => {
+    if (filterIsChanged(filter, tempFilter)) {
+      resetPage()
+      setFilter(Object.assign({}, tempFilter))
+    }
+  }
+
+  const disableFilter = (tempFilter, resetForm: { (): void }) => {
+    resetForm()
+    if (
+      Object.keys(filter).length !== 0 // Check if filter is already reset
+    ) {
+      resetPage()
+      setFilter({} as Filter)
+    }
+  }
+
+  return {
+    cachedData,
+    renderedData,
+    currentPage,
+    backendDataPagination,
+    methods: {
+      enableFilter,
+      disableFilter,
+      setRenderedData,
+      setCurrentPage,
+      loadMoreData,
+    },
+  }
 }
