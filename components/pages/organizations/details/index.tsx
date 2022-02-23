@@ -7,10 +7,10 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
-import { DashboardProcessListItem } from '@components/pages/organizations/components/process-list-item'
 import i18n from '@i18n'
 import RouterService from '@lib/router'
 import { ELECTIONS_DETAILS } from '@const/routes'
+import { ProcessListItem } from '@components/blocks/card/process-item'
 
 
 interface IEntityViewProps {
@@ -52,13 +52,13 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
             const processStatus = getVoteStatus(process.summary, blockHeight)
             
             return (
-              <DashboardProcessListItem
+              <ProcessListItem 
                 key={index}
                 process={process}
-                status={processStatus}
-                accountName={metadata?.name.default}
+                entityId={address}
                 entityLogo={metadata?.media.header}
                 link={ RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id }) }
+                entityMetadata={metadata}
               />
             )
           })}

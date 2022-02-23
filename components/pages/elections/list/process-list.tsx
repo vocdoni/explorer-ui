@@ -1,19 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   SummaryProcess,
-  useBlockHeight,
   useProcesses,
 } from '@vocdoni/react-hooks'
 
-import { getVoteStatus } from '@lib/util'
 
-import { DashboardProcessListItem } from './process-list-item'
-import { ELECTIONS_DETAILS } from '@const/routes'
-import RouterService from '@lib/router'
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/election-filter'
 import { PaginatedListTemplate, usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
+import { DashboardProcessListItem } from './process-list-item'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
@@ -35,7 +31,6 @@ export const DashboardProcessList = ({
   pageSize = 8,
   totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
-  const { blockHeight } = useBlockHeight()
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterProcesses>({})
   const [dataPagination, setDataPagination] = useState(0)
@@ -83,22 +78,11 @@ export const DashboardProcessList = ({
 
   // Render item on the list from it summary
   const renderProcessItem = (process: SummaryProcess) => {
-
-    const electionDetailPath = RouterService.instance.get(ELECTIONS_DETAILS, {
-      electionsId: process.id,
-    })
     return (
       <div key={process.id}>
         <DashboardProcessListItem
           process={process}
-          // status={processList.status}
-          status={getVoteStatus(process.summary, blockHeight)}
-          entityId={process?.summary?.entityId || ''}
-          // accountName={account?.name}
-          // entityLogo={entityMetadata?.media?.avatar}
-          // link={ELECTIONS_PATH + '/#/' + process.id}
-          link={electionDetailPath}
-        />
+          entityId={process?.summary?.entityId || ''} />
       </div>
     )
   }
