@@ -26,13 +26,13 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
         title={metadata?.name.default}
         processImage={metadata?.media.header}
         // subtitle={entity?.name.default}
-        entityImage={metadata.media.avatar}
+        entityImage={metadata?.media.avatar}
       />
 
       <Grid>
         <Column sm={12}>
           <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_description')}</Typography>
-          <Typography variant={TypographyVariant.Small}>{metadata.description.default}</Typography>
+          <Typography variant={TypographyVariant.Small}>{metadata?.description.default}</Typography>
         </Column>
       </Grid>
 
