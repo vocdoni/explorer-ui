@@ -26,8 +26,6 @@ const IndexPage = () => {
   const viewContext = new ViewContext(strategies)
 
   return viewContext.getView()
-
-  return <div></div>
 }
 
 export default IndexPage
