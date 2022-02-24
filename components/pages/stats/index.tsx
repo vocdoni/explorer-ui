@@ -95,7 +95,7 @@ const StatsPage = ({
               <p>{stats?.validator_count}</p>
               <h5>{i18n.t('home.sync_status')}</h5>
               <p>
-                {stats?.syncing
+                {stats?.    syncing
                   ? i18n.t('home.syncing')
                   : i18n.t('home.in_sync')}
               </p>
