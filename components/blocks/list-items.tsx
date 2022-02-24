@@ -34,12 +34,6 @@ export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title
        {/* todo(kon): Fix <a> cannot appear as a descendant of <a> 
         If we are using `EntityLink` down there this warning shows up
        */}
-       {/* todo(kon): Fix need to open in a new tab when base route is the same
-       as original. For example, clicking to /elections/#/electionsId from the 
-       /elections page. Seems that Link don't respond, probably we have to 
-       refactor route system.
-       */}
-      <a target={'_self'}>
         <ListItemDiv>
           <TopDiv>
             <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
@@ -52,7 +46,6 @@ export const ProcessSummaryListItem = ({ icon, entityName, entityId, link, title
           <VoteListItemTitle>{title}</VoteListItemTitle>
           <VoteListItemDate>{dateText}</VoteListItemDate>
         </ListItemDiv>
-      </a>
      </Link>
   )
 }

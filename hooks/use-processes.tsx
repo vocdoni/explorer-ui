@@ -3,8 +3,8 @@ import { usePool, useProcesses } from '@vocdoni/react-hooks'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { utils } from 'ethers'
-import { Random, VochainProcessStatus, VotingApi } from 'dvote-js'
-import { getProcessList } from '@lib/api'
+import { VochainProcessStatus, VotingApi } from 'dvote-js'
+import { fetchMethod, getProcessList } from '@lib/api'
 
 export interface useProcessListProps {
   entityId?: string // Deprecated, use search terms instead
@@ -15,9 +15,14 @@ export interface useProcessListProps {
   searchTerm?: string
 }
 
-export const useProcessesList = (
-  { entityId, namespace, status, withResults, from, searchTerm }: useProcessListProps
-) => {
+export const useProcessesList = ({
+  entityId,
+  namespace,
+  status,
+  withResults,
+  from,
+  searchTerm,
+}: useProcessListProps) => {
   // if (entityId) entityId = utils.getAddress(entityId)
 
   const [processIds, setProcessIds] = useState([] as string[])
@@ -80,22 +85,12 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const getProcessCountReq = useCallback (() => {
     poolPromise
       .then((pool) => {
-        const url = pool.activeGateway.dvoteUri
-        // todo(kon): this is a bypass because `getProcessCount` method is not exposed. Expose it on VotingAPI
-        return fetch(url, {
-          method: 'post',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: Random.getHex().substr(2, 10),
-            request: {
-              method: 'getProcessCount',
-              timestamp: Math.floor(Date.now() / 1000),
-              entityId: entityId,
-            },
-          }),
-        } as any)
+        // todo(kon): this method is not exposed yet to dvotejs
+        return fetchMethod(pool, {
+          method: 'getProcessCount',
+          params: { entityId: entityId },
+        })
       })
-      .then((response) => response.json())
       .then((response) => {
         console.debug('DEBUG', 'getProcessCount', response['response'])
         if (!response['response']['ok'])
@@ -116,7 +111,6 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
     processCount,
   }
 }
-
 
 export const useProcessesFromAccount = (entityId: string) => {
   if (entityId) entityId = utils.getAddress(entityId)
@@ -152,5 +146,11 @@ export const useProcessesFromAccount = (entityId: string) => {
     updateProcessIds()
   }, [entityId, updateProcessIds])
 
-  return { processIds, processes, loadingProcessList, loadingProcessesDetails, error }
+  return {
+    processIds,
+    processes,
+    loadingProcessList,
+    loadingProcessesDetails,
+    error,
+  }
 }

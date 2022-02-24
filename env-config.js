@@ -7,6 +7,15 @@ const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 
+
+switch (VOCDONI_ENVIRONMENT) {
+  case 'dev':
+    plaza = `https://plaza.${VOCDONI_ENVIRONMENT}.vocdoni.net`
+    break
+  case 'prod':
+    plaza = `https://vocdoni.app`
+}
+
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
 }
@@ -28,6 +37,7 @@ module.exports = {
   BOOTNODES_URL: process.env.BOOTNODES_URL || bootnodes,
   DISCOVERY_TIMEOUT: process.env.DISCOVERY_TIMEOUT || 3000,// in milliseconds
   DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 1,
+  PLAZA_URL: process.env.PLAZA_URL || plaza,
 
   // HELPSCOUT
   HELPSCOUT_PROJECT_ID: '' // TODO: 
