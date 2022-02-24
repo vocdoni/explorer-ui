@@ -160,15 +160,13 @@ export function usePaginatedList <Filter, DataList>({
 
   const [cachedData, setCachedData] = useState<DataList[]>([])
 
+  // Return true if two JSON.stringify objects are equal 
+  const compareJSONObjects = (obj1, obj2) =>
+    JSON.stringify(obj1) === JSON.stringify(obj2)
+
   ///////////////////////////////
   // PAGINATOR
   ///////////////////////////////
-
-  // Set the page at initial state
-  const resetPage = useCallback(() => {
-    setCurrentPage(1)
-    setCachedData([])
-  }, [])
 
   // Paginator current page
   const [currentPage, setCurrentPage] = useState(1)
@@ -177,7 +175,7 @@ export function usePaginatedList <Filter, DataList>({
   // Used for pagination, if we need to load next 64 processes
   useEffect(() => {
     // if (loading != true) setLoading(true)
-    setCachedData(cachedData.concat(dataList))
+    if(!compareJSONObjects(cachedData, dataList)) setCachedData(cachedData.concat(dataList))
   }, [dataList])
 
   const [renderedData, setRenderedData] = useState<DataList[]>()
@@ -186,15 +184,20 @@ export function usePaginatedList <Filter, DataList>({
     setBackendDataPagination(backendDataPagination + backendPaginationIncrement)
   }
 
+
+  // Set the page at initial state
+  const resetPage = useCallback(() => {
+    setCurrentPage(1)
+    setCachedData([])
+    setRenderedData([])
+  }, [])
+
   ///////////////////////////////
   // Filter
   ///////////////////////////////
 
-  const filterIsChanged = (filter, tempFilter) =>
-    JSON.stringify(filter) !== JSON.stringify(tempFilter)
-
   const enableFilter = (tempFilter) => {
-    if (filterIsChanged(filter, tempFilter)) {
+    if (!compareJSONObjects(filter, tempFilter)) {
       resetPage()
       setFilter(Object.assign({}, tempFilter))
     }

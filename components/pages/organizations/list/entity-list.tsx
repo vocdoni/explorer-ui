@@ -74,7 +74,7 @@ export const DashboardEntityList = ({
           // todo: add pagination when searching using filters. Ex: if the
           // searchTerm result return more than 64 process, now simply doesn't load
           // next 64 batch.
-          Object.keys(filter).length === 0 ? totalCount : entitiesList.length
+          Object.keys(filter).length === 0 ? totalCount : entitiesList?.length ?? 0
         }
         cachedElements={cachedData}
         renderedElements={renderedData}
