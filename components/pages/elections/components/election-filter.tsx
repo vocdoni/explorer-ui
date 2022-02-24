@@ -54,7 +54,7 @@ export const ProcessFilter = ({
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder={i18n.t('elections.search_by_organization_id')}
+          placeholder={i18n.t('elections.search_by_search_term')}
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)
