@@ -1,10 +1,10 @@
 import i18n from '@i18n'
 import { Switch, Case, Default } from 'react-if'
-import { CensusOrigin } from 'dvote-js/dist/models/protobuf/build/ts/vochain/vochain'
 import { ActiveBadge, UpcomingBadge } from '@components/elements/text-badge'
+import { VochainCensusOrigin } from 'dvote-js'
 
 interface CensusOriginBadgeProps {
-    censusOrigin: CensusOrigin
+    censusOrigin: VochainCensusOrigin
 }
 
 export const CensusOriginBadge = ({
@@ -13,9 +13,9 @@ export const CensusOriginBadge = ({
   return (
     <Switch>
       <Case condition={ 
-        censusOrigin == CensusOrigin.OFF_CHAIN_TREE ||
-        censusOrigin == CensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
-        censusOrigin == CensusOrigin.OFF_CHAIN_CA 
+        censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE ||
+        censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
+        censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA 
       }>
         <ActiveBadge>{i18n.t("elections.OFF_CHAIN")}</ActiveBadge>
       </Case>

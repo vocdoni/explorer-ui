@@ -18,6 +18,7 @@ import {
   Voting,
   ProcessResultsSingleChoice,
   EntityMetadata,
+  RawResults,
 } from 'dvote-js'
 import {
   DateDiffType,
@@ -56,7 +57,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
 
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
-  const [rawResults, setRawResults] = useState<VotingApi.RawResults>()
+  const [rawResults, setRawResults] = useState<RawResults>()
   const [results, setResults] = useState<ProcessResultsSingleChoice>({
     totalVotes: 0,
     questions: [],

@@ -5,6 +5,7 @@ import i18n from '../i18n'
 import { utils } from 'ethers'
 import { VochainProcessStatus, VotingApi } from 'dvote-js'
 import { fetchMethod, getProcessList } from '@lib/api'
+import { AnyKindOfDictionary } from 'lodash'
 
 export interface useProcessListProps {
   entityId?: string // Deprecated, use search terms instead
@@ -38,7 +39,7 @@ export const useProcessesList = ({
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status, withResults, from, searchTerm } as unknown,
+          { entityId, namespace, status, withResults, from, searchTerm } as any,
           pool
         )
       )
