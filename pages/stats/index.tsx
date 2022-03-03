@@ -1,7 +1,8 @@
 import StatsPage from '@components/pages/stats'
 import { Loader } from '@components/blocks/loader'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
-import { useBlocks, useStats } from '@hooks/use-stats'
+import { useStats } from '@hooks/use-stats'
+import { useBlocks } from '@hooks/use-blocks'
 
 const StatsPageIndex = () => {
   const strategies: ViewStrategy[] = []

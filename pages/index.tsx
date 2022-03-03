@@ -1,6 +1,7 @@
 import { Loader } from '@components/blocks/loader'
 import StatsPage from '@components/pages/stats'
-import { useBlocks, useStats } from '@hooks/use-stats'
+import { useStats } from '@hooks/use-stats'
+import { useBlocks } from '@hooks/use-blocks'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import FeaturedContent from './index/featured'
 
