@@ -2,7 +2,6 @@ import { usePool } from '@vocdoni/react-hooks'
 import { useCallback, useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
-import { fetchMethod } from '@lib/api'
 
 export const useEntityList = ({searchTerm, from}: {searchTerm?: string, from?: number}) => {
   const { setAlertMessage } = useAlertMessage()
@@ -14,20 +13,17 @@ export const useEntityList = ({searchTerm, from}: {searchTerm?: string, from?: n
     setLoadingEntitiesList(true)
     poolPromise
       .then((pool) =>{
-        // todo(kon): this method is not exposed yet to dvotejs
-        return fetchMethod(pool, {
+        return pool.sendRequest({
           method: 'getEntityList',
-          params: {
-            searchTerm: searchTerm, from: from
-          },
+          searchTerm: searchTerm, from: from,
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getEntityList', response['response'])
+        console.debug('DEBUG', 'getEntityList', response)
         setLoadingEntitiesList(false)
-        if (!response['response']['ok'])
+        if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
-          setEntitiesList(response['response']['entityIds'])
+          setEntitiesList(response['entityIds'])
       })
       .catch((err) => {
         setLoadingEntitiesList(false)
@@ -58,17 +54,15 @@ export const useEntityCount = () => {
   const getEntitiesCountReq = useCallback(() => {
     poolPromise
       .then((pool) => {
-        // todo(kon): this method is not exposed yet to dvotejs
-        return fetchMethod(pool, {
+        return pool.sendRequest({
           method: 'getEntityCount',
-          params: {},
         })
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityCount', response)
-        if (!response['response']['ok'])
+        if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
-          setEntitiesCount(response['response']['size'])
+          setEntitiesCount(response['size'])
       })
       .catch((err) => {
         console.error(err)
