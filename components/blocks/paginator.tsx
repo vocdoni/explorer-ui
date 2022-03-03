@@ -26,13 +26,13 @@ export const Paginator = ({
   disableGoLastBtn = false,
 }: PaginatorProps) => {
   const paginate = (nextPage) => {
-    if(beforePaginateCb !== null && !beforePaginateCb(nextPage, totalPageCount) ) return
+    if(beforePaginateCb && !beforePaginateCb(nextPage, totalPageCount) ) return
     if (nextPage < 1 || nextPage > totalPageCount) return
     else onPageChange(nextPage)
   }
 
   const totalPageCount = useMemo(() => {
-    let pageCount = Math.ceil(totalCount / pageSize)
+    const pageCount = Math.ceil(totalCount / pageSize)
     return pageCount
   }, [totalCount, pageSize, currentPage])
 
