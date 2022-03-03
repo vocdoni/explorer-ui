@@ -11,8 +11,6 @@ import i18n from '@i18n'
 import { Stats, BlockInfo } from '@lib/types'
 import { Section, BlockContainer } from '@components/elements/styled-divs'
 
-
-// MAIN COMPONENT
 const StatsPage = ({
   stats,
   recentBlocks,
