@@ -86,17 +86,16 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const getProcessCountReq = useCallback (() => {
     poolPromise
       .then((pool) => {
-        // todo(kon): this method is not exposed yet to dvotejs
-        return fetchMethod(pool, {
+        return pool.sendRequest({
           method: 'getProcessCount',
-          params: { entityId: entityId },
+          entityId: entityId 
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getProcessCount', response['response'])
-        if (!response['response']['ok'])
+        console.debug('DEBUG', 'useProcessCount', response)
+        if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
-        setProcessCount(response['response']['size'])
+        setProcessCount(response['size'])
       })
       .catch((err) => {
         console.error(err)
