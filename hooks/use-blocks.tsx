@@ -46,9 +46,10 @@ export const useBlocks = ({
   }
 
   useEffect(() => {
-    const itv = setInterval(() => loadBlocks(), refreshTime)
+    let itv
+    if(refreshTime > 0) itv = setInterval(() => loadBlocks(), refreshTime)
     loadBlocks()
-    return () => clearInterval(itv)
+    return () =>{ if(refreshTime > 0) return clearInterval(itv)}
   }, [poolPromise, refreshTime, from, listSize])
 
   return {
