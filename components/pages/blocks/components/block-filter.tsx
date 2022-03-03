@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 // Used to filter blocks by height
 export interface IFilterBlocks {
-    height?: number
+    from?: number
   }
   
 export const BlocksFilter = ({
@@ -46,8 +46,13 @@ export const BlocksFilter = ({
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)
-            tempFilter.searchTerm = ev.target.value
+            tempFilter.from = +ev.target.value
             setTempFilter(Object.assign({}, tempFilter))
+          }}
+          onKeyPress={(event) => {
+            if (!/[0-9]/.test(event.key)) {
+              event.preventDefault();
+            }
           }}
         />
       </DivWithMarginChildren>
