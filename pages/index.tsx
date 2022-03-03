@@ -10,9 +10,10 @@ const IndexPage = () => {
   const { loading: loadingStats, stats } = useStats({})
   const { loading: loadingBlocks, recentBlocks } = useBlocks({from: 1, listSize: 4})
 
+
   // todo(ritmo): implement error page
   const renderStatsPage = new ViewStrategy(
-    () => !loadingStats && !loadingBlocks,
+    () => stats !== undefined || !loadingStats && !loadingBlocks,
     (
       <>
         <StatsPage stats={stats} recentBlocks={recentBlocks} />
