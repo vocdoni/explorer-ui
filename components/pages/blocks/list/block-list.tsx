@@ -1,5 +1,6 @@
-import { usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
-import { useBlockList, BlockData } from '@hooks/use-blocks'
+import { PaginatedListTemplate, usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
+import { useBlocks } from '@hooks/use-blocks'
+import { BlockInfo } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
@@ -10,15 +11,15 @@ interface IDashboardBlockListProps {
 }
 
 export const DashboardBlockList = ({
-    pageSize = 8,
+    pageSize = 10,
     blockHeight = 0,
   }: IDashboardBlockListProps) => {
   
     // Render item on the list from it summary
-    const renderProcessItem = (identity: string) => {
+    const renderProcessItem = (block: BlockInfo) => {
       return (
-        <div key={identity}>
-          {/* <DashboardEntityListItem
+        <div key={block.hash}>
+          {block.hash/* <DashboardEntityListItem
             entityId={identity}
           /> */}
         </div>
@@ -26,10 +27,12 @@ export const DashboardBlockList = ({
     }
     const [loading, setLoading] = useState(true)
     const [filter, setFilter] = useState<IFilterBlocks>({})
-    const [dataPagination, setDataPagination] = useState(0)
+    const [dataPagination, setDataPagination] = useState(1)
   
-    const { blockList, loadingBlockList } = useBlockList({
+    const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
       from: dataPagination,
+      listSize: pageSize,
+      refreshTime: 0
     })
   
     // Set loading
@@ -48,7 +51,7 @@ export const DashboardBlockList = ({
         setCurrentPage,
         loadMoreData,
       },
-    } = usePaginatedList<IFilterBlocks, BlockData>({
+    } = usePaginatedList<IFilterBlocks, BlockInfo>({
       filter: filter,
       setFilter: setFilter,
       dataList: blockList,
@@ -62,16 +65,11 @@ export const DashboardBlockList = ({
           onEnableFilter={enableFilter}
           onDisableFilter={disableFilter}
         ></BlocksFilter>
-        {/* <PaginatedListTemplate
+        <PaginatedListTemplate
           loading={loading}
           setLoading={setLoading}
           pageSize={pageSize}
-          totalElementsCount={
-            // todo: add pagination when searching using filters. Ex: if the
-            // searchTerm result return more than 64 process, now simply doesn't load
-            // next 64 batch.
-            Object.keys(filter).length === 0 ? totalCount : entitiesList?.length ?? 0
-          }
+          totalElementsCount={blockHeight}
           cachedElements={cachedData}
           renderedElements={renderedData}
           currentPage={currentPage}
@@ -79,7 +77,7 @@ export const DashboardBlockList = ({
           loadMoreElements={loadMoreData}
           setRendererElements={setRenderedData}
           renderElementItem={renderProcessItem}
-        /> */}
+        />
       </>
     )
   }
