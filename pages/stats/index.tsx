@@ -1,15 +1,17 @@
 import StatsPage from '@components/pages/stats'
 import { Loader } from '@components/blocks/loader'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
-import { useStats } from '@hooks/use-stats'
+import { useBlocks, useStats } from '@hooks/use-stats'
 
 const StatsPageIndex = () => {
   const strategies: ViewStrategy[] = []
-  const { loading, recentBlocks, stats } = useStats({})
+
+  const { loading: loadingStats, stats } = useStats({})
+  const { loading: loadingBlocks, recentBlocks } = useBlocks({from: 1, listSize: 4})
 
   // todo(ritmo): implement error page
   const renderStatsPage = new ViewStrategy(
-    () => !loading,
+    () => stats !== undefined || !loadingStats && !loadingBlocks,
     (
       <>
         <StatsPage stats={stats} recentBlocks={recentBlocks} />
