@@ -1,85 +1,97 @@
-import { PaginatedListTemplate, usePaginatedList } from '@components/pages/app/page-templates/paginated-list-template'
+import { Paginator } from '@components/blocks/paginator'
+import { Column } from '@components/elements/grid'
+import {
+  PaginatedListTemplate,
+  renderSkeleton,
+  usePaginatedList,
+} from '@components/pages/app/page-templates/paginated-list-template'
 import { useBlocks } from '@hooks/use-blocks'
+import i18n from '@i18n'
 import { BlockInfo } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
 
 interface IDashboardBlockListProps {
-    pageSize?: number
-    blockHeight?: number
+  pageSize?: number
+  blockHeight?: number
+  skeletonItems?: number
 }
 
 export const DashboardBlockList = ({
-    pageSize = 10,
-    blockHeight = 0,
-  }: IDashboardBlockListProps) => {
-  
-    // Render item on the list from it summary
-    const renderProcessItem = (block: BlockInfo) => {
-      return (
-        <div key={block.hash}>
-          {block.hash/* <DashboardEntityListItem
-            entityId={identity}
-          /> */}
-        </div>
-      )
-    }
-    const [loading, setLoading] = useState(true)
-    const [filter, setFilter] = useState<IFilterBlocks>({})
-    const [dataPagination, setDataPagination] = useState(1)
-  
-    const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
-      from: dataPagination,
-      listSize: pageSize,
-      refreshTime: 0
-    })
-  
-    // Set loading
-    useEffect(() => {
-      setLoading(loadingBlockList)
-    }, [loadingBlockList])
-  
-    const {
-      cachedData,
-      renderedData,
-      currentPage,
-      methods: {
-        enableFilter,
-        disableFilter,
-        setRenderedData,
-        setCurrentPage,
-        loadMoreData,
-      },
-    } = usePaginatedList<IFilterBlocks, BlockInfo>({
-      filter: filter,
-      setFilter: setFilter,
-      dataList: blockList,
-      backendDataPagination: dataPagination,
-      setBackendDataPagination: setDataPagination,
-    })
-  
+  pageSize = 10,
+  blockHeight = 0,
+  skeletonItems = 4,
+}: IDashboardBlockListProps) => {
+  // Render item on the list from it summary
+  const renderProcessItem = (block: BlockInfo) => {
     return (
-      <>
-        <BlocksFilter
-          onEnableFilter={enableFilter}
-          onDisableFilter={disableFilter}
-        ></BlocksFilter>
-        <PaginatedListTemplate
-          loading={loading}
-          setLoading={setLoading}
-          pageSize={pageSize}
-          totalElementsCount={blockHeight}
-          cachedElements={cachedData}
-          renderedElements={renderedData}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          loadMoreElements={loadMoreData}
-          setRendererElements={setRenderedData}
-          renderElementItem={renderProcessItem}
-        />
-      </>
+      <div key={block.hash}>
+        <div>#{block?.height}</div>
+        {block.hash}
+      </div>
     )
   }
-  
-  
+  const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [filter, setFilter] = useState<IFilterBlocks>({})
+  const [dataPagination, setDataPagination] = useState(1)
+
+  const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
+    from: dataPagination,
+    listSize: pageSize,
+    refreshTime: 0,
+  })
+
+  // Set loading
+  useEffect(() => {
+    setLoading(loadingBlockList)
+  }, [loadingBlockList])
+
+  const getFirstPageIndex = (page) =>
+    // For some reason, the API return null for position 0 on the backend
+    // So first index never have to be 0
+    (page - 1) * pageSize + 1
+
+  useEffect(() => {
+    if (filter.from) {
+      // Get the page where the block are you searching is
+      const page = Math.ceil(filter.from / pageSize) - 1
+      setCurrentPage(page)
+    } else {
+      setDataPagination(1)
+    }
+  }, [filter])
+
+  // When current page changed get next blocks
+  useEffect(() => {
+    setDataPagination(getFirstPageIndex(currentPage))
+  }, [currentPage])
+
+  return (
+    <>
+      <BlocksFilter setFilter={setFilter}></BlocksFilter>
+      {loading ? (
+        renderSkeleton(skeletonItems)
+      ) : blockList != null && blockList.length ? (
+        <>
+          <Column md={8} sm={12}>
+            <Paginator
+              totalCount={blockHeight}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={(page) => setCurrentPage(page)}
+              // beforePaginateCb={_beforePaginateCb}
+              disableGoLastBtn
+            ></Paginator>
+          </Column>
+          <Column md={8} sm={12}>
+            {blockList.map(renderProcessItem)}
+          </Column>
+        </>
+      ) : (
+        <h1>{i18n.t('blocks.no_blocks_found')}</h1>
+      )}
+    </>
+  )
+}
