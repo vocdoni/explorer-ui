@@ -23,6 +23,20 @@ interface IPaginatedListTemplateProps<Elements, RenderedElements> {
   renderElementItem: (element: ReactNode) => void
 }
 
+export const renderSkeleton = (skeletonItems) => {
+  return (
+    <Column md={8} sm={12}>
+      {Array(skeletonItems)
+        .fill(0)
+        .map((value, index: number) => (
+          <Card key={index}>
+            <Skeleton />
+          </Card>
+        ))}
+    </Column>
+  )
+}
+
 export const PaginatedListTemplate = <Elements, RenderedElements>({
   loading,
   setLoading,
@@ -97,24 +111,10 @@ export const PaginatedListTemplate = <Elements, RenderedElements>({
     return true
   }
 
-  const renderSkeleton = () => {
-    return (
-      <Column md={8} sm={12}>
-        {Array(skeletonItems)
-          .fill(0)
-          .map((value, index: number) => (
-            <Card key={index}>
-              <Skeleton />
-            </Card>
-          ))}
-      </Column>
-    )
-  }
-
   return (
     <Grid>
       {loading ? (
-        renderSkeleton()
+        renderSkeleton(skeletonItems)
       ) : cachedElements != null &&
         cachedElements.length &&
         renderedElements?.length ? (
