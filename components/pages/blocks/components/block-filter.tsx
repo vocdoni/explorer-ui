@@ -1,7 +1,6 @@
 import i18n from '@i18n'
 import { Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
-import styled from 'styled-components'
 import { FlexContainer } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
@@ -12,15 +11,7 @@ export interface IFilterBlocks {
     from?: number
   }
   
-export const BlocksFilter = ({
-  onEnableFilter,
-  onDisableFilter,
-}: {
-  onEnableFilter: { (tempFilter: IFilterBlocks): void }
-  onDisableFilter: {
-    (tempFilter: IFilterBlocks, resetFilter: { (): void }): void
-  }
-}) => {
+export const BlocksFilter = ({setFilter}: {setFilter: (IFilterBlocks) => void}) => {
   const [searchTermIT, setSearchTermIT] = useState('')
 
 
@@ -32,10 +23,11 @@ export const BlocksFilter = ({
   }
 
   const _onEnableFilter = () => {
-    onEnableFilter(tempFilter)
+    setFilter(Object.assign({}, tempFilter))
   }
   const _onDisableFilter = () => {
-    onDisableFilter(tempFilter, resetFilter)
+    setFilter({})
+    resetFilter()
   }
 
   return (
