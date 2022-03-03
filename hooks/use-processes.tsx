@@ -5,6 +5,7 @@ import i18n from '../i18n'
 import { utils } from 'ethers'
 import { VochainProcessStatus, VotingApi } from 'dvote-js'
 import { fetchMethod, getProcessList } from '@lib/api'
+import { AnyKindOfDictionary } from 'lodash'
 
 export interface useProcessListProps {
   entityId?: string // Deprecated, use search terms instead
@@ -38,7 +39,7 @@ export const useProcessesList = ({
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status, withResults, from, searchTerm } as unknown,
+          { entityId, namespace, status, withResults, from, searchTerm } as any,
           pool
         )
       )
@@ -85,17 +86,16 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
   const getProcessCountReq = useCallback (() => {
     poolPromise
       .then((pool) => {
-        // todo(kon): this method is not exposed yet to dvotejs
-        return fetchMethod(pool, {
+        return pool.sendRequest({
           method: 'getProcessCount',
-          params: { entityId: entityId },
+          entityId: entityId 
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getProcessCount', response['response'])
-        if (!response['response']['ok'])
+        console.debug('DEBUG', 'useProcessCount', response)
+        if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
-        setProcessCount(response['response']['size'])
+        setProcessCount(response['size'])
       })
       .catch((err) => {
         console.error(err)

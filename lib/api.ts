@@ -6,15 +6,16 @@ import { GatewayPool } from "dvote-js"
  * wrapped on dvote-js, example `getProcessCount`
  * @returns Response to json
  */
-export async function fetchMethod (
-  pool: GatewayPool, 
-  {method, params}: {
+export async function fetchMethod(
+  pool: GatewayPool,
+  { method, url, params }: {
     method: string,
+    url?: string
     params: any
   }
-) : Promise<any> {
-  const url = pool.activeGateway.dvoteUri
-  return fetch(url, {
+): Promise<any> {
+  const gwUrl = url ?? pool.activeGateway.dvoteUri
+  return fetch(gwUrl, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -26,9 +27,9 @@ export async function fetchMethod (
       },
     }),
   } as any)
-  .then((response) => {
-    return response.json()
-  })
+    .then((response) => {
+      return response.json()
+    })
 }
 
 // VOCDONI API wrappers
@@ -64,7 +65,11 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
   let from = 0
 
   while (true) {
-    const processList = await VotingApi.getProcessList({ entityId, from }, pool)
+    const processList = await VotingApi.getProcessList({
+      entityId,
+      fromArchive: false,
+      from: from
+    }, pool)
     if (processList.length == 0) return result
 
     result = result.concat(processList.map(id => '0x' + id))
