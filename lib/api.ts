@@ -8,13 +8,14 @@ import { GatewayPool } from "dvote-js"
  */
 export async function fetchMethod(
   pool: GatewayPool,
-  { method, params }: {
+  { method, url, params }: {
     method: string,
+    url?: string
     params: any
   }
 ): Promise<any> {
-  const url = pool.activeGateway.dvoteUri
-  return fetch(url, {
+  const gwUrl = url ?? pool.activeGateway.dvoteUri
+  return fetch(gwUrl, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
