@@ -11,6 +11,7 @@ import { BlockInfo } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
+import { DashboardBlockItem } from './block-list-item'
 
 interface IDashboardBlockListProps {
   pageSize?: number
@@ -23,13 +24,11 @@ export const DashboardBlockList = ({
   blockHeight,
   skeletonItems = 4,
 }: IDashboardBlockListProps) => {
+
   // Render item on the list from it summary
   const renderProcessItem = (block: BlockInfo) => {
     return (
-      <div key={block.hash}>
-        <div>#{block?.height}</div>
-        {block.hash}
-      </div>
+      <DashboardBlockItem key={block.height} blockData={block}/>
     )
   }
   const [loading, setLoading] = useState(true)

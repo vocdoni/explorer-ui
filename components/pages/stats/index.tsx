@@ -10,6 +10,7 @@ import { localizedDateDiff } from '@lib/date'
 import i18n from '@i18n'
 import { Stats, BlockInfo } from '@lib/types'
 import { Section, BlockContainer } from '@components/elements/styled-divs'
+import { BlockCard } from '@components/blocks/card/block-card'
 
 const StatsPage = ({
   stats,
@@ -38,21 +39,7 @@ const StatsPage = ({
 
           <Grid>
             {recentBlocks.map((item) => (
-              <Card sm={6} md={4} lg={3} key={item.height}>
-                <h4>
-                  {i18n.t('home.block')} {item.height}
-                </h4>
-                <p>
-                  <small>{localizedDateDiff(new Date(item.timestamp))}</small>
-                </p>
-                <p>
-                  {i18n.t('home.transactions')}: {item.num_txs}
-                </p>
-                <p>
-                  {i18n.t('home.proposer')}:{' '}
-                  <code>0x{item.proposer_address.substr(0, 6)}...</code>
-                </p>
-              </Card>
+              <BlockCard key={item.height} proposerShrink={6} blockData={item} sm={6} md={4} lg={3} />
             ))}
           </Grid>
         </BlockContainer>
