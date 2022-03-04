@@ -34,7 +34,7 @@ export const DashboardBlockList = ({
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [filter, setFilter] = useState<IFilterBlocks>({})
-  const [dataPagination, setDataPagination] = useState(1)
+  const [dataPagination, setDataPagination] = useState(-1)
 
   const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
     from: dataPagination,
@@ -45,8 +45,8 @@ export const DashboardBlockList = ({
 
   // Set loading
   useEffect(() => {
-    setLoading(loadingBlockList)
-  }, [loadingBlockList])
+    setLoading(loadingBlockList && dataPagination > 0)
+  }, [loadingBlockList, dataPagination])
 
   const getFirstPageIndex = (page) =>
     (page) * pageSize 
@@ -71,7 +71,7 @@ export const DashboardBlockList = ({
   return (
     <>
       <BlocksFilter setFilter={setFilter}></BlocksFilter>
-      {(loading && !blockList?.length )||  blockHeight === null ? (
+      {(loading && !blockList?.length ) ||  blockHeight === null ? (
         renderSkeleton(skeletonItems)
       ) : blockList != null && blockList.length ? (
         <>

@@ -10,7 +10,7 @@ export const useBlocks = ({
   refreshTime = REFRSH_TIME,
   from,
   listSize,
-  reverse = false // Reverse the array to get first the last block height retrieved
+  reverse = false, // Reverse the array to get first the last block height retrieved
 }: {
   refreshTime?: number
   from: number
@@ -50,9 +50,13 @@ export const useBlocks = ({
 
   useEffect(() => {
     let itv
-    if(refreshTime > 0) itv = setInterval(() => loadBlocks(), refreshTime)
-    loadBlocks()
-    return () =>{ if(refreshTime > 0) return clearInterval(itv)}
+    if (from > 0) {
+      if (refreshTime > 0) itv = setInterval(() => loadBlocks(), refreshTime)
+      loadBlocks()
+    }
+    return () => {
+      if (refreshTime > 0 && from > 0) return clearInterval(itv)
+    }
   }, [poolPromise, refreshTime, from, listSize])
 
   return {
