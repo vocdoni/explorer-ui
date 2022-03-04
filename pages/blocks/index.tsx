@@ -1,5 +1,8 @@
-const Page = () => {
-  return <h1>Blocks</h1>
+import React from 'react'
+import { DashboardShowBlocks } from '@components/pages/blocks/list'
+
+const BlocksPage = () => {
+  return <DashboardShowBlocks></DashboardShowBlocks>
 }
 
-export default Page
+export default BlocksPage
