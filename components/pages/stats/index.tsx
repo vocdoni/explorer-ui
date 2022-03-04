@@ -5,20 +5,30 @@ import { colors } from 'theme/colors'
 import { Grid } from '@components/elements/grid'
 import { HeroBanner } from '@components/pages/home/components/hero-banner'
 import { Card, CardDiv } from '@components/elements/cards'
+import { useEffect, useState } from 'react'
 
 import { localizedDateDiff } from '@lib/date'
 import i18n from '@i18n'
-import { Stats, BlockInfo } from '@lib/types'
+import { Stats } from '@lib/types'
 import { Section, BlockContainer } from '@components/elements/styled-divs'
 import { BlockCard } from '@components/blocks/card/block-card'
+import { useBlocks } from '@hooks/use-blocks'
 
-const StatsPage = ({
-  stats,
-  recentBlocks,
-}: {
-  stats: Stats
-  recentBlocks: BlockInfo[]
-}) => {
+const BLOCK_LIST_SIZE = 4
+
+const StatsPage = ({ stats }: { stats: Stats }) => {
+  const [blockHeight, setBlockHeight] = useState(-1)
+  const { loading: loadingBlocks, recentBlocks } = useBlocks({
+    from: blockHeight,
+    listSize: BLOCK_LIST_SIZE,
+    reverse: true,
+  })
+
+  useEffect(() => {
+    if (stats && stats?.block_height !== blockHeight)
+      setBlockHeight(stats.block_height - BLOCK_LIST_SIZE)
+  }, [stats])
+
   return (
     <div>
       <HeroBanner
@@ -38,9 +48,17 @@ const StatsPage = ({
           </Typography>
 
           <Grid>
-            {recentBlocks.map((item) => (
-              <BlockCard key={item.height} proposerShrink={6} blockData={item} sm={6} md={4} lg={3} />
-            ))}
+            {recentBlocks.length ? recentBlocks.map((item) => (
+              <BlockCard
+                key={item.height}
+                proposerShrink={6}
+                blockData={item}
+                sm={6}
+                md={4}
+                lg={3}
+              />
+            )) : (<h3>{i18n.t('home.getting_block_info')}</h3>) 
+            }
           </Grid>
         </BlockContainer>
       </Section>
@@ -78,7 +96,7 @@ const StatsPage = ({
               <p>{stats?.validator_count}</p>
               <h5>{i18n.t('home.sync_status')}</h5>
               <p>
-                {stats?.    syncing
+                {stats?.syncing
                   ? i18n.t('home.syncing')
                   : i18n.t('home.in_sync')}
               </p>
