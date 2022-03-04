@@ -72,7 +72,7 @@ export const DashboardBlockList = ({
   return (
     <>
       <BlocksFilter setFilter={setFilter}></BlocksFilter>
-      {loading ||  blockHeight === null ? (
+      {(loading && !blockList?.length )||  blockHeight === null ? (
         renderSkeleton(skeletonItems)
       ) : blockList != null && blockList.length ? (
         <>
