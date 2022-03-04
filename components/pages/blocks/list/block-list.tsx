@@ -14,13 +14,13 @@ import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
 
 interface IDashboardBlockListProps {
   pageSize?: number
-  blockHeight?: number
+  blockHeight: number
   skeletonItems?: number
 }
 
 export const DashboardBlockList = ({
   pageSize = 10,
-  blockHeight = 0,
+  blockHeight,
   skeletonItems = 4,
 }: IDashboardBlockListProps) => {
   // Render item on the list from it summary
@@ -41,6 +41,7 @@ export const DashboardBlockList = ({
     from: dataPagination,
     listSize: pageSize,
     refreshTime: 0,
+    reverse: true
   })
 
   // Set loading
@@ -49,42 +50,43 @@ export const DashboardBlockList = ({
   }, [loadingBlockList])
 
   const getFirstPageIndex = (page) =>
-    // For some reason, the API return null for position 0 on the backend
-    // So first index never have to be 0
-    (page - 1) * pageSize + 1
+    (page) * pageSize 
 
+  // Jump to block
   useEffect(() => {
+    const totalPages = Math.ceil((blockHeight / pageSize)) 
     if (filter.from) {
       // Get the page where the block are you searching is
-      const page = Math.ceil(filter.from / pageSize) - 1
+      const page = (totalPages + 1 - Math.ceil(filter.from / pageSize) ) 
       setCurrentPage(page)
     } else {
-      setDataPagination(1)
+      setCurrentPage(1)
     }
   }, [filter])
 
   // When current page changed get next blocks
   useEffect(() => {
-    setDataPagination(getFirstPageIndex(currentPage))
-  }, [currentPage])
+    setDataPagination(blockHeight - getFirstPageIndex(currentPage))
+  }, [currentPage, blockHeight])
 
   return (
     <>
       <BlocksFilter setFilter={setFilter}></BlocksFilter>
-      {loading ? (
+      {loading ||  blockHeight === null ? (
         renderSkeleton(skeletonItems)
       ) : blockList != null && blockList.length ? (
         <>
-          <Column md={8} sm={12}>
-            <Paginator
-              totalCount={blockHeight}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-              // beforePaginateCb={_beforePaginateCb}
-              disableGoLastBtn
-            ></Paginator>
-          </Column>
+
+      <Column md={8} sm={12}>
+        <Paginator
+          totalCount={blockHeight}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          // beforePaginateCb={_beforePaginateCb}
+          disableGoLastBtn
+        ></Paginator>
+      </Column>
           <Column md={8} sm={12}>
             {blockList.map(renderProcessItem)}
           </Column>

@@ -10,10 +10,12 @@ export const useBlocks = ({
   refreshTime = REFRSH_TIME,
   from,
   listSize,
+  reverse = false // Reverse the array to get first the last block height retrieved
 }: {
   refreshTime?: number
   from: number
   listSize: number
+  reverse?: boolean
 }) => {
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
@@ -34,8 +36,9 @@ export const useBlocks = ({
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getBlockList', response)
-        setRecentBlocks(response.blockList || [])
+        console.debug('DEBUG', 'getBlockList', response, from)
+        const blockList = response.blockList || []
+        setRecentBlocks(reverse ? blockList.reverse() : blockList)
         setLoading(false)
       })
       .catch((err) => {
