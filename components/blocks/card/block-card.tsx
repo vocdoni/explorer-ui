@@ -47,6 +47,16 @@ export const BlockCard = ({
       })}
       // title={}
     >
+      {moreDetails ? (
+        <>
+          <p>
+            {i18n.t('blocks.hash')}: <code>0x{blockData?.hash}</code>
+          </p>
+          <p>
+            {i18n.t('blocks.last_block_hash')}: <code>0x{blockData?.last_block_hash}</code>
+          </p>
+        </>
+      ) : null}
       <p>
         {i18n.t('blocks.proposer')}: <code>0x{proposer}</code>
       </p>

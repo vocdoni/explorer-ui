@@ -16,7 +16,7 @@ const BlockDetailPage = () => {
         <Loader visible />
       </Then>
       <Else>
-          <BlockView blockInfo={block} ></BlockView>
+          <BlockView blockData={block} ></BlockView>
       </Else>
     </If>
   )
