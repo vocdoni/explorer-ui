@@ -72,3 +72,21 @@ export type Stats = {
   transaction_count: number
   validator_count: number
 }
+
+// Transactions 
+export enum TxType {
+  NEW_PROCESS = "newProcess",
+  CANCEL_PROCESS = "cancelProcess",
+  SET_PROCESS = "setProcess",
+  VOTE = "vote",
+  ADD_ORACLE = "addOracle",
+  ADD_VALIDATOR = "addValidator",
+  REMOVE_ORACLE = "removeOracle",
+  REMOVE_VALIDATOR = "removeValidator",
+}
+
+export type TxForBlock = {
+  hash: string,
+  index: number,
+  type: TxType
+}
