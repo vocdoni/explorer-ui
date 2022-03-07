@@ -66,6 +66,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
   const [loadingResults, setLoadingResults] = useState(false)
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
 
+  // todo: move this to a hook
   // Election Results
   useEffect(() => {
     setLoadingResults(true)
@@ -95,10 +96,10 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
   useEffect(() => {
     console.debug('DEBUG:', 'processInfo', processInfo)
 
-    if (processInfo && rawResults && processInfo?.metadata) {
+    if (processInfo && rawResults && processInfo?.metadata && processInfo?.metadata?.questions) {
       console.debug('DEBUG:', 'processMetadata', processInfo?.metadata)
       setResults(
-        Voting.digestSingleChoiceResults(rawResults, processInfo.metadata)
+        Voting.digestSingleChoiceResults(rawResults, processInfo?.metadata)
       )
     }
   }, [processInfo, rawResults])
