@@ -42,10 +42,9 @@ export const BlockCard = ({
         </>
       }
       dateText={localizedDateDiff(new Date(blockData?.timestamp))}
-      link={RouterService.instance.get(BLOCKS_DETAILS, {
-        blockHeight: blockData?.height.toString(),
-      })}
-      // title={}
+      link={blockData?.height ? RouterService.instance.get(BLOCKS_DETAILS, {
+          blockHeight: blockData?.height?.toString(),
+        }): "#"}
     >
       {moreDetails ? (
         <>
