@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import { ColumnProps } from '../elements/grid'
+import { Column, ColumnProps } from '../elements/grid'
 import { ReactNode } from 'react'
 // import { SHOW_PROCESS_PATH } from "../../const/routes"
 import {
@@ -23,7 +23,12 @@ export const GenericListItemWithBadge = ({
   topLeft,
   badge,
   children,
-}: {
+  span,
+  sm,
+  md,
+  lg,
+  xl,
+}: ColumnProps & {
   title?: string
   dateText?: string
   link?: string
@@ -32,23 +37,25 @@ export const GenericListItemWithBadge = ({
   children?: ReactNode
 }) => {
   return (
-    <Link href={link || ''} passHref>
-      <ListItemDiv>
-        <TopDiv>
-          <FlexContainer
-            alignItem={FlexAlignItem.Center}
-            justify={FlexJustifyContent.Center}
-          >
-            {topLeft}
-          </FlexContainer>
-          {badge}
-        </TopDiv>
+    <Column {...{ span, sm, md, lg, xl }}>
+      <Link href={link || ''} passHref>
+        <ListItemDiv>
+          <TopDiv>
+            <FlexContainer
+              alignItem={FlexAlignItem.Center}
+              justify={FlexJustifyContent.Center}
+            >
+              {topLeft}
+            </FlexContainer>
+            {badge}
+          </TopDiv>
 
-        {title ? <VoteListItemTitle>{title}</VoteListItemTitle> : null}
-        {dateText ? <VoteListItemDate>{dateText}</VoteListItemDate> : null}
-        {children ? children : null}
-      </ListItemDiv>
-    </Link>
+          {title ? <VoteListItemTitle>{title}</VoteListItemTitle> : null}
+          {dateText ? <VoteListItemDate>{dateText}</VoteListItemDate> : null}
+          {children ? children : null}
+        </ListItemDiv>
+      </Link>
+    </Column>
   )
 }
 
@@ -91,17 +98,6 @@ export const ProcessSummaryListItem = ({
     ></GenericListItemWithBadge>
   )
 }
-
-type VoteListItemProps = ColumnProps & {
-  icon: ReactNode
-  link: string
-  entityName: string
-  title: string
-  description: string
-  status: VoteStatus
-  dateText: string
-}
-
 
 // Styles
 
