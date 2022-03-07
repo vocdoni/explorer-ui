@@ -38,7 +38,7 @@ export const GenericListItemWithBadge = ({
 }) => {
   return (
     <Column {...{ span, sm, md, lg, xl }}>
-      <Link href={link || ''} passHref>
+      <Link href={link ?? ''} passHref>
         <ListItemDiv>
           <TopDiv>
             <FlexContainer

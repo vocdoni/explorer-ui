@@ -80,6 +80,7 @@ export const useBlock = ({ blockHeight }:{ blockHeight: number }) => {
 
     poolPromise
       .then((pool) => {
+            //todo: this method is not exposed yet
         return fetchMethod(pool, {
           method: 'getBlock',
           params: {
