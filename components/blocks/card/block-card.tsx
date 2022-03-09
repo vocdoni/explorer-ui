@@ -6,6 +6,7 @@ import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
 import RouterService from '@lib/router'
 import { BlockInfo } from '@lib/types'
+import Link from 'next/link'
 import { GenericListItemWithBadge } from '../list-items'
 
 export const BlockCard = ({
@@ -54,7 +55,18 @@ export const BlockCard = ({
             {i18n.t('blocks.hash')}: <code>0x{blockData?.hash}</code>
           </p>
           <p>
-            {i18n.t('blocks.last_block_hash')}: <code>0x{blockData?.last_block_hash}</code>
+            {i18n.t('blocks.last_block_hash')}:
+            <Link 
+              href={
+                blockData?.height
+                  ? RouterService.instance.get(BLOCKS_DETAILS, {
+                      blockHeight: (blockData?.height - 1).toString(),
+                    })
+                  : '#'
+              }
+            >
+              <code>0x{blockData?.last_block_hash}</code>
+            </Link>
           </p>
         </>
       ) : null}
