@@ -52,6 +52,7 @@ const BlocksPage = () => {
           <InputTitle>
             {i18n.t('converter.current_block_height')} {blockHeight}
           </InputTitle>
+          <p>{i18n.t('converter.current_enviorment ')}{process.env.VOCDONI_ENVIRONMENT}</p>
         </Column>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
