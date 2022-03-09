@@ -29,8 +29,12 @@ const EndedBadge = styled(BaseStatusBadge)`
 background-color: ${({theme}) => theme.textAccent2}
 `
 
+const EndedBadgeLight = styled(BaseStatusBadge)`
+background-color: ${({theme}) => theme.textAccent2B}
+`
+
 const CanceledBadge = styled(BaseStatusBadge)`
 background-color:  ${({theme}) => theme.danger}
 `
 
-export { ActiveBadge, UpcomingBadge, EndedBadge, CanceledBadge }
+export { ActiveBadge, UpcomingBadge, EndedBadge, CanceledBadge, EndedBadgeLight }

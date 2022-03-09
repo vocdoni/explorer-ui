@@ -1,5 +1,6 @@
 import { Card } from '@components/elements/cards'
 import { ColumnProps } from '@components/elements/grid'
+import { NTransactionsBadge } from '@components/pages/blocks/components/block-n-transactions-badge'
 import { BLOCKS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
@@ -38,7 +39,8 @@ export const BlockCard = ({
       }
       badge={
         <>
-          {i18n.t('blocks.transactions')} {blockData?.num_txs}
+          <NTransactionsBadge transactions={blockData?.num_txs}></NTransactionsBadge>
+          {/* {i18n.t('blocks.transactions')} {blockData?.num_txs} */}
         </>
       }
       dateText={localizedDateDiff(new Date(blockData?.timestamp))}
