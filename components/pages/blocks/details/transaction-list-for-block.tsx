@@ -1,3 +1,4 @@
+import { TransactionTypeBadge } from '@components/blocks/badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Paginator } from '@components/blocks/paginator'
 import { StatusCard } from '@components/elements/cards'
@@ -44,9 +45,9 @@ export const TransactionListForBlock = ({
   // Render item on the list from it summary
   const renderProcessItem = (tx: TxForBlock) => {
     return (
-      <GenericListItemWithBadge 
+      <GenericListItemWithBadge key={tx.hash}
         topLeft={i18n.t('transaction.index ') + tx.index} 
-        badge={i18n.t('transaction.status ') + tx.type}  
+        badge={<TransactionTypeBadge type={tx.type} ></TransactionTypeBadge>}  
         lg={8}          
       >
         <h4>{i18n.t('transaction.block:') + tx.hash}</h4>
