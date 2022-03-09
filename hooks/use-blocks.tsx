@@ -1,6 +1,8 @@
 import i18n from '@i18n'
+import { fetchMethod } from '@lib/api'
 import { BlockInfo } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
+import { VotingApi } from 'dvote-js'
 import { useCallback, useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 
@@ -63,4 +65,49 @@ export const useBlocks = ({
     recentBlocks,
     loading,
   }
+}
+
+export const useBlock = ({ blockHeight }:{ blockHeight: number }) => {
+  const { setAlertMessage } = useAlertMessage()
+  const { poolPromise } = usePool()
+  const [loading, setLoading] = useState(false)
+  const [block, setBlock] = useState<BlockInfo>()
+
+  const loadBlocks = () => {
+    if (loading || !poolPromise) return
+
+    setLoading(true)
+
+    poolPromise
+      .then((pool) => {
+            //todo: this method is not exposed yet
+        return fetchMethod(pool, {
+          method: 'getBlock',
+          params: {
+            height: blockHeight
+          }
+        })
+      })
+      .then((response) => {
+        console.debug('DEBUG', 'getBlock', response )
+        const block = response.response.block as BlockInfo || null 
+        block.height = blockHeight
+        setBlock(block) 
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setLoading(false)
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+      })
+  }
+
+  useEffect(() => {
+    if(blockHeight) loadBlocks()
+  }, [blockHeight])
+
+  return {
+    block, loading
+  }
+
 }

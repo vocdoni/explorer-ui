@@ -32,8 +32,10 @@ export const DashboardBlockList = ({
     )
   }
   const [loading, setLoading] = useState(true)
+  // Current paginator page
   const [currentPage, setCurrentPage] = useState(1)
   const [filter, setFilter] = useState<IFilterBlocks>({})
+  // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState(-1)
 
   const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
