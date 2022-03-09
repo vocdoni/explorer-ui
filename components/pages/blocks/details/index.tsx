@@ -4,7 +4,7 @@ import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import i18n from '@i18n'
 import { BlockInfo } from '@lib/types'
-import { TransactionListForBlock } from './TransactionsForBlock'
+import { TransactionListForBlock } from './transaction-list-for-block'
 
 export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
   return (
