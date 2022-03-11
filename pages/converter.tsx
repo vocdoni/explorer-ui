@@ -12,6 +12,11 @@ import {
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import DateTimePicker from 'react-rainbow-components/components/DateTimePicker'
+import {
+  FlexContainer,
+  FlexDirection,
+  FlexJustifyContent,
+} from '@components/elements/flex'
 
 const BlocksPage = () => {
   const { blockHeight } = useBlockHeight()
@@ -52,27 +57,43 @@ const BlocksPage = () => {
           <InputTitle>
             {i18n.t('converter.current_block_height')} {blockHeight}
           </InputTitle>
-          <p>{i18n.t('converter.current_enviorment ')}{process.env.VOCDONI_ENVIRONMENT}</p>
+          <p>
+            {i18n.t('converter.current_enviorment ')}
+            {process.env.VOCDONI_ENVIRONMENT}
+          </p>
         </Column>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
           <CalendarContainer>
             <DateTimePicker
               id={'datetimeid'}
-              value={dateInput}
+              value={targetDate ?? date ?? new Date()}
+              // value={targetDate}
               onChange={(value) => setDateInput(value)}
               hour24
             />
           </CalendarContainer>
         </Column>
-        <Column md={2} >
-          <InputTitle>{'<->'}</InputTitle>
+        <Column md={2}>
+          <FlexContainer
+            direction={FlexDirection.Column}
+            justify={FlexJustifyContent.End}
+          >
+            <MiddleCardContainer>
+              <Card>
+                <FlexContainer justify={FlexJustifyContent.Center}>
+                  <>{'<>'}</>
+                </FlexContainer>
+              </Card>
+            </MiddleCardContainer>
+          </FlexContainer>
         </Column>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
           <Input
             placeholder={i18n.t('blocks.search_by_block_height')}
-            value={blockInput ?? ''}
+            // value={targetBlock ?? ''}
+            value={targetBlock ?? estimatedBlockNumber ?? ''}
             onChange={(ev) => {
               setBlockInput(+ev.target.value)
             }}
@@ -82,19 +103,6 @@ const BlocksPage = () => {
               }
             }}
           />
-        </Column>
-      </Grid>
-      <Grid>
-        <Column lg={4}>
-          <InputTitle>{i18n.t('converter.estimated_date')}</InputTitle>
-          <Card>{targetDate?.toJSON() ?? date?.toJSON()}</Card>
-        </Column>
-        <Column lg={2}>
-          <InputTitle>{'<->'}</InputTitle>
-        </Column>
-        <Column lg={4}>
-          <InputTitle>{i18n.t('converter.estimated_block')}</InputTitle>
-          <Card>{targetBlock ?? estimatedBlockNumber} </Card>
         </Column>
       </Grid>
     </PageCard>
@@ -115,3 +123,4 @@ const InputTitle = styled(SectionTitle)`
   font-weight: 400;
   color: ${({ theme }) => theme.blueText};
 `
+const MiddleCardContainer = styled(SectionTitle)``
