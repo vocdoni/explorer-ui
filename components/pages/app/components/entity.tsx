@@ -14,6 +14,8 @@ import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
 import { StatusCard } from '@components/elements/cards'
 import RouterService from '@lib/router'
+import { GenericListItemWithBadge } from '@components/blocks/list-items'
+import { NProcessesBadge } from '@components/pages/organizations/components/entities-n-process-badge'
 
 function getOrganizationPath(entityId: string) {
   return RouterService.instance.get(ORGANIZATIONS_DETAILS, {
@@ -97,13 +99,13 @@ export const EntityCardCount = ({
   processCount: number
 }) => {
   return (
-    <StatusCard
-      title={'Processes:' + processCount}
-      href={getOrganizationPath(entityId)}
-      rightText={i18n.t('cards.organization_explore')}
+    <GenericListItemWithBadge
+      title={entityId}
+      link={getOrganizationPath(entityId)}
+      badge={<NProcessesBadge processes={processCount}></NProcessesBadge>} 
+      topLeft={''}      
     >
-      <h3>{entityId}</h3>
-    </StatusCard>
+    </GenericListItemWithBadge>
   )
 }
 
