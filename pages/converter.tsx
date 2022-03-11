@@ -54,13 +54,13 @@ const BlocksPage = () => {
           <MainDescription>
             {i18n.t('converter.conversion_between_block_and_dates')}
           </MainDescription>
-          <InputTitle>
-            {i18n.t('converter.current_block_height')} {blockHeight}
-          </InputTitle>
           <p>
             {i18n.t('converter.current_enviorment ')}
             {process.env.VOCDONI_ENVIRONMENT}
           </p>
+          <InputTitle>
+            {i18n.t('converter.block_height')} {blockHeight}
+          </InputTitle>
         </Column>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
@@ -103,6 +103,11 @@ const BlocksPage = () => {
               }
             }}
           />
+          {loading ? (
+            <MainDescription>
+              {i18n.t('converter.loading_info')}
+            </MainDescription>
+          ) : null}
         </Column>
       </Grid>
     </PageCard>
