@@ -1,4 +1,3 @@
-import { Card } from '@components/elements/cards'
 import { ColumnProps } from '@components/elements/grid'
 import { NTransactionsBadge } from '@components/pages/blocks/components/block-n-transactions-badge'
 import { BLOCKS_DETAILS } from '@const/routes'
@@ -6,7 +5,6 @@ import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
 import RouterService from '@lib/router'
 import { BlockInfo } from '@lib/types'
-import Link from 'next/link'
 import { GenericListItemWithBadge } from '../list-items'
 
 export const BlockCard = ({
@@ -35,19 +33,25 @@ export const BlockCard = ({
       key={blockData?.height}
       topLeft={
         <>
-          {i18n.t('blocks.number')} {blockData?.height}
+          {i18n.t('blocks.number')} {'#' + blockData?.height}
         </>
       }
       badge={
         <>
-          <NTransactionsBadge transactions={blockData?.num_txs}></NTransactionsBadge>
+          <NTransactionsBadge
+            transactions={blockData?.num_txs}
+          ></NTransactionsBadge>
           {/* {i18n.t('blocks.transactions')} {blockData?.num_txs} */}
         </>
       }
       dateText={localizedDateDiff(new Date(blockData?.timestamp))}
-      link={blockData?.height ? RouterService.instance.get(BLOCKS_DETAILS, {
-          blockHeight: blockData?.height?.toString(),
-        }): "#"}
+      link={
+        blockData?.height && !moreDetails
+          ? RouterService.instance.get(BLOCKS_DETAILS, {
+              blockHeight: blockData?.height?.toString(),
+            })
+          : null
+      }
     >
       {moreDetails ? (
         <>
@@ -56,17 +60,9 @@ export const BlockCard = ({
           </p>
           <p>
             {i18n.t('blocks.last_block_hash')}:
-            <Link 
-              href={
-                blockData?.height
-                  ? RouterService.instance.get(BLOCKS_DETAILS, {
-                      blockHeight: (blockData?.height - 1).toString(),
-                    })
-                  : '#'
-              }
-            >
-              <code>0x{blockData?.last_block_hash}</code>
-            </Link>
+            <a href={`#/${(blockData?.height - 1).toString()}`}>
+              <code> 0x{blockData?.last_block_hash}</code>
+            </a>
           </p>
         </>
       ) : null}

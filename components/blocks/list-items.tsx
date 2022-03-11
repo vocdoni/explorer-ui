@@ -36,25 +36,35 @@ export const GenericListItemWithBadge = ({
   badge: ReactNode
   children?: ReactNode
 }) => {
+  const childrenData = () => {
+    return (
+      <ListItemDiv>
+        <TopDiv>
+          <FlexContainer
+            alignItem={FlexAlignItem.Center}
+            justify={FlexJustifyContent.Center}
+          >
+            {topLeft}
+          </FlexContainer>
+          {badge}
+        </TopDiv>
+
+        {title ? <VoteListItemTitle>{title}</VoteListItemTitle> : null}
+        {dateText ? <VoteListItemDate>{dateText}</VoteListItemDate> : null}
+        {children ? children : null}
+      </ListItemDiv>
+    )
+  }
+
   return (
     <Column {...{ span, sm, md, lg, xl }}>
-      <Link href={link ?? ''} passHref>
-        <ListItemDiv>
-          <TopDiv>
-            <FlexContainer
-              alignItem={FlexAlignItem.Center}
-              justify={FlexJustifyContent.Center}
-            >
-              {topLeft}
-            </FlexContainer>
-            {badge}
-          </TopDiv>
-
-          {title ? <VoteListItemTitle>{title}</VoteListItemTitle> : null}
-          {dateText ? <VoteListItemDate>{dateText}</VoteListItemDate> : null}
-          {children ? children : null}
-        </ListItemDiv>
-      </Link>
+      {link ? (
+        <Link href={link ?? ''} passHref>
+          {childrenData()}
+        </Link>
+      ) : 
+        childrenData()
+      }
     </Column>
   )
 }

@@ -16,7 +16,7 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
           </Typography>
         </Column>
       </Grid>
-      <BlockCard blockData={blockData} lg={8} moreDetails />
+      <BlockCard blockData={blockData} moreDetails />
       {blockData?.num_txs > 0 ? (
         <TransactionListForBlock
           totalCount={blockData?.num_txs}
