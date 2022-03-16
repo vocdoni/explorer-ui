@@ -68,54 +68,12 @@ export const DashboardProcessList = ({
     setLoading(loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
-  ///////////////////////////////
-  // todo: move
-  ///////////////////////////////
+  // View logic
 
-  const skeletonItems = 3
-
-  // PAGINATOR
-  ///////////////////////////////
-
-  // Paginator current page
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const getFirstPageIndex = (page) => page * pageSize
-
-  // When current page changed get next blocks
-  useEffect(() => {
-    setDataPagination(getFirstPageIndex(currentPage-1))
-  }, [currentPage])
-
-  // FILTER
-  ///////////////////////////////
-
-  // Return true if two JSON.stringify objects are equal
-  const compareJSONObjects = (obj1, obj2) =>
-    JSON.stringify(obj1) === JSON.stringify(obj2)
-
-  // Set the page at initial state
-  const resetPage = useCallback(() => {
-    setCurrentPage(1)
-    setDataPagination(0)
-  }, [])
-
-  const enableFilter = (tempFilter) => {
-    if (!compareJSONObjects(filter, tempFilter)) {
-      resetPage()
-      setFilter({ ...tempFilter })
-    }
-  }
-
-  const disableFilter = (tempFilter, resetForm: { (): void }) => {
-    resetForm()
-    if (
-      Object.keys(filter).length !== 0 // Check if filter is already reset
-    ) {
-      resetPage()
-      setFilter({} as IFilterProcesses)
-    }
-  }
+  const {
+    currentPage,
+    methods: { enableFilter, disableFilter, setCurrentPage },
+  } = usePaginatedList<IFilterProcesses>({pageSize, filter, setFilter, setDataPagination})
 
   return (
     <>
@@ -123,36 +81,20 @@ export const DashboardProcessList = ({
         onEnableFilter={enableFilter}
         onDisableFilter={disableFilter}
       ></ProcessFilter>
-      <Grid>
-        {loading ? (
-          renderSkeleton(skeletonItems)
-        ) : processes != null && processes.length && processIds.length ? (
-          <>
-            <Column md={8} sm={12}>
-              <Paginator
-                totalCount={
-                  // todo: add pagination when searching using filters. Ex: if the
-                  // searchTerm result return more than 64 process, now simply doesn't load
-                  // next 64 batch.
-                  Object.keys(filter).length === 0
-                    ? totalProcessCount
-                    : processIds.length
-                }
-                pageSize={pageSize}
-                currentPage={currentPage}
-                onPageChange={(page) => setCurrentPage(page)}
-                // beforePaginateCb={_beforePaginateCb}
-                disableGoLastBtn
-              ></Paginator>
-            </Column>
-            <Column md={8} sm={12}>
-              {processes.map(renderProcessItem)}
-            </Column>
-          </>
-        ) : (
-          <h1>{i18n.t('elections.no_elections_found')}</h1>
-        )}
-      </Grid>
+      <PaginatedListTemplate
+        loading={loading}
+        elementsList={!processIds.length ? [] : processes}
+        totalElementsCount={
+          // todo: add pagination when searching using filters. Ex: if the
+          // searchTerm result return more than 64 process, now simply doesn't load
+          // next 64 batch.
+          Object.keys(filter).length === 0
+            ? totalProcessCount
+            : processIds.length}
+        renderElementFunction={renderProcessItem}
+        pageSize={pageSize} 
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage}      />
     </>
   )
 }
