@@ -17,7 +17,7 @@ export const DashboardShowTransactions = () => {
       title={i18n.t('transactions.transactions_list_title')}
       subtitle={i18n.t('transactions.total_n_transactions') + transactionCount}
     >
-      <></>
+      <DashboardTransactionsList transactionHeight={transactionCount} ></DashboardTransactionsList>
     </ListPageTemplate>
   )
 }

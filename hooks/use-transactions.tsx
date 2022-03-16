@@ -1,6 +1,6 @@
 import i18n from '@i18n'
-import { fetchMethod } from '@lib/api'
-import { TxForBlock } from '@lib/types'
+import { fetchMethod, getEntityIdsProcessList } from '@lib/api'
+import { TxByHeight, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
@@ -80,4 +80,44 @@ export const useTransactionCount = () => {
     transactionCount,
     loading
   }
+}
+
+export const useTransactionByHeight = ({from, listSize} : {from: number, listSize: number}) => {
+  const { setAlertMessage } = useAlertMessage()
+  const { poolPromise } = usePool()
+  const [loading, setLoading] = useState(false)
+  const [transactions, setTransactions] = useState<TxByHeight[]>([])
+
+  const loadTransactions = () => {
+    if (loading || !poolPromise) return
+
+    setLoading(true)
+
+    poolPromise
+      .then((pool) => {
+        // todo: this method is not exposed yet
+        return getEntityIdsProcessList(from, listSize, pool)
+      })
+      .then((response) => {
+        console.debug('DEBUG', 'getEntityIdsProcessList', response)
+        const txList = response.map((res) => res['response']['tx'])
+        const transactions = (txList as TxByHeight[]) || null
+        setTransactions(transactions)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setLoading(false)
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+      })
+  }
+
+  useEffect(() => {
+    if (from && from > 0) loadTransactions()
+  }, [from, listSize])
+
+  return {
+    transactions, loading
+  }
+
 }
