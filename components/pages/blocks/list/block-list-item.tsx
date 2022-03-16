@@ -12,7 +12,7 @@ export const DashboardBlockItem = ({
   blockData,
 }: IDashboardBlockItemProps) => {
   return (
-    <BlockCard blockData={blockData} lg={8}/>
+    <BlockCard blockData={blockData} />
   )
 }
 

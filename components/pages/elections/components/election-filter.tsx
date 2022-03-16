@@ -15,11 +15,9 @@ import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 
 
 export const ProcessFilter = ({
-  filter,
   onEnableFilter,
   onDisableFilter,
 }: {
-  filter: IFilterProcesses
   onEnableFilter: { (tempFilter: IFilterProcesses): void }
   onDisableFilter: {
     (tempFilter: IFilterProcesses, resetFilter: { (): void }): void

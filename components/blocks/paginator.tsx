@@ -11,7 +11,6 @@ type PaginatorProps = {
   pageSize: number
   currentPage: number
   onPageChange: (number) => void
-  beforePaginateCb?: (nextPage: number, totalPageCount: number) => boolean
   disableGoFirstBtn?: boolean
   disableGoLastBtn?: boolean
 }
@@ -21,12 +20,10 @@ export const Paginator = ({
   pageSize,
   currentPage,
   onPageChange,
-  beforePaginateCb, // Callback used before paginate, for example, if you need to load more data from the backend for the next page
   disableGoFirstBtn = false,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
   const paginate = (nextPage) => {
-    if(beforePaginateCb && !beforePaginateCb(nextPage, totalPageCount) ) return
     if (nextPage < 1 || nextPage > totalPageCount) return
     else onPageChange(nextPage)
   }

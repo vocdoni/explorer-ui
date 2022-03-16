@@ -41,24 +41,12 @@ export const DashboardEntityList = ({
     setLoading(loadingEntitiesList)
   }, [loadingEntitiesList])
 
+  // View logic
   const {
-    cachedData,
-    renderedData,
     currentPage,
-    methods: {
-      enableFilter,
-      disableFilter,
-      setRenderedData,
-      setCurrentPage,
-      loadMoreData,
-    },
-  } = usePaginatedList<IFilterEntity, string[]>({
-    filter: filter,
-    setFilter: setFilter,
-    dataList: entitiesList,
-    backendDataPagination: dataPagination,
-    setBackendDataPagination: setDataPagination,
-  })
+    methods: { enableFilter, disableFilter, setCurrentPage },
+  } = usePaginatedList<IFilterEntity>({pageSize, filter, setFilter, setDataPagination})
+
 
   return (
     <>
@@ -68,22 +56,18 @@ export const DashboardEntityList = ({
       ></EntitiesFilter>
       <PaginatedListTemplate
         loading={loading}
-        setLoading={setLoading}
-        pageSize={pageSize}
+        elementsList={!entitiesList.length ? [] : entitiesList}
         totalElementsCount={
           // todo: add pagination when searching using filters. Ex: if the
           // searchTerm result return more than 64 process, now simply doesn't load
           // next 64 batch.
-          Object.keys(filter).length === 0 ? totalCount : entitiesList?.length ?? 0
-        }
-        cachedElements={cachedData}
-        renderedElements={renderedData}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        loadMoreElements={loadMoreData}
-        setRendererElements={setRenderedData}
-        renderElementItem={renderProcessItem}
-      />
+          Object.keys(filter).length === 0
+            ? totalCount
+            : entitiesList.length}
+        renderElementFunction={renderProcessItem}
+        pageSize={pageSize} 
+        currentPage={currentPage} 
+        setCurrentPage={setCurrentPage}      />
     </>
   )
 }

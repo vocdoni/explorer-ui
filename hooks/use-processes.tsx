@@ -14,6 +14,7 @@ export interface useProcessListProps {
   withResults?: boolean
   from?: number
   searchTerm?: string
+  listSize?: number
 }
 
 export const useProcessesList = ({
@@ -23,9 +24,8 @@ export const useProcessesList = ({
   withResults,
   from,
   searchTerm,
+  listSize
 }: useProcessListProps) => {
-  // if (entityId) entityId = utils.getAddress(entityId)
-
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
@@ -39,7 +39,7 @@ export const useProcessesList = ({
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status, withResults, from, searchTerm } as any,
+          { entityId, namespace, status , withResults, from, searchTerm, listSize} as any,
           pool
         )
       )
