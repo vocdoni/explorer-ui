@@ -33,7 +33,7 @@ export const DashboardTransactionsList = ({
   const [currentPage, setCurrentPage] = useState(1)
   // const [filter, setFilter] = useState<IFilterBlocks>({})
   // Current from offset calling the backend
-  const [dataPagination, setDataPagination] = useState(-1)
+  const [dataPagination, setDataPagination] = useState<number>()
 
   const { transactions, loading: loadingTransactions } = useTransactionById({
     from: dataPagination,
@@ -43,7 +43,7 @@ export const DashboardTransactionsList = ({
 
   // Set loading
   useEffect(() => {
-    setLoading(loadingTransactions && dataPagination > 0)
+    setLoading(loadingTransactions || dataPagination == null || transactionHeight == null )
   }, [loadingTransactions, dataPagination])
 
   const getFirstPageIndex = (page) =>
@@ -63,9 +63,7 @@ export const DashboardTransactionsList = ({
 
   // When current page changed get next blocks
   useEffect(() => {
-    console.debug(transactionHeight - getFirstPageIndex(currentPage))
-    const index = transactionHeight - getFirstPageIndex(currentPage)
-    setDataPagination(index)
+    if(transactionHeight) setDataPagination( transactionHeight - getFirstPageIndex(currentPage))
   }, [currentPage, transactionHeight])
 
   return (

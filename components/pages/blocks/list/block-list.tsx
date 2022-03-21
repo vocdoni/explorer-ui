@@ -36,7 +36,7 @@ export const DashboardBlockList = ({
   const [currentPage, setCurrentPage] = useState(1)
   const [filter, setFilter] = useState<IFilterBlocks>({})
   // Current from offset calling the backend
-  const [dataPagination, setDataPagination] = useState(-1)
+  const [dataPagination, setDataPagination] = useState<number>()
 
   const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
     from: dataPagination,
@@ -47,7 +47,7 @@ export const DashboardBlockList = ({
 
   // Set loading
   useEffect(() => {
-    setLoading(loadingBlockList && dataPagination > 0)
+    setLoading(loadingBlockList || blockHeight == null || dataPagination == null)
   }, [loadingBlockList, dataPagination])
 
   const getFirstPageIndex = (page) =>
@@ -67,7 +67,7 @@ export const DashboardBlockList = ({
 
   // When current page changed get next blocks
   useEffect(() => {
-    setDataPagination(blockHeight - getFirstPageIndex(currentPage))
+    if(blockHeight) setDataPagination(blockHeight - getFirstPageIndex(currentPage))
   }, [currentPage, blockHeight])
 
   return (
