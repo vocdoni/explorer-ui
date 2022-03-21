@@ -1,14 +1,18 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
 import {
-  renderSkeleton,
-} from '@components/pages/app/page-templates/paginated-list-template'
+  InvertedPaginatedListTemplate,
+  useInvertedPaginatedList,
+} from '@components/pages/app/page-templates/inverted-paginated-list-template'
+import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
 import { useTransactionById } from '@hooks/use-transactions'
 import i18n from '@i18n'
 import { TxById } from '@lib/types'
 import React, { useEffect, useState } from 'react'
-import { IFilterTransactions, TransactionsFilter } from '../components/transactions-filter'
-
+import {
+  IFilterTransactions,
+  TransactionsFilter,
+} from '../components/transactions-filter'
 
 interface IDashboardTransactionsListProps {
   pageSize?: number
@@ -21,76 +25,52 @@ export const DashboardTransactionsList = ({
   transactionHeight,
   skeletonItems = 4,
 }: IDashboardTransactionsListProps) => {
-
   // Render item on the list from it summary
   const renderTransactionItem = (transaction: TxById) => {
-
     return (
       <div key={transaction.hash}>Transaction Height: {transaction.id}</div>
     )
   }
-  const [loading, setLoading] = useState(true)
-  // Current paginator page
-  const [currentPage, setCurrentPage] = useState(1)
+
   const [filter, setFilter] = useState<IFilterTransactions>({})
+  const [jumpTo, setJumpTo] = useState<number>()
   // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState<number>()
 
   const { transactions, loading: loadingTransactions } = useTransactionById({
     from: dataPagination,
     listSize: pageSize,
-    reverse: true
+    reverse: true,
   })
 
-  // Set loading
-  useEffect(() => {
-    setLoading(loadingTransactions || dataPagination == null || transactionHeight == null )
-  }, [loadingTransactions, dataPagination])
+  const {
+    loading,
+    currentPage,
+    methods: { setCurrentPage },
+  } = useInvertedPaginatedList({
+    pageSize: pageSize,
+    lastElement: transactionHeight,
+    loadingElements: loadingTransactions,
+    jumpTo: jumpTo,
+    setDataPagination: setDataPagination,
+    dataPagination: dataPagination,
+  })
 
-  const getFirstPageIndex = (page) =>
-    (page) * pageSize 
-
-  // Jump to transaction
   useEffect(() => {
-    const totalPages = Math.ceil((transactionHeight / pageSize)) 
-    if (filter.from) {
-      // Get the page where the block are you searching is
-      const page = (totalPages - Math.ceil(filter.from / pageSize) ) 
-      setCurrentPage(page)
-    } else {
-      setCurrentPage(1)
-    }
+    setJumpTo(filter.from)
   }, [filter])
-
-  // When current page changed get next blocks
-  useEffect(() => {
-    if(transactionHeight) setDataPagination( transactionHeight - getFirstPageIndex(currentPage))
-  }, [currentPage, transactionHeight])
 
   return (
     <>
-      <TransactionsFilter setFilter={setFilter}></TransactionsFilter>
-      {(loading && !transactions?.length ) ||  transactionHeight == null ? (
-        renderSkeleton(skeletonItems)
-      ) : transactions != null && transactions.length ? (
-        <>
-
-      <Column md={8} sm={12}>
-        <Paginator
-          totalCount={transactionHeight}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-          disableGoLastBtn
-        ></Paginator>
-      </Column>
-          <Column md={8} sm={12}>
-            {transactions.map(renderTransactionItem)}
-          </Column>
-        </>
-      ) : (
-        <h1>{i18n.t('transactions.no_transactions_found')}</h1>
-      )}
+      <InvertedPaginatedListTemplate
+        filter={<TransactionsFilter setFilter={setFilter}></TransactionsFilter>}
+        loading={loading}
+        elementsList={transactions}
+        totalElementsCount={transactionHeight}
+        renderElementFunction={renderTransactionItem}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   )
 }
