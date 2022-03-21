@@ -7,6 +7,7 @@ import { useTransactionById } from '@hooks/use-transactions'
 import i18n from '@i18n'
 import { TxById } from '@lib/types'
 import React, { useEffect, useState } from 'react'
+import { IFilterTransactions, TransactionsFilter } from '../components/transactions-filter'
 
 
 interface IDashboardTransactionsListProps {
@@ -31,7 +32,7 @@ export const DashboardTransactionsList = ({
   const [loading, setLoading] = useState(true)
   // Current paginator page
   const [currentPage, setCurrentPage] = useState(1)
-  // const [filter, setFilter] = useState<IFilterBlocks>({})
+  const [filter, setFilter] = useState<IFilterTransactions>({})
   // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState<number>()
 
@@ -49,17 +50,17 @@ export const DashboardTransactionsList = ({
   const getFirstPageIndex = (page) =>
     (page) * pageSize 
 
-  // Jump to block
-  // useEffect(() => {
-  //   const totalPages = Math.ceil((transactionHeight / pageSize)) 
-  //   if (filter.from) {
-  //     // Get the page where the block are you searching is
-  //     const page = (totalPages + 1 - Math.ceil(filter.from / pageSize) ) 
-  //     setCurrentPage(page)
-  //   } else {
-  //     setCurrentPage(1)
-  //   }
-  // }, [filter])
+  // Jump to transaction
+  useEffect(() => {
+    const totalPages = Math.ceil((transactionHeight / pageSize)) 
+    if (filter.from) {
+      // Get the page where the block are you searching is
+      const page = (totalPages - Math.ceil(filter.from / pageSize) ) 
+      setCurrentPage(page)
+    } else {
+      setCurrentPage(1)
+    }
+  }, [filter])
 
   // When current page changed get next blocks
   useEffect(() => {
@@ -68,7 +69,7 @@ export const DashboardTransactionsList = ({
 
   return (
     <>
-      {/* <BlocksFilter setFilter={setFilter}></BlocksFilter> */}
+      <TransactionsFilter setFilter={setFilter}></TransactionsFilter>
       {(loading && !transactions?.length ) ||  transactionHeight == null ? (
         renderSkeleton(skeletonItems)
       ) : transactions != null && transactions.length ? (
