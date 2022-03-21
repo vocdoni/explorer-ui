@@ -61,28 +61,36 @@ export const useTxForBlock = ({
 }
 
 /**
- * 
+ *
  * @returns transaction count from stats
  */
 export const useTransactionCount = () => {
   const [transactionCount, setTransactionCount] = useState(0)
-  const {stats, loading} = useStats({})
+  const { stats, loading } = useStats({})
 
   const getHeightFromStats = () => {
     setTransactionCount(stats.transaction_count)
   }
 
   useEffect(() => {
-    if(!loading && stats) getHeightFromStats()
+    if (!loading && stats) getHeightFromStats()
   }, [stats, loading])
 
   return {
     transactionCount,
-    loading
+    loading,
   }
 }
 
-export const useTransactionById = ({from, listSize} : {from: number, listSize: number}) => {
+export const useTransactionById = ({
+  from,
+  listSize,
+  reverse = false, // Reverse the array to get first the last block height retrieved
+}: {
+  from: number
+  listSize: number
+  reverse?: boolean
+}) => {
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
@@ -100,12 +108,11 @@ export const useTransactionById = ({from, listSize} : {from: number, listSize: n
       })
       .then((response) => {
         console.debug('DEBUG', 'getTxByHeight', response)
-        const txList = response.filter(
-          (res) => res['response']['ok']
-        ).map(
-          (res) => res['response']['tx'])
+        const txList = response
+          .filter((res) => res['response']['ok'])
+          .map((res) => res['response']['tx'])
         const transactions = (txList as TxById[]) || null
-        setTransactions(transactions)
+        setTransactions(reverse ? transactions.reverse() : transactions)
         setLoading(false)
       })
       .catch((err) => {
@@ -120,7 +127,7 @@ export const useTransactionById = ({from, listSize} : {from: number, listSize: n
   }, [from, listSize])
 
   return {
-    transactions, loading
+    transactions,
+    loading,
   }
-
 }

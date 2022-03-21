@@ -38,6 +38,7 @@ export const DashboardTransactionsList = ({
   const { transactions, loading: loadingTransactions } = useTransactionById({
     from: dataPagination,
     listSize: pageSize,
+    reverse: true
   })
 
   // Set loading
