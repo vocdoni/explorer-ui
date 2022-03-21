@@ -123,7 +123,7 @@ export const useTransactionById = ({
   }
 
   useEffect(() => {
-    if (from && from > 0) loadTransactions()
+    if (from || from === 0) loadTransactions()
   }, [from, listSize])
 
   return {

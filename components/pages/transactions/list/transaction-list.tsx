@@ -63,7 +63,9 @@ export const DashboardTransactionsList = ({
 
   // When current page changed get next blocks
   useEffect(() => {
-    setDataPagination(transactionHeight - getFirstPageIndex(currentPage))
+    console.debug(transactionHeight - getFirstPageIndex(currentPage))
+    const index = transactionHeight - getFirstPageIndex(currentPage)
+    setDataPagination(index)
   }, [currentPage, transactionHeight])
 
   return (
