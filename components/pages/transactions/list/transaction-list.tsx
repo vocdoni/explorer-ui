@@ -13,6 +13,7 @@ import {
   IFilterTransactions,
   TransactionsFilter,
 } from '../components/transactions-filter'
+import { DashboardTransactionItem } from './transaction-list-item'
 
 interface IDashboardTransactionsListProps {
   pageSize?: number
@@ -28,7 +29,8 @@ export const DashboardTransactionsList = ({
   // Render item on the list from it summary
   const renderTransactionItem = (transaction: TxById) => {
     return (
-      <div key={transaction.hash}>Transaction Height: {transaction.id}</div>
+      <DashboardTransactionItem transactionData={transaction}></DashboardTransactionItem>
+      // <div key={transaction.hash}>Transaction Height: {transaction.id}</div>
     )
   }
 
