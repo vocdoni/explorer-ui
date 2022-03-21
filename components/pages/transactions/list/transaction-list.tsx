@@ -69,7 +69,7 @@ export const DashboardTransactionsList = ({
   return (
     <>
       {/* <BlocksFilter setFilter={setFilter}></BlocksFilter> */}
-      {(loading && !transactions?.length ) ||  transactionHeight === null ? (
+      {(loading && !transactions?.length ) ||  transactionHeight == null ? (
         renderSkeleton(skeletonItems)
       ) : transactions != null && transactions.length ? (
         <>

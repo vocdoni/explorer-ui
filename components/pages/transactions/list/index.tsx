@@ -1,9 +1,5 @@
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { useEntityCount } from '@hooks/use-entities'
-import { colors } from '@theme/colors'
 import i18n from '@i18n'
 import { ListPageTemplate } from '@components/pages/app/page-templates/list-page-template'
-import { DashboardEntityList } from './entity-list'
 import { DashboardTransactionsList } from './transaction-list'
 import { useTransactionCount } from '@hooks/use-transactions'
 

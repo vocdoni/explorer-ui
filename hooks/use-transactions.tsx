@@ -65,7 +65,7 @@ export const useTxForBlock = ({
  * @returns transaction count from stats
  */
 export const useTransactionCount = () => {
-  const [transactionCount, setTransactionCount] = useState(0)
+  const [transactionCount, setTransactionCount] = useState<number>()
   const { stats, loading } = useStats({})
 
   const getHeightFromStats = () => {
@@ -94,7 +94,7 @@ export const useTransactionById = ({
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
-  const [transactions, setTransactions] = useState<TxById[]>([])
+  const [transactions, setTransactions] = useState<TxById[]>()
 
   const loadTransactions = () => {
     if (loading || !poolPromise) return
