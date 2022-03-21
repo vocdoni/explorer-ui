@@ -3,9 +3,9 @@ import { Column } from '@components/elements/grid'
 import {
   renderSkeleton,
 } from '@components/pages/app/page-templates/paginated-list-template'
-import { useTransactionByHeight } from '@hooks/use-transactions'
+import { useTransactionById } from '@hooks/use-transactions'
 import i18n from '@i18n'
-import { TxByHeight } from '@lib/types'
+import { TxById } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 
 
@@ -22,12 +22,10 @@ export const DashboardTransactionsList = ({
 }: IDashboardTransactionsListProps) => {
 
   // Render item on the list from it summary
-  const renderTransactionItem = (transaction: TxByHeight) => {
-
-    console.debug(transaction)
+  const renderTransactionItem = (transaction: TxById) => {
 
     return (
-      <div>Transaction Height: {transaction.height}</div>
+      <div key={transaction.hash}>Transaction Height: {transaction.id}</div>
     )
   }
   const [loading, setLoading] = useState(true)
@@ -37,7 +35,7 @@ export const DashboardTransactionsList = ({
   // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState(-1)
 
-  const { transactions, loading: loadingTransactions } = useTransactionByHeight({
+  const { transactions, loading: loadingTransactions } = useTransactionById({
     from: dataPagination,
     listSize: pageSize,
   })

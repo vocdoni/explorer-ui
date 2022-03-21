@@ -91,10 +91,10 @@ export type TxForBlock = {
   type: TxType
 }
 
-export type TxByHeight = {
+export type TxById = {
   block_height: number,
   hash: string,
-  height: number,
+  id: number,
   signature: string,
   tx: string
 }

@@ -1,6 +1,6 @@
 import i18n from '@i18n'
-import { fetchMethod, getEntityIdsProcessList } from '@lib/api'
-import { TxByHeight, TxForBlock } from '@lib/types'
+import { fetchMethod, getTxByHeight } from '@lib/api'
+import { TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
@@ -82,11 +82,11 @@ export const useTransactionCount = () => {
   }
 }
 
-export const useTransactionByHeight = ({from, listSize} : {from: number, listSize: number}) => {
+export const useTransactionById = ({from, listSize} : {from: number, listSize: number}) => {
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
-  const [transactions, setTransactions] = useState<TxByHeight[]>([])
+  const [transactions, setTransactions] = useState<TxById[]>([])
 
   const loadTransactions = () => {
     if (loading || !poolPromise) return
@@ -96,12 +96,15 @@ export const useTransactionByHeight = ({from, listSize} : {from: number, listSiz
     poolPromise
       .then((pool) => {
         // todo: this method is not exposed yet
-        return getEntityIdsProcessList(from, listSize, pool)
+        return getTxByHeight(from, listSize, pool)
       })
       .then((response) => {
-        console.debug('DEBUG', 'getEntityIdsProcessList', response)
-        const txList = response.map((res) => res['response']['tx'])
-        const transactions = (txList as TxByHeight[]) || null
+        console.debug('DEBUG', 'getTxByHeight', response)
+        const txList = response.filter(
+          (res) => res['response']['ok']
+        ).map(
+          (res) => res['response']['tx'])
+        const transactions = (txList as TxById[]) || null
         setTransactions(transactions)
         setLoading(false)
       })
