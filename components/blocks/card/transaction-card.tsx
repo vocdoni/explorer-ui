@@ -1,6 +1,7 @@
 import { ColumnProps } from '@components/elements/grid'
 import i18n from '@i18n'
-import { TxById } from '@lib/types'
+import { TxById, TxType } from '@lib/types'
+import { TransactionTypeBadge } from '../badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '../list-items'
 
 export const TransactionCard = ({
@@ -25,7 +26,7 @@ export const TransactionCard = ({
       }
       badge={
         <>
-          {/* todo: once implemented, show a badge with the transaction type */}
+          <TransactionTypeBadge type={TxType.VOTE} /* todo(ritmo): once implemented send real state */ />
         </>
       }
       // dateText={localizedDateDiff(new Date(blockData?.timestamp))}
