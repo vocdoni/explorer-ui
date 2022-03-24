@@ -1,6 +1,6 @@
 import i18n from '@i18n'
 import { fetchMethod, getTxListById } from '@lib/api'
-import { TxById, TxForBlock } from '@lib/types'
+import { Tx, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
@@ -60,6 +60,62 @@ export const useTxForBlock = ({
     loading,
   }
 }
+
+
+
+/** Get single transaction by blockHeight and  txIndex*/
+export const useTx = ({
+  blockHeight,
+  txIndex,
+}: {
+  blockHeight: number
+  txIndex: number
+}) => {
+
+  const { setAlertMessage } = useAlertMessage()
+  const { poolPromise } = usePool()
+  const [loading, setLoading] = useState(false)
+  const [tx, setTx] = useState<Tx>()
+
+  const loadTransactions = () => {
+    if (loading || !poolPromise) return
+
+    setLoading(true)
+
+    poolPromise
+      .then((pool) => {
+        //todo: this method is not exposed yet
+        return fetchMethod(pool, {
+          method: 'getTx',
+          params: {
+            height: blockHeight,
+            txIndex: txIndex,
+          },
+        })
+      })
+      .then((response) => {
+        console.debug('DEBUG', 'getTx', response)
+        const transaction = (response.response.tx as Tx) || null
+        setTx(transaction)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setLoading(false)
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+      })
+  }
+
+  useEffect(() => {
+    if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex) ) loadTransactions()
+  }, [blockHeight, txIndex])
+
+  return {
+    tx,
+    loading,
+  }
+}
+
 
 /**
  *
@@ -133,3 +189,4 @@ export const useTxListById = ({
     loading,
   }
 }
+

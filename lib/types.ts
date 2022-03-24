@@ -91,6 +91,12 @@ export type TxForBlock = {
   type: TxType
 }
 
+export type Tx = {
+  hash: string,
+  signature: string,
+  tx: string
+}
+
 export type TxById = {
   block_height: number,
   hash: string,
