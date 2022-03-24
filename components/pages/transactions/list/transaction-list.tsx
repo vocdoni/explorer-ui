@@ -29,7 +29,7 @@ export const DashboardTransactionsList = ({
   // Render item on the list from it summary
   const renderTransactionItem = (transaction: TxById) => {
     return (
-      <DashboardTransactionItem transactionData={transaction}></DashboardTransactionItem>
+      <DashboardTransactionItem  key={transaction?.id} transactionData={transaction}></DashboardTransactionItem>
       // <div key={transaction.hash}>Transaction Height: {transaction.id}</div>
     )
   }

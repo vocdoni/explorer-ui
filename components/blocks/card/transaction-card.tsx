@@ -18,7 +18,6 @@ export const TransactionCard = ({
       md={md}
       lg={lg}
       xl={xl}
-      key={transactionData?.id}
       topLeft={
         <>
           {i18n.t('transactions.number')} {'#' + transactionData?.id}
