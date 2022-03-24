@@ -1,10 +1,13 @@
 import i18n from '@i18n'
 import { fetchMethod, getTxListById } from '@lib/api'
-import { Tx, TxById, TxForBlock } from '@lib/types'
+import { GetTx, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
+import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
+import { Reader } from 'protobufjs'
+
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -61,6 +64,35 @@ export const useTxForBlock = ({
   }
 }
 
+export const useTxBody = ({encodedBody} : { encodedBody: string }) => {
+  const [decodedBody, setDecodedBody] = useState<Tx>()
+  const processTxBody = (obj) => {
+    for (const k in obj) {
+      if (typeof obj[k] == 'object' && obj[k] !== null) {
+        if (obj[k] instanceof Uint8Array) {
+          obj[k] = "0x" + Buffer.from(obj[k]).toString("hex")
+        }
+        else {
+          processTxBody(obj[k])
+        }
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (encodedBody) {
+      const bytes = new Uint8Array(Buffer.from(encodedBody, 'base64'))
+      const decodedTx = Tx.decode(Reader.create(bytes))
+      processTxBody(decodedTx)
+      setDecodedBody(decodedTx)       
+    }
+  }, [encodedBody])
+
+  return {
+    decodedBody
+  }
+}
+
 
 
 /** Get single transaction by blockHeight and  txIndex*/
@@ -75,7 +107,7 @@ export const useTx = ({
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
-  const [tx, setTx] = useState<Tx>()
+  const [tx, setTx] = useState<GetTx>()
 
   const loadTransactions = () => {
     if (loading || !poolPromise) return
@@ -95,7 +127,9 @@ export const useTx = ({
       })
       .then((response) => {
         console.debug('DEBUG', 'getTx', response)
-        const transaction = (response.response.tx as Tx) || null
+        const transaction = (response.response.tx as GetTx) || null
+        console.debug('DEBUG', 'getTx', response)
+
         setTx(transaction)
         setLoading(false)
       })

@@ -91,7 +91,7 @@ export type TxForBlock = {
   type: TxType
 }
 
-export type Tx = {
+export type GetTx = {
   hash: string,
   signature: string,
   tx: string

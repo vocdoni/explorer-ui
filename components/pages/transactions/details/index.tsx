@@ -1,13 +1,14 @@
 import { TransactionTypeBadge } from '@components/blocks/badges/transaction-type-badge'
-import { BlockCard } from '@components/blocks/card/block-card'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
+import { useTxBody } from '@hooks/use-transactions'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
-import { BlockInfo, TxType } from '@lib/types'
+import { GetTx, TxType } from '@lib/types'
 import { colors } from '@theme/colors'
+import { useEffect, useState } from 'react'
 
 export const TransactionDetails = ({
   txIndex,
@@ -15,9 +16,19 @@ export const TransactionDetails = ({
   transactionData,
 }: {
   txIndex: number
-  transactionData: any
+  transactionData: GetTx
   blockHeight: number
 }) => {
+
+  const [encodedBody, setEncodedBody] = useState<string>()
+  const { decodedBody } = useTxBody({ encodedBody })
+
+  useEffect(() => {
+    if (transactionData) {
+      setEncodedBody(transactionData.tx)
+    }
+  }, [transactionData])
+
   return (
     <PageCard>
       <Grid>
