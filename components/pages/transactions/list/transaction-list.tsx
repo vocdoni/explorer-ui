@@ -5,7 +5,7 @@ import {
   useInvertedPaginatedList,
 } from '@components/pages/app/page-templates/inverted-paginated-list-template'
 import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
-import { useTransactionById } from '@hooks/use-transactions'
+import { useTxListById } from '@hooks/use-transactions'
 import i18n from '@i18n'
 import { TxById } from '@lib/types'
 import React, { useEffect, useState } from 'react'
@@ -39,7 +39,7 @@ export const DashboardTransactionsList = ({
   // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState<number>()
 
-  const { transactions, loading: loadingTransactions } = useTransactionById({
+  const { transactions, loading: loadingTransactions } = useTxListById({
     from: dataPagination,
     listSize: pageSize,
     reverse: true,

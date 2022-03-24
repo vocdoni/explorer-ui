@@ -78,7 +78,7 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
 }
 
 /** Get n transactions by height */
-export async function getTxByHeight(id:number, listSize: number, pool: GatewayPool): Promise<string[]> {
+export async function getTxListById(id:number, listSize: number, pool: GatewayPool): Promise<string[]> {
   const promises = [];
   for (let i = 0; i < listSize; i++) {
       // todo: this method is not exposed yet
@@ -89,8 +89,8 @@ export async function getTxByHeight(id:number, listSize: number, pool: GatewayPo
         }
       }));
   }
-  return Promise.all(promises).then(transcByHeiht => {
+  return Promise.all(promises).then(txById => {
     // flatten the array[][] into array[]
-    return transcByHeiht.reduce((prev, cur) => prev.concat(cur), [])
+    return txById.reduce((prev, cur) => prev.concat(cur), [])
   })
 }

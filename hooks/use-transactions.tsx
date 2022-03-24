@@ -1,11 +1,12 @@
 import i18n from '@i18n'
-import { fetchMethod, getTxByHeight } from '@lib/api'
+import { fetchMethod, getTxListById } from '@lib/api'
 import { TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
 
+/** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
   blockHeight,
   listSize,
@@ -82,7 +83,8 @@ export const useTransactionCount = () => {
   }
 }
 
-export const useTransactionById = ({
+/** Get transaction ordered by height */
+export const useTxListById = ({
   from,
   listSize,
   reverse = false, // Reverse the array to get first the last block height retrieved
@@ -104,10 +106,10 @@ export const useTransactionById = ({
     poolPromise
       .then((pool) => {
         // todo: this method is not exposed yet
-        return getTxByHeight(from, listSize, pool)
+        return getTxListById(from, listSize, pool)
       })
       .then((response) => {
-        console.debug('DEBUG', 'getTxByHeight', response)
+        console.debug('DEBUG', 'getTxListById', response)
         const txList = response
           .filter((res) => res['response']['ok'])
           .map((res) => res['response']['tx'])
