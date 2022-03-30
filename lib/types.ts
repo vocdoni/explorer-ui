@@ -1,4 +1,4 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx } from 'dvote-js'
 
 // IndexDB types
 export enum AccountStatus {
@@ -94,7 +94,7 @@ export type TxForBlock = {
 export type GetTx = {
   hash: string,
   signature: string,
-  tx: string
+  tx: string|Tx
 }
 
 export type TxById = {

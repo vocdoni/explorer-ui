@@ -3,11 +3,18 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { useTxBody } from '@hooks/use-transactions'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
+import { byteArrayToHex, objectBytesArrayToHex } from '@lib/util'
 import { colors } from '@theme/colors'
+import {
+  AdminTx,
+  NewProcessTx,
+  SetProcessTx,
+  VoteEnvelope,
+} from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
+import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 
 export const TransactionDetails = ({
@@ -19,22 +26,45 @@ export const TransactionDetails = ({
   transactionData: GetTx
   blockHeight: number
 }) => {
-
-  const [encodedBody, setEncodedBody] = useState<string>()
-  const { decodedBody } = useTxBody({ encodedBody })
+  const [belongsToEntity, setBelongsToEntity] = useState('')
+  const [belongsToProcess, setBelongsToProcess] = useState('')
+  const [txRaw, setTxRaw] = useState<any>()
 
   useEffect(() => {
-    if (transactionData) {
-      setEncodedBody(transactionData.tx)
+    const txInterface = transactionData.tx as Tx
+    switch (txInterface.payload.$case) {
+      case 'vote': {
+        const tx = txInterface.payload.vote as VoteEnvelope
+        setBelongsToProcess(byteArrayToHex(tx.processId))
+        break
+      }
+      case 'newProcess': {
+        const tx = txInterface.payload.newProcess as NewProcessTx
+        setBelongsToProcess(byteArrayToHex(tx.process.processId))
+        setBelongsToEntity(byteArrayToHex(tx.process.entityId))
+        break
+      }
+      case 'admin': {
+        const tx = txInterface.payload.admin as AdminTx
+        setBelongsToProcess(byteArrayToHex(tx.processId))
+        break
+      }
+      case 'setProcess': {
+        const tx = txInterface.payload.setProcess as SetProcessTx
+        setBelongsToProcess(byteArrayToHex(tx.processId))
+        if (tx?.results?.entityId) {
+          setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
+        }
+        break
+      }
+      default: {
+        //statements;
+        break
+      }
     }
+    objectBytesArrayToHex(txInterface)
+    setTxRaw(txInterface)
   }, [transactionData])
-
-  useEffect(() => {
-    if (decodedBody) {
-      console.debug(decodedBody)
-      console.debug(transactionData)
-    }
-  }, [decodedBody])
 
   return (
     <PageCard>
@@ -59,18 +89,10 @@ export const TransactionDetails = ({
         </Column>
       </Grid>
       <GenericListItemWithBadge
-        topLeft={
-          <>
-            
-          </>
-        }
+        topLeft={<></>}
         badge={
           <>
-            <TransactionTypeBadge
-              type={
-                TxType.VOTE
-              }
-            />
+            <TransactionTypeBadge type={TxType.VOTE} />
           </>
         }
         dateText={localizedDateDiff(new Date())}
@@ -87,10 +109,12 @@ export const TransactionDetails = ({
           {/* {i18n.t('transactions.hash')}: <a><code>0x{decodedBody?.payload.admin.}</code></a> */}
         </p>
         <p>
-          {i18n.t('transactions.belong_to_entity')}: <code>0x{transactionData?.hash}</code>
+          {i18n.t('transactions.belong_to_entity')}:{' '}
+          <code>0x{transactionData?.hash}</code>
         </p>
         <p>
-          {i18n.t('transactions.belong_to_process')}: <code>0x{transactionData?.hash}</code>
+          {i18n.t('transactions.belong_to_process')}:{' '}
+          <code>0x{transactionData?.hash}</code>
         </p>
       </GenericListItemWithBadge>
     </PageCard>

@@ -108,3 +108,21 @@ export function hasDuplicates<T>(values: T[]): boolean {
   }
   return false
 }
+
+/** Convert byte array to hex string */
+export const byteArrayToHex = (bytes: Uint8Array): string => 
+  Buffer.from(bytes).toString("hex")
+
+/** Iterate an object and convert all Uint8Array values to hex */
+export const objectBytesArrayToHex = (obj: any):void => {
+  for (const k in obj) {
+    if (typeof obj[k] == 'object' && obj[k] !== null) {
+      if (obj[k] instanceof Uint8Array) {
+        obj[k] = byteArrayToHex(obj[k])
+      }
+      else {
+        objectBytesArrayToHex(obj[k])
+      }
+    }
+  }
+}

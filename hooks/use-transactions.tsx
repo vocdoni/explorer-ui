@@ -66,42 +66,6 @@ export const useTxForBlock = ({
   }
 }
 
-export const useTxBody = ({encodedBody} : { encodedBody: string }) => {
-  const [decodedBody, setDecodedBody] = useState<Tx>()
-  const processTxBody = (obj) => {
-    for (const k in obj) {
-      if (typeof obj[k] == 'object' && obj[k] !== null) {
-        if (obj[k] instanceof Uint8Array) {
-          obj[k] = Buffer.from(obj[k]).toString("hex")
-        }
-        else {
-          processTxBody(obj[k])
-        }
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (encodedBody) {
-      const bytes = new Uint8Array(Buffer.from(encodedBody, 'base64'))
-      console.debug("", bytes)
-      const decodedTx = Tx.decode(Reader.create(bytes))
-
-      console.debug("decodedTx", decodedTx)
-      const decodedTx2 = AdminTx.decode(Reader.create(bytes))
-      console.debug("decodedTx2", decodedTx2)
-
-      processTxBody(decodedTx2)
-      // setDecodedBody(decodedTx)       
-    }
-  }, [encodedBody])
-
-  return {
-    decodedBody
-  }
-}
-
-
 
 /** Get single transaction by blockHeight and  txIndex*/
 export const useTx = ({
@@ -134,10 +98,15 @@ export const useTx = ({
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getTx', response)
         const transaction = (response.response.tx as GetTx) || null
-        console.debug('DEBUG', 'getTx', response)
+        console.debug('DEBUG', 'getTx', transaction)
 
+        if (transaction?.tx && typeof transaction?.tx === "string") {
+          const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
+          const decodedTx = Tx.decode(Reader.create(bytes))
+          console.debug("DEBUG", "decodedTx", decodedTx)
+          transaction.tx = decodedTx       
+        }
         setTx(transaction)
         setLoading(false)
       })
