@@ -90,3 +90,11 @@ export type TxForBlock = {
   index: number,
   type: TxType
 }
+
+// Validators
+
+export type Validator = {
+  address: string,
+  power: number,
+  pubKey: string
+}
