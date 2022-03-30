@@ -29,6 +29,13 @@ export const TransactionDetails = ({
     }
   }, [transactionData])
 
+  useEffect(() => {
+    if (decodedBody) {
+      console.debug(decodedBody)
+      console.debug(transactionData)
+    }
+  }, [decodedBody])
+
   return (
     <PageCard>
       <Grid>
@@ -54,7 +61,7 @@ export const TransactionDetails = ({
       <GenericListItemWithBadge
         topLeft={
           <>
-            {i18n.t('transaction.number')} {'#'}
+            
           </>
         }
         badge={
@@ -77,7 +84,7 @@ export const TransactionDetails = ({
         }
       >
         <p>
-          {i18n.t('transactions.hash')}: <code>0x{transactionData?.hash}</code>
+          {/* {i18n.t('transactions.hash')}: <a><code>0x{decodedBody?.payload.admin.}</code></a> */}
         </p>
         <p>
           {i18n.t('transactions.belong_to_entity')}: <code>0x{transactionData?.hash}</code>

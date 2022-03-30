@@ -2,11 +2,13 @@ import i18n from '@i18n'
 import { fetchMethod, getTxListById } from '@lib/api'
 import { GetTx, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
-import { Tx } from 'dvote-js'
+import { Tx, SetProcessTx, RegisterKeyTx, MintTokensTx, SendTokensTx, SetTransactionCostsTx, SetAccountInfoTx, SetAccountDelegateTx, CollectFaucetTx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
 import { Reader } from 'protobufjs'
+import { isConstructorDeclaration } from 'typescript'
+import { NewProcessTx, AdminTx } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
 
 
 /** Used to get list of transactions for specific block */
@@ -70,7 +72,7 @@ export const useTxBody = ({encodedBody} : { encodedBody: string }) => {
     for (const k in obj) {
       if (typeof obj[k] == 'object' && obj[k] !== null) {
         if (obj[k] instanceof Uint8Array) {
-          obj[k] = "0x" + Buffer.from(obj[k]).toString("hex")
+          obj[k] = Buffer.from(obj[k]).toString("hex")
         }
         else {
           processTxBody(obj[k])
@@ -82,9 +84,15 @@ export const useTxBody = ({encodedBody} : { encodedBody: string }) => {
   useEffect(() => {
     if (encodedBody) {
       const bytes = new Uint8Array(Buffer.from(encodedBody, 'base64'))
+      console.debug("", bytes)
       const decodedTx = Tx.decode(Reader.create(bytes))
-      processTxBody(decodedTx)
-      setDecodedBody(decodedTx)       
+
+      console.debug("decodedTx", decodedTx)
+      const decodedTx2 = AdminTx.decode(Reader.create(bytes))
+      console.debug("decodedTx2", decodedTx2)
+
+      processTxBody(decodedTx2)
+      // setDecodedBody(decodedTx)       
     }
   }, [encodedBody])
 
