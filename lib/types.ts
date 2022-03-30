@@ -102,5 +102,6 @@ export type TxById = {
   hash: string,
   id: number,
   signature: string,
-  tx: string
+  tx: string,
+  index: number,
 }

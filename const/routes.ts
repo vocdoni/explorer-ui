@@ -7,5 +7,6 @@ export const ELECTIONS_DETAILS = '/elections/show/#/{electionsId}'
 export const BLOCKS_PATH = "/blocks"
 export const BLOCKS_DETAILS = "/blocks/show/#/{blockHeight}"
 export const TRANSACTIONS_PATH = "/transactions"
+export const TRANSACTIONS_DETAILS = "/transactions/show/#/{blockHeight}/{index}"
 export const VALIDATORS_PATH = "/validators"
 export const STATS_PATH = "/stats"

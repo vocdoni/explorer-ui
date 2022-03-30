@@ -1,5 +1,7 @@
 import { ColumnProps } from '@components/elements/grid'
+import { TRANSACTIONS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
+import RouterService from '@lib/router'
 import { TxById, TxType } from '@lib/types'
 import { TransactionTypeBadge } from '../badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '../list-items'
@@ -31,13 +33,11 @@ export const TransactionCard = ({
       }
       // dateText={localizedDateDiff(new Date(blockData?.timestamp))}
       link={
-        null
-        // todo: write this
-        // blockData?.height && !moreDetails
-        //   ? RouterService.instance.get(BLOCKS_DETAILS, {
-        //       blockHeight: blockData?.height?.toString(),
-        //     })
-        //   : null
+        RouterService.instance.get(
+          TRANSACTIONS_DETAILS, {
+              blockHeight: transactionData?.block_height?.toString(),
+              index: transactionData?.index?.toString() ?? "0",
+            })
       }
     >
       <p>
