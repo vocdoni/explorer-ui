@@ -75,9 +75,6 @@ export const TransactionDetails = ({
       }
       case 'setProcess': {
         const tx = txInterface.payload.setProcess as SetProcessTx
-        // console.debug("ZZZZZZZZZ")
-        // console.debug(tx.processId)
-        // console.debug(byteArrayToHex(tx.processId))
         setBelongsToProcess(byteArrayToHex(tx.processId))
         if (tx?.results?.entityId) {
           setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
@@ -136,7 +133,7 @@ export const TransactionDetails = ({
           title={'0x' + transactionData?.hash}
         >
           {belongsToProcess.length ? (
-            <>
+            <p>
               {i18n.t('transactions.belongs_to_process')}:{' '}
               <Link
                 href={RouterService.instance.get(ELECTIONS_DETAILS, {
@@ -145,15 +142,15 @@ export const TransactionDetails = ({
               >
                 <a>0x{belongsToProcess}</a>
               </Link>
-            </>
+            </p>
           ) : null}
           {belongsToEntity.length ? (
-            <>
+            <p>
               {i18n.t('transactions.belong_to_entity')}:
               <EntityLink entityId={belongsToEntity}>
-                <code>0x{belongsToEntity}</code>
+                <a>0x{belongsToEntity}</a>
               </EntityLink>
-            </>
+            </p>
           ) : null}
         </GenericListItemWithBadge>
 
