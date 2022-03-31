@@ -79,6 +79,7 @@ export enum TxType {
   CANCEL_PROCESS = "cancelProcess",
   SET_PROCESS = "setProcess",
   VOTE = "vote",
+  ADMIN = "admin",
   ADD_ORACLE = "addOracle",
   ADD_VALIDATOR = "addValidator",
   REMOVE_ORACLE = "removeOracle",
@@ -102,6 +103,6 @@ export type TxById = {
   hash: string,
   id: number,
   signature: string,
-  tx: string,
+  tx: Tx,
   index: number,
 }

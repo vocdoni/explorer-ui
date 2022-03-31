@@ -14,6 +14,9 @@ export const TransactionTypeBadge = ({ type }: { type: TxType }) => {
       <Case condition={type == TxType.VOTE}>
         <ActiveBadge>{i18n.t('transactions.type.VOTE')}</ActiveBadge>
       </Case>
+      <Case condition={type == TxType.ADMIN}>
+        <ActiveBadge>{i18n.t('transactions.type.ADMIN')}</ActiveBadge>
+      </Case>
       <Case condition={type == TxType.NEW_PROCESS}>
         <UpcomingBadge>{i18n.t('transactions.type.NEW_PROCESS')}</UpcomingBadge>
       </Case>
