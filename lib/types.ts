@@ -92,6 +92,14 @@ export type TxForBlock = {
   type: TxType
 }
 
+// Validators
+
+export type Validator = {
+  address: string,
+  power: number,
+  pubKey: string
+}
+
 export type GetTx = {
   hash: string,
   signature: string,
