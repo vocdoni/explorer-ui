@@ -111,7 +111,7 @@ export function hasDuplicates<T>(values: T[]): boolean {
 
 /** Convert byte array to hex string */
 export const byteArrayToHex = (bytes: Uint8Array): string => 
-  Buffer.from(bytes).toString("hex")
+  bytes instanceof Uint8Array ? Buffer.from(bytes).toString("hex") : bytes
 
 /** Iterate an object and convert all Uint8Array values to hex */
 export const objectBytesArrayToHex = (obj: any):void => {
@@ -125,4 +125,10 @@ export const objectBytesArrayToHex = (obj: any):void => {
       }
     }
   }
+}
+
+/** Used to get enum key from its value. For example on TxType */
+export function getEnumKeyByEnumValue<T extends {[index:string]:string}>(myEnum:T, enumValue:string):keyof T|null {
+  const keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
+  return keys.length > 0 ? keys[0] : null;
 }
