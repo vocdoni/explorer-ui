@@ -3,6 +3,7 @@ import { TRANSACTIONS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
 import RouterService from '@lib/router'
 import { TxById, TxType } from '@lib/types'
+import { getEnumKeyByEnumValue } from '@lib/util'
 import { TransactionTypeBadge } from '../badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '../list-items'
 
@@ -28,7 +29,7 @@ export const TransactionCard = ({
       }
       badge={
         <>
-          <TransactionTypeBadge type={TxType.VOTE} /* todo(ritmo): once implemented send real state */ />
+          <TransactionTypeBadge type={TxType[getEnumKeyByEnumValue(TxType, transactionData.tx.payload.$case)]}/>
         </>
       }
       // dateText={localizedDateDiff(new Date(blockData?.timestamp))}

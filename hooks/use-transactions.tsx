@@ -99,14 +99,11 @@ export const useTx = ({
       })
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
-        console.debug('DEBUG', 'getTx', transaction)
-
         if (transaction?.tx && typeof transaction?.tx === "string") {
           const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
-          const decodedTx = Tx.decode(Reader.create(bytes))
-          console.debug("DEBUG", "decodedTx", decodedTx)
-          transaction.tx = decodedTx       
+          transaction.tx = Tx.decode(Reader.create(bytes))
         }
+        console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
         setLoading(false)
       })
@@ -176,11 +173,19 @@ export const useTxListById = ({
         return getTxListById(from, listSize, pool)
       })
       .then((response) => {
-        console.debug('DEBUG', 'getTxListById', response)
         const txList = response
           .filter((res) => res['response']['ok'])
-          .map((res) => res['response']['tx'])
+          .map((res) => {
+            const transaction = res['response']['tx']
+            if (transaction?.tx && typeof transaction?.tx === "string") {
+              const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
+              transaction.tx = Tx.decode(Reader.create(bytes))
+            }
+            return transaction
+          })
         const transactions = (txList as TxById[]) || null
+        console.debug('DEBUG', 'getTxListById', txList)
+
         setTransactions(reverse ? transactions.reverse() : transactions)
         setLoading(false)
       })
