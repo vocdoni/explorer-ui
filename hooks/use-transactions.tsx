@@ -2,14 +2,11 @@ import i18n from '@i18n'
 import { fetchMethod, getTxListById } from '@lib/api'
 import { GetTx, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
-import { Tx, SetProcessTx, RegisterKeyTx, MintTokensTx, SendTokensTx, SetTransactionCostsTx, SetAccountInfoTx, SetAccountDelegateTx, CollectFaucetTx } from 'dvote-js'
+import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
 import { Reader } from 'protobufjs'
-import { isConstructorDeclaration } from 'typescript'
-import { NewProcessTx, AdminTx } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
-
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
