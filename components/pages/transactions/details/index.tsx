@@ -34,8 +34,21 @@ export const TransactionDetails = ({
     const txInterface = transactionData.tx as Tx
     switch (txInterface.payload.$case) {
       case 'vote': {
-        const tx = txInterface.payload.vote as VoteEnvelope
+        const tx: VoteEnvelope = txInterface.payload.vote
         setBelongsToProcess(byteArrayToHex(tx.processId))
+        // todo(ritmo): for the moment, this is not needed because we decode all
+        // byte array on the txRaw object. So let this here for future uses, maybe 
+        // will be needed.
+        // switch(tx.proof.payload.$case){
+        //   case 'graviton':
+        //   break
+        //   case 'ethereumStorage':
+        //   break
+        //   case 'iden3':
+        //   break
+        //   default:
+        //     console.debug("Other proof type")
+        // }
         break
       }
       case 'newProcess': {
