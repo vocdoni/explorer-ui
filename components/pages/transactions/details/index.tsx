@@ -1,12 +1,12 @@
 import { TransactionTypeBadge } from '@components/blocks/badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
-import { PageCard } from '@components/elements/cards'
+import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
-import { byteArrayToHex, objectBytesArrayToHex } from '@lib/util'
+import { byteArrayToHex, getEnumKeyByEnumValue, objectBytesArrayToHex } from '@lib/util'
 import { colors } from '@theme/colors'
 import {
   AdminTx,
@@ -14,6 +14,7 @@ import {
   SetProcessTx,
   VoteEnvelope,
 } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
+import { useDateAtBlock } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 
@@ -28,7 +29,9 @@ export const TransactionDetails = ({
 }) => {
   const [belongsToEntity, setBelongsToEntity] = useState('')
   const [belongsToProcess, setBelongsToProcess] = useState('')
+  const [txType, setTxType] = useState<TxType>()
   const [txRaw, setTxRaw] = useState<any>()
+  const { date, loading, error } = useDateAtBlock(blockHeight)
 
   useEffect(() => {
     const txInterface = transactionData.tx as Tx
@@ -37,7 +40,7 @@ export const TransactionDetails = ({
         const tx: VoteEnvelope = txInterface.payload.vote
         setBelongsToProcess(byteArrayToHex(tx.processId))
         // todo(ritmo): for the moment, this is not needed because we decode all
-        // byte array on the txRaw object. So let this here for future uses, maybe 
+        // byte array on the txRaw object. So let this here for future uses, maybe
         // will be needed.
         // switch(tx.proof.payload.$case){
         //   case 'graviton':
@@ -64,6 +67,9 @@ export const TransactionDetails = ({
       }
       case 'setProcess': {
         const tx = txInterface.payload.setProcess as SetProcessTx
+        // console.debug("ZZZZZZZZZ")
+        // console.debug(tx.processId)
+        // console.debug(byteArrayToHex(tx.processId))
         setBelongsToProcess(byteArrayToHex(tx.processId))
         if (tx?.results?.entityId) {
           setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
@@ -77,59 +83,73 @@ export const TransactionDetails = ({
     }
     objectBytesArrayToHex(txInterface)
     setTxRaw(txInterface)
+    setTxType(TxType[getEnumKeyByEnumValue(TxType, txInterface.payload.$case)])
   }, [transactionData])
 
   return (
     <PageCard>
-      <Grid>
-        <Column sm={12}>
-          <Typography variant={TypographyVariant.H3}>
-            {i18n.t('transaction.details.transaction_details')}
-          </Typography>
-          <Typography variant={TypographyVariant.Small}>
-            {txIndex + 1}
-            {i18n.t('transaction.details.n_transaction_for_block_n')}
-            {blockHeight}
-          </Typography>
+      <>
+        <Grid>
+          <Column sm={12}>
+            <Typography variant={TypographyVariant.H3}>
+              {i18n.t('transaction.details.transaction_details')}
+            </Typography>
+            <Typography variant={TypographyVariant.Small}>
+              {txIndex + 1}
+              {i18n.t('transaction.details.n_transaction_for_block_n')}
+              {blockHeight}
+            </Typography>
 
-          <Typography
-            variant={TypographyVariant.Small}
-            color={colors.lightText}
-          >
-            <span>{i18n.t('transaction.created_on')}: </span>
-            <span>{localizedDateDiff(new Date())}</span>
-          </Typography>
-        </Column>
-      </Grid>
-      <GenericListItemWithBadge
-        topLeft={<></>}
-        badge={
-          <>
-            <TransactionTypeBadge type={TxType.VOTE} />
-          </>
-        }
-        dateText={localizedDateDiff(new Date())}
-        link={
-          null
-          //   blockData?.height && !moreDetails
-          //     ? RouterService.instance.get(BLOCKS_DETAILS, {
-          //         blockHeight: blockData?.height?.toString(),
-          //       })
-          //     : null
-        }
-      >
-        <p>
-          {/* {i18n.t('transactions.hash')}: <a><code>0x{decodedBody?.payload.admin.}</code></a> */}
-        </p>
-        <p>
-          {i18n.t('transactions.belong_to_entity')}:{' '}
-          <code>0x{transactionData?.hash}</code>
-        </p>
-        <p>
-          {i18n.t('transactions.belong_to_process')}:{' '}
-          <code>0x{transactionData?.hash}</code>
-        </p>
-      </GenericListItemWithBadge>
+            <Typography
+              variant={TypographyVariant.Small}
+              color={colors.lightText}
+            >
+              <span>{i18n.t('transaction.created_on')}: </span>
+              <span>{localizedDateDiff(date)}</span>
+            </Typography>
+          </Column>
+        </Grid>
+        <GenericListItemWithBadge
+          topLeft={<></>}
+          badge={
+            <>
+              <TransactionTypeBadge type={txType} />
+            </>
+          }
+          dateText={localizedDateDiff(date)}
+          link={
+            null
+            //   blockData?.height && !moreDetails
+            //     ? RouterService.instance.get(BLOCKS_DETAILS, {
+            //         blockHeight: blockData?.height?.toString(),
+            //       })
+            //     : null
+          }
+          title={'0x' + transactionData?.hash}
+        >
+          {belongsToProcess.length ? (
+            <>
+              {i18n.t('transactions.belongs_to_process')}:{' '}
+              <code>0x{belongsToProcess}</code>
+            </>
+          ) : null}
+          {belongsToEntity.length ? (
+            <>
+              {i18n.t('transactions.belong_to_entity')}:{' '}
+              <code>0x{belongsToEntity}</code>
+            </>
+          ) : null}
+        </GenericListItemWithBadge>
+
+        {txRaw ? (
+          <Card>
+            <h3>{i18n.t('transactions.contents')}</h3>
+            <pre>{
+              JSON.stringify(txRaw, null, 2)
+            }</pre>
+          </Card>
+        ) : null}
+      </>
     </PageCard>
   )
 }
