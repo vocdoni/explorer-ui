@@ -76,3 +76,21 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
     from += processList.length
   }
 }
+
+/** Get n transactions by height */
+export async function getTxListById(id:number, listSize: number, pool: GatewayPool): Promise<string[]> {
+  const promises = [];
+  for (let i = 0; i < listSize; i++) {
+      // todo: this method is not exposed yet
+      promises.push(fetchMethod(pool, {
+        method: 'getTxById', 
+        params: {
+          id: id + i
+        }
+      }));
+  }
+  return Promise.all(promises).then(txById => {
+    // flatten the array[][] into array[]
+    return txById.reduce((prev, cur) => prev.concat(cur), [])
+  })
+}

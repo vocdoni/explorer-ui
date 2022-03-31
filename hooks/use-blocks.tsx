@@ -29,12 +29,21 @@ export const useBlocks = ({
 
     setLoading(true)
 
+    // Fix from have a negative value
+    // Happen when first page not contain total enough elements to fullify listSize
+    let _listSize = listSize
+    let _from = from
+    if(from < 0) {
+      _from = 0
+      _listSize = listSize + from // Sum because is negative number
+    }
+
     poolPromise
       .then((pool) => {
         return pool.sendRequest({
           method: 'getBlockList',
-          from: from,
-          listSize: listSize,
+          from: _from,
+          listSize: _listSize,
         })
       })
       .then((response) => {
@@ -52,12 +61,12 @@ export const useBlocks = ({
 
   useEffect(() => {
     let itv
-    if (from > 0) {
+    if (from || from === 0) {
       if (refreshTime > 0) itv = setInterval(() => loadBlocks(), refreshTime)
       loadBlocks()
     }
     return () => {
-      if (refreshTime > 0 && from > 0) return clearInterval(itv)
+      if (refreshTime > 0 && (from || from === 0)) return clearInterval(itv)
     }
   }, [poolPromise, refreshTime, from, listSize])
 

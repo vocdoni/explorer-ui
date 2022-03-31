@@ -1,4 +1,4 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx } from 'dvote-js'
 
 // IndexDB types
 export enum AccountStatus {
@@ -79,6 +79,7 @@ export enum TxType {
   CANCEL_PROCESS = "cancelProcess",
   SET_PROCESS = "setProcess",
   VOTE = "vote",
+  ADMIN = "admin",
   ADD_ORACLE = "addOracle",
   ADD_VALIDATOR = "addValidator",
   REMOVE_ORACLE = "removeOracle",
@@ -97,4 +98,19 @@ export type Validator = {
   address: string,
   power: number,
   pubKey: string
+}
+
+export type GetTx = {
+  hash: string,
+  signature: string,
+  tx: string|Tx
+}
+
+export type TxById = {
+  block_height: number,
+  hash: string,
+  id: number,
+  signature: string,
+  tx: Tx,
+  index: number,
 }
