@@ -63,7 +63,7 @@ export const PaginatedListTemplate = <Elements,>({
           </Column>
         </>
       ) : (
-        <h1>{i18n.t('elections.no_elections_found')}</h1>
+        <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
     </Grid>
   )

@@ -1,5 +1,6 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
+import { InvertedPaginatedListTemplate, useInvertedPaginatedList } from '@components/pages/app/page-templates/inverted-paginated-list-template'
 import {
   PaginatedListTemplate,
   renderSkeleton,
@@ -24,77 +25,52 @@ export const DashboardBlockList = ({
   blockHeight,
   skeletonItems = 4,
 }: IDashboardBlockListProps) => {
-
   // Render item on the list from it summary
-  const renderProcessItem = (block: BlockInfo) => {
-    return (
-      <DashboardBlockItem key={block.height} blockData={block}/>
-    )
+  const renderBlockItem = (block: BlockInfo) => {
+    return <DashboardBlockItem key={block.height} blockData={block} />
   }
-  const [loading, setLoading] = useState(true)
-  // Current paginator page
-  const [currentPage, setCurrentPage] = useState(1)
+  // // Current paginator page
   const [filter, setFilter] = useState<IFilterBlocks>({})
+  const [jumpTo, setJumpTo] = useState<number>()
+
   // Current from offset calling the backend
-  const [dataPagination, setDataPagination] = useState(-1)
+  const [dataPagination, setDataPagination] = useState<number>()
 
   const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
     from: dataPagination,
     listSize: pageSize,
     refreshTime: 0,
-    reverse: true
+    reverse: true,
   })
 
-  // Set loading
-  useEffect(() => {
-    setLoading(loadingBlockList && dataPagination > 0)
-  }, [loadingBlockList, dataPagination])
+  const {
+    loading,
+    currentPage,
+    methods: { setCurrentPage },
+  } = useInvertedPaginatedList({
+    pageSize: pageSize,
+    lastElement: blockHeight,
+    loadingElements: loadingBlockList,
+    jumpTo: jumpTo,
+    setDataPagination: setDataPagination,
+    dataPagination: dataPagination,
+  })
 
-  const getFirstPageIndex = (page) =>
-    (page) * pageSize 
-
-  // Jump to block
   useEffect(() => {
-    const totalPages = Math.ceil((blockHeight / pageSize)) 
-    if (filter.from) {
-      // Get the page where the block are you searching is
-      const page = (totalPages + 1 - Math.ceil(filter.from / pageSize) ) 
-      setCurrentPage(page)
-    } else {
-      setCurrentPage(1)
-    }
+    setJumpTo(filter.from)
   }, [filter])
-
-  // When current page changed get next blocks
-  useEffect(() => {
-    setDataPagination(blockHeight - getFirstPageIndex(currentPage))
-  }, [currentPage, blockHeight])
 
   return (
     <>
-      <BlocksFilter setFilter={setFilter}></BlocksFilter>
-      {(loading && !blockList?.length ) ||  blockHeight === null ? (
-        renderSkeleton(skeletonItems)
-      ) : blockList != null && blockList.length ? (
-        <>
-
-      <Column md={8} sm={12}>
-        <Paginator
-          totalCount={blockHeight}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-          // beforePaginateCb={_beforePaginateCb}
-          disableGoLastBtn
-        ></Paginator>
-      </Column>
-          <Column md={8} sm={12}>
-            {blockList.map(renderProcessItem)}
-          </Column>
-        </>
-      ) : (
-        <h1>{i18n.t('blocks.no_blocks_found')}</h1>
-      )}
+      <InvertedPaginatedListTemplate
+        filter={ <BlocksFilter setFilter={setFilter}></BlocksFilter>}
+        loading={loading}
+        elementsList={blockList}
+        totalElementsCount={blockHeight}
+        renderElementFunction={renderBlockItem}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   )
 }
