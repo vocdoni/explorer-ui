@@ -3,10 +3,17 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
+import { EntityLink } from '@components/pages/app/components/entity'
+import { ELECTIONS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
+import RouterService from '@lib/router'
 import { GetTx, TxType } from '@lib/types'
-import { byteArrayToHex, getEnumKeyByEnumValue, objectBytesArrayToHex } from '@lib/util'
+import {
+  byteArrayToHex,
+  getEnumKeyByEnumValue,
+  objectBytesArrayToHex,
+} from '@lib/util'
 import { colors } from '@theme/colors'
 import {
   AdminTx,
@@ -16,6 +23,7 @@ import {
 } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
 import { useDateAtBlock } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export const TransactionDetails = ({
@@ -130,13 +138,21 @@ export const TransactionDetails = ({
           {belongsToProcess.length ? (
             <>
               {i18n.t('transactions.belongs_to_process')}:{' '}
-              <code>0x{belongsToProcess}</code>
+              <Link
+                href={RouterService.instance.get(ELECTIONS_DETAILS, {
+                  electionsId: belongsToProcess,
+                })}
+              >
+                <a>0x{belongsToProcess}</a>
+              </Link>
             </>
           ) : null}
           {belongsToEntity.length ? (
             <>
-              {i18n.t('transactions.belong_to_entity')}:{' '}
-              <code>0x{belongsToEntity}</code>
+              {i18n.t('transactions.belong_to_entity')}:
+              <EntityLink entityId={belongsToEntity}>
+                <code>0x{belongsToEntity}</code>
+              </EntityLink>
             </>
           ) : null}
         </GenericListItemWithBadge>
@@ -144,9 +160,7 @@ export const TransactionDetails = ({
         {txRaw ? (
           <Card>
             <h3>{i18n.t('transactions.contents')}</h3>
-            <pre>{
-              JSON.stringify(txRaw, null, 2)
-            }</pre>
+            <pre>{JSON.stringify(txRaw, null, 2)}</pre>
           </Card>
         ) : null}
       </>
