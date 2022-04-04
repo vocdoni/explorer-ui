@@ -6,11 +6,9 @@ import { TRANSACTIONS_DETAILS } from '@const/routes'
 import { useEnvelopesList } from '@hooks/use-envelopes'
 import i18n from '@i18n'
 import RouterService from '@lib/router'
-import { EnvelopeList } from '@lib/types'
-import { usePool } from '@vocdoni/react-hooks'
-import { ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
+import { ProcessResultsSingleChoice } from 'dvote-js'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const ENVELOPES_PER_PAGE = 6
 
