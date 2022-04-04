@@ -1,6 +1,7 @@
+import { EnvelopeList } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import {
-    ProcessDetails,
+  ProcessDetails,
   ProcessResultsSingleChoice,
   RawResults,
   Voting,
@@ -10,14 +11,65 @@ import { BigNumber } from 'ethers'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 
-export const useElectionResults = ({ processId, processInfo }: { processId: string, processInfo: ProcessDetails }) => {
+export const useEnvelopesList = ({
+  processId,
+  from,
+  listSize,
+}: {
+  processId: string
+  from: number
+  listSize: number
+}) => {
+  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
+  const { poolPromise } = usePool()
+  const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
+
+  const loadEnvelopeRange = () => {
+    setLoadingEnvelopes(true)
+    poolPromise
+      .then((pool) =>
+        VotingApi.getEnvelopeList(
+          processId,
+          from,
+          listSize,
+          pool
+        )
+      )
+      .then((envelopes) => {
+        setLoadingEnvelopes(false)
+        setEnvelopeRange(envelopes)
+        console.debug('DEBUG:', 'envelopes', envelopes)
+      })
+      .catch((err) => {
+        setLoadingEnvelopes(false)
+        console.error(err)
+      })
+  }
+
+  // Election Envelopes
+  useEffect(() => {
+    if (processId) loadEnvelopeRange()
+  }, [from, processId, listSize])
+
+  return {
+    loadingEnvelopes,
+    envelopeRange,
+  }
+}
+
+export const useElectionResults = ({
+  processId,
+  processInfo,
+}: {
+  processId: string
+  processInfo: ProcessDetails
+}) => {
   const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
   const [rawResults, setRawResults] = useState<RawResults>()
   const [results, setResults] = useState<ProcessResultsSingleChoice>({
     totalVotes: 0,
     questions: [],
   })
-  const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loadingResults, setLoadingResults] = useState(false)
 
@@ -58,7 +110,7 @@ export const useElectionResults = ({ processId, processInfo }: { processId: stri
 
   // Election Results
   useEffect(() => {
-      if(processId) getResults()
+    if (processId) getResults()
   }, [poolPromise, processId, processInfo])
 
   return {
