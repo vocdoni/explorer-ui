@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   useEntity,
   useBlockStatus,
-  usePool,
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
@@ -15,17 +14,13 @@ import {
   BlockStatus,
   VotingApi,
   ProcessDetails,
-  Voting,
-  ProcessResultsSingleChoice,
   EntityMetadata,
-  RawResults,
 } from 'dvote-js'
 import {
   DateDiffType,
   localizedDateDiff,
   localizedStartEndDateDiff,
 } from '@lib/date'
-import { BigNumber } from 'ethers'
 import i18n from '@i18n'
 import {
   Typography,
@@ -43,7 +38,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/election-envelope-explorer'
-import { useElectionResults } from '@hooks/use-envelopes'
+import { useElectionResults } from '@hooks/use-elections'
 
 interface ElectionDetailPageProps {
   processId: string,
