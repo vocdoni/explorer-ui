@@ -1,4 +1,4 @@
-import { EnvelopeList } from '@lib/types'
+import { Envelope, EnvelopeList } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import {
   VotingApi,
@@ -48,5 +48,42 @@ export const useEnvelopesList = ({
   return {
     loadingEnvelopes,
     envelopeRange,
+  }
+}
+
+
+export const useEnvelope = ({
+  nullifier,
+}: {
+  nullifier: string
+}) => {
+  const [envelope, setEnvelope] = useState<Envelope>()
+  const { poolPromise } = usePool()
+  const [loadingEnvelope, setLoadingEnvelope] = useState(false)
+
+  const loadEnvelope = () => {
+    setLoadingEnvelope(true)
+    poolPromise
+      .then((pool) =>
+        VotingApi.getEnvelope(nullifier, pool)
+      )
+      .then((envelope) => {
+        setLoadingEnvelope(false)
+        setEnvelope(envelope)
+        console.debug('DEBUG:', 'getEnvelope', envelope)
+      })
+      .catch((err) => {
+        setLoadingEnvelope(false)
+        console.error(err)
+      })
+  }
+
+  // Election Envelopes
+  useEffect(() => {
+    if (nullifier) loadEnvelope()
+  }, [nullifier])
+
+  return {
+    loadingEnvelope, envelope
   }
 }

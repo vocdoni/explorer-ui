@@ -118,3 +118,4 @@ export type TxById = {
 // Envelopes
 
 export type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
+export type Envelope = Awaited<ReturnType<typeof VotingApi.getEnvelope>>
