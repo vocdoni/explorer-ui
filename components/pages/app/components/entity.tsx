@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { ORGANIZATIONS_DETAILS, ORGANIZATIONS_PATH } from '@const/routes'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import React, { ReactNode } from 'react'
 import i18n from '@i18n'
@@ -13,27 +12,13 @@ import {
 import { ImageContainer } from '@components/elements/images'
 import { Image } from '@components/elements/image'
 import { StatusCard } from '@components/elements/cards'
-import RouterService from '@lib/router'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { NProcessesBadge } from '@components/pages/organizations/components/entities-n-process-badge'
+import { EntityLink, getOrganizationPath } from './get-links'
 
-function getOrganizationPath(entityId: string) {
-  return RouterService.instance.get(ORGANIZATIONS_DETAILS, {
-    organizationId: entityId,
-  })
-}
-
-interface EntityLinkProps {
+type EntityCardIconProps = {
   entityId: string
   children: ReactNode
-}
-
-// Wrap a entityId into a link to its entity page
-export const EntityLink = ({ entityId, children }: EntityLinkProps) => {
-  return <Link href={getOrganizationPath(entityId)}>{children}</Link>
-}
-
-type EntityCardIconProps = EntityLinkProps & {
   icon: string
 }
 

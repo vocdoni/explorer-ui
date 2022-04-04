@@ -1,13 +1,13 @@
 import { Button } from '@components/elements/button'
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
-import { EnvelopeLink } from '@components/pages/app/components/envelopes'
-import { TRANSACTIONS_DETAILS } from '@const/routes'
+import {
+  EnvelopeLink,
+  TransactionLink,
+} from '@components/pages/app/components/get-links'
 import { useEnvelopesList } from '@hooks/use-envelopes'
 import i18n from '@i18n'
-import RouterService from '@lib/router'
 import { ProcessResultsSingleChoice } from 'dvote-js'
-import Link from 'next/link'
 import React, { useState } from 'react'
 
 const ENVELOPES_PER_PAGE = 6
@@ -76,18 +76,15 @@ export const EnvelopeExplorer = ({
               {i18n.t('elections.tx_number')}: {envelope.tx_index || 0}
             </p>
             <p>
-              <Link
-                // Todo(ritmo): DRY
-                href={RouterService.instance.get(TRANSACTIONS_DETAILS, {
-                  blockHeight: envelope.height.toString(),
-                  index: envelope.tx_index.toString(),
-                })}
+              <TransactionLink
+                blockHeight={envelope.height.toString()}
+                index={envelope.tx_index.toString()}
               >
                 {i18n.t('elections.transaction_details')}
-              </Link>
+              </TransactionLink>
             </p>
             <p>
-              <EnvelopeLink envelopId={envelope.nullifier}>
+              <EnvelopeLink nullifier={envelope.nullifier}>
                 {i18n.t('elections.envelope_details')}
               </EnvelopeLink>
             </p>

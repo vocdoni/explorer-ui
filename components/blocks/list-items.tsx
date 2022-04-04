@@ -11,10 +11,8 @@ import {
 import { VoteStatus } from '@lib/util'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
-import i18n from '@i18n'
-import { EntityLink } from '@components/pages/app/components/entity'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
+import { EntityLink } from '@components/pages/app/components/get-links'
 
 export const GenericListItemWithBadge = ({
   title,

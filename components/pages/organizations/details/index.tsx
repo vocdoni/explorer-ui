@@ -8,9 +8,8 @@ import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import i18n from '@i18n'
-import RouterService from '@lib/router'
-import { ELECTIONS_DETAILS } from '@const/routes'
 import { ProcessListItem } from '@components/blocks/card/process-item'
+import { getElectionDetailsPath } from '@components/pages/app/components/get-links'
 
 
 interface IEntityViewProps {
@@ -57,7 +56,7 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
                 process={process}
                 entityId={address}
                 entityLogo={metadata?.media.header}
-                link={ RouterService.instance.get(ELECTIONS_DETAILS, { electionsId: process.id }) }
+                link={getElectionDetailsPath(process.id)}
                 entityMetadata={metadata}
               />
             )

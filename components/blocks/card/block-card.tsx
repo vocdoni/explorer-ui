@@ -1,9 +1,9 @@
 import { ColumnProps } from '@components/elements/grid'
+import { getPath } from '@components/pages/app/components/get-links'
 import { NTransactionsBadge } from '@components/pages/blocks/components/block-n-transactions-badge'
 import { BLOCKS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
-import RouterService from '@lib/router'
 import { BlockInfo } from '@lib/types'
 import { GenericListItemWithBadge } from '../list-items'
 
@@ -47,7 +47,7 @@ export const BlockCard = ({
       dateText={localizedDateDiff(new Date(blockData?.timestamp))}
       link={
         blockData?.height && !moreDetails
-          ? RouterService.instance.get(BLOCKS_DETAILS, {
+          ? getPath(BLOCKS_DETAILS, {
               blockHeight: blockData?.height?.toString(),
             })
           : null

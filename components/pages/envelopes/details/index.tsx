@@ -2,13 +2,13 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { ELECTIONS_DETAILS, TRANSACTIONS_DETAILS } from '@const/routes'
+import {
+  ElectionLink,
+  TransactionLink,
+} from '@components/pages/app/components/get-links'
 import i18n from '@i18n'
-import { localizedDateDiff } from '@lib/date'
-import RouterService from '@lib/router'
-import { Envelope, GetTx } from '@lib/types'
+import { Envelope } from '@lib/types'
 import { colors } from '@theme/colors'
-import Link from 'next/link'
 
 const envelope_mock = {
   encryption_key_indexes: null,
@@ -57,30 +57,26 @@ export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
             </>
           }
           badge={<></>}
-          dateText={i18n.t('envelope.vote_package') + envelope_mock.vote_package}
+          dateText={
+            i18n.t('envelope.vote_package') + envelope_mock.vote_package
+          }
           link={null}
           title={i18n.t('envelopes.nonce') + '0x' + envelope_mock?.nonce}
         >
           <p>
-            {i18n.t('envelopes.process_id')}:{/* todo(ritmo): DRY */}
-            <Link
-              href={RouterService.instance.get(ELECTIONS_DETAILS, {
-                electionsId: envelope_mock.meta.process_id,
-              })}
-            >
+            {i18n.t('envelopes.process_id')}:{' '}
+            <ElectionLink electionsId={envelope_mock.meta.process_id}>
               <a>0x{envelope_mock.meta.process_id}</a>
-            </Link>
+            </ElectionLink>
           </p>
           <p>
             {i18n.t('envelopes.tx_id')}:{/* todo(ritmo): DRY */}
-            <Link
-              href={RouterService.instance.get(TRANSACTIONS_DETAILS, {
-                blockHeight: envelope_mock.meta.height.toString(),
-                index: envelope_mock.meta.tx_index.toString(),
-              })}
+            <TransactionLink
+              blockHeight={envelope_mock.meta.height.toString()}
+              index={envelope_mock.meta.tx_index.toString()}
             >
               <a>0x{envelope_mock.meta.tx_hash}</a>
-            </Link>
+            </TransactionLink>
           </p>
         </GenericListItemWithBadge>
       </>
