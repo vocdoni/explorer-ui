@@ -2,11 +2,14 @@ import { Button } from '@components/elements/button'
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
 import { EnvelopeLink } from '@components/pages/app/components/envelopes'
+import { TRANSACTIONS_DETAILS } from '@const/routes'
 import { useEnvelopesList } from '@hooks/use-envelopes'
 import i18n from '@i18n'
+import RouterService from '@lib/router'
 import { EnvelopeList } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const ENVELOPES_PER_PAGE = 6
@@ -65,14 +68,29 @@ export const EnvelopeExplorer = ({
             <strong>
               {i18n.t('elections.envelope_n', {
                 number: envelopePage * ENVELOPES_PER_PAGE + idx + 1, // Is not showing tx index, instead show index of map itself
-              })}{envelopePage * ENVELOPES_PER_PAGE + idx + 1}
+              })}
+              {envelopePage * ENVELOPES_PER_PAGE + idx + 1}
             </strong>
-            {/* <p>
-              {i18n.t('elections.block')}: {envelope.height || 0}
-            </p> */}
             <p>
-              <EnvelopeLink envelopId={envelope.tx_hash}>
+              {i18n.t('elections.envelope_on_block')}: {envelope.height || 0}
+            </p>
+            <p>
+              {i18n.t('elections.tx_number')}: {envelope.tx_index || 0}
+            </p>
+            <p>
+              <Link
+                // Todo(ritmo): DRY
+                href={RouterService.instance.get(TRANSACTIONS_DETAILS, {
+                  blockHeight: envelope.height.toString(),
+                  index: envelope.tx_index.toString(),
+                })}
+              >
                 {i18n.t('elections.transaction_details')}
+              </Link>
+            </p>
+            <p>
+              <EnvelopeLink envelopId={envelope.nullifier}>
+                {i18n.t('elections.envelope_details')}
               </EnvelopeLink>
             </p>
           </Card>
