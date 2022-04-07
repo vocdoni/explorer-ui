@@ -29,8 +29,10 @@ export const Paginator = ({
   }
 
   const totalPageCount = useMemo(() => {
-    const pageCount = Math.ceil(totalCount / pageSize)
-    return pageCount
+    if (totalCount !== null) {
+      const pageCount = Math.ceil(totalCount / pageSize)
+      return pageCount
+    }
   }, [totalCount, pageSize, currentPage])
 
   return (
@@ -46,16 +48,6 @@ export const Paginator = ({
             {'<'}
           </Button>
         </GroupButtonMargin>
-        <TextDiv>
-          <Typography
-            variant={TypographyVariant.Small}
-            color={colors.lightText}
-          >
-            {currentPage}
-            {i18n.t('components.paginator.page_n_of_n')}
-            {totalPageCount}
-          </Typography>
-        </TextDiv>
         <GroupButtonMargin>
           <Button small onClick={() => paginate(currentPage + 1)}>
             {'>'}
@@ -67,6 +59,18 @@ export const Paginator = ({
             </Button>
           )}
         </GroupButtonMargin>
+        <TextDiv>
+          <Typography
+            variant={TypographyVariant.Small}
+            color={colors.lightText}
+          >
+            {totalPageCount
+              ? currentPage +
+                i18n.t('components.paginator.page_n_of_n') +
+                totalPageCount
+              : false}
+          </Typography>
+        </TextDiv>
       </Grid>
     </>
   )

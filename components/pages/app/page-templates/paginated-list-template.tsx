@@ -45,19 +45,19 @@ export const PaginatedListTemplate = <Elements,>({
 }: IPaginatedListTemplateProps<Elements>) => {
   return (
     <Grid>
+      <Column md={8} sm={12}>
+        <Paginator
+          totalCount={totalElementsCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          disableGoLastBtn
+        ></Paginator>
+      </Column>
       {loading ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
         <>
-          <Column md={8} sm={12}>
-            <Paginator
-              totalCount={totalElementsCount}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-              disableGoLastBtn
-            ></Paginator>
-          </Column>
           <Column md={8} sm={12}>
             {elementsList.map(renderElementFunction)}
           </Column>
@@ -77,7 +77,7 @@ interface IUsePaginatedListProps<Filter> {
   setFilter: (Filter: Filter) => void
 }
 
-export function usePaginatedList<Filter,>({
+export function usePaginatedList<Filter>({
   pageSize,
   filter,
   setFilter,

@@ -85,12 +85,10 @@ export const DashboardProcessList = ({
         loading={loading}
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={
-          // todo: add pagination when searching using filters. Ex: if the
-          // searchTerm result return more than 64 process, now simply doesn't load
-          // next 64 batch.
+          // When using filters you don't know the total count. So it don't handle last page pagination
           Object.keys(filter).length === 0
             ? totalProcessCount
-            : processIds.length}
+            : null}
         renderElementFunction={renderProcessItem}
         pageSize={pageSize} 
         currentPage={currentPage} 
