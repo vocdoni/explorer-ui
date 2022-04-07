@@ -38,7 +38,7 @@ export const PaginatedListTemplate = <Elements,>({
   loading,
   elementsList,
   totalElementsCount,
-  pageSize = 10,
+  pageSize,
   renderElementFunction,
   currentPage,
   setCurrentPage,
@@ -78,7 +78,7 @@ interface IUsePaginatedListProps<Filter> {
 }
 
 export function usePaginatedList<Filter,>({
-  pageSize = 10,
+  pageSize,
   filter,
   setFilter,
   setDataPagination,

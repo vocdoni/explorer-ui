@@ -34,6 +34,7 @@ export const DashboardEntityList = ({
   const { entitiesList, loadingEntitiesList } = useEntityList({
     from: dataPagination,
     searchTerm: filter?.searchTerm,
+    listSize: pageSize
   })
 
   // Set loading
@@ -46,7 +47,6 @@ export const DashboardEntityList = ({
     currentPage,
     methods: { enableFilter, disableFilter, setCurrentPage },
   } = usePaginatedList<IFilterEntity>({pageSize, filter, setFilter, setDataPagination})
-
 
   return (
     <>

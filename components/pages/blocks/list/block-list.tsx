@@ -21,7 +21,7 @@ interface IDashboardBlockListProps {
 }
 
 export const DashboardBlockList = ({
-  pageSize = 10,
+  pageSize,
   blockHeight,
   skeletonItems = 4,
 }: IDashboardBlockListProps) => {
@@ -70,6 +70,7 @@ export const DashboardBlockList = ({
         renderElementFunction={renderBlockItem}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        pageSize={pageSize}
       />
     </>
   )

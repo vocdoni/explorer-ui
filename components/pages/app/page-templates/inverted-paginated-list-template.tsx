@@ -26,7 +26,7 @@ export const InvertedPaginatedListTemplate = <Elements,>({
   filter,
   elementsList,
   totalElementsCount,
-  pageSize = 10,
+  pageSize,
   renderElementFunction,
   currentPage,
   setCurrentPage,
@@ -68,7 +68,7 @@ interface IUseInvertedPaginatedListProps {
 }
 
 export function useInvertedPaginatedList({
-  pageSize = 10,
+  pageSize,
   lastElement,
   loadingElements,
   jumpTo,

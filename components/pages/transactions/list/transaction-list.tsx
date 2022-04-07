@@ -22,7 +22,7 @@ interface IDashboardTransactionsListProps {
 }
 
 export const DashboardTransactionsList = ({
-  pageSize = 10,
+  pageSize,
   transactionHeight,
   skeletonItems = 4,
 }: IDashboardTransactionsListProps) => {

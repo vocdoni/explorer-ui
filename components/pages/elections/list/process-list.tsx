@@ -28,7 +28,7 @@ interface IDashboardProcessListProps {
 }
 
 export const DashboardProcessList = ({
-  pageSize = 10,
+  pageSize,
   totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
   const [loading, setLoading] = useState(true)
