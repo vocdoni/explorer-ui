@@ -19,6 +19,7 @@ export interface IFilterProcesses {
   status?: VochainProcessStatus
   withResults?: boolean
   searchTerm?: string
+  entityId?: string
 }
 
 interface IDashboardProcessListProps {
@@ -42,6 +43,7 @@ export const DashboardProcessList = ({
     status: filter?.status,
     withResults: filter?.withResults,
     listSize: pageSize,
+    entityId: filter?.entityId,
   })
 
   // Get processes details to show on the list
