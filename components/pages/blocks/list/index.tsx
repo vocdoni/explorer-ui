@@ -3,17 +3,18 @@ import { ListPageTemplate } from '@components/pages/app/page-templates/list-page
 import { useBlockHeight } from '@vocdoni/react-hooks'
 import { DashboardBlockList } from './block-list'
 
-const PER_PAGE = 10
 
 export const DashboardShowBlocks = () => {
   const { blockHeight } = useBlockHeight()
 
+  const page_size = 10
+  
   return (
     <ListPageTemplate
       title={i18n.t('blocks_list.blocks_list_title')}
       subtitle={i18n.t('blocks_list.current_block_heigh') + blockHeight}
     >
-        <DashboardBlockList blockHeight={blockHeight}></DashboardBlockList>
+        <DashboardBlockList blockHeight={blockHeight} pageSize={page_size}></DashboardBlockList>
 
     </ListPageTemplate>
   )

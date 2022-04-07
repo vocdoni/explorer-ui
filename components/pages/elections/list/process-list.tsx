@@ -19,6 +19,7 @@ export interface IFilterProcesses {
   status?: VochainProcessStatus
   withResults?: boolean
   searchTerm?: string
+  entityId?: string
 }
 
 interface IDashboardProcessListProps {
@@ -28,7 +29,7 @@ interface IDashboardProcessListProps {
 }
 
 export const DashboardProcessList = ({
-  pageSize = 10,
+  pageSize,
   totalProcessCount = 0,
 }: IDashboardProcessListProps) => {
   const [loading, setLoading] = useState(true)
@@ -42,6 +43,7 @@ export const DashboardProcessList = ({
     status: filter?.status,
     withResults: filter?.withResults,
     listSize: pageSize,
+    entityId: filter?.entityId,
   })
 
   // Get processes details to show on the list
@@ -85,12 +87,10 @@ export const DashboardProcessList = ({
         loading={loading}
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={
-          // todo: add pagination when searching using filters. Ex: if the
-          // searchTerm result return more than 64 process, now simply doesn't load
-          // next 64 batch.
+          // When using filters you don't know the total count. So it don't handle last page pagination
           Object.keys(filter).length === 0
             ? totalProcessCount
-            : processIds.length}
+            : null}
         renderElementFunction={renderProcessItem}
         pageSize={pageSize} 
         currentPage={currentPage} 

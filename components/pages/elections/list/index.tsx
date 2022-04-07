@@ -4,11 +4,10 @@ import i18n from '@i18n'
 import { useProcessCount } from '@hooks/use-processes'
 import { ListPageTemplate } from '@components/pages/app/page-templates/list-page-template'
 
-const PROCESS_PER_PAGE = 10
 
 export const DashboardShowProcesses = ({entityId}: {entityId?: string}) => {
   const {processCount} = useProcessCount({});
- 
+  const page_size = 10
 
   return (
     <ListPageTemplate
@@ -17,7 +16,7 @@ export const DashboardShowProcesses = ({entityId}: {entityId?: string}) => {
     >
       <DashboardProcessList
         totalProcessCount={processCount}
-        pageSize={PROCESS_PER_PAGE}
+        pageSize={page_size}
       />
     </ListPageTemplate>
   )

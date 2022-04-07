@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 
-export const useEntityList = ({searchTerm, from}: {searchTerm?: string, from?: number}) => {
+export const useEntityList = ({searchTerm, from, listSize}: {searchTerm?: string, from?: number, listSize?: number}) => {
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [entitiesList, setEntitiesList] = useState([])
@@ -15,7 +15,7 @@ export const useEntityList = ({searchTerm, from}: {searchTerm?: string, from?: n
       .then((pool) =>{
         return pool.sendRequest({
           method: 'getEntityList',
-          searchTerm: searchTerm, from: from,
+          searchTerm: searchTerm, from: from, listSize: listSize
         })
       })
       .then((response) => {

@@ -45,9 +45,8 @@ export const useProcessesList = ({
       )
       .then((ids) => {
         console.debug('DEBUG', 'Retrieved process list', ids)
-
-        setLoadingProcessList(false)
         setProcessIds(ids)
+        setLoadingProcessList(false)
       })
       .catch((err) => {
         setLoadingProcessList(false)

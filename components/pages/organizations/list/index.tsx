@@ -5,10 +5,10 @@ import i18n from '@i18n'
 import { ListPageTemplate } from '@components/pages/app/page-templates/list-page-template'
 import { DashboardEntityList } from './entity-list'
 
-const PER_PAGE = 10
-
 export const DashboardShowEntities = () => {
   const { entitiesCount } = useEntityCount()
+
+  const page_size = 10
 
   return (
     <ListPageTemplate
@@ -17,7 +17,7 @@ export const DashboardShowEntities = () => {
     >
       <DashboardEntityList
         totalCount={entitiesCount}
-        pageSize={PER_PAGE}
+        pageSize={page_size}
       />
     </ListPageTemplate>
   )

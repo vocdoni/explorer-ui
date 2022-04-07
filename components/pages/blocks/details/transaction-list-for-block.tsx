@@ -10,7 +10,7 @@ import { TxForBlock } from '@lib/types'
 import { useEffect, useState } from 'react'
 
 export const TransactionListForBlock = ({
-  pageSize = 10,
+  pageSize,
   totalCount,
   blockHeight,
   skeletonItems = 4,

@@ -34,6 +34,7 @@ export const DashboardEntityList = ({
   const { entitiesList, loadingEntitiesList } = useEntityList({
     from: dataPagination,
     searchTerm: filter?.searchTerm,
+    listSize: pageSize
   })
 
   // Set loading
@@ -47,7 +48,6 @@ export const DashboardEntityList = ({
     methods: { enableFilter, disableFilter, setCurrentPage },
   } = usePaginatedList<IFilterEntity>({pageSize, filter, setFilter, setDataPagination})
 
-
   return (
     <>
       <EntitiesFilter
@@ -58,12 +58,10 @@ export const DashboardEntityList = ({
         loading={loading}
         elementsList={!entitiesList.length ? [] : entitiesList}
         totalElementsCount={
-          // todo: add pagination when searching using filters. Ex: if the
-          // searchTerm result return more than 64 process, now simply doesn't load
-          // next 64 batch.
+          // When using filters you don't know the total count. So it don't handle last page pagination
           Object.keys(filter).length === 0
             ? totalCount
-            : entitiesList.length}
+            : null}
         renderElementFunction={renderProcessItem}
         pageSize={pageSize} 
         currentPage={currentPage} 

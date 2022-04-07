@@ -23,7 +23,6 @@ export const ProcessFilter = ({
     (tempFilter: IFilterProcesses, resetFilter: { (): void }): void
   }
 }) => {
-  const [searchTermIT, setSearchTermIT] = useState('')
 
   // const [filter, setFilter] = useState<IFilterProcesses>({})
   const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
@@ -38,7 +37,6 @@ export const ProcessFilter = ({
 
   const resetFilter = () => {
     setTempFilter({})
-    setSearchTermIT('')
   }
 
   const _onEnableFilter = () => {
@@ -53,10 +51,17 @@ export const ProcessFilter = ({
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t('elections.search_by_search_term')}
-          value={searchTermIT}
+          value={tempFilter.searchTerm || ''}
           onChange={(ev) => {
-            setSearchTermIT(ev.target.value)
             tempFilter.searchTerm = ev.target.value
+            setTempFilter(Object.assign({}, tempFilter))
+          }}
+        />
+        <Input
+          placeholder={i18n.t('elections.entity_id')}
+          value={tempFilter.entityId || ''}
+          onChange={(ev) => {
+            tempFilter.entityId = ev.target.value
             setTempFilter(Object.assign({}, tempFilter))
           }}
         />

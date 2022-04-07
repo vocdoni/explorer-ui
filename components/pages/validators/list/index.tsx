@@ -3,8 +3,6 @@ import { ListPageTemplate } from '@components/pages/app/page-templates/list-page
 import { Validator } from '@lib/types'
 import { ValidatorCard } from '@components/blocks/card/validator-card'
 
-const PER_PAGE = 10
-
 export const DashboardShowValidators = ({validators} : {validators: Validator[]}) => {
   return (
     <ListPageTemplate
