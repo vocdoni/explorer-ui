@@ -13,7 +13,7 @@ interface IRouterProps {
 }
 
 export const getPath = (path: string, args: IRouterProps) => {
-  return RouterService.instance.get(ENVELOPES_DETAILS, args)
+  return RouterService.instance.get(path, args)
 }
 
 // Wrap a entityId into a link to its entity page
