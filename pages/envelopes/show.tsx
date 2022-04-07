@@ -24,7 +24,7 @@ const BlockDetailPage = () => {
             <EnvelopeDetails envelope={envelope} />
           </Then>
           <Else>
-              <h1>{i18n.t('enevlopes.no_envelope_found')}</h1>
+              <h1>{i18n.t('envelopes.no_envelope_found')}</h1>
           </Else>
         </If>
       </Else>
