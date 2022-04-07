@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   useEntity,
   useBlockStatus,
-  usePool,
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
@@ -15,17 +14,13 @@ import {
   BlockStatus,
   VotingApi,
   ProcessDetails,
-  Voting,
-  ProcessResultsSingleChoice,
   EntityMetadata,
-  RawResults,
 } from 'dvote-js'
 import {
   DateDiffType,
   localizedDateDiff,
   localizedStartEndDateDiff,
 } from '@lib/date'
-import { BigNumber } from 'ethers'
 import i18n from '@i18n'
 import {
   Typography,
@@ -43,6 +38,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/election-envelope-explorer'
+import { useElectionResults } from '@hooks/use-elections'
 
 interface ElectionDetailPageProps {
   processId: string,
@@ -51,58 +47,14 @@ interface ElectionDetailPageProps {
 
 const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps) => {
   // const { i18n } = useTranslation()
-  const { poolPromise } = usePool()
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const entityMetadata = metadata as EntityMetadata
 
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
-  const [rawResults, setRawResults] = useState<RawResults>()
-  const [results, setResults] = useState<ProcessResultsSingleChoice>({
-    totalVotes: 0,
-    questions: [],
-  })
-  const [resultsWeight, setResultsWeight] = useState(BigNumber.from(0))
-  const [loadingResults, setLoadingResults] = useState(false)
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
 
-  // todo: move this to a hook
-  // Election Results
-  useEffect(() => {
-    setLoadingResults(true)
-
-    poolPromise
-      .then((pool) =>
-        Promise.all([
-          VotingApi.getResults(processId, pool),
-          VotingApi.getResultsWeight(processId, pool),
-        ])
-      )
-      .then(([rawResults, resultsWeight]) => {
-        console.debug('DEBUG:', 'rawResults', rawResults)
-        setRawResults(rawResults)
-        setResultsWeight(resultsWeight)
-
-        setLoadingResults(false)
-      })
-      .catch((err) => {
-        console.error(err)
-
-        setLoadingResults(false)
-      })
-  }, [poolPromise, processId])
-
-  // Set voting results
-  useEffect(() => {
-    console.debug('DEBUG:', 'processInfo', processInfo)
-
-    if (processInfo && rawResults && processInfo?.metadata && processInfo?.metadata?.questions) {
-      console.debug('DEBUG:', 'processMetadata', processInfo?.metadata)
-      setResults(
-        Voting.digestSingleChoiceResults(rawResults, processInfo?.metadata)
-      )
-    }
-  }, [processInfo, rawResults])
+  const {loadingResults:loading, results, resultsWeight} = useElectionResults({processId, processInfo})
 
   // DEBUG metadata
   useEffect(() => {

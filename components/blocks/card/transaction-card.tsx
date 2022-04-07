@@ -1,7 +1,7 @@
 import { ColumnProps } from '@components/elements/grid'
+import { getPath } from '@components/pages/app/components/get-links'
 import { TRANSACTIONS_DETAILS } from '@const/routes'
 import i18n from '@i18n'
-import RouterService from '@lib/router'
 import { TxById, TxType } from '@lib/types'
 import { getEnumKeyByEnumValue } from '@lib/util'
 import { TransactionTypeBadge } from '../badges/transaction-type-badge'
@@ -34,7 +34,7 @@ export const TransactionCard = ({
       }
       // dateText={localizedDateDiff(new Date(blockData?.timestamp))}
       link={
-        RouterService.instance.get(
+        getPath(
           TRANSACTIONS_DETAILS, {
               blockHeight: transactionData?.block_height?.toString(),
               index: transactionData?.index?.toString() ?? "0",

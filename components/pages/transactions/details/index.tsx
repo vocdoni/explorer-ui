@@ -3,11 +3,12 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import { EntityLink } from '@components/pages/app/components/entity'
-import { ELECTIONS_DETAILS } from '@const/routes'
+import {
+  EntityLink,
+  getElectionDetailsPath,
+} from '@components/pages/app/components/get-links'
 import i18n from '@i18n'
 import { localizedDateDiff } from '@lib/date'
-import RouterService from '@lib/router'
 import { GetTx, TxType } from '@lib/types'
 import {
   byteArrayToHex,
@@ -135,11 +136,7 @@ export const TransactionDetails = ({
           {belongsToProcess.length ? (
             <p>
               {i18n.t('transactions.belongs_to_process')}:{' '}
-              <Link
-                href={RouterService.instance.get(ELECTIONS_DETAILS, {
-                  electionsId: belongsToProcess,
-                })}
-              >
+              <Link href={getElectionDetailsPath(belongsToProcess)}>
                 <a>0x{belongsToProcess}</a>
               </Link>
             </p>

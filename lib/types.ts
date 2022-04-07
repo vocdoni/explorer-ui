@@ -1,4 +1,4 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx, VotingApi } from 'dvote-js'
 
 // IndexDB types
 export enum AccountStatus {
@@ -114,3 +114,8 @@ export type TxById = {
   tx: Tx,
   index: number,
 }
+
+// Envelopes
+
+export type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
+export type Envelope = Awaited<ReturnType<typeof VotingApi.getEnvelope>>

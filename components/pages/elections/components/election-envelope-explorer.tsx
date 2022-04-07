@@ -1,15 +1,16 @@
 import { Button } from '@components/elements/button'
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
-import { EnvelopeLink } from '@components/pages/app/components/envelopes'
+import {
+  EnvelopeLink,
+  TransactionLink,
+} from '@components/pages/app/components/get-links'
+import { useEnvelopesList } from '@hooks/use-envelopes'
 import i18n from '@i18n'
-import { usePool } from '@vocdoni/react-hooks'
-import { ProcessResultsSingleChoice, VotingApi } from 'dvote-js'
-import React, { useEffect, useState } from 'react'
+import { ProcessResultsSingleChoice } from 'dvote-js'
+import React, { useState } from 'react'
 
 const ENVELOPES_PER_PAGE = 6
-
-type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 
 interface EnvelopeExplorerProps {
   results?: ProcessResultsSingleChoice
@@ -21,43 +22,22 @@ export const EnvelopeExplorer = ({
   processId,
 }: EnvelopeExplorerProps) => {
   const [envelopePage, setEnvelopePage] = useState(0)
-  const [envelopeRange, setEnvelopeRange] = useState<EnvelopeList>([])
-  const [loadingEnvelopes, setLoadingEnvelopes] = useState(false)
-  const { poolPromise } = usePool()
-
-  // Election Envelopes
-  useEffect(() => {
-    setLoadingEnvelopes(true)
-
-    poolPromise
-      .then((pool) =>
-        VotingApi.getEnvelopeList(
-          processId,
-          envelopePage * ENVELOPES_PER_PAGE,
-          ENVELOPES_PER_PAGE,
-          pool
-        )
-      )
-      .then((envelopes) => {
-        setLoadingEnvelopes(false)
-        setEnvelopeRange(envelopes)
-
-        console.debug('DEBUG:', 'envelopes', envelopes)
-      })
-      .catch((err) => {
-        setLoadingEnvelopes(false)
-
-        console.error(err)
-      })
-  }, [envelopePage, poolPromise, processId])
+  const [from, setFrom] = useState(0)
+  const { loadingEnvelopes, envelopeRange } = useEnvelopesList({
+    processId,
+    from,
+    listSize: ENVELOPES_PER_PAGE,
+  })
 
   const nextEnvelopeRange = () => {
     if ((envelopePage + 1) * ENVELOPES_PER_PAGE >= results.totalVotes) return
     setEnvelopePage(envelopePage + 1)
+    setFrom((envelopePage + 1) * ENVELOPES_PER_PAGE)
   }
   const prevEnvelopeRange = () => {
     if (envelopePage <= 0) return
     setEnvelopePage(envelopePage - 1)
+    setFrom((envelopePage - 1) * ENVELOPES_PER_PAGE)
   }
 
   return (
@@ -85,15 +65,27 @@ export const EnvelopeExplorer = ({
           <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
             <strong>
               {i18n.t('elections.envelope_n', {
-                number: envelopePage * ENVELOPES_PER_PAGE + idx + 1,
+                number: envelopePage * ENVELOPES_PER_PAGE + idx + 1, // Is not showing tx index, instead show index of map itself
               })}
+              {envelopePage * ENVELOPES_PER_PAGE + idx + 1}
             </strong>
-            {/* <p>
-              {i18n.t('elections.block')}: {envelope.height || 0}
-            </p> */}
-            <p> 
-              <EnvelopeLink envelopId={envelope.tx_hash}>
+            <p>
+              {i18n.t('elections.envelope_on_block')}: {envelope.height || 0}
+            </p>
+            <p>
+              {i18n.t('elections.tx_number')}: {envelope.tx_index || 0}
+            </p>
+            <p>
+              <TransactionLink
+                blockHeight={envelope.height.toString()}
+                index={envelope.tx_index.toString()}
+              >
                 {i18n.t('elections.transaction_details')}
+              </TransactionLink>
+            </p>
+            <p>
+              <EnvelopeLink nullifier={envelope.nullifier}>
+                {i18n.t('elections.envelope_details')}
               </EnvelopeLink>
             </p>
           </Card>
