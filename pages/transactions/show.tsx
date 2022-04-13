@@ -12,7 +12,6 @@ const TransactionDetailPage = () => {
 
   const { tx, loading } = useTx({ blockHeight: blockHeight, txIndex: txIndex })
 
-  // todo(ritmo): create an error page
   return (
     <>
       <If condition={loading}>
