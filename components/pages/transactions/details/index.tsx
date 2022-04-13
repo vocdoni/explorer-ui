@@ -48,7 +48,7 @@ export const TransactionDetails = ({
       case 'vote': {
         const tx: VoteEnvelope = txInterface.payload.vote
         setBelongsToProcess(byteArrayToHex(tx.processId))
-        // todo(ritmo): for the moment, this is not needed because we decode all
+        // For the moment, this is not needed because we decode all
         // byte array on the txRaw object. So let this here for future uses, maybe
         // will be needed.
         // switch(tx.proof.payload.$case){
