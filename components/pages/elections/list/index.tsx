@@ -5,7 +5,7 @@ import { useProcessCount } from '@hooks/use-processes'
 import { ListPageTemplate } from '@components/pages/app/page-templates/list-page-template'
 
 
-export const DashboardShowProcesses = ({entityId}: {entityId?: string}) => {
+export const DashboardShowProcesses = ( ) => {
   const {processCount} = useProcessCount({});
   const page_size = 10
 
