@@ -3,27 +3,24 @@ import { Loader } from '@components/blocks/loader'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useStats } from '@hooks/use-stats'
 import { useBlocks } from '@hooks/use-blocks'
+import { Else, If, Then } from 'react-if'
+import i18n from '@i18n'
 
 const StatsPageIndex = () => {
-  const strategies: ViewStrategy[] = []
-
   const { loading: loadingStats, stats } = useStats({})
-
-  // todo(ritmo): implement error page
-  const renderStatsPage = new ViewStrategy(
-    () => stats !== undefined || !loadingStats,
-    (
-      <>
-        <StatsPage stats={stats} />
-      </>
-    )
+  
+  return (
+    <If condition={loadingStats}>
+      <Then>
+        <Loader visible />
+      </Then>
+      <Else>
+        {stats !== undefined || !loadingStats
+          ? (<StatsPage stats={stats} />) 
+          : (<h1>{i18n.t('home.stats_not_found')}</h1>)}
+      </Else>
+    </If>
   )
-  strategies.push(renderStatsPage)
-  const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)
-  strategies.push(renderLoadingPage)
-
-  const viewContext = new ViewContext(strategies)
-
-  return viewContext.getView()}
+}
 
 export default StatsPageIndex

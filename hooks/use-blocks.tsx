@@ -28,22 +28,13 @@ export const useBlocks = ({
     if (loading || !poolPromise) return
 
     setLoading(true)
-
-    // Fix from have a negative value
-    // Happen when first page not contain total enough elements to fullify listSize
-    let _listSize = listSize
-    let _from = from
-    if(from < 0) {
-      _from = 0
-      _listSize = listSize + from // Sum because is negative number
-    }
-
+    
     poolPromise
       .then((pool) => {
         return pool.sendRequest({
           method: 'getBlockList',
-          from: _from,
-          listSize: _listSize,
+          from:     from,
+          listSize: listSize,
         })
       })
       .then((response) => {

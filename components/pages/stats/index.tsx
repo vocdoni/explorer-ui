@@ -17,7 +17,7 @@ import { useBlocks } from '@hooks/use-blocks'
 const BLOCK_LIST_SIZE = 4
 
 const StatsPage = ({ stats }: { stats: Stats }) => {
-  const [blockHeight, setBlockHeight] = useState(-1)
+  const [blockHeight, setBlockHeight] = useState<number>()
   const { loading: loadingBlocks, recentBlocks } = useBlocks({
     from: blockHeight,
     listSize: BLOCK_LIST_SIZE,
@@ -25,8 +25,9 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
   })
 
   useEffect(() => {
-    if (stats && stats?.block_height !== blockHeight)
+    if (stats && stats?.block_height !== blockHeight) {
       setBlockHeight(stats.block_height - BLOCK_LIST_SIZE)
+    }
   }, [stats])
 
   return (

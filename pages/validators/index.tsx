@@ -8,7 +8,6 @@ const Page = () => {
 
   const { loadingValidatorList: loading, validatorList,} = useValidatorList({update: true})
 
-  // todo(ritmo): create an error page
   return (
     <>
       <If condition={loading}>
