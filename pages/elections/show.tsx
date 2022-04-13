@@ -1,27 +1,26 @@
 import { Loader } from '@components/blocks/loader'
 import ElectionDetailPage from '@components/pages/elections/details'
-import { ViewContext, ViewStrategy } from '@lib/strategy'
+import i18n from '@i18n'
 import { useProcess } from '@vocdoni/react-hooks'
+import { Else, If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 
 const ElectionsDetailPage = () => {
-  const strategies: ViewStrategy[] = []
   const processId = useUrlHash().slice(1)
   const { process: processInfo, loading } = useProcess(processId)
-
-  // todo(ritmo): show an error page
-  const renderElectionDetailsPage = new ViewStrategy(
-    () => !!processInfo && !loading,
-    <ElectionDetailPage processId={processId} processInfo={processInfo} />
+  
+  return (
+    <If condition={loading}>
+      <Then>
+        <Loader visible />
+      </Then>
+      <Else>
+        {!!processInfo && !loading
+          ? (<ElectionDetailPage processId={processId} processInfo={processInfo} />) 
+          : (<h1>{i18n.t('elections.election_not_found')}</h1>)}
+      </Else>
+    </If>
   )
-  strategies.push(renderElectionDetailsPage)
-
-  const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)
-  strategies.push(renderLoadingPage)
-
-  const viewContext = new ViewContext(strategies)
-
-  return viewContext.getView()
 }
 
 export default ElectionsDetailPage
