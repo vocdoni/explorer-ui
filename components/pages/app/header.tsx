@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { Unless } from 'react-if'
 
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { HOME_PATH, ORGANIZATIONS_PATH, ELECTIONS_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH, TOOLS_PATH } from '@const/routes'
 
@@ -13,37 +13,6 @@ import { useIsMobile } from '@hooks/use-window-size'
 import { sizes } from '../../../theme/sizes'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 
-export const LINKS: HeaderLink[] = [
-  {
-    name: i18n.t("links.organizations"),
-    url: ORGANIZATIONS_PATH,
-  },
-  {
-    name: i18n.t("links.elections"),
-    url: ELECTIONS_PATH,
-  },
-  {
-    name: i18n.t("links.blocks"),
-    url: BLOCKS_PATH,
-  },
-  {
-    name: i18n.t("links.transactions"),
-    url: TRANSACTIONS_PATH,
-  },
-  {
-    name: i18n.t("links.validators"),
-    url: VALIDATORS_PATH,
-  },
-  {
-    name: i18n.t("links.stats"),
-    url: STATS_PATH,
-  },
-  {
-    name: i18n.t("links.tools"),
-    url: TOOLS_PATH,
-  },
-]
-
 interface IHeaderProps {
   children?: ReactNode
 }
@@ -51,6 +20,38 @@ interface IHeaderProps {
 export const Header = ({ children }: IHeaderProps) => {
   const isMobile = useIsMobile()
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const { i18n } = useTranslation()
+
+  const LINKS: HeaderLink[] = [
+    {
+      name: i18n.t("links.organizations"),
+      url: ORGANIZATIONS_PATH,
+    },
+    {
+      name: i18n.t("links.elections"),
+      url: ELECTIONS_PATH,
+    },
+    {
+      name: i18n.t("links.blocks"),
+      url: BLOCKS_PATH,
+    },
+    {
+      name: i18n.t("links.transactions"),
+      url: TRANSACTIONS_PATH,
+    },
+    {
+      name: i18n.t("links.validators"),
+      url: VALIDATORS_PATH,
+    },
+    {
+      name: i18n.t("links.stats"),
+      url: STATS_PATH,
+    },
+    {
+      name: i18n.t("links.tools"),
+      url: TOOLS_PATH,
+    },
+  ]
 
   return (
     <>

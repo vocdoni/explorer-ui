@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { VoteStatus } from '@lib/util'
 
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { colors } from 'theme/colors'
 

@@ -3,7 +3,7 @@ import { Button } from '@components/elements/button'
 import { useEffect, useMemo, useState } from 'react'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
 type PaginatorProps = {
@@ -23,6 +23,8 @@ export const Paginator = ({
   disableGoFirstBtn = false,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
+  const { i18n } = useTranslation()
+
   const paginate = (nextPage) => {
     if (nextPage < 1 || nextPage > totalPageCount) return
     else onPageChange(nextPage)
@@ -65,9 +67,12 @@ export const Paginator = ({
             color={colors.lightText}
           >
             {totalPageCount
-              ? currentPage +
-                i18n.t('components.paginator.page_n_of_n') +
-                totalPageCount
+              ? 
+              // currentPage +
+                i18n.t(
+                  'components.paginator.page_n_of_n', 
+                  {currentPage: currentPage, totalPage: totalPageCount})
+                // totalPageCount
               : false}
           </Typography>
         </TextDiv>

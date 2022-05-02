@@ -1,4 +1,4 @@
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
 import { FlexContainer } from '@components/elements/flex'
@@ -12,6 +12,8 @@ export interface IFilterBlocks {
   }
   
 export const BlocksFilter = ({setFilter}: {setFilter: (IFilterBlocks) => void}) => {
+  const { i18n } = useTranslation()
+
   const [searchTermIT, setSearchTermIT] = useState('')
 
 
@@ -34,7 +36,7 @@ export const BlocksFilter = ({setFilter}: {setFilter: (IFilterBlocks) => void}) 
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder={i18n.t('blocks.search_by_block_height')}
+          placeholder={i18n.t('blocks.filter.search_by_block_height')}
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)

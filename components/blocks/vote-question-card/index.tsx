@@ -1,5 +1,5 @@
 import React from 'react'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { SingleChoiceQuestionResults, VochainProcessStatus } from 'dvote-js'
 import { colors } from 'theme/colors'
@@ -31,7 +31,7 @@ export const VoteQuestionCard = ({
   resultsWeight,
   result,
 }: IVoteQuestionCardProps) => {
-
+  const { i18n } = useTranslation()
   return (
     <Grid>
       <Card>
@@ -39,7 +39,7 @@ export const VoteQuestionCard = ({
           <Grid>
             <Column md={8} sm={12}>
               <SectionText>
-                {i18n.t('vote_question_card.question', { number: questionIdx + 1 })}
+                {i18n.t('components.vote_question_card.question', { number: questionIdx + 1 })}
               </SectionText>
 
               <SectionText size={TextSize.Big}>
@@ -68,7 +68,7 @@ export const VoteQuestionCard = ({
                   <Else>
                     <QuestionNoResultsAvailable question={question} />
                     <NoResultsAvailableText>
-                      {i18n.t('vote_question_card.no_results_available')}
+                      {i18n.t('components.vote_question_card.no_results_available')}
                     </NoResultsAvailableText>
                   </Else>
                 </If>

@@ -1,7 +1,7 @@
 import { ColumnProps } from '@components/elements/grid'
 import { getPath } from '@components/pages/app/components/get-links'
 import { TRANSACTIONS_DETAILS } from '@const/routes'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { TxById, TxType } from '@lib/types'
 import { getEnumKeyByEnumValue } from '@lib/util'
 import { TransactionTypeBadge } from '../badges/transaction-type-badge'
@@ -16,6 +16,7 @@ export const TransactionCard = ({
 }: ColumnProps & {
   transactionData: TxById
 }) => {
+  const { i18n } = useTranslation()
   return (
     <GenericListItemWithBadge
       sm={sm}
@@ -24,7 +25,7 @@ export const TransactionCard = ({
       xl={xl}
       topLeft={
         <>
-          {i18n.t('transactions.number')} {'#' + transactionData?.id}
+          {i18n.t('components.transaction_card.number')} {'#' + transactionData?.id}
         </>
       }
       badge={
@@ -42,7 +43,7 @@ export const TransactionCard = ({
       }
     >
       <p>
-        {i18n.t('transactions.hash')}: <code>0x{transactionData?.hash}</code>
+        {i18n.t('components.transaction_card.hash')}: <code>0x{transactionData?.hash}</code>
       </p>
     </GenericListItemWithBadge>
   )

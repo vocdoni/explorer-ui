@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import { SingleChoiceQuestionResults } from 'dvote-js'
 
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { colors } from 'theme/colors'
 
 import { Choice, Question } from '@lib/types'
@@ -23,6 +23,8 @@ export const QuestionResults = ({
   result,
   resultsWeight,
 }: IQuestionResultsProps) => {
+  const { i18n } = useTranslation()
+
   const getOptionResult = (index: number) =>
     result?.voteResults[index].votes
 
@@ -46,7 +48,7 @@ export const QuestionResults = ({
           <div>
             <DescriptionContainer>{choice.title.default}</DescriptionContainer>
             <SectionText color={colors.lightText}>
-              {i18n.t('vote_question_card.number_votes', {
+              {i18n.t('components.question_results.number_votes', {
                 number: getOptionResult(index).toString(),
               })}
             </SectionText>

@@ -6,7 +6,6 @@ import {
 } from '@components/pages/app/page-templates/inverted-paginated-list-template'
 import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
 import { useTxListById } from '@hooks/use-transactions'
-import i18n from '@i18n'
 import { TxById } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 import {

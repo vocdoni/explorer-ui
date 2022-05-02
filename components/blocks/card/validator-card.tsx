@@ -1,5 +1,4 @@
 import { ColumnProps } from '@components/elements/grid'
-import i18n from '@i18n'
 import { Validator } from '@lib/types'
 import { ValidatorPowerBadge } from '../badges/validator-badge'
 import { GenericListItemWithBadge } from '../list-items'
@@ -13,7 +12,6 @@ export const ValidatorCard = ({
 }: ColumnProps & {
   validatorData: Validator
 }) => {
-
   return (
     <GenericListItemWithBadge
       sm={sm}

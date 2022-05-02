@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { colors } from 'theme/colors'
 
 import { Button } from '@components/elements/button'
@@ -10,40 +10,55 @@ import { sizes } from 'theme/sizes'
 import { Grid } from '@components/elements/grid'
 import { Card } from '@components/elements/cards'
 
-export const HeroBanner = (props: { elections: number, organizations: number, averageBlockTime: number, envelopes: number }) => (
-  <BannerContainer>
-    <ContentContainer>
-      <div>
-        <Title>
-          <strong>{i18n.t('home.vocdoni_explorer')}</strong>{' '}
-          <br />
-          {i18n.t('home.explore_the_vochain')}
-        </Title>
+export const HeroBanner = (props: {
+  elections: number
+  organizations: number
+  averageBlockTime: number
+  envelopes: number
+}) => {
+  const { i18n } = useTranslation()
+  return (
+    <BannerContainer>
+      <ContentContainer>
+        <div>
+          <Title>
+            <strong>{i18n.t('home.vocdoni_explorer')}</strong> <br />
+            {i18n.t('home.explore_the_vochain')}
+          </Title>
 
-        <Grid>
-          <Card sm={6} lg={3}>
-            <h4>{i18n.t('home.average_block_time')}</h4>
-            <p>{i18n.t('home.n_seconds', { seconds: Number(props.averageBlockTime || 0).toFixed(1) })}</p>
-          </Card>
-          <Card sm={6} lg={3}>
-            <h4>{i18n.t('home.total_elections')}</h4>
-            <p>{i18n.t('home.n_elections', { elections: props.elections })}</p>
-          </Card>
-          <Card sm={6} lg={3}>
-            <h4>{i18n.t('home.total_organizations')}</h4>
-            <p>{i18n.t('home.n_organizations', { organizations: props.organizations })}</p>
-          </Card>
-          <Card sm={6} lg={3}>
-            <h4>{i18n.t('home.total_votes')}</h4>
-            <p>{i18n.t('home.n_votes', { votes: props.envelopes })}</p>
-          </Card>
-        </Grid>
-
-      </div>
-    </ContentContainer>
-
-  </BannerContainer>
-)
+          <Grid>
+            <Card sm={6} lg={3}>
+              <h4>{i18n.t('home.average_block_time')}</h4>
+              <p>
+                {i18n.t('home.n_seconds', {
+                  seconds: Number(props.averageBlockTime || 0).toFixed(1),
+                })}
+              </p>
+            </Card>
+            <Card sm={6} lg={3}>
+              <h4>{i18n.t('home.total_elections')}</h4>
+              <p>
+                {i18n.t('home.n_elections', { elections: props.elections })}
+              </p>
+            </Card>
+            <Card sm={6} lg={3}>
+              <h4>{i18n.t('home.total_organizations')}</h4>
+              <p>
+                {i18n.t('home.n_organizations', {
+                  organizations: props.organizations,
+                })}
+              </p>
+            </Card>
+            <Card sm={6} lg={3}>
+              <h4>{i18n.t('home.total_votes')}</h4>
+              <p>{i18n.t('home.n_votes', { votes: props.envelopes })}</p>
+            </Card>
+          </Grid>
+        </div>
+      </ContentContainer>
+    </BannerContainer>
+  )
+}
 
 const BannerContainer = styled.div`
   height: 530px;
@@ -53,9 +68,14 @@ const BannerContainer = styled.div`
   overflow: hidden;
   position: relative;
 
-  
-  background: linear-gradient(180deg, #f0ffde 20.98%,#e0ffff 73.1%,transparent 100%, transparent 100%);
-  
+  background: linear-gradient(
+    180deg,
+    #f0ffde 20.98%,
+    #e0ffff 73.1%,
+    transparent 100%,
+    transparent 100%
+  );
+
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
   }
@@ -150,7 +170,7 @@ const ActionContainer = styled.div`
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
-    align-items:  start;
+    align-items: start;
   }
 `
 const Title = styled.h1`

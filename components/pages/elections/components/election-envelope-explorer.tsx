@@ -6,7 +6,7 @@ import {
   TransactionLink,
 } from '@components/pages/app/components/get-links'
 import { useEnvelopesList } from '@hooks/use-envelopes'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { ProcessResultsSingleChoice } from 'dvote-js'
 import React, { useState } from 'react'
 
@@ -21,6 +21,8 @@ export const EnvelopeExplorer = ({
   results,
   processId,
 }: EnvelopeExplorerProps) => {
+  const { i18n } = useTranslation()
+
   const [envelopePage, setEnvelopePage] = useState(0)
   const [from, setFrom] = useState(0)
   const { loadingEnvelopes, envelopeRange } = useEnvelopesList({
@@ -43,19 +45,19 @@ export const EnvelopeExplorer = ({
   return (
     <Card>
       <h4>
-        {i18n.t('elections.envelopes')} ({results.totalVotes || 0})
+        {i18n.t('elections.envelope_explorer.total_votes', {totalVotes: results.totalVotes || 0 } )}
       </h4>
       <div>
         <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
-          {i18n.t('elections.back')}
+          {i18n.t('elections.envelope_explorer.back')}
         </Button>{' '}
         &nbsp;
         <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>
-          {i18n.t('elections.next')}
+          {i18n.t('elections.envelope_explorer.next')}
         </Button>{' '}
         &nbsp;
         <small>
-          {i18n.t('elections.page')} {envelopePage + 1}/
+          {i18n.t('elections.envelope_explorer.page')} {envelopePage + 1}/
           {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
         </small>
       </div>
@@ -64,28 +66,27 @@ export const EnvelopeExplorer = ({
         {envelopeRange.map((envelope, idx) => (
           <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
             <strong>
-              {i18n.t('elections.envelope_n', {
+              {i18n.t('elections.envelope_explorer.envelope_n', {
                 number: envelopePage * ENVELOPES_PER_PAGE + idx + 1, // Is not showing tx index, instead show index of map itself
               })}
-              {envelopePage * ENVELOPES_PER_PAGE + idx + 1}
             </strong>
             <p>
-              {i18n.t('elections.envelope_on_block')}: {envelope.height || 0}
+              {i18n.t('elections.envelope_explorer.envelope_on_block', {block: envelope.height || 0})}
             </p>
             <p>
-              {i18n.t('elections.tx_number')}: {envelope.tx_index || 0}
+              {i18n.t('elections.envelope_explorer.tx_number',  {txNumber: envelope.tx_index || 0})}:
             </p>
             <p>
               <TransactionLink
                 blockHeight={envelope.height.toString()}
                 index={envelope.tx_index.toString()}
               >
-                {i18n.t('elections.transaction_details')}
+                {i18n.t('elections.envelope_explorer.transaction_details')}
               </TransactionLink>
             </p>
             <p>
               <EnvelopeLink nullifier={envelope.nullifier}>
-                {i18n.t('elections.envelope_details')}
+                {i18n.t('elections.envelope_explorer.envelope_details')}
               </EnvelopeLink>
             </p>
           </Card>

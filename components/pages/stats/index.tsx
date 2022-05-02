@@ -8,7 +8,7 @@ import { Card, CardDiv } from '@components/elements/cards'
 import { useEffect, useState } from 'react'
 
 import { localizedDateDiff } from '@lib/date'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { Stats } from '@lib/types'
 import { Section, BlockContainer } from '@components/elements/styled-divs'
 import { BlockCard } from '@components/blocks/card/block-card'
@@ -17,6 +17,8 @@ import { useBlocks } from '@hooks/use-blocks'
 const BLOCK_LIST_SIZE = 4
 
 const StatsPage = ({ stats }: { stats: Stats }) => {
+  const { i18n } = useTranslation()
+
   const [blockHeight, setBlockHeight] = useState<number>()
   const { loading: loadingBlocks, recentBlocks } = useBlocks({
     from: blockHeight,
@@ -42,10 +44,10 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
       <Section>
         <BlockContainer>
           <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-            {i18n.t('home.recent_blocks')}
+            {i18n.t('stats.recent_blocks')}
           </Typography>
           <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-            {i18n.t('home.the_last_four_blocks')}
+            {i18n.t('stats.the_last_four_blocks')}
           </Typography>
 
           <Grid>
@@ -58,7 +60,7 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
                 md={4}
                 lg={3}
               />
-            )) : (<h3>{i18n.t('home.getting_block_info')}</h3>) 
+            )) : (<h3>{i18n.t('stats.getting_block_info')}</h3>) 
             }
           </Grid>
         </BlockContainer>
@@ -67,39 +69,39 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
       <Section>
         <BlockContainer>
           <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-            {i18n.t('home.blockchain_info')}
+            {i18n.t('stats.blockchain_info')}
           </Typography>
           <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-            {i18n.t('home.network_details')}
+            {i18n.t('stats.network_details')}
           </Typography>
 
           <Grid>
             <Card md={6}>
-              <h5>{i18n.t('home.network_id')}</h5>
+              <h5>{i18n.t('stats.network_id')}</h5>
               <p>{stats?.chain_id}</p>
-              <h5>{i18n.t('home.bloc_height')}</h5>
+              <h5>{i18n.t('stats.bloc_height')}</h5>
               <p>{stats?.block_height}</p>
-              <h5>{i18n.t('home.total_transactions')}</h5>
+              <h5>{i18n.t('stats.total_transactions')}</h5>
               <p>{stats?.transaction_count}</p>
-              <h5>{i18n.t('home.total_elections')}</h5>
+              <h5>{i18n.t('stats.total_elections')}</h5>
               <p>{stats?.process_count}</p>
-              <h5>{i18n.t('home.total_votes')}</h5>
+              <h5>{i18n.t('stats.total_votes')}</h5>
               <p>{stats?.envelope_count}</p>
             </Card>
             <Card md={6}>
-              <h5>{i18n.t('home.genesis_block_date')}</h5>
+              <h5>{i18n.t('stats.genesis_block_date')}</h5>
               <p>{localizedDateDiff(new Date(stats?.genesis_time_stamp))}</p>
-              <h5>{i18n.t('home.latest_block_date')}</h5>
+              <h5>{i18n.t('stats.latest_block_date')}</h5>
               <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
-              <h5>{i18n.t('home.total_organizations')}</h5>
+              <h5>{i18n.t('stats.total_organizations')}</h5>
               <p>{stats?.entity_count}</p>
-              <h5>{i18n.t('home.number_of_validators')}</h5>
+              <h5>{i18n.t('stats.number_of_validators')}</h5>
               <p>{stats?.validator_count}</p>
-              <h5>{i18n.t('home.sync_status')}</h5>
+              <h5>{i18n.t('stats.sync_status')}</h5>
               <p>
                 {stats?.syncing
-                  ? i18n.t('home.syncing')
-                  : i18n.t('home.in_sync')}
+                  ? i18n.t('stats.syncing')
+                  : i18n.t('stats.in_sync')}
               </p>
             </Card>
           </Grid>

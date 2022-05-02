@@ -5,7 +5,7 @@ import { StatusCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
 import { useTxForBlock } from '@hooks/use-transactions'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { TxForBlock } from '@lib/types'
 import { useEffect, useState } from 'react'
 
@@ -20,6 +20,7 @@ export const TransactionListForBlock = ({
   blockHeight?: number
   skeletonItems?: number
 }) => {
+  const { i18n } = useTranslation()
   // Current from offset calling the backend
   const [fromId, setFromId] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -46,11 +47,11 @@ export const TransactionListForBlock = ({
   const renderProcessItem = (tx: TxForBlock) => {
     return (
       <GenericListItemWithBadge key={tx.hash}
-        topLeft={i18n.t('transaction.index ') + tx.index} 
+        topLeft={i18n.t('transaction.card.index', {index: tx.index})} 
         badge={<TransactionTypeBadge type={tx.type} ></TransactionTypeBadge>}  
         lg={8}          
       >
-        <h4>{i18n.t('transaction.block:') + tx.hash}</h4>
+        <h4>{i18n.t('transaction.card.block:') + tx.hash}</h4>
       </GenericListItemWithBadge>
     )
   }
@@ -75,7 +76,7 @@ export const TransactionListForBlock = ({
           {/* </Column> */}
         </>
       ) : (
-        <h1>{i18n.t('blocks.no_transactions_found')}</h1>
+        <h1>{i18n.t('transactions.no_transactions_found')}</h1>
       )}
     </>
   )

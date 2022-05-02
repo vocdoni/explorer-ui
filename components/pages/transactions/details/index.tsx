@@ -7,7 +7,7 @@ import {
   EntityLink,
   getElectionDetailsPath,
 } from '@components/pages/app/components/get-links'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
 import {
@@ -36,6 +36,7 @@ export const TransactionDetails = ({
   transactionData: GetTx
   blockHeight: number
 }) => {
+  const { i18n } = useTranslation()
   const [belongsToEntity, setBelongsToEntity] = useState('')
   const [belongsToProcess, setBelongsToProcess] = useState('')
   const [txType, setTxType] = useState<TxType>()
@@ -98,19 +99,19 @@ export const TransactionDetails = ({
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.H3}>
-              {i18n.t('transaction.details.transaction_details')}
+              {i18n.t('transactions.details.transaction_details')}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {txIndex + 1}
-              {i18n.t('transaction.details.n_transaction_for_block_n')}
-              {blockHeight}
+              {i18n.t(
+                'transactions.details.n_transaction_for_block_n',
+                {txIndex: txIndex + 1, blockHeight: blockHeight})}
             </Typography>
 
             <Typography
               variant={TypographyVariant.Small}
               color={colors.lightText}
             >
-              <span>{i18n.t('transaction.created_on')}: </span>
+              <span>{i18n.t('transactions.created_on')}: </span>
               <span>{localizedDateDiff(date)}</span>
             </Typography>
           </Column>
@@ -135,7 +136,7 @@ export const TransactionDetails = ({
         >
           {belongsToProcess.length ? (
             <p>
-              {i18n.t('transactions.belongs_to_process')}:{' '}
+              {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getElectionDetailsPath(belongsToProcess)}>
                 <a>0x{belongsToProcess}</a>
               </Link>
@@ -143,7 +144,7 @@ export const TransactionDetails = ({
           ) : null}
           {belongsToEntity.length ? (
             <p>
-              {i18n.t('transactions.belong_to_entity')}:
+              {i18n.t('transactions.details.belong_to_entity')}:
               <EntityLink entityId={belongsToEntity}>
                 <a>0x{belongsToEntity}</a>
               </EntityLink>
@@ -153,7 +154,7 @@ export const TransactionDetails = ({
 
         {txRaw ? (
           <Card>
-            <h3>{i18n.t('transactions.contents')}</h3>
+            <h3>{i18n.t('transactions.details.raw_contents')}</h3>
             <pre>{JSON.stringify(txRaw, null, 2)}</pre>
           </Card>
         ) : null}

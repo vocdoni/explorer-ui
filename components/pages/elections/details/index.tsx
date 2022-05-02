@@ -21,7 +21,7 @@ import {
   localizedDateDiff,
   localizedStartEndDateDiff,
 } from '@lib/date'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import {
   Typography,
   TypographyVariant,
@@ -46,7 +46,7 @@ interface ElectionDetailPageProps {
 }
 
 const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps) => {
-  // const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const entityMetadata = metadata as EntityMetadata
 
@@ -79,19 +79,19 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
       <CardImageHeader
         title={processInfo?.metadata?.title?.default}
         processImage={processInfo?.metadata?.media?.header}
-        subtitle={i18n.t('elections.id') + ': #' + processId}
+        subtitle={i18n.t('elections.details.id') + ': #' + processId}
         entityImage={entityMetadata?.media?.avatar}
       />
 
         {/* Created on and ends on */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-          {i18n.t('elections.process_details')}
+          {i18n.t('elections.details.process_details')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
           {dateDiffStr}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          <span>{i18n.t('elections.created_on')}: </span>
+          <span>{i18n.t('elections.details.created_on')}: </span>
           <span>
             {localizedDateDiff(new Date(processInfo?.state?.creationTime))}
           </span>
@@ -125,30 +125,30 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
               ? entityMetadata?.name?.default
               : processInfo?.state?.entityId}
           </EntityCardMedium>
-          <StatusCard md={4} title={i18n.t('elections.total_votes')}>
+          <StatusCard md={4} title={i18n.t('elections.details.total_votes')}>
             <h2>{results?.totalVotes || 0}</h2>
           </StatusCard>
-          <StatusCard md={4} title={i18n.t('elections.total_questions')}>
+          <StatusCard md={4} title={i18n.t('elections.details.total_questions')}>
             <h2>{processInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
 
         {/* Technical details */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-          {i18n.t('elections.detailed_data')}
+          {i18n.t('elections.details.detailed_data')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-          {i18n.t('elections.elections_additional_information')}
+          {i18n.t('elections.details.elections_additional_information')}
         </Typography>
 
         {/* Tabs */}
         <Tabs>
-          <Tab label={i18n.t('elections.show_description')}>
+          <Tab label={i18n.t('elections.details.show_description')}>
             <SectionText color={colors.lightText}>
               {processInfo?.metadata?.description?.default}
             </SectionText>
           </Tab>
-          <Tab label={i18n.t('elections.show_questions')}>
+          <Tab label={i18n.t('elections.details.show_questions')}>
             <>
               {processInfo?.metadata?.questions?.map?.(
                 (question: Question, index: number) => (
@@ -163,7 +163,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
               )}
             </>
           </Tab>
-          <Tab label={i18n.t('elections.show_envelopes')}>
+          <Tab label={i18n.t('elections.details.show_envelopes')}>
             <EnvelopeExplorer processId={processId} results={results} />
           </Tab>
         </Tabs>
