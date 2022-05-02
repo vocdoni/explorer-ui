@@ -4,10 +4,12 @@ import { ViewContext, ViewStrategy } from '@lib/strategy'
 import { useStats } from '@hooks/use-stats'
 import { useBlocks } from '@hooks/use-blocks'
 import { Else, If, Then } from 'react-if'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 const StatsPageIndex = () => {
   const { loading: loadingStats, stats } = useStats({})
+  const { i18n } = useTranslation()
+
   
   return (
     <If condition={loadingStats}>
@@ -17,7 +19,7 @@ const StatsPageIndex = () => {
       <Else>
         {stats !== undefined || !loadingStats
           ? (<StatsPage stats={stats} />) 
-          : (<h1>{i18n.t('home.stats_not_found')}</h1>)}
+          : (<h1>{i18n.t('stats.stats_not_found')}</h1>)}
       </Else>
     </If>
   )
