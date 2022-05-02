@@ -2,7 +2,7 @@ import { usePool } from '@vocdoni/react-hooks'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { Stats } from '@lib/types'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 const REFRSH_TIME = 15 * 1000
 
@@ -11,6 +11,7 @@ export const useStats = ({
 }: {
   refreshTime?: number
 }) => {
+  const { i18n } = useTranslation()
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
