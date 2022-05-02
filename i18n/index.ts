@@ -12,6 +12,10 @@ i18n
 	.use(initReactI18next)
 	.init({
 		debug: process.env.NODE_ENV === 'development',
+		preload: ['en'],
+		resources: {
+			translation
+		},
 		lng: userLang,
 		fallbackLng: 'en',
 		defaultNS: 'translation',
