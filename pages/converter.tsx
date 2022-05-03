@@ -58,7 +58,7 @@ const BlocksPage = () => {
             {i18n.t('converter.conversion_between_block_and_dates')}
           </MainDescription>
           <p>
-            {i18n.t('converter.current_enviorment ')}
+            {i18n.t('converter.current_enviorment')}
             {process.env.VOCDONI_ENVIRONMENT}
           </p>
           <InputTitle>
