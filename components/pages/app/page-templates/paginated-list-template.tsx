@@ -1,7 +1,7 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { Card } from '@components/elements/cards'
 import { Skeleton } from '@components/blocks/skeleton'
 
@@ -43,6 +43,8 @@ export const PaginatedListTemplate = <Elements,>({
   currentPage,
   setCurrentPage,
 }: IPaginatedListTemplateProps<Elements>) => {
+  const { i18n } = useTranslation()
+
   return (
     <Grid>
       <Column md={8} sm={12}>

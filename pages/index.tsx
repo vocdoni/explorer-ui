@@ -9,7 +9,7 @@ const IndexPage = () => {
   const strategies: ViewStrategy[] = []
   const { loading: loadingStats, stats } = useStats({})
 
-  // todo(ritmo): implement error page
+  // todo(ritmo): implement error page?
   const renderStatsPage = new ViewStrategy(
     () => stats !== undefined || !loadingStats,
     (

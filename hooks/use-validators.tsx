@@ -1,4 +1,4 @@
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { fetchMethod } from '@lib/api'
 import { Validator } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 
 export const useValidatorList = ({ update }: { update: boolean }) => {
+  const { i18n } = useTranslation()
   const [validatorList, setValidatorList] = useState<Validator[]>([])
   const [loadingValidatorList, setLoadingValidatorList] = useState(true)
   const { setAlertMessage } = useAlertMessage()

@@ -7,7 +7,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { ProcessListItem } from '@components/blocks/card/process-item'
 import { getElectionDetailsPath } from '@components/pages/app/components/get-links'
 
@@ -20,6 +20,7 @@ interface IEntityViewProps {
 }
 export const EntityView = ({ address, metadata, processes, blockHeight }: IEntityViewProps) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/0x${address}`
+  const { i18n } = useTranslation()
 
   return (
     <PageCard>
@@ -32,21 +33,21 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
 
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_description')}</Typography>
+          <Typography variant={TypographyVariant.Body1}>{i18n.t('entities.details.entity_description')}</Typography>
           <Typography variant={TypographyVariant.Small}>{metadata?.description.default}</Typography>
         </Column>
       </Grid>
 
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_address')} </Typography>
+          <Typography variant={TypographyVariant.Body1}>{i18n.t('entities.details.entity_address')} </Typography>
           <Typography variant={TypographyVariant.Small}>{address}<a href={plazaUrl} target='blank'>({i18n.t('entity.home.view_profile')})</a></Typography>
         </Column>
       </Grid>
 
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>{i18n.t('entity.home.entity_processes')} </Typography>
+          <Typography variant={TypographyVariant.Body1}>{i18n.t('entities.details.entity_processes')} </Typography>
           {processes.map((process, index) => {
             const processStatus = getVoteStatus(process.summary, blockHeight)
             
@@ -62,7 +63,7 @@ export const EntityView = ({ address, metadata, processes, blockHeight }: IEntit
             )
           })}
           {processes.length <= 0 &&
-            <Typography variant={TypographyVariant.Small}>{i18n.t('entity.home.no_processes_yet')} </Typography>
+            <Typography variant={TypographyVariant.Small}>{i18n.t('entities.details.no_processes_yet')} </Typography>
           }
         </Column>
       </Grid>

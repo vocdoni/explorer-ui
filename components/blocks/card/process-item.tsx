@@ -6,8 +6,7 @@ import {
   useBlockHeight,
 } from '@vocdoni/react-hooks'
 import { EntityMetadata, VotingApi } from 'dvote-js'
-// import { useTranslation } from 'react-i18next'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { DateDiffType, localizedDateDiff } from '@lib/date'
 import { getVoteStatus, VoteStatus } from '@lib/util'
@@ -34,7 +33,7 @@ export const ProcessListItem = ({
   link,
   entityMetadata,
 }: IProcessListItemProps) => {
-  // const { i18n } = useTranslation()
+  const { i18n } = useTranslation()
 
   const [date, setDate] = useState<string>('')
   const { blockStatus } = useBlockStatus()

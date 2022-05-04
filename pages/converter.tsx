@@ -3,7 +3,6 @@ import { Column, Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
 import { MainDescription, SectionTitle } from '@components/elements/text'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import i18n from '@i18n'
 import {
   useBlockAtDate,
   useBlockHeight,
@@ -17,8 +16,12 @@ import {
   FlexDirection,
   FlexJustifyContent,
 } from '@components/elements/flex'
+import { useTranslation } from 'react-i18next'
+
 
 const BlocksPage = () => {
+  const { i18n } = useTranslation()
+
   const { blockHeight } = useBlockHeight()
 
   const [blockInput, setBlockInput] = useState<number>()
@@ -55,7 +58,7 @@ const BlocksPage = () => {
             {i18n.t('converter.conversion_between_block_and_dates')}
           </MainDescription>
           <p>
-            {i18n.t('converter.current_enviorment ')}
+            {i18n.t('converter.current_enviorment')}
             {process.env.VOCDONI_ENVIRONMENT}
           </p>
           <InputTitle>
@@ -91,8 +94,7 @@ const BlocksPage = () => {
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
           <Input
-            placeholder={i18n.t('blocks.search_by_block_height')}
-            // value={targetBlock ?? ''}
+            placeholder={i18n.t('converter.search_by_block_height')}
             value={targetBlock ?? estimatedBlockNumber ?? ''}
             onChange={(ev) => {
               setBlockInput(+ev.target.value)

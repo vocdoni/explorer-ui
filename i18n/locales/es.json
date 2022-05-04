@@ -1,1 +1,348 @@
-{}
+{
+    "blocks": {
+        "badge": {
+            "n_transactions": ""
+        },
+        "details": {
+            "block_details": "",
+            "block_not_found": ""
+        },
+        "filter": {
+            "search_by_block_height": ""
+        },
+        "list": {
+            "blocks_list_title": "",
+            "current_block_heigh": ""
+        }
+    },
+    "components": {
+        "block_card": {
+            "hash": "",
+            "last_block_hash": "",
+            "number": "",
+            "proposer": ""
+        },
+        "cardimage": {
+            "entity_logo_alt": "",
+            "vote_process_image_alt": ""
+        },
+        "entity_card_medium": {
+            "host_explore": "",
+            "host_organization": ""
+        },
+        "filters": {
+            "apply_filters": "",
+            "clear_filters": ""
+        },
+        "paginator": {
+            "page_n_of_n": ""
+        },
+        "question_results": {
+            "number_votes": ""
+        },
+        "transaction_card": {
+            "hash": "",
+            "number": ""
+        },
+        "vote_question_card": {
+            "no_results_available": "",
+            "question": ""
+        }
+    },
+    "converter": {
+        "block_height": "",
+        "conversion_between_block_and_dates": "",
+        "current_enviorment ": "",
+        "date_block_estimation": "",
+        "loading_info": "",
+        "search_by_block_height": "",
+        "set_block": "",
+        "set_date": ""
+    },
+    "dashboard": {
+        "loading": "",
+        "process_ended": "",
+        "process_paused": ""
+    },
+    "dates": {
+        "a_minute_ago": "",
+        "an_hour_ago": "",
+        "ended_a_minute_ago": "",
+        "ended_an_hour_ago": "",
+        "ended_n_days_ago": "",
+        "ended_n_hours_ago": "",
+        "ended_n_minutes_ago": "",
+        "ended_n_seconds_ago": "",
+        "ended_right_now": "",
+        "ended_yesterday": "",
+        "ending_in_n_days": "",
+        "ending_in_n_hours": "",
+        "ending_in_n_minutes": "",
+        "ending_in_n_seconds": "",
+        "ending_in_one_hour": "",
+        "ending_in_one_minute": "",
+        "ending_right_now": "",
+        "ending_tomorrow": "",
+        "in_n_days": "",
+        "in_n_hours": "",
+        "in_n_minutes": "",
+        "in_n_seconds": "",
+        "in_one_hour": "",
+        "in_one_minute": "",
+        "n_days_ago": "",
+        "n_hours_ago": "",
+        "n_minutes_ago": "",
+        "n_seconds_ago": "",
+        "right_now": "",
+        "started_a_minute_ago": "",
+        "started_an_hour_ago": "",
+        "started_n_days_ago": "",
+        "started_n_hours_ago": "",
+        "started_n_minutes_ago": "",
+        "started_n_seconds_ago": "",
+        "started_right_now": "",
+        "started_yesterday": "",
+        "starting_in_n_days": "",
+        "starting_in_n_hours": "",
+        "starting_in_n_minutes": "",
+        "starting_in_n_seconds": "",
+        "starting_in_one_hour": "",
+        "starting_in_one_minute": "",
+        "starting_right_now": "",
+        "starting_tomorrow": "",
+        "tomorrow": "",
+        "yesterday": ""
+    },
+    "elections": {
+        "badge": {
+            "CENSUS_UNKNOWN": "",
+            "OFF_CHAIN": ""
+        },
+        "details": {
+            "created_on": "",
+            "detailed_data": "",
+            "election_not_found": "",
+            "elections_additional_information": "",
+            "id": "",
+            "process_details": "",
+            "show_description": "",
+            "show_envelopes": "",
+            "show_questions": "",
+            "total_questions": "",
+            "total_votes": ""
+        },
+        "enevelope_type_badge": {
+            "encryptedVotes": "",
+            "notEncryptedVotes": ""
+        },
+        "envelope_explorer": {
+            "back": "",
+            "envelope_details": "",
+            "envelope_n": "",
+            "envelope_on_block": "",
+            "next": "",
+            "page": "",
+            "total_votes": "",
+            "transaction_details": "",
+            "tx_number": ""
+        },
+        "filter": {
+            "check_with_results": "",
+            "search_by_entity_id": "",
+            "search_by_search_term": "",
+            "select_by_vote_status": ""
+        },
+        "list": {
+            "elections_list_title": "",
+            "total_n_processes": ""
+        },
+        "process_mode_badge": {
+            "autostart": "",
+            "notAutostart": ""
+        },
+        "status_badge": {
+            "canceled": "",
+            "ended": "",
+            "paused": "",
+            "ready": "",
+            "results": ""
+        }
+    },
+    "entities": {
+        "details": {
+            "entity_address": "",
+            "entity_description": "",
+            "entity_processes": "",
+            "no_processes_yet": ""
+        },
+        "filter": {
+            "search_by_organization_id": ""
+        },
+        "list": {
+            "organizations_list_title": ""
+        },
+        "total_n_organizations": "",
+        "upcoming_processes_badge": {
+            "processes": ""
+        }
+    },
+    "entity": {
+        "home": {
+            "view_profile": ""
+        }
+    },
+    "envelopes": {
+        "details": {
+            "block_height": "",
+            "envelope_details": "",
+            "envelope_not_found": "",
+            "envelope_weight": "",
+            "nullifier": "",
+            "process_id": "",
+            "tx_id": "",
+            "vote_package": ""
+        },
+        "nonce": ""
+    },
+    "error": {
+        "could_not_fetch_elections_count": "",
+        "could_not_fetch_entities_count": "",
+        "could_not_fetch_the_details": ""
+    },
+    "errors": {
+        "general_error": "",
+        "page_not_found": "",
+        "the_list_of_entities_cannot_be_loaded": "",
+        "the_list_of_votes_cannot_be_loaded": ""
+    },
+    "featured": {
+        "a_cutting_edge_voting_protocol": "",
+        "a_fully_anonymous_voting_system_ensuring_data_availability": "",
+        "all_in_one_image_alt": "",
+        "all_in_one_solution": "",
+        "all_you_have_to_do_is_email_entire_social_base": "",
+        "anonymous_image_alt": "",
+        "censorship_image_alt": "",
+        "choose_the_time_frame": "",
+        "edge_protocol_image_alt": "",
+        "get_instant_results": "",
+        "inexpensive_image_alt": "",
+        "instant_image_alt": "",
+        "leveraging_on_decentalized_technologies": "",
+        "notify_image_alt": "",
+        "notify_your_community": "",
+        "open_source_image_alt": "",
+        "scalable_image_alt": "",
+        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "",
+        "time_frame_image_alt": "",
+        "verifiable_image_alt": "",
+        "you_and_your_social_base_will_be_able_to_se_the_results": "",
+        "you_cant_set_the_start_and_end_dates": ""
+    },
+    "home": {
+        "average_block_time": "",
+        "explore_the_vochain": "",
+        "n_elections": "",
+        "n_organizations": "",
+        "n_seconds": "",
+        "n_votes": "",
+        "total_elections": "",
+        "total_organizations": "",
+        "total_votes": "",
+        "vocdoni_explorer": ""
+    },
+    "input": {
+        "hide": "",
+        "show": ""
+    },
+    "links": {
+        "about": "",
+        "blocks": "",
+        "blog": "",
+        "docs": "",
+        "elections": "",
+        "help": "",
+        "organizations": "",
+        "privacy_policy": "",
+        "stats": "",
+        "support": "",
+        "tools": "",
+        "transactions": "",
+        "validators": ""
+    },
+    "paginated_template": {
+        "no_elements_found": ""
+    },
+    "stats": {
+        "bloc_height": "",
+        "blockchain_info": "",
+        "genesis_block_date": "",
+        "getting_block_info": "",
+        "in_sync": "",
+        "latest_block_date": "",
+        "network_details": "",
+        "network_id": "",
+        "number_of_validators": "",
+        "recent_blocks": "",
+        "stats_not_found": "",
+        "sync_status": "",
+        "syncing": "",
+        "the_last_four_blocks": "",
+        "total_elections": "",
+        "total_organizations": "",
+        "total_transactions": "",
+        "total_votes": ""
+    },
+    "transaction": {
+        "card": {
+            "index": ""
+        }
+    },
+    "transactions": {
+        "badge": {
+            "ADD_ORACLE": "",
+            "ADD_VALIDATOR": "",
+            "CANCEL_PROCESS": "",
+            "NEW_PROCESS": "",
+            "REMOVE_ORACLE": "",
+            "REMOVE_VALIDATOR": "",
+            "SET_PROCESS": "",
+            "VOTE": ""
+        },
+        "ADMIN": "",
+        "created_on": "",
+        "details": {
+            "belong_to_entity": "",
+            "belongs_to_process": "",
+            "n_transaction_for_block_n": "",
+            "raw_contents": "",
+            "transaction_details": "",
+            "transaction_not_found": ""
+        },
+        "filter": {
+            "search_by_transaction_height": ""
+        },
+        "no_transactions_found": "",
+        "total_n_transactions": "",
+        "transactions_list_title": ""
+    },
+    "validators_list": {
+        "validators_count": "",
+        "validators_list_title": ""
+    },
+    "validators": {
+        "badge": {
+            "voting_power": ""
+        },
+        "no_validators_found": ""
+    },
+    "vote": {
+        "badge": {
+            "active_vote": "",
+            "canceled_vote": "",
+            "ended_vote": "",
+            "paused_vote": "",
+            "upcoming_vote": ""
+        }
+    }
+}

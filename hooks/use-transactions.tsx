@@ -1,4 +1,4 @@
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { fetchMethod, getTxListById } from '@lib/api'
 import { GetTx, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
@@ -18,6 +18,7 @@ export const useTxForBlock = ({
   listSize?: number
   fromId?: number
 }) => {
+  const { i18n } = useTranslation()
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
@@ -72,6 +73,7 @@ export const useTx = ({
   blockHeight: number
   txIndex: number
 }) => {
+  const { i18n } = useTranslation()
 
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
@@ -129,6 +131,7 @@ export const useTx = ({
 export const useTransactionCount = () => {
   const [transactionCount, setTransactionCount] = useState<number>()
   const { stats, loading } = useStats({})
+  const { i18n } = useTranslation()
 
   const getHeightFromStats = () => {
     setTransactionCount(stats.transaction_count)
@@ -154,6 +157,7 @@ export const useTxListById = ({
   listSize: number
   reverse?: boolean
 }) => {
+  const { i18n } = useTranslation()
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)

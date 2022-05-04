@@ -7,7 +7,6 @@ import {
   usePaginatedList,
 } from '@components/pages/app/page-templates/paginated-list-template'
 import { useBlocks } from '@hooks/use-blocks'
-import i18n from '@i18n'
 import { BlockInfo } from '@lib/types'
 import React, { useEffect, useState } from 'react'
 

@@ -1,12 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
 import { PageCardHeader } from '@components/elements/cards'
 import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
-// import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import { Grid , Column} from '@components/elements/grid'
 
 import { Image } from '../../elements/image'
@@ -24,17 +23,18 @@ export const CardImageHeader = ({
   entityImage,
   processImage,
 }: ICardImageHeader) => {
+  const { i18n } = useTranslation()
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || "" // FALLBACK_ACCOUNT_ICON
+  const entityImageSrc = entityImage || "" 
 
   return (
     <CardImageHeaderContainer>
       <PageCardHeader>
-        <Image src={headerImageSrc} alt={i18n.t('vote.vote_process_image_alt')} />
+        <Image src={headerImageSrc} alt={i18n.t('components.cardimage.vote_process_image_alt')} />
       </PageCardHeader>
 
       <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('vote.entity_logo_alt')} />
+        <Image src={entityImageSrc} alt={i18n.t('components.cardimage..entity_logo_alt')} />
       </EntityLogoWrapper>
 
       <Grid>

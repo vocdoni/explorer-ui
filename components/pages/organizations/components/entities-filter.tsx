@@ -1,5 +1,5 @@
 
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
 import styled from 'styled-components'
@@ -22,6 +22,8 @@ export const EntitiesFilter = ({
     (tempFilter: IFilterEntity, resetFilter: { (): void }): void
   }
 }) => {
+  const { i18n } = useTranslation()
+
   const [searchTermIT, setSearchTermIT] = useState('')
 
 
@@ -43,7 +45,7 @@ export const EntitiesFilter = ({
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder={i18n.t('entities.search_by_organization_id')}
+          placeholder={i18n.t('entities.filter.search_by_organization_id')}
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)

@@ -2,11 +2,12 @@ import { BlockCard } from '@components/blocks/card/block-card'
 import { PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
-import i18n from '@i18n'
 import { BlockInfo } from '@lib/types'
 import { TransactionListForBlock } from './transaction-list-for-block'
+import { useTranslation } from 'react-i18next'
 
 export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
+  const { i18n } = useTranslation()
   return (
     <PageCard>
       <Grid>

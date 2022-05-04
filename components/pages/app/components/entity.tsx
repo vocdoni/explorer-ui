@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FALLBACK_ACCOUNT_ICON } from '@const/account'
 import React, { ReactNode } from 'react'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 import {
@@ -54,11 +54,12 @@ export const EntityCardMedium = ({
   md,
   children,
 }: EntityCardMediumProps) => {
+  const { i18n } = useTranslation()
   return (
     <StatusCard
-      title={i18n.t('elections.host_organization')}
+      title={i18n.t('components.entity_card_medium.host_organization')}
       href={getOrganizationPath(entityId)}
-      rightText={i18n.t('elections.host_explore')}
+      rightText={i18n.t('components.entity_card_medium.host_explore')}
       md={md}
     >
       <FlexContainer

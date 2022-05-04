@@ -1,6 +1,6 @@
 
 import { EndedBadge, ActiveBadge } from '@components/elements/text-badge'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 
 interface EnvelopeTypeBadgeProps {
     encryptedVotes: boolean;
@@ -9,10 +9,11 @@ interface EnvelopeTypeBadgeProps {
 export const EnvelopeTypeBadge = ({
     encryptedVotes,
 }: EnvelopeTypeBadgeProps) => {
+  const { i18n } = useTranslation()
 
   return ( <>
-        {encryptedVotes 
-          ? <ActiveBadge>{i18n.t("elections.encryptedVotes")}</ActiveBadge> 
-          : <EndedBadge>{i18n.t("elections.notEncryptedVotes")}</EndedBadge>}</>
+        {encryptedVotes
+          ? <ActiveBadge>{i18n.t("elections.enevelope_type_badge.encryptedVotes")}</ActiveBadge> 
+          : <EndedBadge>{i18n.t("elections.enevelope_type_badge.notEncryptedVotes")}</EndedBadge>}</>
   )
 }

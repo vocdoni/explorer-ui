@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
 
 import { useProcessesList } from '@hooks/use-processes'
@@ -6,13 +6,9 @@ import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/election-filter'
 import {
   PaginatedListTemplate,
-  renderSkeleton,
   usePaginatedList,
 } from '@components/pages/app/page-templates/paginated-list-template'
 import { DashboardProcessListItem } from './process-list-item'
-import { Column, Grid } from '@components/elements/grid'
-import i18n from '@i18n'
-import { Paginator } from '@components/blocks/paginator'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {

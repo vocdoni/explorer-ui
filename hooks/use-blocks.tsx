@@ -1,4 +1,4 @@
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { fetchMethod } from '@lib/api'
 import { BlockInfo } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
@@ -19,6 +19,7 @@ export const useBlocks = ({
   listSize: number
   reverse?: boolean
 }) => {
+  const { i18n } = useTranslation()
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)
@@ -68,6 +69,7 @@ export const useBlocks = ({
 }
 
 export const useBlock = ({ blockHeight }:{ blockHeight: number }) => {
+  const { i18n } = useTranslation()
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [loading, setLoading] = useState(false)

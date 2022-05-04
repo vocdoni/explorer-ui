@@ -1,6 +1,6 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
-import i18n from '@i18n'
+import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import { renderSkeleton } from './paginated-list-template'
 
@@ -31,6 +31,7 @@ export const InvertedPaginatedListTemplate = <Elements,>({
   currentPage,
   setCurrentPage,
 }: IPaginatedListTemplateProps<Elements>) => {
+  const { i18n } = useTranslation()
   return (
     <>
       {filter}

@@ -1,1 +1,348 @@
-{}
+{
+    "blocks": {
+        "badge": {
+            "n_transactions": "Number of transactions"
+        },
+        "details": {
+            "block_details": "Block details",
+            "block_not_found": "Block not found"
+        },
+        "filter": {
+            "search_by_block_height": "Search by block heihgt"
+        },
+        "list": {
+            "blocks_list_title": "Blocks list title",
+            "current_block_heigh": "Current block height"
+        }
+    },
+    "components": {
+        "block_card": {
+            "hash": "Hash",
+            "last_block_hash": "Last block hash",
+            "number": "Number",
+            "proposer": "Proposer"
+        },
+        "cardimage": {
+            "entity_logo_alt": "Entity logo",
+            "vote_process_image_alt": "Voting process image"
+        },
+        "entity_card_medium": {
+            "host_explore": "",
+            "host_organization": ""
+        },
+        "filters": {
+            "apply_filters": "Apply",
+            "clear_filters": "Clear"
+        },
+        "paginator": {
+            "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
+        },
+        "question_results": {
+            "number_votes": "Number of votes: {{ number }}"
+        },
+        "transaction_card": {
+            "hash": "Hash",
+            "number": "Number"
+        },
+        "vote_question_card": {
+            "no_results_available": "No results available",
+            "question": "Question"
+        }
+    },
+    "converter": {
+        "block_height": "Block Height",
+        "conversion_between_block_and_dates": "Conversion between block and dates",
+        "current_enviorment": "Current environment",
+        "date_block_estimation": "Date blocks estimation",
+        "loading_info": "Loading info...",
+        "search_by_block_height": "Search by block height",
+        "set_block": "Set block",
+        "set_date": "Set date"
+    },
+    "dashboard": {
+        "loading": "Loading...",
+        "process_ended": "Process ended",
+        "process_paused": "Process paused"
+    },
+    "dates": {
+        "a_minute_ago": "A minute ago",
+        "an_hour_ago": "An hour ago",
+        "ended_a_minute_ago": "Ended a minute ago",
+        "ended_an_hour_ago": "Ended an hour ago",
+        "ended_n_days_ago": "Ended {{num}} days ago",
+        "ended_n_hours_ago": "Ended {{num}} hours ago",
+        "ended_n_minutes_ago": "Ended {{num}} minutes ago",
+        "ended_n_seconds_ago": "Ended {{num}} seconds ago",
+        "ended_right_now": "Ended right now",
+        "ended_yesterday": "Ended yesterday",
+        "ending_in_n_days": "Ending in {{num}} days",
+        "ending_in_n_hours": "Ending in {{num}} hours",
+        "ending_in_n_minutes": "Ending in {{num}} minutes",
+        "ending_in_n_seconds": "Ending in {{num}} seconds",
+        "ending_in_one_hour": "Ending in one hour",
+        "ending_in_one_minute": "Ending in one minute",
+        "ending_right_now": "Ending right now",
+        "ending_tomorrow": "Ending tomorrow",
+        "in_n_days": "In {{num}} days",
+        "in_n_hours": "In {{num}} hours",
+        "in_n_minutes": "in {{num}} minutes",
+        "in_n_seconds": "in {{num}} seconds",
+        "in_one_hour": "In one hour",
+        "in_one_minute": "In one minute",
+        "n_days_ago": "{{num}} days ago",
+        "n_hours_ago": "{{num}} hours ago",
+        "n_minutes_ago": "{{num}} minutes ago",
+        "n_seconds_ago": "{{num}} seconds ago",
+        "right_now": "Right now",
+        "started_a_minute_ago": "Started a minute ago",
+        "started_an_hour_ago": "Started an hour ago",
+        "started_n_days_ago": "Started {{num}} days ago",
+        "started_n_hours_ago": "Started {{num}} hours ago",
+        "started_n_minutes_ago": "Started {{num}} minutes ago",
+        "started_n_seconds_ago": "Started {{num}} seconds ago",
+        "started_right_now": "Started right now",
+        "started_yesterday": "Started yesterday",
+        "starting_in_n_days": "Starting in {{num}} days",
+        "starting_in_n_hours": "Starting in {{num}} hours",
+        "starting_in_n_minutes": "Starting in {{num}} minutes",
+        "starting_in_n_seconds": "Starting in {{num}} seconds",
+        "starting_in_one_hour": "Starting in one hour",
+        "starting_in_one_minute": "Starting in one minute",
+        "starting_right_now": "Starting right now",
+        "starting_tomorrow": "Starting tomorrow",
+        "tomorrow": "tomorrow",
+        "yesterday": "yesterday"
+    },
+    "elections": {
+        "badge": {
+            "CENSUS_UNKNOWN": "Unknown census",
+            "OFF_CHAIN": "Off chain"
+        },
+        "details": {
+            "created_on": "Created on",
+            "detailed_data": "Detailed data",
+            "election_not_found": "Election not found",
+            "elections_additional_information": "Election additional information",
+            "id": "Id",
+            "process_details": "Process details",
+            "show_description": "Show description",
+            "show_envelopes": "Show envelopes",
+            "show_questions": "Show questions",
+            "total_questions": "Total questions",
+            "total_votes": "Total votes"
+        },
+        "enevelope_type_badge": {
+            "encryptedVotes": "Encrypted votes",
+            "notEncryptedVotes": "Not encrypted votes"
+        },
+        "envelope_explorer": {
+            "back": "Back",
+            "envelope_details": "Envelope details",
+            "envelope_n": "Envelope nº {{number}}",
+            "envelope_on_block": "Envelope on block",
+            "next": "Next",
+            "page": "Page",
+            "total_votes": "Total votes",
+            "transaction_details": "Transaction details",
+            "tx_number": "Transaction number"
+        },
+        "filter": {
+            "check_with_results": "Check with results",
+            "search_by_entity_id": "Search by entity id",
+            "search_by_search_term": "Search by search term",
+            "select_by_vote_status": "Select by vote status"
+        },
+        "list": {
+            "elections_list_title": "Elections list title",
+            "total_n_processes": "Total nº of processes: {{processCount}}"
+        },
+        "process_mode_badge": {
+            "autostart": "Autostart",
+            "notAutostart": "Not autostart"
+        },
+        "status_badge": {
+            "canceled": "Canceled",
+            "ended": "Ended",
+            "paused": "Paused",
+            "ready": "Ready",
+            "results": "Results"
+        }
+    },
+    "entities": {
+        "details": {
+            "entity_address": "Entity address",
+            "entity_description": "Entity description",
+            "entity_processes": "Entity processes",
+            "no_processes_yet": "No processes yet"
+        },
+        "filter": {
+            "search_by_organization_id": "Search by organization id"
+        },
+        "list": {
+            "organizations_list_title": "Organizations list title"
+        },
+        "total_n_organizations": "Total nº organizations:",
+        "upcoming_processes_badge": {
+            "processes": ""
+        }
+    },
+    "entity": {
+        "home": {
+            "view_profile": "View profile"
+        }
+    },
+    "envelopes": {
+        "details": {
+            "block_height": "Block height",
+            "envelope_details": "Envelope details",
+            "envelope_not_found": "Envelope not found",
+            "envelope_weight": "Envolope weight",
+            "nullifier": "Nullifier",
+            "process_id": "Process id",
+            "tx_id": "Transaction id",
+            "vote_package": "Vote package"
+        },
+        "nonce": "Nounce"
+    },
+    "error": {
+        "could_not_fetch_elections_count": "Could not fetch elections count",
+        "could_not_fetch_entities_count": "Could not fetch entities count",
+        "could_not_fetch_the_details": "Could not fetch the details"
+    },
+    "errors": {
+        "general_error": "General error",
+        "page_not_found": "Page not found",
+        "the_list_of_entities_cannot_be_loaded": "The list of entities cannot be loaded",
+        "the_list_of_votes_cannot_be_loaded": "The list of votes cannot be loaded"
+    },
+    "featured": {
+        "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
+        "a_fully_anonymous_voting_system_ensuring_data_availability": "A fully anonymous voting system ensuring data availability",
+        "all_in_one_image_alt": "All in one solution image",
+        "all_in_one_solution": "All in one solution",
+        "all_you_have_to_do_is_email_entire_social_base": "All you have to do is an email to your entire social base",
+        "anonymous_image_alt": "Anonymous image",
+        "censorship_image_alt": "Censorship resistant image",
+        "choose_the_time_frame": "Chose the time frame",
+        "edge_protocol_image_alt": "Cutting edge protocol image",
+        "get_instant_results": "Get instant results",
+        "inexpensive_image_alt": "Inexpensive image",
+        "instant_image_alt": "Instant image",
+        "leveraging_on_decentalized_technologies": "Leveraging on decentralized technologies",
+        "notify_image_alt": "Notify image",
+        "notify_your_community": "Notify your community",
+        "open_source_image_alt": "Open source image",
+        "scalable_image_alt": "Scalable imabe",
+        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "The voting process includes all the requirements for your voting process",
+        "time_frame_image_alt": "Time frame image",
+        "verifiable_image_alt": "Verifiable image",
+        "you_and_your_social_base_will_be_able_to_se_the_results": "You and your social base will be able to see the results",
+        "you_cant_set_the_start_and_end_dates": "You can't set the start and end dates"
+    },
+    "home": {
+        "average_block_time": "Average block time",
+        "explore_the_vochain": "Explore the Vochain",
+        "n_elections": "Nº of elections",
+        "n_organizations": "Nº of organizations",
+        "n_seconds": "Nº of seconds",
+        "n_votes": "Nº of Votes",
+        "total_elections": "Total elections",
+        "total_organizations": "Total organizations",
+        "total_votes": "Total votes",
+        "vocdoni_explorer": "Vocdoni explorer"
+    },
+    "input": {
+        "hide": "Hide",
+        "show": "Show"
+    },
+    "links": {
+        "about": "About",
+        "blocks": "Blocks",
+        "blog": "Blog",
+        "docs": "Docs",
+        "elections": "Elections",
+        "help": "Help",
+        "organizations": "Organizations",
+        "privacy_policy": "Privacy policy",
+        "stats": "Stats",
+        "support": "Support",
+        "tools": "Tools",
+        "transactions": "Transactions",
+        "validators": "Validators"
+    },
+    "paginated_template": {
+        "no_elements_found": "No elements found"
+    },
+    "stats": {
+        "bloc_height": "Block height",
+        "blockchain_info": "Blockchain info",
+        "genesis_block_date": "Genesis block date",
+        "getting_block_info": "Getting block info",
+        "in_sync": "In sync",
+        "latest_block_date": "Latest block date",
+        "network_details": "Network details",
+        "network_id": "Network id",
+        "number_of_validators": "Number of validators",
+        "recent_blocks": "Recent blocks",
+        "stats_not_found": "Stats not found",
+        "sync_status": "Sync status",
+        "syncing": "Syncing",
+        "the_last_four_blocks": "The last four blocks",
+        "total_elections": "Total elections",
+        "total_organizations": "Total organizations",
+        "total_transactions": "Total transactions",
+        "total_votes": "Total votes"
+    },
+    "transaction": {
+        "card": {
+            "index": "Index"
+        }
+    },
+    "transactions": {
+        "badge": {
+            "ADD_ORACLE": "Add oracle",
+            "ADD_VALIDATOR": "Add validator",
+            "CANCEL_PROCESS": "Cancel process",
+            "NEW_PROCESS": "New process",
+            "REMOVE_ORACLE": "Remove oracle",
+            "REMOVE_VALIDATOR": "Remove validator",
+            "SET_PROCESS": "Set process",
+            "VOTE": "Vote"
+        },
+        "ADMIN": "Admin",
+        "created_on": "Created on",
+        "details": {
+            "belong_to_entity": "Belongs to entity",
+            "belongs_to_process": "Belongs to process",
+            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}",
+            "raw_contents": "Raw contents",
+            "transaction_details": "Transaction details",
+            "transaction_not_found": "Transaction not found"
+        },
+        "filter": {
+            "search_by_transaction_height": "Search by transaction height"
+        },
+        "no_transactions_found": "Nº of transactions found",
+        "total_n_transactions": "Total nº of transactions",
+        "transactions_list_title": "Transactions list title"
+    },
+    "validators_list": {
+        "validators_count": "Validators count: {{validatorsCount}}",
+        "validators_list_title": "Validators list title"
+    },
+    "validators": {
+        "badge": {
+            "voting_power": "Voting power"
+        },
+        "no_validators_found": "No validators found"
+    },
+    "vote": {
+        "badge": {
+            "active_vote": "Active vote",
+            "canceled_vote": "Canceled vote",
+            "ended_vote": "Ended vote",
+            "paused_vote": "Paused vote",
+            "upcoming_vote": "Upcoming vote"
+        }
+    }
+}

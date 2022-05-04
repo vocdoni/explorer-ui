@@ -1,11 +1,11 @@
 import { Loader } from "@components/blocks/loader"
 import { DashboardShowValidators } from "@components/pages/validators/list"
 import { useValidatorList } from "@hooks/use-validators"
-import i18n from "@i18n"
 import { Else, If, Then } from "react-if"
+import { useTranslation } from 'react-i18next'
 
 const Page = () => {
-
+  const { i18n } = useTranslation()
   const { loadingValidatorList: loading, validatorList,} = useValidatorList({update: true})
 
   return (
