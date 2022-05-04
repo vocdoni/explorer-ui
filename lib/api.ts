@@ -91,6 +91,8 @@ export async function getTxListById(id:number, listSize: number, pool: GatewayPo
   }
   return Promise.all(promises).then(txById => {
     // flatten the array[][] into array[]
-    return txById.reduce((prev, cur) => prev.concat(cur), [])
+    return txById
+      .reduce((prev, cur) => prev.concat(cur), [])
+      .filter((obj) => obj['response']['ok'])
   })
 }

@@ -30,7 +30,7 @@ export const TransactionCard = ({
       }
       badge={
         <>
-          <TransactionTypeBadge type={TxType[getEnumKeyByEnumValue(TxType, transactionData.tx.payload.$case)]}/>
+          <TransactionTypeBadge type={TxType[getEnumKeyByEnumValue(TxType, transactionData.tx?.payload?.$case)]}/>
         </>
       }
       // dateText={localizedDateDiff(new Date(blockData?.timestamp))}

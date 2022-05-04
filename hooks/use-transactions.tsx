@@ -180,7 +180,12 @@ export const useTxListById = ({
             const transaction = res['response']['tx']
             if (transaction?.tx && typeof transaction?.tx === "string") {
               const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
-              transaction.tx = Tx.decode(Reader.create(bytes))
+              try {
+                transaction.tx = Tx.decode(Reader.create(bytes))
+              } catch (error){
+                transaction.tx = "Error on Tx.decode(Reader.create(bytes)): \n" + error 
+                console.error("Error on Tx.decode(Reader.create(bytes)) for transaction n: " + transaction.id, error )
+              }
             }
             return transaction
           })

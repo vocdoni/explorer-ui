@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Switch, Case } from 'react-if'
+import { Switch, Case, Default } from 'react-if'
 import {
   ActiveBadge,
   UpcomingBadge,
@@ -44,6 +44,11 @@ export const TransactionTypeBadge = ({ type }: { type: TxType }) => {
           {i18n.t('transactions..badge.REMOVE_VALIDATOR')}
         </CanceledBadge>
       </Case>
+      <Default>
+        <CanceledBadge>
+          {i18n.t('transactions..badge.UNKNOWN')}
+        </CanceledBadge>
+      </Default>
     </Switch>
   )
 }
