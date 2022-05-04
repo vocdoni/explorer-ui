@@ -35,7 +35,7 @@ export const DashboardTransactionsList = ({
   const [filter, setFilter] = useState<IFilterTransactions>({})
   const [jumpTo, setJumpTo] = useState<number>()
   // Current from offset calling the backend
-  const [dataPagination, setDataPagination] = useState<number>()
+  const [dataPagination, setDataPagination] = useState<number>(1)
 
   const { transactions, loading: loadingTransactions } = useTxListById({
     from: dataPagination,
