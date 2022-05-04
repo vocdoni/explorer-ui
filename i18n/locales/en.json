@@ -1,7 +1,7 @@
 {
     "blocks": {
         "badge": {
-            "n_transactions": "Number of transactions"
+            "n_transactions": "{{ transactions }} transactions"
         },
         "details": {
             "block_details": "Block details",
@@ -19,7 +19,7 @@
         "block_card": {
             "hash": "Hash",
             "last_block_hash": "Last block hash",
-            "number": "Number",
+            "height_n": "#{{ blockHeight }}",
             "proposer": "Proposer"
         },
         "cardimage": {
@@ -242,10 +242,10 @@
     "home": {
         "average_block_time": "Average block time",
         "explore_the_vochain": "Explore the Vochain",
-        "n_elections": "Nº of elections",
-        "n_organizations": "Nº of organizations",
-        "n_seconds": "Nº of seconds",
-        "n_votes": "Nº of Votes",
+        "n_elections": "{{ elections }} elections",
+        "n_organizations": "{{ organizations }} organizations",
+        "n_seconds": "{{ seconds }} seconds",
+        "n_votes": "{{ votes }} Votes",
         "total_elections": "Total elections",
         "total_organizations": "Total organizations",
         "total_votes": "Total votes",
