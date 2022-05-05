@@ -38,7 +38,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
             name='viewport'
             content='width=device-width, initial-scale=1.0, max-scale=1.0'
           />
-          <link rel="icon" type="image/ico" href="/images/common/favicon.ico" sizes="16x16" />
+          <link rel="icon" type="image/ico" href="/images/favicon.ico" sizes="16x16" />
 
           <title>{appTitle}</title>
         </Head>

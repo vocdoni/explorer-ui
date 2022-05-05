@@ -25,7 +25,7 @@ const FeaturedContent = () => {
                 image={
                   <ImageContainer width="36px">
                     <img
-                      src="/images/home/features/instant.png"
+                      src="/images/instant.png"
                       alt={i18n.t('featured.instant_image_alt')}
                     />
                   </ImageContainer>
@@ -40,7 +40,7 @@ const FeaturedContent = () => {
                 image={
                   <ImageContainer width="36px">
                     <img
-                      src="/images/home/features/time-frame.png"
+                      src="/images/time-frame.png"
                       alt={i18n.t('featured.time_frame_image_alt')}
                     />
                   </ImageContainer>
@@ -57,7 +57,7 @@ const FeaturedContent = () => {
                 image={
                   <ImageContainer width="36px">
                     <img
-                      src="/images/home/features/notify.png"
+                      src="/images/notify.png"
                       alt={i18n.t('featured.notify_image_alt')}
                     />
                   </ImageContainer>
@@ -74,7 +74,7 @@ const FeaturedContent = () => {
                 image={
                   <ImageContainer width="36px">
                     <img
-                      src="/images/home/features/all-in-one.png"
+                      src="/images/all-in-one.png"
                       alt={i18n.t('featured.all_in_one_image_alt')}
                     />
                   </ImageContainer>
@@ -104,37 +104,37 @@ const FeaturedContent = () => {
               <CuttingEdgeFeaturesContainer>
                 <ImageContainer width="50px">
                   <img
-                    src="/images/home/cutting-edge/censorship.png"
+                    src="/images/censorship.png"
                     alt={i18n.t('featured.censorship_image_alt')}
                   />
                 </ImageContainer>
                 <ImageContainer width="60px">
                   <img
-                    src="/images/home/cutting-edge/verifiable.png"
+                    src="/images/verifiable.png"
                     alt={i18n.t('featured.verifiable_image_alt')}
                   />
                 </ImageContainer>
                 <ImageContainer width="70px">
                   <img
-                    src="/images/home/cutting-edge/open-source.png"
+                    src="/images/open-source.png"
                     alt={i18n.t('featured.open_source_image_alt')}
                   />
                 </ImageContainer>
                 <ImageContainer width="44px">
                   <img
-                    src="/images/home/cutting-edge/scalable.png"
+                    src="/images/scalable.png"
                     alt={i18n.t('featured.scalable_image_alt')}
                   />
                 </ImageContainer>
                 <ImageContainer width="56px">
                   <img
-                    src="/images/home/cutting-edge/anonymous.png"
+                    src="/images/anonymous.png"
                     alt={i18n.t('featured.anonymous_image_alt')}
                   />
                 </ImageContainer>
                 <ImageContainer width="58px">
                   <img
-                    src="/images/home/cutting-edge/inexpensive.png"
+                    src="/images/inexpensive.png"
                     alt={i18n.t('featured.inexpensive_image_alt')}
                   />
                 </ImageContainer>
@@ -144,7 +144,7 @@ const FeaturedContent = () => {
             <Column sm={12} md={6}>
               <ImageContainer width="400px" alignItem={FlexAlignItem.Center}>
                 <img
-                  src="/images/home/cutting-edge/edge-protocol.png"
+                  src="/images/edge-protocol.png"
                   alt={i18n.t('featured.edge_protocol_image_alt')}
                 />
               </ImageContainer>
