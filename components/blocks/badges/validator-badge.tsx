@@ -5,5 +5,5 @@ import {
 
 export const ValidatorPowerBadge = ({ power }: { power: number }) => {
   const { i18n } = useTranslation()
-  return (<ActiveBadge>{i18n.t('validators.badge.voting_power')}{power}</ActiveBadge>)
+  return (<ActiveBadge>{i18n.t('validators.badge.voting_power')}: {power}</ActiveBadge>)
 }
