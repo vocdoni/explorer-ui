@@ -74,7 +74,7 @@ export const EnvelopeExplorer = ({
               {i18n.t('elections.envelope_explorer.envelope_on_block', {block: envelope.height || 0})}
             </p>
             <p>
-              {i18n.t('elections.envelope_explorer.tx_number',  {txNumber: envelope.tx_index || 0})}:
+              {i18n.t('elections.envelope_explorer.tx_number',  {txNumber: envelope.tx_index || 0})}
             </p>
             <p>
               <TransactionLink
