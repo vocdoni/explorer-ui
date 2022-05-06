@@ -58,7 +58,7 @@ export const Header = ({ children }: IHeaderProps) => {
       <HeaderContainer>
         <ListContainer>
           <Link href={HOME_PATH} passHref>
-            <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
+            <HomeLink target='_self'><img src="/images/logo-full.svg" alt="Vocdoni" /></HomeLink>
           </Link>
 
           <MenuItemsContainer>

@@ -11,7 +11,7 @@ export const Footer = () => {
   return <Container>
     <LogoSection>
       <Link href={HOME_PATH} passHref>
-        <HomeLink target='_self'><img src="/media/logo-full.svg" alt="Vocdoni" /></HomeLink>
+        <HomeLink target='_self'><img src="/images/logo-full.svg" alt="Vocdoni" /></HomeLink>
       </Link>
 
     </LogoSection>
@@ -28,7 +28,7 @@ export const Footer = () => {
         </NavItem>
       ))}
       <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/common/powered.svg" alt="Aragon" /></AragonLink>
+        <AragonLink target='_blank'><img src="/images/powered.svg" alt="Aragon" /></AragonLink>
       </Link>
     </LinksSection>
 
