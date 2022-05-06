@@ -34,7 +34,7 @@ export const BlockCard = ({
       key={blockData?.height}
       topLeft={
         <>
-          {i18n.t('components.block_card.number' , {blockHeight: blockData?.height})}
+          {i18n.t('components.block_card.height_n' , {blockHeight: blockData?.height})}
         </>
       }
       badge={
