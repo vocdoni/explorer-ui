@@ -1,4 +1,8 @@
 import { Loader } from '@components/blocks/loader'
+import {
+  BannerContainer,
+  HeroBanner,
+} from '@components/pages/home/components/hero-banner'
 import StatsPage from '@components/pages/stats'
 import { useStats } from '@hooks/use-stats'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
@@ -14,6 +18,14 @@ const IndexPage = () => {
     () => stats !== undefined || !loadingStats,
     (
       <>
+        <BannerContainer>
+          <HeroBanner
+            elections={stats?.process_count}
+            organizations={stats?.entity_count}
+            averageBlockTime={(stats?.block_time[0] || 0) / 1000}
+            envelopes={stats?.envelope_count}
+          />
+        </BannerContainer>
         <StatsPage stats={stats} />
         <FeaturedContent />
       </>

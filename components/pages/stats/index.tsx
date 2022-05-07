@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from 'theme/colors'
 import { Grid } from '@components/elements/grid'
-import { HeroBanner } from '@components/pages/home/components/hero-banner'
 import { Card, CardDiv } from '@components/elements/cards'
 import { useEffect, useState } from 'react'
 
@@ -34,13 +33,6 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
 
   return (
     <div>
-      <HeroBanner
-        elections={stats?.process_count}
-        organizations={stats?.entity_count}
-        averageBlockTime={(stats?.block_time[0] || 0) / 1000}
-        envelopes={stats?.envelope_count}
-      />
-
       <Section>
         <BlockContainer>
           <Typography variant={TypographyVariant.H3} color={colors.blueText}>
