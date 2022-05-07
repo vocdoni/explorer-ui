@@ -1,5 +1,5 @@
 import { Paginator } from '@components/blocks/paginator'
-import { Column } from '@components/elements/grid'
+import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import { renderSkeleton } from './paginated-list-template'
@@ -51,13 +51,13 @@ export const InvertedPaginatedListTemplate = <Elements,>({
       {(loading && !elementsList?.length) || totalElementsCount == null ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
-        <>
+        <Grid>
           {paginator()}
           <Column md={8} sm={12}>
             {elementsList.map(renderElementFunction)}
           </Column>
           {paginator()}
-        </>
+        </Grid>
       ) : (
         <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}

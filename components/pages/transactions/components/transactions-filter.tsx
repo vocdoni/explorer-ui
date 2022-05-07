@@ -8,14 +8,17 @@ import { useState } from 'react'
 
 // Used to filter blocks by height
 export interface IFilterTransactions {
-    from?: number
-  }
-  
-export const TransactionsFilter = ({setFilter}: {setFilter: (IFilterTransactions) => void}) => {
+  from?: number
+}
+
+export const TransactionsFilter = ({
+  setFilter,
+}: {
+  setFilter: (IFilterTransactions) => void
+}) => {
   const { i18n } = useTranslation()
 
   const [searchTermIT, setSearchTermIT] = useState('')
-
 
   const [tempFilter, setTempFilter] = useState<IFilterTransactions>({})
 
@@ -36,7 +39,9 @@ export const TransactionsFilter = ({setFilter}: {setFilter: (IFilterTransactions
     <>
       <DivWithMarginChildren>
         <Input
-          placeholder={i18n.t('transactions.filter.search_by_transaction_height')}
+          placeholder={i18n.t(
+            'transactions.filter.search_by_transaction_height'
+          )}
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)
@@ -45,16 +50,15 @@ export const TransactionsFilter = ({setFilter}: {setFilter: (IFilterTransactions
           }}
           onKeyPress={(event) => {
             if (!/[0-9]/.test(event.key)) {
-              event.preventDefault();
+              event.preventDefault()
             }
           }}
         />
       </DivWithMarginChildren>
-      <Grid>
-        <FlexContainer>
-            <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
-        </FlexContainer>
-      </Grid>
+      <SubmitFilterButtons
+        onEnableFilter={_onEnableFilter}
+        onDisableFilter={_onDisableFilter}
+      />
     </>
   )
 }
