@@ -12,7 +12,7 @@ import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
-
+import { Column } from 'react-rainbow-components'
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -49,74 +49,86 @@ export const ProcessFilter = ({
 
   return (
     <>
-      <DivWithMarginChildren>
-        <Input
-          placeholder={i18n.t('elections.filter.search_by_search_term')}
-          value={tempFilter.searchTerm || ''}
-          onChange={(ev) => {
-            tempFilter.searchTerm = ev.target.value
-            setTempFilter(Object.assign({}, tempFilter))
-          }}
-        />
-        <Input
-          placeholder={i18n.t('elections.filter.search_by_entity_id')}
-          value={tempFilter.entityId || ''}
-          onChange={(ev) => {
-            tempFilter.entityId = ev.target.value
-            setTempFilter(Object.assign({}, tempFilter))
-          }}
-        />
-      </DivWithMarginChildren>
-      <Grid>
-        <FlexContainer>
-          <SelectContainer>
-            <Select
-              instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
-              id={voteStatusSelectId}
-              placeholder={i18n.t('elections.filter.select_by_vote_status')}
-              options={voteStatusOpts}
-              value={
-                tempFilter.status
-                  ? {
-                      value: tempFilter.status,
-                      label: VochainProcessStatus[tempFilter.status],
-                    }
-                  : null
-              }
-              onChange={(selectedValue: OptionTypeBase) => {
-                tempFilter.status = VochainProcessStatus[
-                  selectedValue.label
-                ] as any as VochainProcessStatus
-                setTempFilter(Object.assign({}, tempFilter))
-              }}
-            />
-          </SelectContainer>
-        </FlexContainer>
-        <FlexContainer>
-          <Checkbox
-            id="with_results"
-            checked={tempFilter.withResults}
-            onChange={(ack: boolean) => {
-              // setWithResults(ack)
-              tempFilter.withResults = ack
-
+      <FilterContainer>
+        <DivWithMarginChildren>
+          <Input
+            placeholder={i18n.t('elections.filter.search_by_search_term')}
+            value={tempFilter.searchTerm || ''}
+            onChange={(ev) => {
+              tempFilter.searchTerm = ev.target.value
               setTempFilter(Object.assign({}, tempFilter))
             }}
-            text={i18n.t('elections.filter.check_with_results')}
-            labelColor={colors.lightText}
           />
-        </FlexContainer>
+          <Input
+            placeholder={i18n.t('elections.filter.search_by_entity_id')}
+            value={tempFilter.entityId || ''}
+            onChange={(ev) => {
+              tempFilter.entityId = ev.target.value
+              setTempFilter(Object.assign({}, tempFilter))
+            }}
+          />
+        </DivWithMarginChildren>
         <FlexContainer>
           <DivWithMarginChildren>
-            <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
+            <SelectContainer>
+              <Select
+                instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
+                id={voteStatusSelectId}
+                placeholder={i18n.t('elections.filter.select_by_vote_status')}
+                options={voteStatusOpts}
+                value={
+                  tempFilter.status
+                    ? {
+                        value: tempFilter.status,
+                        label: VochainProcessStatus[tempFilter.status],
+                      }
+                    : null
+                }
+                onChange={(selectedValue: OptionTypeBase) => {
+                  tempFilter.status = VochainProcessStatus[
+                    selectedValue.label
+                  ] as any as VochainProcessStatus
+                  setTempFilter(Object.assign({}, tempFilter))
+                }}
+              />
+            </SelectContainer>
           </DivWithMarginChildren>
         </FlexContainer>
-      </Grid>
+        <CheckBoxContainer>
+            <Checkbox
+              id="with_results"
+              checked={tempFilter.withResults}
+              onChange={(ack: boolean) => {
+                // setWithResults(ack)
+                tempFilter.withResults = ack
+
+                setTempFilter(Object.assign({}, tempFilter))
+              }}
+              text={i18n.t('elections.filter.check_with_results')}
+              labelColor={colors.lightText}
+            />
+        </CheckBoxContainer>
+      </FilterContainer>
+      <SubmitFilterButtons
+        onEnableFilter={_onEnableFilter}
+        onDisableFilter={_onDisableFilter}
+      />
     </>
   )
 }
-export const SelectContainer = styled.div`
-& > * {
-  min-width: 200px;
-}
+const SelectContainer = styled.div`
+  & > * {
+    min-width: 200px;
+  }
+`
+
+const CheckBoxContainer = styled(FlexContainer)`
+  align-items: center;
+  padding-bottom: 10px;
+  margin-right: 20px;
+
+`
+
+const FilterContainer = styled(Grid)`
+  margin: 0 0 0;
 `

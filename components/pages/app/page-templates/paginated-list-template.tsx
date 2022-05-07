@@ -45,17 +45,21 @@ export const PaginatedListTemplate = <Elements,>({
 }: IPaginatedListTemplateProps<Elements>) => {
   const { i18n } = useTranslation()
 
+  const paginator = () => (
+    <Column md={8} sm={12}>
+      <Paginator
+        totalCount={totalElementsCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        disableGoLastBtn
+      ></Paginator>
+    </Column>
+  )
+
   return (
     <Grid>
-      <Column md={8} sm={12}>
-        <Paginator
-          totalCount={totalElementsCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-          disableGoLastBtn
-        ></Paginator>
-      </Column>
+      {paginator()}
       {loading ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
@@ -67,6 +71,7 @@ export const PaginatedListTemplate = <Elements,>({
       ) : (
         <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
+      {paginator()}
     </Grid>
   )
 }

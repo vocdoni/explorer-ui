@@ -10,6 +10,7 @@ import { sizes } from 'theme/sizes'
 import { Grid } from '@components/elements/grid'
 import { Card } from '@components/elements/cards'
 
+
 export const HeroBanner = (props: {
   elections: number
   organizations: number
@@ -18,7 +19,7 @@ export const HeroBanner = (props: {
 }) => {
   const { i18n } = useTranslation()
   return (
-    <BannerContainer>
+    <>
       <ContentContainer>
         <div>
           <Title>
@@ -56,11 +57,11 @@ export const HeroBanner = (props: {
           </Grid>
         </div>
       </ContentContainer>
-    </BannerContainer>
+    </>
   )
 }
 
-const BannerContainer = styled.div`
+export const BannerContainer = styled.div`
   height: 530px;
   margin-top: -110px;
   padding-top: 40px;

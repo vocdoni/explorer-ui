@@ -105,7 +105,7 @@ const EntityName = styled.h5`
 
 const EntityNameBig = styled.h2`
   display: inline-block;
-  margin: 6px;
+  //margin: 6px;
   font-weight: bold;
   // font-size: 18px;
   color: ${(props) => props.theme.text};
