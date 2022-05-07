@@ -117,7 +117,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
         {/* Three cards grid with various info */}
         <Grid>
           <EntityCardMedium
-            md={4}
+            md={6}
             icon={entityMetadata?.media?.avatar}
             entityId={processInfo?.state?.entityId}
           >
@@ -125,10 +125,10 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
               ? entityMetadata?.name?.default
               : processInfo?.state?.entityId}
           </EntityCardMedium>
-          <StatusCard md={4} title={i18n.t('elections.details.total_votes')}>
+          <StatusCard md={3} title={i18n.t('elections.details.total_votes')}>
             <h2>{results?.totalVotes || 0}</h2>
           </StatusCard>
-          <StatusCard md={4} title={i18n.t('elections.details.total_questions')}>
+          <StatusCard md={3} title={i18n.t('elections.details.total_questions')}>
             <h2>{processInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
