@@ -6,14 +6,12 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
   EntityLink,
   getElectionDetailsPath,
+  getPath,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
-import {
-  getEnumKeyByEnumValue,
-  objectBytesArrayToHex,
-} from '@lib/util'
+import { getEnumKeyByEnumValue, objectBytesArrayToHex } from '@lib/util'
 import { colors } from '@theme/colors'
 import {
   AdminTx,
@@ -25,7 +23,7 @@ import { useDateAtBlock } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-
+import { BLOCKS_DETAILS } from '@const/routes'
 
 export const TransactionDetails = ({
   txIndex,
@@ -43,7 +41,8 @@ export const TransactionDetails = ({
   const [txRaw, setTxRaw] = useState<any>()
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
-  const byteArrayToHex = (bytes: Uint8Array): string => Buffer.from(bytes).toString("hex")
+  const byteArrayToHex = (bytes: Uint8Array): string =>
+    Buffer.from(bytes).toString('hex')
 
   useEffect(() => {
     const txPayload = transactionData.payload
@@ -66,7 +65,7 @@ export const TransactionDetails = ({
         break
       }
       case 'newProcess': {
-        const tx = txPayload['newProcess']  as NewProcessTx
+        const tx = txPayload['newProcess'] as NewProcessTx
         if (tx.process?.processId) {
           setBelongsToProcess(byteArrayToHex(tx.process?.processId))
         }
@@ -104,11 +103,21 @@ export const TransactionDetails = ({
             <Typography variant={TypographyVariant.H3}>
               {i18n.t('transactions.details.transaction_details')}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>
-              {i18n.t(
-                'transactions.details.n_transaction_for_block_n',
-                {txIndex: txIndex + 1, blockHeight: blockHeight})}
-            </Typography>
+            <a
+              href={
+                // todo(ritmo): DRY
+                getPath(BLOCKS_DETAILS, {
+                  blockHeight: blockHeight.toString(),
+                })
+              }
+            >
+              <Typography variant={TypographyVariant.Small}>
+                {i18n.t('transactions.details.n_transaction_for_block_n', {
+                  txIndex: txIndex + 1,
+                  blockHeight: blockHeight,
+                })}
+              </Typography>
+            </a>
 
             <Typography
               variant={TypographyVariant.Small}
