@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { fetchMethod, getTxListById } from '@lib/api'
-import { GetTx, TxById } from '@lib/types'
+import { GetTx, TxById, TxForBlock} from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
-import { Tx, TxForBlock } from 'dvote-js'
+import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
@@ -98,10 +98,14 @@ export const useTx = ({
       })
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
+        transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
+
+        // Decode protobuf
         if (transaction?.tx && typeof transaction?.tx === "string") {
           const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
           transaction.tx = Tx.decode(Reader.create(bytes))
         }
+          
         console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
         setLoading(false)

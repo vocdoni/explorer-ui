@@ -88,9 +88,10 @@ export const TransactionDetails = ({
         break
       }
     }
+    delete txInterface.payload.$case
     objectBytesArrayToHex(txInterface)
     setTxRaw(txInterface)
-    setTxType(TxType[getEnumKeyByEnumValue(TxType, txInterface.payload.$case)])
+    setTxType(TxType[Object.keys(transactionData.payload)[0]])
   }, [transactionData])
 
   return (

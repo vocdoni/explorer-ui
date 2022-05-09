@@ -106,7 +106,8 @@ export type Validator = {
 export type GetTx = {
   hash: string,
   signature: string,
-  tx: string|Tx
+  tx: string | Tx,
+  payload: Tx
 }
 
 
