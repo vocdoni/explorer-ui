@@ -1,4 +1,5 @@
 import {
+  BLOCKS_DETAILS,
   ELECTIONS_DETAILS,
   ENVELOPES_DETAILS,
   ORGANIZATIONS_DETAILS,
@@ -87,4 +88,24 @@ export const ElectionLink = ({
   children: ReactNode
 }) => {
   return <Link href={getElectionDetailsPath(electionsId)}>{children}</Link>
+}
+
+export const BlockLink = ({
+  blockHeight,
+  children,
+}: {
+  blockHeight: number
+  children: ReactNode
+}) => {
+  return (
+    <a
+      href={
+        getPath(BLOCKS_DETAILS, {
+          blockHeight: blockHeight.toString(),
+        })
+      }
+    >
+      {children}
+    </a>
+  )
 }
