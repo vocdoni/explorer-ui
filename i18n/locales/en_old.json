@@ -14,5 +14,10 @@
         "details": {
             "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}"
         }
+    },
+    "transaction": {
+        "card": {
+            "index": "Index"
+        }
     }
 }

@@ -49,7 +49,7 @@ export const TransactionListForBlock = ({
     return (
       <GenericListItemWithBadge 
         key={tx.hash}
-        topLeft={i18n.t('transaction.card.index', {index: tx.index})} 
+        topLeft={i18n.t('transaction.card.index_n', {index: tx.index})} 
         badge={<TransactionTypeBadge type={tx.type} ></TransactionTypeBadge>}  
         lg={8}
         link={getTransactionLink(blockHeight, tx.index)}          

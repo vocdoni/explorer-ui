@@ -295,7 +295,7 @@
     },
     "transaction": {
         "card": {
-            "index": ""
+            "index_n": ""
         }
     },
     "transactions": {

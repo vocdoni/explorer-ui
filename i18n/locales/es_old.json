@@ -22,5 +22,10 @@
         "details": {
             "n_transaction_for_block_n": ""
         }
+    },
+    "transaction": {
+        "card": {
+            "index": ""
+        }
     }
 }
