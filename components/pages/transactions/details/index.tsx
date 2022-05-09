@@ -6,15 +6,12 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
   EntityLink,
   getElectionDetailsPath,
+  getPath,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
-import {
-  byteArrayToHex,
-  getEnumKeyByEnumValue,
-  objectBytesArrayToHex,
-} from '@lib/util'
+import { getEnumKeyByEnumValue, objectBytesArrayToHex } from '@lib/util'
 import { colors } from '@theme/colors'
 import {
   AdminTx,
@@ -26,6 +23,7 @@ import { useDateAtBlock } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { BLOCKS_DETAILS } from '@const/routes'
 
 export const TransactionDetails = ({
   txIndex,
@@ -43,15 +41,17 @@ export const TransactionDetails = ({
   const [txRaw, setTxRaw] = useState<any>()
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
+  const byteArrayToHex = (bytes: Uint8Array): string =>
+    Buffer.from(bytes).toString('hex')
+
   useEffect(() => {
-    const txInterface = transactionData.tx as Tx
-    switch (txInterface.payload.$case) {
+    const txPayload = transactionData.payload
+    switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
-        const tx: VoteEnvelope = txInterface.payload.vote
+        const tx = txPayload['vote'] as VoteEnvelope
         setBelongsToProcess(byteArrayToHex(tx.processId))
-        // For the moment, this is not needed because we decode all
-        // byte array on the txRaw object. So let this here for future uses, maybe
-        // will be needed.
+        // For the moment, this is not needed. Let this here for future uses,
+        // maybe will be needed.
         // switch(tx.proof.payload.$case){
         //   case 'graviton':
         //   break
@@ -65,18 +65,20 @@ export const TransactionDetails = ({
         break
       }
       case 'newProcess': {
-        const tx = txInterface.payload.newProcess as NewProcessTx
-        setBelongsToProcess(byteArrayToHex(tx.process.processId))
+        const tx = txPayload['newProcess'] as NewProcessTx
+        if (tx.process?.processId) {
+          setBelongsToProcess(byteArrayToHex(tx.process?.processId))
+        }
         setBelongsToEntity(byteArrayToHex(tx.process.entityId))
         break
       }
       case 'admin': {
-        const tx = txInterface.payload.admin as AdminTx
+        const tx = txPayload['admin'] as AdminTx
         setBelongsToProcess(byteArrayToHex(tx.processId))
         break
       }
       case 'setProcess': {
-        const tx = txInterface.payload.setProcess as SetProcessTx
+        const tx = txPayload['setProcess'] as SetProcessTx
         setBelongsToProcess(byteArrayToHex(tx.processId))
         if (tx?.results?.entityId) {
           setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
@@ -88,9 +90,9 @@ export const TransactionDetails = ({
         break
       }
     }
-    objectBytesArrayToHex(txInterface)
-    setTxRaw(txInterface)
-    setTxType(TxType[getEnumKeyByEnumValue(TxType, txInterface.payload.$case)])
+    objectBytesArrayToHex(txPayload)
+    setTxRaw(txPayload)
+    setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
 
   return (
@@ -101,11 +103,21 @@ export const TransactionDetails = ({
             <Typography variant={TypographyVariant.H3}>
               {i18n.t('transactions.details.transaction_details')}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>
-              {i18n.t(
-                'transactions.details.n_transaction_for_block_n',
-                {txIndex: txIndex + 1, blockHeight: blockHeight})}
-            </Typography>
+            <a
+              href={
+                // todo(ritmo): DRY
+                getPath(BLOCKS_DETAILS, {
+                  blockHeight: blockHeight.toString(),
+                })
+              }
+            >
+              <Typography variant={TypographyVariant.Small}>
+                {i18n.t('transactions.details.n_transaction_for_block_n', {
+                  txIndex: txIndex + 1,
+                  blockHeight: blockHeight,
+                })}
+              </Typography>
+            </a>
 
             <Typography
               variant={TypographyVariant.Small}
@@ -134,7 +146,7 @@ export const TransactionDetails = ({
           }
           title={'0x' + transactionData?.hash}
         >
-          {belongsToProcess.length ? (
+          {belongsToProcess?.length ? (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getElectionDetailsPath(belongsToProcess)}>
