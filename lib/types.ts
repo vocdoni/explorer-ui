@@ -109,13 +109,15 @@ export type GetTx = {
   tx: string|Tx
 }
 
+
 export type TxById = {
   block_height: number,
   hash: string,
   id: number,
   signature: string,
-  tx: Tx,
+  tx: string,
   index: number,
+  payload: Tx
 }
 
 // Envelopes
