@@ -8,6 +8,7 @@ import { useTxForBlock } from '@hooks/use-transactions'
 import { useTranslation } from 'react-i18next'
 import { TxForBlock } from '@lib/types'
 import { useEffect, useState } from 'react'
+import { getTransactionLink } from '@components/pages/app/components/get-links'
 
 export const TransactionListForBlock = ({
   pageSize,
@@ -46,10 +47,12 @@ export const TransactionListForBlock = ({
   // Render item on the list from it summary
   const renderProcessItem = (tx: TxForBlock) => {
     return (
-      <GenericListItemWithBadge key={tx.hash}
-        topLeft={i18n.t('transaction.card.index', {index: tx.index})} 
+      <GenericListItemWithBadge 
+        key={tx.hash}
+        topLeft={i18n.t('transaction.card.index_n', {index: tx.index})} 
         badge={<TransactionTypeBadge type={tx.type} ></TransactionTypeBadge>}  
-        lg={8}          
+        lg={8}
+        link={getTransactionLink(blockHeight, tx.index)}          
       >
         <h4>{i18n.t('transaction.card.block:') + tx.hash}</h4>
       </GenericListItemWithBadge>

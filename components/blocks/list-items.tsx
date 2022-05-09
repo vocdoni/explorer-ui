@@ -57,15 +57,23 @@ export const GenericListItemWithBadge = ({
   return (
     <Column {...{ span, sm, md, lg, xl }}>
       {link ? (
-        <Link href={link ?? ''} passHref>
-          {childrenData()}
-        </Link>
-      ) : 
+        <LinkCardContainer>
+          <Link href={link ?? ''} passHref>
+            {childrenData()}
+          </Link>
+        </LinkCardContainer>
+      ) : (
         childrenData()
-      }
+      )}
     </Column>
   )
 }
+
+const LinkCardContainer = styled.div`
+   {
+    cursor: pointer;
+  }
+`
 
 /** Same as VoteListItem but with a browsawle entity link and other properties to
  * show for the elections list page

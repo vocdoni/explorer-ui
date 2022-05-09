@@ -295,7 +295,7 @@
     },
     "transaction": {
         "card": {
-            "index": ""
+            "index_n": ""
         }
     },
     "transactions": {
@@ -318,7 +318,6 @@
         "details": {
             "belong_to_entity": "",
             "belongs_to_process": "",
-            "n_transaction_for_block_n": "",
             "raw_contents": "",
             "transaction_details": "",
             "transaction_not_found": ""
@@ -327,7 +326,9 @@
             "search_by_transaction_height": ""
         },
         "no_transactions_found": "",
+        "on_block_n": "",
         "total_n_transactions": "",
+        "transaction_index": "",
         "transactions_list_title": ""
     },
     "validators_list": {

@@ -7,7 +7,7 @@ import { Skeleton } from '@components/blocks/skeleton'
 
 export const renderSkeleton = (skeletonItems) => {
   return (
-    <Column md={8} sm={12}>
+    <Column>
       {Array(skeletonItems)
         .fill(0)
         .map((value, index: number) => (
@@ -64,7 +64,7 @@ export const PaginatedListTemplate = <Elements,>({
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
         <>
-          <Column md={8} sm={12}>
+          <Column>
             {elementsList.map(renderElementFunction)}
           </Column>
         </>

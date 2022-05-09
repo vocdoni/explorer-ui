@@ -4,6 +4,7 @@ import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
+  BlockLink,
   EntityLink,
   getElectionDetailsPath,
   getPath,
@@ -103,22 +104,19 @@ export const TransactionDetails = ({
             <Typography variant={TypographyVariant.H3}>
               {i18n.t('transactions.details.transaction_details')}
             </Typography>
-            <a
-              href={
-                // todo(ritmo): DRY
-                getPath(BLOCKS_DETAILS, {
-                  blockHeight: blockHeight.toString(),
-                })
-              }
-            >
-              <Typography variant={TypographyVariant.Small}>
-                {i18n.t('transactions.details.n_transaction_for_block_n', {
-                  txIndex: txIndex + 1,
+            <BlockLink blockHeight={blockHeight}>
+              <h2>
+                {i18n.t('transactions.on_block_n', {
                   blockHeight: blockHeight,
                 })}
-              </Typography>
-            </a>
-
+              </h2>
+            </BlockLink>
+            <Typography
+              variant={TypographyVariant.Small}
+              color={colors.lightText}
+            >
+              <span>{i18n.t('transactions.transaction_index')}: {txIndex + 1} </span>
+            </Typography>
             <Typography
               variant={TypographyVariant.Small}
               color={colors.lightText}

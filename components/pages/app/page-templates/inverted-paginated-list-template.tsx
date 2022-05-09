@@ -53,7 +53,7 @@ export const InvertedPaginatedListTemplate = <Elements,>({
       ) : elementsList != null && elementsList.length ? (
         <Grid>
           {paginator()}
-          <Column md={8} sm={12}>
+          <Column >
             {elementsList.map(renderElementFunction)}
           </Column>
           {paginator()}

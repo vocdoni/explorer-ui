@@ -295,7 +295,7 @@
     },
     "transaction": {
         "card": {
-            "index": "Index"
+            "index_n": ""
         }
     },
     "transactions": {
@@ -318,7 +318,6 @@
         "details": {
             "belong_to_entity": "Belongs to entity",
             "belongs_to_process": "Belongs to process",
-            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}",
             "raw_contents": "Raw contents",
             "transaction_details": "Transaction details",
             "transaction_not_found": "Transaction not found"
@@ -327,7 +326,9 @@
             "search_by_transaction_height": "Search by transaction height"
         },
         "no_transactions_found": "Nº of transactions found",
+        "on_block_n": "",
         "total_n_transactions": "Total nº of transactions",
+        "transaction_index": "",
         "transactions_list_title": "Transactions list"
     },
     "validators_list": {
