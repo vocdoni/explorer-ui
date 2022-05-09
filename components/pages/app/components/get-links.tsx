@@ -109,3 +109,9 @@ export const BlockLink = ({
     </a>
   )
 }
+
+export const getTransactionLink = (blockHeight:number, index: number) =>
+  getPath(TRANSACTIONS_DETAILS, {
+    blockHeight: blockHeight.toString(),
+    index: index.toString()
+  })
