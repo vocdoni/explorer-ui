@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
 import {
-  byteArrayToHex,
   getEnumKeyByEnumValue,
   objectBytesArrayToHex,
 } from '@lib/util'
@@ -26,6 +25,7 @@ import { useDateAtBlock } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+
 
 export const TransactionDetails = ({
   txIndex,
@@ -43,15 +43,16 @@ export const TransactionDetails = ({
   const [txRaw, setTxRaw] = useState<any>()
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
+  const byteArrayToHex = (bytes: Uint8Array): string => Buffer.from(bytes).toString("hex")
+
   useEffect(() => {
-    const txInterface = transactionData.tx as Tx
-    switch (txInterface.payload.$case) {
+    const txPayload = transactionData.payload
+    switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
-        const tx: VoteEnvelope = txInterface.payload.vote
+        const tx = txPayload['vote'] as VoteEnvelope
         setBelongsToProcess(byteArrayToHex(tx.processId))
-        // For the moment, this is not needed because we decode all
-        // byte array on the txRaw object. So let this here for future uses, maybe
-        // will be needed.
+        // For the moment, this is not needed. Let this here for future uses,
+        // maybe will be needed.
         // switch(tx.proof.payload.$case){
         //   case 'graviton':
         //   break
@@ -65,18 +66,20 @@ export const TransactionDetails = ({
         break
       }
       case 'newProcess': {
-        const tx = txInterface.payload.newProcess as NewProcessTx
-        setBelongsToProcess(byteArrayToHex(tx.process.processId))
+        const tx = txPayload['newProcess']  as NewProcessTx
+        if (tx.process?.processId) {
+          setBelongsToProcess(byteArrayToHex(tx.process?.processId))
+        }
         setBelongsToEntity(byteArrayToHex(tx.process.entityId))
         break
       }
       case 'admin': {
-        const tx = txInterface.payload.admin as AdminTx
+        const tx = txPayload['admin'] as AdminTx
         setBelongsToProcess(byteArrayToHex(tx.processId))
         break
       }
       case 'setProcess': {
-        const tx = txInterface.payload.setProcess as SetProcessTx
+        const tx = txPayload['setProcess'] as SetProcessTx
         setBelongsToProcess(byteArrayToHex(tx.processId))
         if (tx?.results?.entityId) {
           setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
@@ -88,10 +91,9 @@ export const TransactionDetails = ({
         break
       }
     }
-    delete txInterface.payload.$case
-    objectBytesArrayToHex(txInterface)
-    setTxRaw(txInterface)
-    setTxType(TxType[Object.keys(transactionData.payload)[0]])
+    objectBytesArrayToHex(txPayload)
+    setTxRaw(txPayload)
+    setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
 
   return (
@@ -135,7 +137,7 @@ export const TransactionDetails = ({
           }
           title={'0x' + transactionData?.hash}
         >
-          {belongsToProcess.length ? (
+          {belongsToProcess?.length ? (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getElectionDetailsPath(belongsToProcess)}>

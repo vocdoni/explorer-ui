@@ -99,12 +99,6 @@ export const useTx = ({
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
         transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
-
-        // Decode protobuf
-        if (transaction?.tx && typeof transaction?.tx === "string") {
-          const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
-          transaction.tx = Tx.decode(Reader.create(bytes))
-        }
           
         console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
