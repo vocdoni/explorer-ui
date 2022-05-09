@@ -1,0 +1,26 @@
+{
+    "components": {
+        "block_card": {
+            "number": ""
+        }
+    },
+    "converter": {
+        "current_enviorment ": ""
+    },
+    "transactions": {
+        "badge": {
+            "ADD_ORACLE": "",
+            "ADD_VALIDATOR": "",
+            "CANCEL_PROCESS": "",
+            "NEW_PROCESS": "",
+            "REMOVE_ORACLE": "",
+            "REMOVE_VALIDATOR": "",
+            "SET_PROCESS": "",
+            "VOTE": ""
+        },
+        "ADMIN": "",
+        "details": {
+            "n_transaction_for_block_n": ""
+        }
+    }
+}

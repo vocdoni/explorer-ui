@@ -1,0 +1,18 @@
+{
+    "transactions": {
+        "badge": {
+            "ADD_ORACLE": "Add oracle",
+            "ADD_VALIDATOR": "Add validator",
+            "CANCEL_PROCESS": "Cancel process",
+            "NEW_PROCESS": "New process",
+            "REMOVE_ORACLE": "Remove oracle",
+            "REMOVE_VALIDATOR": "Remove validator",
+            "SET_PROCESS": "Set process",
+            "VOTE": "Vote"
+        },
+        "ADMIN": "Admin",
+        "details": {
+            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}"
+        }
+    }
+}
