@@ -7,16 +7,13 @@ import {
   BlockLink,
   EntityLink,
   getElectionDetailsPath,
-  getPath,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
 import {
   b64ToHex,
-  getEnumKeyByEnumValue,
   objectB64StringsToHex,
-  objectBytesArrayToHex,
 } from '@lib/util'
 import { colors } from '@theme/colors'
 import {
@@ -26,10 +23,8 @@ import {
   VoteEnvelope,
 } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
 import { useDateAtBlock } from '@vocdoni/react-hooks'
-import { Tx } from 'dvote-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { BLOCKS_DETAILS } from '@const/routes'
 
 export const TransactionDetails = ({
   txIndex,
