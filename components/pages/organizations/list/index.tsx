@@ -14,7 +14,7 @@ export const DashboardShowEntities = () => {
   return (
     <ListPageTemplate
       title={i18n.t('entities.list.organizations_list_title')}
-      subtitle={i18n.t('entities.total_n_organizations') + entitiesCount}
+      subtitle={i18n.t('entities.total_n_organizations', {entitiesCount: entitiesCount}) }
     >
       <DashboardEntityList
         totalCount={entitiesCount}
