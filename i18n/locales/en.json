@@ -202,7 +202,7 @@
             "tx_id": "Transaction id",
             "vote_package": "Vote package"
         },
-        "nonce": "Nounce"
+        "nonce": "Nonce"
     },
     "error": {
         "could_not_fetch_elections_count": "Could not fetch elections count",
