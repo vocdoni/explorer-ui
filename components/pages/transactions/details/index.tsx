@@ -12,7 +12,12 @@ import {
 import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
-import { getEnumKeyByEnumValue, objectBytesArrayToHex } from '@lib/util'
+import {
+  b64ToHex,
+  getEnumKeyByEnumValue,
+  objectB64StringsToHex,
+  objectBytesArrayToHex,
+} from '@lib/util'
 import { colors } from '@theme/colors'
 import {
   AdminTx,
@@ -42,15 +47,12 @@ export const TransactionDetails = ({
   const [txRaw, setTxRaw] = useState<any>()
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
-  const byteArrayToHex = (bytes: Uint8Array): string =>
-    Buffer.from(bytes).toString('hex')
-
   useEffect(() => {
     const txPayload = transactionData.payload
     switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
         const tx = txPayload['vote'] as VoteEnvelope
-        setBelongsToProcess(byteArrayToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId))
         // For the moment, this is not needed. Let this here for future uses,
         // maybe will be needed.
         // switch(tx.proof.payload.$case){
@@ -68,21 +70,21 @@ export const TransactionDetails = ({
       case 'newProcess': {
         const tx = txPayload['newProcess'] as NewProcessTx
         if (tx.process?.processId) {
-          setBelongsToProcess(byteArrayToHex(tx.process?.processId))
+          setBelongsToProcess(b64ToHex(tx.process?.processId))
         }
-        setBelongsToEntity(byteArrayToHex(tx.process.entityId))
+        setBelongsToEntity(b64ToHex(tx.process.entityId))
         break
       }
       case 'admin': {
         const tx = txPayload['admin'] as AdminTx
-        setBelongsToProcess(byteArrayToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId))
         break
       }
       case 'setProcess': {
         const tx = txPayload['setProcess'] as SetProcessTx
-        setBelongsToProcess(byteArrayToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId))
         if (tx?.results?.entityId) {
-          setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
+          setBelongsToEntity(b64ToHex(tx?.results?.entityId))
         }
         break
       }
@@ -91,7 +93,13 @@ export const TransactionDetails = ({
         break
       }
     }
-    objectBytesArrayToHex(txPayload)
+    // todo: for some reason, response payload converted transactions have some 
+    // values into base64 string. This values, on the interface declaration are
+    // `Uint8Array`, but on JSON decoding are treated as 'strings'.
+    // So is a little bit tricky to know, if a payload value have to be 
+    // converted to a b64 or not. Probably reflection could help with that. BTW 
+    // is solved checking regex.
+    objectB64StringsToHex(txPayload)  
     setTxRaw(txPayload)
     setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
@@ -115,7 +123,9 @@ export const TransactionDetails = ({
               variant={TypographyVariant.Small}
               color={colors.lightText}
             >
-              <span>{i18n.t('transactions.transaction_index')}: {txIndex + 1} </span>
+              <span>
+                {i18n.t('transactions.transaction_index')}: {txIndex + 1}{' '}
+              </span>
             </Typography>
             <Typography
               variant={TypographyVariant.Small}
