@@ -127,6 +127,32 @@ export const objectBytesArrayToHex = (obj: any):void => {
   }
 }
 
+/** Used to test if a string is base64 encoded. Used by b64ToHex*/
+const regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+/** If is a base64 string return hex bytes */
+export const b64ToHex = (b64String: string): string =>
+  regex.test(b64String) ? Buffer.from(b64String, 'base64').toString('hex') : b64String
+
+/** Iterate an object and convert all base64 strings to hex 
+ * 
+ * It check if is a string and can be converted to a regex.
+*/
+export const objectB64StringsToHex = (obj: any):void => {
+  for (const k in obj) {
+    if (typeof obj[k] === "string" && regex.test(obj[k])) {
+      try{
+        obj[k] = b64ToHex(obj[k])
+      } catch (e) {
+        console.debug("DEBUG", "Can't convert (may be not a b64 string)", k, obj[k])
+      }
+    }
+    else if (typeof obj[k] == 'object' && obj[k] !== null) {
+      objectB64StringsToHex(obj[k])
+    }
+  }
+}
+
 /** Used to get enum key from its value. For example on TxType */
 export function getEnumKeyByEnumValue<T extends {[index:string]:string}>(myEnum:T, enumValue:string):keyof T|null {
   const keys = Object.keys(myEnum).filter(x => myEnum[x] == enumValue);
