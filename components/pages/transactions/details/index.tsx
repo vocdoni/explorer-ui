@@ -49,10 +49,17 @@ export const TransactionDetails = ({
 
   useEffect(() => {
     const txPayload = transactionData.payload
+
+    // todo: for some reason, response payload converted transactions have some 
+    // values into base64 string. This values, on the interface declaration are
+    // `Uint8Array`, but on JSON decoding are treated as 'strings'.
+    // So is a little bit tricky to know, if a payload value have to be 
+    // converted to a b64 or not. Probably reflection could help with that. BTW 
+    // is solved checking regex.
     switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
         const tx = txPayload['vote'] as VoteEnvelope
-        setBelongsToProcess(b64ToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
         // For the moment, this is not needed. Let this here for future uses,
         // maybe will be needed.
         // switch(tx.proof.payload.$case){
@@ -70,21 +77,21 @@ export const TransactionDetails = ({
       case 'newProcess': {
         const tx = txPayload['newProcess'] as NewProcessTx
         if (tx.process?.processId) {
-          setBelongsToProcess(b64ToHex(tx.process?.processId))
+          setBelongsToProcess(b64ToHex(tx.process?.processId as any as string))
         }
-        setBelongsToEntity(b64ToHex(tx.process.entityId))
+        setBelongsToEntity(b64ToHex(tx.process.entityId as any as string))
         break
       }
       case 'admin': {
         const tx = txPayload['admin'] as AdminTx
-        setBelongsToProcess(b64ToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
         break
       }
       case 'setProcess': {
         const tx = txPayload['setProcess'] as SetProcessTx
-        setBelongsToProcess(b64ToHex(tx.processId))
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
         if (tx?.results?.entityId) {
-          setBelongsToEntity(b64ToHex(tx?.results?.entityId))
+          setBelongsToEntity(b64ToHex(tx?.results?.entityId as any as string))
         }
         break
       }
@@ -93,12 +100,6 @@ export const TransactionDetails = ({
         break
       }
     }
-    // todo: for some reason, response payload converted transactions have some 
-    // values into base64 string. This values, on the interface declaration are
-    // `Uint8Array`, but on JSON decoding are treated as 'strings'.
-    // So is a little bit tricky to know, if a payload value have to be 
-    // converted to a b64 or not. Probably reflection could help with that. BTW 
-    // is solved checking regex.
     objectB64StringsToHex(txPayload)  
     setTxRaw(txPayload)
     setTxType(TxType[Object.keys(txPayload)[0]])
