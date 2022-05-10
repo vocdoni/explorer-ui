@@ -30,31 +30,31 @@ export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
               variant={TypographyVariant.Small}
               color={colors.lightText}
             >
-              {i18n.t('envelopes.details.envelope_weight', {envelopeWeight: envelope.weight})}
+              {i18n.t('envelopes.details.envelope_weight')} {envelope.weight}
             </Typography>
           </Column>
         </Grid>
         <GenericListItemWithBadge
           topLeft={
             <>
-              {i18n.t('envelopes.details.block_height', {blockHeight: envelope.weight})}
+              {i18n.t('envelopes.details.block_height')} {envelope.meta.height}
             </>
           }
           badge={<></>}
           dateText={
-            i18n.t('envelopes.details.vote_package', {votePackage: envelope.vote_package})
+            i18n.t('envelopes.details.vote_package') + ': ' + envelope.vote_package
           }
           link={null}
-          title={i18n.t('envelopes.nonce') + '0x' + envelope?.nonce}
+          title={i18n.t('envelopes.nonce') + ' 0x' + envelope?.nonce}
         >
           <p>
-            {i18n.t('envelopes.details.process_id')}:
+            {i18n.t('envelopes.details.process_id')}{': '}
             <ElectionLink electionsId={envelope.meta.process_id}>
               <a>0x{envelope.meta.process_id}</a>
             </ElectionLink>
           </p>
           <p>
-            {i18n.t('envelopes.details.tx_id')}:{/* todo(ritmo): DRY */}
+            {i18n.t('envelopes.details.tx_id')}{': '}
             <TransactionLink
               blockHeight={envelope.meta.height.toString()}
               index={envelope.meta.tx_index.toString()}
