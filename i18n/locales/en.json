@@ -60,7 +60,7 @@
         "set_date": "Set date"
     },
     "dashboard": {
-        "loading": "Loading...",
+        "loading": "Loading",
         "process_ended": "Process ended",
         "process_paused": "Process paused"
     },
