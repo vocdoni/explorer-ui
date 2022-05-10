@@ -23,7 +23,7 @@ export const HeroBanner = (props: {
         <div>
           <Title>
             <strong>{i18n.t('home.vocdoni_explorer')}</strong> <br />
-            {i18n.t('home.explore_the_vochain')}
+            <Typography variant={TypographyVariant.H1}>{i18n.t('home.explore_the_vochain')}</Typography>
           </Title>
 
           <Grid>
@@ -61,7 +61,7 @@ export const HeroBanner = (props: {
 }
 
 const BannerContainer = styled.div`
-  height: 530px;
+  height: 430px;
   margin-top: -110px;
   padding-top: 40px;
   width: 100%;
@@ -176,8 +176,9 @@ const ActionContainer = styled.div`
 const Title = styled.h1`
   color: ${({ theme }) => theme.blueText};
   margin-bottom: 30px;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 400;
+  margin-top: 55px;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 35px;

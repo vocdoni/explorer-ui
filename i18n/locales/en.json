@@ -8,11 +8,11 @@
             "block_not_found": "Block not found"
         },
         "filter": {
-            "search_by_block_height": "Search by block heihgt"
+            "search_by_block_height": "Search by block height"
         },
         "list": {
             "blocks_list_title": "Blocks list",
-            "current_block_heigh": "Current block height"
+            "current_block_heigh": "Current block height: {{ blockHeight }}"
         }
     },
     "components": {
@@ -323,7 +323,7 @@
             "search_by_transaction_height": "Search by transaction height"
         },
         "no_transactions_found": "Nº of transactions found",
-        "total_n_transactions": "Total nº of transactions",
+        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
         "transactions_list_title": "Transactions list"
     },
     "validators_list": {

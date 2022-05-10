@@ -20,7 +20,7 @@ export const ListPageTemplate = ({ title, subtitle, children
 
   return (
     <>
-      <Typography variant={TypographyVariant.H3} color={colors.blueText}>
+      <Typography variant={TypographyVariant.H3} color={colors.blueText} margin='0px auto auto'>
           {title}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
