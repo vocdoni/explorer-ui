@@ -8,11 +8,11 @@
             "block_not_found": "Block not found"
         },
         "filter": {
-            "search_by_block_height": "Search by block heihgt"
+            "search_by_block_height": "Search by block height"
         },
         "list": {
             "blocks_list_title": "Blocks list",
-            "current_block_heigh": "Current block height"
+            "current_block_heigh": "Current block height: {{ blockHeight }}"
         }
     },
     "components": {
@@ -202,7 +202,7 @@
             "tx_id": "Transaction id",
             "vote_package": "Vote package"
         },
-        "nonce": "Nounce"
+        "nonce": "Nonce"
     },
     "error": {
         "could_not_fetch_elections_count": "Could not fetch elections count",
@@ -326,9 +326,7 @@
             "search_by_transaction_height": "Search by transaction height"
         },
         "no_transactions_found": "Nº of transactions found",
-        "on_block_n": "",
-        "total_n_transactions": "Total nº of transactions",
-        "transaction_index": "",
+        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
         "transactions_list_title": "Transactions list"
     },
     "validators_list": {

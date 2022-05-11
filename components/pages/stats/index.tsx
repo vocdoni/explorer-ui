@@ -69,27 +69,47 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
 
           <Grid>
             <Card md={6}>
-              <h5>{i18n.t('stats.network_id')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.network_id')}
+              </Typography>
               <p>{stats?.chain_id}</p>
-              <h5>{i18n.t('stats.bloc_height')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.bloc_height')}
+              </Typography>
               <p>{stats?.block_height}</p>
-              <h5>{i18n.t('stats.total_transactions')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.total_transactions')}
+              </Typography>
               <p>{stats?.transaction_count}</p>
-              <h5>{i18n.t('stats.total_elections')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.total_elections')}
+              </Typography>
               <p>{stats?.process_count}</p>
-              <h5>{i18n.t('stats.total_votes')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.total_votes')}
+              </Typography>
               <p>{stats?.envelope_count}</p>
             </Card>
             <Card md={6}>
-              <h5>{i18n.t('stats.genesis_block_date')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.genesis_block_date')}
+              </Typography>
               <p>{localizedDateDiff(new Date(stats?.genesis_time_stamp))}</p>
-              <h5>{i18n.t('stats.latest_block_date')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.latest_block_date')}
+              </Typography>
               <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
-              <h5>{i18n.t('stats.total_organizations')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.total_organizations')}
+              </Typography>
               <p>{stats?.entity_count}</p>
-              <h5>{i18n.t('stats.number_of_validators')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.number_of_validators')}
+              </Typography>
               <p>{stats?.validator_count}</p>
-              <h5>{i18n.t('stats.sync_status')}</h5>
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
+                {i18n.t('stats.sync_status')}
+              </Typography>
               <p>
                 {stats?.syncing
                   ? i18n.t('stats.syncing')

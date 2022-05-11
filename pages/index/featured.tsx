@@ -13,7 +13,8 @@ const FeaturedContent = () => {
 
   return (
     <>
-      <Section background="#FEFEFF">
+      <br />
+      <Section>
         <BlockContainer>
           <Grid>
             <Column md={3} sm={12}>
@@ -84,12 +85,13 @@ const FeaturedContent = () => {
           </Grid>
         </BlockContainer>
       </Section>
+      <br /><br />
 
       <Section background="linear-gradient(101.89deg, #F1FFDF 17.32%, #E1FFFF 68.46%);">
         <BlockContainer>
           <Grid>
             <Column sm={12} md={6}>
-              <Typography variant={TypographyVariant.H1}>
+              <Typography variant={TypographyVariant.H1} margin='70px 0px 30px'>
                 {i18n.t('featured.a_cutting_edge_voting_protocol')}
               </Typography>
               <Typography variant={TypographyVariant.Small}>

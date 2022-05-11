@@ -157,6 +157,10 @@ const ListItem = styled.div`
   a {
     color: ${({ theme }) => theme.text}
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
 `
 
 const HomeLink = styled.a`
