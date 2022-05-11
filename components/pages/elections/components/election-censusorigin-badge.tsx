@@ -1,60 +1,62 @@
 import { useTranslation } from 'react-i18next'
 import { Switch, Case, Default } from 'react-if'
-import { ActiveBadge, UpcomingBadge } from '@components/elements/text-badge'
+import { ActiveBadge, UpcomingBadge, EndedBadge } from '@components/elements/text-badge'
 import { VochainCensusOrigin } from 'dvote-js'
 
 interface CensusOriginBadgeProps {
-    censusOrigin: VochainCensusOrigin
+  censusOrigin: VochainCensusOrigin
 }
 
-export const CensusOriginBadge = ({
-    censusOrigin,
-}: CensusOriginBadgeProps) => {
+export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
   const { i18n } = useTranslation()
   return (
     <Switch>
-      <Case condition={ 
-        censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE ||
-        censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
-        censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA 
-      }>
-        <ActiveBadge>{i18n.t("elections.badge.OFF_CHAIN")}</ActiveBadge>
+      <Case
+        condition={
+          censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE ||
+          censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
+          censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA
+        }
+      >
+        <ActiveBadge>{i18n.t('elections.badge.OFF_CHAIN')}</ActiveBadge>
       </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.CENSUS_UNKNOWN}>
+        <EndedBadge>{i18n.t('elections.CENSUS_UNKNOWN')}</EndedBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.UNRECOGNIZED}>
+        <EndedBadge>{i18n.t('elections.UNRECOGNIZED')}</EndedBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.MINI_ME}>
+        <ActiveBadge>{i18n.t('elections.MINI_ME')}</ActiveBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.ERC1155}>
+        <ActiveBadge> {i18n.t('elections.ERC1155')}</ActiveBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.ERC20}>
+        <ActiveBadge>{i18n.t('elections.ERC20')}</ActiveBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.ERC721}>
+        <ActiveBadge>{i18n.t('elections.ERC721')}</ActiveBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.ERC777}>
+        <ActiveBadge>{i18n.t('elections.ERC777')}</ActiveBadge>
+      </Case>
+      {/* <Case condition={censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA}>
+        <ActiveBadge>{i18n.t('elections.OFF_CHAIN_CA')}</ActiveBadge>
+      </Case>
+      <Case condition={censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE}>
+        <ActiveBadge>{i18n.t('elections.OFF_CHAIN_TREE')}</ActiveBadge>
+      </Case>
+      <Case
+        condition={censusOrigin == VochainCensusOrigin.OFF_CHAIN_TREE_WEIGHTED}
+      >
+        <ActiveBadge>{i18n.t('elections.OFF_CHAIN_TREE_WEIGHTED')}</ActiveBadge>
+      </Case> */}
       <Default>
-        <UpcomingBadge>{i18n.t("elections.badge.CENSUS_UNKNOWN")}</UpcomingBadge>
+        <EndedBadge>
+          {i18n.t('elections.badge.CENSUS_UNKNOWN')}
+        </EndedBadge>
       </Default>
     </Switch>
-    // <Switch>
-    // <Case condition={ censusOrigin == CensusOrigin.CENSUS_UNKNOWN}>
-    //   {i18n.t("elections.CENSUS_UNKNOWN")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.UNRECOGNIZED}>
-    //   {i18n.t("elections.UNRECOGNIZED")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.MINI_ME}>
-    //   {i18n.t("elections.MINI_ME")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.OFF_CHAIN_CA}>
-    //   {i18n.t("elections.OFF_CHAIN_CA")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.OFF_CHAIN_TREE}>
-    //   {i18n.t("elections.OFF_CHAIN_TREE")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.OFF_CHAIN_TREE_WEIGHTED}>
-    //   {i18n.t("elections.OFF_CHAIN_TREE_WEIGHTED")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.ERC1155}>
-    //   {i18n.t("elections.ERC1155")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.ERC20}>
-    //   {i18n.t("elections.ERC20")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.ERC721}>
-    //   {i18n.t("elections.ERC721")}
-    // </Case>
-    // <Case condition={ censusOrigin == CensusOrigin.ERC777}>
-    //   {i18n.t("elections.ERC777")}
-    // </Case>
-  // </Switch>
   )
 }
