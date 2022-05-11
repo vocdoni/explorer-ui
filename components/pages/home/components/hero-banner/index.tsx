@@ -61,7 +61,7 @@ export const HeroBanner = (props: {
   )
 }
 
-const BannerContainer = styled.div`
+export const BannerContainer = styled.div`
   height: 430px;
   margin-top: -110px;
   padding-top: 40px;
