@@ -25,6 +25,7 @@ import {
 import { useDateAtBlock } from '@vocdoni/react-hooks'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import styled from 'styled-components'
 
 export const TransactionDetails = ({
   txIndex,
@@ -171,10 +172,14 @@ export const TransactionDetails = ({
         {txRaw ? (
           <Card>
             <h3>{i18n.t('transactions.details.raw_contents')}</h3>
-            <pre>{JSON.stringify(txRaw, null, 2)}</pre>
+            <TxRawContainer>{JSON.stringify(txRaw, null, 2)}</TxRawContainer>
           </Card>
         ) : null}
       </>
     </PageCard>
   )
 }
+
+const TxRawContainer = styled.pre`
+  overflow-x: scroll;
+`
