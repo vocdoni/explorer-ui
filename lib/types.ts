@@ -75,15 +75,18 @@ export type Stats = {
 
 // Transactions 
 export enum TxType {
-  NEW_PROCESS = "newProcess",
-  CANCEL_PROCESS = "cancelProcess",
-  SET_PROCESS = "setProcess",
-  VOTE = "vote",
-  ADMIN = "admin",
-  ADD_ORACLE = "addOracle",
-  ADD_VALIDATOR = "addValidator",
-  REMOVE_ORACLE = "removeOracle",
-  REMOVE_VALIDATOR = "removeValidator",
+  vote = 'vote',
+  newProcess = 'newProcess',
+  admin = 'admin',
+  setProcess = 'setProcess',
+  registerKey = 'registerKey',
+  mintTokens = 'mintTokens',
+  sendTokens = 'sendTokens',
+  setTransactionCosts = 'setTransactionCosts',
+  setAccountInfo = 'setAccountInfo',
+  setAccountDelegateTx = 'setAccountDelegateTx',
+  collectFaucet = 'collectFaucet',
+  setKeykeeper = 'setKeykeeper',
 }
 
 export type TxForBlock = {
@@ -103,16 +106,19 @@ export type Validator = {
 export type GetTx = {
   hash: string,
   signature: string,
-  tx: string|Tx
+  tx: string | Tx,
+  payload: Tx
 }
+
 
 export type TxById = {
   block_height: number,
   hash: string,
   id: number,
   signature: string,
-  tx: Tx,
+  tx: string,
   index: number,
+  payload: Tx
 }
 
 // Envelopes

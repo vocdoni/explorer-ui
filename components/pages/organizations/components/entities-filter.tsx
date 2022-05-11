@@ -54,11 +54,7 @@ export const EntitiesFilter = ({
           }}
         />
       </DivWithMarginChildren>
-      <Grid>
-        <FlexContainer>
-            <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
-        </FlexContainer>
-      </Grid>
+      <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
     </>
   )
 }

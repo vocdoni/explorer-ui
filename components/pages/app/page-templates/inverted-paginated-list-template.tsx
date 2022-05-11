@@ -1,5 +1,5 @@
 import { Paginator } from '@components/blocks/paginator'
-import { Column } from '@components/elements/grid'
+import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import { renderSkeleton } from './paginated-list-template'
@@ -12,7 +12,7 @@ interface IPaginatedListTemplateProps<Elements> {
   elementsList: Elements[]
   totalElementsCount: number
   pageSize?: number
-//   // Function that render map of elements
+  //   // Function that render map of elements
   renderElementFunction: (element: ReactNode) => void
   currentPage: number
   setCurrentPage: (x: number) => void
@@ -32,26 +32,32 @@ export const InvertedPaginatedListTemplate = <Elements,>({
   setCurrentPage,
 }: IPaginatedListTemplateProps<Elements>) => {
   const { i18n } = useTranslation()
+
+  const paginator = () => (
+    <Column md={8} sm={12}>
+      <Paginator
+        totalCount={totalElementsCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        disableGoLastBtn
+      ></Paginator>
+    </Column>
+  )
+
   return (
     <>
       {filter}
       {(loading && !elementsList?.length) || totalElementsCount == null ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
-        <>
-          <Column md={8} sm={12}>
-            <Paginator
-              totalCount={totalElementsCount}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-              disableGoLastBtn
-            ></Paginator>
-          </Column>
-          <Column md={8} sm={12}>
+        <Grid>
+          {paginator()}
+          <Column >
             {elementsList.map(renderElementFunction)}
           </Column>
-        </>
+          {paginator()}
+        </Grid>
       ) : (
         <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
@@ -63,7 +69,7 @@ interface IUseInvertedPaginatedListProps {
   pageSize?: number
   lastElement: number
   loadingElements: boolean
-  jumpTo: number 
+  jumpTo: number
   setDataPagination: (newIndex: number) => void
   dataPagination: number
 }
@@ -74,11 +80,10 @@ export function useInvertedPaginatedList({
   loadingElements,
   jumpTo,
   setDataPagination,
-  dataPagination
+  dataPagination,
 }: IUseInvertedPaginatedListProps) {
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-
 
   // Set loading
   useEffect(() => {
@@ -101,7 +106,8 @@ export function useInvertedPaginatedList({
 
   // When current page changed get next blocks
   useEffect(() => {
-    if(lastElement) setDataPagination( lastElement - getFirstPageIndex(currentPage))
+    if (lastElement)
+      setDataPagination(lastElement - getFirstPageIndex(currentPage))
   }, [currentPage, lastElement])
 
   return {

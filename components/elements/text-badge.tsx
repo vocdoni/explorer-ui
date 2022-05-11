@@ -10,7 +10,8 @@ const BaseStatusBadge = styled.span`
 box-shadow: rgba(180, 193, 228, 0.35) 0px 3px 3px;
 border-radius: 10px;
 height: 16px;
-padding: 2px 8px;
+padding: 4px 12px;
+line-height: 16px;
 margin: 2px;
 font-size: 12px;
 font-weight: 500;

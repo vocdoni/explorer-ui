@@ -18,8 +18,8 @@
     "components": {
         "block_card": {
             "hash": "Hash",
-            "last_block_hash": "Last block hash",
             "height_n": "#{{ blockHeight }}",
+            "last_block_hash": "Last block hash",
             "proposer": "Proposer"
         },
         "cardimage": {
@@ -60,7 +60,7 @@
         "set_date": "Set date"
     },
     "dashboard": {
-        "loading": "Loading...",
+        "loading": "Loading",
         "process_ended": "Process ended",
         "process_paused": "Process paused"
     },
@@ -295,26 +295,29 @@
     },
     "transaction": {
         "card": {
-            "index": "Index"
+            "index_n": ""
         }
     },
     "transactions": {
         "badge": {
-            "ADD_ORACLE": "Add oracle",
-            "ADD_VALIDATOR": "Add validator",
-            "CANCEL_PROCESS": "Cancel process",
-            "NEW_PROCESS": "New process",
-            "REMOVE_ORACLE": "Remove oracle",
-            "REMOVE_VALIDATOR": "Remove validator",
-            "SET_PROCESS": "Set process",
-            "VOTE": "Vote"
+            "admin": "",
+            "collectFaucet": "",
+            "mintTokens": "",
+            "newProcess": "",
+            "registerKey": "",
+            "sendTokens": "",
+            "setAccountDelegateTx": "",
+            "setAccountInfo": "",
+            "setKeykeeper": "",
+            "setProcess": "",
+            "setTransactionCosts": "",
+            "UNKNOWN": "",
+            "vote": ""
         },
-        "ADMIN": "Admin",
         "created_on": "Created on",
         "details": {
             "belong_to_entity": "Belongs to entity",
             "belongs_to_process": "Belongs to process",
-            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}",
             "raw_contents": "Raw contents",
             "transaction_details": "Transaction details",
             "transaction_not_found": "Transaction not found"

@@ -18,8 +18,8 @@
     "components": {
         "block_card": {
             "hash": "",
+            "height_n": "",
             "last_block_hash": "",
-            "number": "",
             "proposer": ""
         },
         "cardimage": {
@@ -52,7 +52,7 @@
     "converter": {
         "block_height": "",
         "conversion_between_block_and_dates": "",
-        "current_enviorment ": "",
+        "current_enviorment": "",
         "date_block_estimation": "",
         "loading_info": "",
         "search_by_block_height": "",
@@ -295,26 +295,29 @@
     },
     "transaction": {
         "card": {
-            "index": ""
+            "index_n": ""
         }
     },
     "transactions": {
         "badge": {
-            "ADD_ORACLE": "",
-            "ADD_VALIDATOR": "",
-            "CANCEL_PROCESS": "",
-            "NEW_PROCESS": "",
-            "REMOVE_ORACLE": "",
-            "REMOVE_VALIDATOR": "",
-            "SET_PROCESS": "",
-            "VOTE": ""
+            "admin": "",
+            "collectFaucet": "",
+            "mintTokens": "",
+            "newProcess": "",
+            "registerKey": "",
+            "sendTokens": "",
+            "setAccountDelegateTx": "",
+            "setAccountInfo": "",
+            "setKeykeeper": "",
+            "setProcess": "",
+            "setTransactionCosts": "",
+            "UNKNOWN": "",
+            "vote": ""
         },
-        "ADMIN": "",
         "created_on": "",
         "details": {
             "belong_to_entity": "",
             "belongs_to_process": "",
-            "n_transaction_for_block_n": "",
             "raw_contents": "",
             "transaction_details": "",
             "transaction_not_found": ""
@@ -323,7 +326,9 @@
             "search_by_transaction_height": ""
         },
         "no_transactions_found": "",
+        "on_block_n": "",
         "total_n_transactions": "",
+        "transaction_index": "",
         "transactions_list_title": ""
     },
     "validators_list": {

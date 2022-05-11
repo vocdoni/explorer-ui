@@ -47,20 +47,6 @@ export const EnvelopeExplorer = ({
       <h4>
         {i18n.t('elections.envelope_explorer.total_votes', {totalVotes: results.totalVotes || 0 } )}
       </h4>
-      <div>
-        <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
-          {i18n.t('elections.envelope_explorer.back')}
-        </Button>{' '}
-        &nbsp;
-        <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>
-          {i18n.t('elections.envelope_explorer.next')}
-        </Button>{' '}
-        &nbsp;
-        <small>
-          {i18n.t('elections.envelope_explorer.page')} {envelopePage + 1}/
-          {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
-        </small>
-      </div>
 
       <Grid>
         {envelopeRange.map((envelope, idx) => (
@@ -92,6 +78,20 @@ export const EnvelopeExplorer = ({
           </Card>
         ))}
       </Grid>
+      {envelopeRange.length > ENVELOPES_PER_PAGE && <div>
+        <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
+          {i18n.t('elections.envelope_explorer.back')}
+        </Button>{' '}
+        &nbsp;
+        <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>
+          {i18n.t('elections.envelope_explorer.next')}
+        </Button>{' '}
+        &nbsp;
+        <small>
+          {i18n.t('elections.envelope_explorer.page')} {envelopePage + 1}/
+          {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
+        </small>
+      </div>}
     </Card>
   )
 }

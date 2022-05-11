@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Grid } from '@components/elements/grid'
+import { Column, Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
 import { FlexContainer } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
@@ -50,11 +50,7 @@ export const BlocksFilter = ({setFilter}: {setFilter: (IFilterBlocks) => void}) 
           }}
         />
       </DivWithMarginChildren>
-      <Grid>
-        <FlexContainer>
-            <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
-        </FlexContainer>
-      </Grid>
+      <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
     </>
   )
 }

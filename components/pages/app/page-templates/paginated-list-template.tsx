@@ -7,7 +7,7 @@ import { Skeleton } from '@components/blocks/skeleton'
 
 export const renderSkeleton = (skeletonItems) => {
   return (
-    <Column md={8} sm={12}>
+    <Column>
       {Array(skeletonItems)
         .fill(0)
         .map((value, index: number) => (
@@ -45,28 +45,33 @@ export const PaginatedListTemplate = <Elements,>({
 }: IPaginatedListTemplateProps<Elements>) => {
   const { i18n } = useTranslation()
 
+  const paginator = () => (
+    <Column md={8} sm={12}>
+      <Paginator
+        totalCount={totalElementsCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        disableGoLastBtn
+      ></Paginator>
+    </Column>
+  )
+
   return (
     <Grid>
-      <Column md={8} sm={12}>
-        <Paginator
-          totalCount={totalElementsCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-          disableGoLastBtn
-        ></Paginator>
-      </Column>
+      {paginator()}
       {loading ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
         <>
-          <Column md={8} sm={12}>
+          <Column>
             {elementsList.map(renderElementFunction)}
           </Column>
         </>
       ) : (
         <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
+      {paginator()}
     </Grid>
   )
 }

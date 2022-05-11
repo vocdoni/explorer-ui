@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { fetchMethod, getTxListById } from '@lib/api'
-import { GetTx, TxById, TxForBlock } from '@lib/types'
+import { GetTx, TxById, TxForBlock} from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
@@ -98,10 +98,8 @@ export const useTx = ({
       })
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
-        if (transaction?.tx && typeof transaction?.tx === "string") {
-          const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
-          transaction.tx = Tx.decode(Reader.create(bytes))
-        }
+        transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
+          
         console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
         setLoading(false)
@@ -177,16 +175,8 @@ export const useTxListById = ({
         const txList = response
           .filter((res) => res['response']['ok'])
           .map((res) => {
-            const transaction = res['response']['tx']
-            if (transaction?.tx && typeof transaction?.tx === "string") {
-              const bytes = new Uint8Array(Buffer.from(transaction.tx, 'base64'))
-              try {
-                transaction.tx = Tx.decode(Reader.create(bytes))
-              } catch (error){
-                transaction.tx = "Error on Tx.decode(Reader.create(bytes)): \n" + error 
-                console.error("Error on Tx.decode(Reader.create(bytes)) for transaction n: " + transaction.id, error )
-              }
-            }
+            const transaction = res['response']['tx']           
+            transaction["payload"] = JSON.parse(res['response']['payload']) as Tx
             return transaction
           })
         const transactions = (txList as TxById[]) || null

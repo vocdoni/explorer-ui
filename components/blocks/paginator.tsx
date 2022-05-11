@@ -38,46 +38,41 @@ export const Paginator = ({
   }, [totalCount, pageSize, currentPage])
 
   return (
-    <>
-      <Grid>
-        <GroupButtonMargin>
-          {!disableGoFirstBtn && (
-            <Button small onClick={() => paginate(1)}>
-              «
-            </Button>
-          )}
-          <Button small onClick={() => paginate(currentPage - 1)}>
-            {'<'}
+    <PaginatorContainer>
+      <GroupButtonMargin>
+        {!disableGoFirstBtn && (
+          <Button small onClick={() => paginate(1)}>
+            «
           </Button>
-        </GroupButtonMargin>
-        <GroupButtonMargin>
-          <Button small onClick={() => paginate(currentPage + 1)}>
-            {'>'}
-          </Button>
+        )}
+        <Button small onClick={() => paginate(currentPage - 1)}>
+          {'<'}
+        </Button>
+      </GroupButtonMargin>
+      <GroupButtonMargin>
+        <Button small onClick={() => paginate(currentPage + 1)}>
+          {'>'}
+        </Button>
 
-          {!disableGoLastBtn && (
-            <Button small onClick={() => paginate(totalCount)}>
-              »
-            </Button>
-          )}
-        </GroupButtonMargin>
-        <TextDiv>
-          <Typography
-            variant={TypographyVariant.Small}
-            color={colors.lightText}
-          >
-            {totalPageCount
-              ? 
-              // currentPage +
-                i18n.t(
-                  'components.paginator.page_n_of_n', 
-                  {currentPage: currentPage, totalPage: totalPageCount})
-                // totalPageCount
-              : false}
-          </Typography>
-        </TextDiv>
-      </Grid>
-    </>
+        {!disableGoLastBtn && (
+          <Button small onClick={() => paginate(totalCount)}>
+            »
+          </Button>
+        )}
+      </GroupButtonMargin>
+      <TextDiv>
+        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+          {totalPageCount
+            ? // currentPage +
+              i18n.t('components.paginator.page_n_of_n', {
+                currentPage: currentPage,
+                totalPage: totalPageCount,
+              })
+            : // totalPageCount
+              false}
+        </Typography>
+      </TextDiv>
+    </PaginatorContainer>
   )
 }
 
@@ -93,4 +88,8 @@ const TextDiv = styled.div`
     margin-right: 12px;
     margin-left: 12px;
   }
+`
+
+const PaginatorContainer = styled(Grid)`
+  margin: 0 0 0;
 `

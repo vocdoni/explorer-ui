@@ -4,6 +4,7 @@ import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
+  BlockLink,
   EntityLink,
   getElectionDetailsPath,
 } from '@components/pages/app/components/get-links'
@@ -11,9 +12,8 @@ import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { GetTx, TxType } from '@lib/types'
 import {
-  byteArrayToHex,
-  getEnumKeyByEnumValue,
-  objectBytesArrayToHex,
+  b64ToHex,
+  objectB64StringsToHex,
 } from '@lib/util'
 import { colors } from '@theme/colors'
 import {
@@ -23,7 +23,6 @@ import {
   VoteEnvelope,
 } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain'
 import { useDateAtBlock } from '@vocdoni/react-hooks'
-import { Tx } from 'dvote-js'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -44,14 +43,20 @@ export const TransactionDetails = ({
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
   useEffect(() => {
-    const txInterface = transactionData.tx as Tx
-    switch (txInterface.payload.$case) {
+    const txPayload = transactionData.payload
+
+    // todo: for some reason, response payload converted transactions have some 
+    // values into base64 string. This values, on the interface declaration are
+    // `Uint8Array`, but on JSON decoding are treated as 'strings'.
+    // So is a little bit tricky to know, if a payload value have to be 
+    // converted to a b64 or not. Probably reflection could help with that. BTW 
+    // is solved checking regex.
+    switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
-        const tx: VoteEnvelope = txInterface.payload.vote
-        setBelongsToProcess(byteArrayToHex(tx.processId))
-        // For the moment, this is not needed because we decode all
-        // byte array on the txRaw object. So let this here for future uses, maybe
-        // will be needed.
+        const tx = txPayload['vote'] as VoteEnvelope
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
+        // For the moment, this is not needed. Let this here for future uses,
+        // maybe will be needed.
         // switch(tx.proof.payload.$case){
         //   case 'graviton':
         //   break
@@ -65,21 +70,23 @@ export const TransactionDetails = ({
         break
       }
       case 'newProcess': {
-        const tx = txInterface.payload.newProcess as NewProcessTx
-        setBelongsToProcess(byteArrayToHex(tx.process.processId))
-        setBelongsToEntity(byteArrayToHex(tx.process.entityId))
+        const tx = txPayload['newProcess'] as NewProcessTx
+        if (tx.process?.processId) {
+          setBelongsToProcess(b64ToHex(tx.process?.processId as any as string))
+        }
+        setBelongsToEntity(b64ToHex(tx.process.entityId as any as string))
         break
       }
       case 'admin': {
-        const tx = txInterface.payload.admin as AdminTx
-        setBelongsToProcess(byteArrayToHex(tx.processId))
+        const tx = txPayload['admin'] as AdminTx
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
         break
       }
       case 'setProcess': {
-        const tx = txInterface.payload.setProcess as SetProcessTx
-        setBelongsToProcess(byteArrayToHex(tx.processId))
+        const tx = txPayload['setProcess'] as SetProcessTx
+        setBelongsToProcess(b64ToHex(tx.processId as any as string))
         if (tx?.results?.entityId) {
-          setBelongsToEntity(byteArrayToHex(tx?.results?.entityId))
+          setBelongsToEntity(b64ToHex(tx?.results?.entityId as any as string))
         }
         break
       }
@@ -88,9 +95,9 @@ export const TransactionDetails = ({
         break
       }
     }
-    objectBytesArrayToHex(txInterface)
-    setTxRaw(txInterface)
-    setTxType(TxType[getEnumKeyByEnumValue(TxType, txInterface.payload.$case)])
+    objectB64StringsToHex(txPayload)  
+    setTxRaw(txPayload)
+    setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
 
   return (
@@ -101,12 +108,21 @@ export const TransactionDetails = ({
             <Typography variant={TypographyVariant.H3}>
               {i18n.t('transactions.details.transaction_details')}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>
-              {i18n.t(
-                'transactions.details.n_transaction_for_block_n',
-                {txIndex: txIndex + 1, blockHeight: blockHeight})}
+            <BlockLink blockHeight={blockHeight}>
+              <h2>
+                {i18n.t('transactions.on_block_n', {
+                  blockHeight: blockHeight,
+                })}
+              </h2>
+            </BlockLink>
+            <Typography
+              variant={TypographyVariant.Small}
+              color={colors.lightText}
+            >
+              <span>
+                {i18n.t('transactions.transaction_index')}: {txIndex + 1}{' '}
+              </span>
             </Typography>
-
             <Typography
               variant={TypographyVariant.Small}
               color={colors.lightText}
@@ -134,7 +150,7 @@ export const TransactionDetails = ({
           }
           title={'0x' + transactionData?.hash}
         >
-          {belongsToProcess.length ? (
+          {belongsToProcess?.length ? (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getElectionDetailsPath(belongsToProcess)}>
