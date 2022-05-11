@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
 import { PageCardHeader } from '@components/elements/cards'
 import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
-import { Grid , Column} from '@components/elements/grid'
+import { Grid, Column } from '@components/elements/grid'
 
 import { Image } from '../../elements/image'
 
@@ -25,36 +25,41 @@ export const CardImageHeader = ({
 }: ICardImageHeader) => {
   const { i18n } = useTranslation()
   const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || "" 
+  const entityImageSrc = entityImage || ''
 
   return (
     <CardImageHeaderContainer>
       <PageCardHeader>
-        <Image src={headerImageSrc} alt={i18n.t('components.cardimage.vote_process_image_alt')} />
+        <Image
+          src={headerImageSrc}
+          alt={i18n.t('components.cardimage.vote_process_image_alt')}
+        />
       </PageCardHeader>
 
-      <EntityLogoWrapper>
-        <Image src={entityImageSrc} alt={i18n.t('components.cardimage..entity_logo_alt')} />
-      </EntityLogoWrapper>
+      {entityImageSrc.length > 0 && (
+        <EntityLogoWrapper>
+          <Image
+            src={entityImageSrc}
+            alt={i18n.t('components.cardimage.entity_logo_alt')}
+          />
+        </EntityLogoWrapper>
+      )}
 
       <Grid>
-        
         <Column>
           <SectionTitle align={TextAlign.Center}>{title}</SectionTitle>
-          {
-            subtitle && (
-              <SectionText align={TextAlign.Center} color='accent1'>
-                {subtitle}
-              </SectionText>
-            )}
+          {subtitle && (
+            <SectionText align={TextAlign.Center} color="accent1">
+              {subtitle}
+            </SectionText>
+          )}
         </Column>
       </Grid>
     </CardImageHeaderContainer>
   )
 }
 
-const CardImageHeaderContainer = styled.div`
-`
+const CardImageHeaderContainer = styled.div``
 
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
