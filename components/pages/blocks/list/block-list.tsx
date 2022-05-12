@@ -1,14 +1,13 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
-import { InvertedPaginatedListTemplate, useInvertedPaginatedList } from '@components/pages/app/page-templates/inverted-paginated-list-template'
 import {
-  PaginatedListTemplate,
-  renderSkeleton,
-  usePaginatedList,
-} from '@components/pages/app/page-templates/paginated-list-template'
+  InvertedPaginatedListTemplate,
+  useInvertedPaginatedList,
+} from '@components/pages/app/page-templates/inverted-paginated-list-template'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page-template'
 import { useBlocks } from '@hooks/use-blocks'
 import { BlockInfo } from '@lib/types'
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
 import { DashboardBlockItem } from './block-list-item'
@@ -17,12 +16,14 @@ interface IDashboardBlockListProps {
   pageSize?: number
   blockHeight: number
   skeletonItems?: number
+  title: ReactNode
 }
 
 export const DashboardBlockList = ({
   pageSize,
   blockHeight,
   skeletonItems = 4,
+  title,
 }: IDashboardBlockListProps) => {
   // Render item on the list from it summary
   const renderBlockItem = (block: BlockInfo) => {
@@ -61,8 +62,10 @@ export const DashboardBlockList = ({
 
   return (
     <>
+      <InlineTitleChildrenContainer title={title}>
+        <BlocksFilter setFilter={setFilter}></BlocksFilter>
+      </InlineTitleChildrenContainer>
       <InvertedPaginatedListTemplate
-        filter={ <BlocksFilter setFilter={setFilter}></BlocksFilter>}
         loading={loading}
         elementsList={blockList}
         totalElementsCount={blockHeight}
