@@ -4,10 +4,11 @@ import {
   InvertedPaginatedListTemplate,
   useInvertedPaginatedList,
 } from '@components/pages/app/page-templates/inverted-paginated-list-template'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page-template'
 import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
 import { useTxListById } from '@hooks/use-transactions'
 import { TxById } from '@lib/types'
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import {
   IFilterTransactions,
   TransactionsFilter,
@@ -18,17 +19,22 @@ interface IDashboardTransactionsListProps {
   pageSize?: number
   transactionHeight: number
   skeletonItems?: number
+  title: ReactNode
 }
 
 export const DashboardTransactionsList = ({
   pageSize,
   transactionHeight,
   skeletonItems = 4,
+  title,
 }: IDashboardTransactionsListProps) => {
   // Render item on the list from it summary
   const renderTransactionItem = (transaction: TxById) => {
     return (
-      <DashboardTransactionItem key={transaction?.id} transactionData={transaction}></DashboardTransactionItem>
+      <DashboardTransactionItem
+        key={transaction?.id}
+        transactionData={transaction}
+      ></DashboardTransactionItem>
     )
   }
 
@@ -62,8 +68,10 @@ export const DashboardTransactionsList = ({
 
   return (
     <>
+      <InlineTitleChildrenContainer title={title}>
+        <TransactionsFilter setFilter={setFilter}></TransactionsFilter>
+      </InlineTitleChildrenContainer>
       <InvertedPaginatedListTemplate
-        filter={<TransactionsFilter setFilter={setFilter}></TransactionsFilter>}
         loading={loading}
         elementsList={transactions}
         totalElementsCount={transactionHeight}

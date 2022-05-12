@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
-import { FlexContainer } from '@components/elements/flex'
+import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useState } from 'react'
@@ -36,7 +36,7 @@ export const TransactionsFilter = ({
   }
 
   return (
-    <>
+    <InlineFlex>
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t(
@@ -59,6 +59,6 @@ export const TransactionsFilter = ({
         onEnableFilter={_onEnableFilter}
         onDisableFilter={_onDisableFilter}
       />
-    </>
+    </InlineFlex>
   )
 }
