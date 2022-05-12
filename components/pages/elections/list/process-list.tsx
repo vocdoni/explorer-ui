@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
 
 import { useProcessesList } from '@hooks/use-processes'
@@ -22,11 +22,13 @@ interface IDashboardProcessListProps {
   loading?: boolean
   pageSize?: number
   totalProcessCount?: number
+  title: ReactNode
 }
 
 export const DashboardProcessList = ({
   pageSize,
   totalProcessCount = 0,
+  title
 }: IDashboardProcessListProps) => {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterProcesses>({})
@@ -75,6 +77,7 @@ export const DashboardProcessList = ({
 
   return (
     <>
+      {title}
       <ProcessFilter
         onEnableFilter={enableFilter}
         onDisableFilter={disableFilter}
