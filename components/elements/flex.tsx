@@ -46,3 +46,8 @@ export const FlexContainer = styled.div<FlexContainerProps>`
   height: ${({height}) => height? height: 'auto'};
 `
 
+
+export const InlineFlex = styled.div`
+  display: inline-flex;
+`
+

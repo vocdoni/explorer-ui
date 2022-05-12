@@ -1,9 +1,9 @@
 
 import { useTranslation } from 'react-i18next'
-import { Grid } from '@components/elements/grid'
+import { Column, Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
 import styled from 'styled-components'
-import { FlexContainer } from '@components/elements/flex'
+import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ export const EntitiesFilter = ({
   }
 
   return (
-    <>
+    <InlineFlex>
       <DivWithMarginChildren>
         <Input
           placeholder={i18n.t('entities.filter.search_by_organization_id')}
@@ -55,6 +55,6 @@ export const EntitiesFilter = ({
         />
       </DivWithMarginChildren>
       <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
-    </>
+    </InlineFlex>
   )
 }
