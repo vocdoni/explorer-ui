@@ -8,7 +8,6 @@ const skeletonItems = 3
 
 interface IPaginatedListTemplateProps<Elements> {
   loading: boolean
-  filter: ReactNode
   elementsList: Elements[]
   totalElementsCount: number
   pageSize?: number
@@ -23,7 +22,6 @@ interface IPaginatedListTemplateProps<Elements> {
  */
 export const InvertedPaginatedListTemplate = <Elements,>({
   loading,
-  filter,
   elementsList,
   totalElementsCount,
   pageSize,
@@ -47,7 +45,6 @@ export const InvertedPaginatedListTemplate = <Elements,>({
 
   return (
     <>
-      {filter}
       {(loading && !elementsList?.length) || totalElementsCount == null ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
