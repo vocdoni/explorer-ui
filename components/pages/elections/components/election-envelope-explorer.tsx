@@ -78,7 +78,7 @@ export const EnvelopeExplorer = ({
           </Card>
         ))}
       </Grid>
-      {envelopeRange.length > ENVELOPES_PER_PAGE && <div>
+      {results.totalVotes > ENVELOPES_PER_PAGE && <div>
         <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
           {i18n.t('elections.envelope_explorer.back')}
         </Button>{' '}
