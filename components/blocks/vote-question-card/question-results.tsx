@@ -79,6 +79,8 @@ const ProgressBarContainer = styled.div`
 
   & > svg > text {
     font-size: 24px !important;
+    text-anchor: middle;
+    dominant-baseline: central;
   }
 `
 
