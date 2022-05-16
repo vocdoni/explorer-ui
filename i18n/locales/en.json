@@ -326,7 +326,8 @@
             "belongs_to_process": "Belongs to process",
             "raw_contents": "Raw contents",
             "transaction_details": "Transaction details",
-            "transaction_not_found": "Transaction not found"
+            "transaction_not_found": "Transaction not found",
+            "vote_package": "Vote package"
         },
         "filter": {
             "search_by_transaction_height": "Search by transaction height"

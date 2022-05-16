@@ -326,7 +326,8 @@
             "belongs_to_process": "",
             "raw_contents": "",
             "transaction_details": "",
-            "transaction_not_found": ""
+            "transaction_not_found": "",
+            "vote_package": ""
         },
         "filter": {
             "search_by_transaction_height": ""
