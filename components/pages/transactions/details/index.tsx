@@ -168,23 +168,23 @@ export const TransactionDetails = ({
         >
         <OverflowScroll>
 
-          {belongsToProcess?.length ? (
+          {belongsToProcess?.length > 0 && (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getElectionDetailsPath(belongsToProcess)}>
                 <a>0x{belongsToProcess}</a>
               </Link>
             </p>
-          ) : null}
-          {belongsToEntity.length ? (
+          )}
+          {belongsToEntity?.length > 0 && (
             <p>
               {i18n.t('transactions.details.belong_to_entity')}:
               <EntityLink entityId={belongsToEntity}>
                 <a>0x{belongsToEntity}</a>
               </EntityLink>
             </p>
-          ) : null}
-          {votePackage.length && (
+          )}
+          {votePackage?.length > 0 && (
             <p>
               {i18n.t('transactions.details.vote_package')}:
               <pre>
@@ -196,12 +196,12 @@ export const TransactionDetails = ({
 
         </GenericListItemWithBadge>
 
-        {txRaw ? (
+        {txRaw && (
           <Card>
             <h3>{i18n.t('transactions.details.raw_contents')}</h3>
             <OverflowScroll>{JSON.stringify(txRaw, null, 2)}</OverflowScroll>
           </Card>
-        ) : null}
+        )}
       </>
     </PageCard>
   )
