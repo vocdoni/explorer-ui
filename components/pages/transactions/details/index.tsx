@@ -59,17 +59,13 @@ export const TransactionDetails = ({
         const tx = txPayload['vote'] as VoteEnvelope
         ignoreKeys.push('votePackage')
         try {
-          tx.votePackage = tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
+          txPayload['vote']['votePackage'] = tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
           ? tx.votePackage
           : atob(tx.votePackage as any as string)
           setVotePackage(tx.votePackage as any as string)
         } catch (e) {
           console.debug(e)
         }
-        
-        // setVotePackage(tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
-        //   ? tx.votePackage as any as string
-        //   : atob(tx.votePackage as any as string))
         setBelongsToProcess(b64ToHex(tx.processId as any as string))
         // For the moment, this is not needed. Let this here for future uses,
         // maybe will be needed.
