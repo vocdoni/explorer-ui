@@ -39,12 +39,14 @@ export const TransactionDetails = ({
   const { i18n } = useTranslation()
   const [belongsToEntity, setBelongsToEntity] = useState('')
   const [belongsToProcess, setBelongsToProcess] = useState('')
+  const [votePackage, setVotePackage] = useState('')
   const [txType, setTxType] = useState<TxType>()
   const [txRaw, setTxRaw] = useState<any>()
   const { date, loading, error } = useDateAtBlock(blockHeight)
 
   useEffect(() => {
     const txPayload = transactionData.payload
+    const ignoreKeys: string[] = []
 
     // todo: for some reason, response payload converted transactions have some 
     // values into base64 string. This values, on the interface declaration are
@@ -55,6 +57,19 @@ export const TransactionDetails = ({
     switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
         const tx = txPayload['vote'] as VoteEnvelope
+        ignoreKeys.push('votePackage')
+        try {
+          tx.votePackage = tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
+          ? tx.votePackage
+          : atob(tx.votePackage as any as string)
+          setVotePackage(tx.votePackage as any as string)
+        } catch (e) {
+          console.debug(e)
+        }
+        
+        // setVotePackage(tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
+        //   ? tx.votePackage as any as string
+        //   : atob(tx.votePackage as any as string))
         setBelongsToProcess(b64ToHex(tx.processId as any as string))
         // For the moment, this is not needed. Let this here for future uses,
         // maybe will be needed.
@@ -96,7 +111,7 @@ export const TransactionDetails = ({
         break
       }
     }
-    objectB64StringsToHex(txPayload)  
+    objectB64StringsToHex(txPayload, ignoreKeys)  
     setTxRaw(txPayload)
     setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
@@ -151,6 +166,8 @@ export const TransactionDetails = ({
           }
           title={'0x' + transactionData?.hash}
         >
+        <OverflowScroll>
+
           {belongsToProcess?.length ? (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
@@ -167,12 +184,22 @@ export const TransactionDetails = ({
               </EntityLink>
             </p>
           ) : null}
+          {votePackage.length && (
+            <p>
+              {i18n.t('transactions.details.vote_package')}:
+              <pre>
+                {votePackage}
+              </pre>
+            </p>
+          )}
+        </OverflowScroll>
+
         </GenericListItemWithBadge>
 
         {txRaw ? (
           <Card>
             <h3>{i18n.t('transactions.details.raw_contents')}</h3>
-            <TxRawContainer>{JSON.stringify(txRaw, null, 2)}</TxRawContainer>
+            <OverflowScroll>{JSON.stringify(txRaw, null, 2)}</OverflowScroll>
           </Card>
         ) : null}
       </>
@@ -180,6 +207,6 @@ export const TransactionDetails = ({
   )
 }
 
-const TxRawContainer = styled.pre`
+const OverflowScroll = styled.pre`
   overflow-x: scroll;
 `

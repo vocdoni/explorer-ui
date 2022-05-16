@@ -138,8 +138,9 @@ export const b64ToHex = (b64String: string): string =>
  * 
  * It check if is a string and can be converted to a regex.
 */
-export const objectB64StringsToHex = (obj: any):void => {
+export const objectB64StringsToHex = (obj: any, ignoreKeys? : string[]):void => {
   for (const k in obj) {
+    if (ignoreKeys != null && ignoreKeys.indexOf(k) > -1 ) continue;
     if (typeof obj[k] === "string" && regex.test(obj[k])) {
       try{
         obj[k] = b64ToHex(obj[k])
