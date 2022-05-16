@@ -17,6 +17,9 @@ import {
   FlexJustifyContent,
 } from '@components/elements/flex'
 import { useTranslation } from 'react-i18next'
+import { useStats } from '@hooks/use-stats'
+import { localizedDateDiff } from '@lib/date'
+
 
 
 const BlocksPage = () => {
@@ -33,6 +36,9 @@ const BlocksPage = () => {
   const { date, loading, error } = useDateAtBlock(targetBlock)
   const { blockHeight: estimatedBlockNumber } = useBlockAtDate(targetDate)
 
+  const [genesisDate, setGenesisDate] = useState<Date>()
+  const { loading: loadingStats, stats } = useStats({})
+
   useEffect(() => {
     if (blockInput !== targetBlock) {
       setTargetDate(null)
@@ -46,6 +52,11 @@ const BlocksPage = () => {
       setTargetDate(dateInput)
     }
   }, [dateInput])
+
+  useEffect(() => {
+    if(stats) setGenesisDate(new Date(stats.genesis_time_stamp))
+  }, [stats])
+
 
   return (
     <PageCard>
@@ -61,6 +72,10 @@ const BlocksPage = () => {
             {i18n.t('converter.current_enviorment')} {': '}
             <strong>{process.env.VOCDONI_ENVIRONMENT}</strong>
           </p>
+          <p>
+            {i18n.t('converter.genesis_date')} {': '}
+            {localizedDateDiff(genesisDate)}
+          </p>
           <InputTitle>
             {i18n.t('converter.block_height')} {blockHeight}
           </InputTitle>
@@ -70,6 +85,7 @@ const BlocksPage = () => {
           <CalendarContainer>
             <DateTimePicker
               id={'datetimeid'}
+              minDate={genesisDate}
               value={targetDate ?? date ?? new Date()}
               // value={targetDate}
               onChange={(value) => setDateInput(value)}
