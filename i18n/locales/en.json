@@ -54,6 +54,7 @@
         "conversion_between_block_and_dates": "Conversion between block and dates",
         "current_enviorment": "Current environment",
         "date_block_estimation": "Date blocks estimation",
+        "genesis_date": "Genesis date",
         "loading_info": "Loading info...",
         "search_by_block_height": "Search by block height",
         "set_block": "Set block",
