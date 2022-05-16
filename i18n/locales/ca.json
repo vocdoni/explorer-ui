@@ -114,9 +114,15 @@
         "yesterday": ""
     },
     "elections": {
-        "badge": {
+        "census_origin_badge": {
             "CENSUS_UNKNOWN": "",
-            "OFF_CHAIN": ""
+            "ERC1155": "",
+            "ERC20": "",
+            "ERC721": "",
+            "ERC777": "",
+            "MINI_ME": "",
+            "OFF_CHAIN": "",
+            "UNRECOGNIZED": ""
         },
         "details": {
             "created_on": "",
@@ -131,10 +137,6 @@
             "total_questions": "",
             "total_votes": ""
         },
-        "enevelope_type_badge": {
-            "encryptedVotes": "",
-            "notEncryptedVotes": ""
-        },
         "envelope_explorer": {
             "back": "",
             "envelope_details": "",
@@ -145,6 +147,10 @@
             "total_votes": "",
             "transaction_details": "",
             "tx_number": ""
+        },
+        "envelope_type_badge": {
+            "encrypted_votes": "",
+            "not_encrypted_votes": ""
         },
         "filter": {
             "check_with_results": "",
@@ -301,17 +307,17 @@
     "transactions": {
         "badge": {
             "admin": "",
-            "collectFaucet": "",
-            "mintTokens": "",
-            "newProcess": "",
-            "registerKey": "",
-            "sendTokens": "",
-            "setAccountDelegateTx": "",
-            "setAccountInfo": "",
-            "setKeykeeper": "",
-            "setProcess": "",
-            "setTransactionCosts": "",
-            "UNKNOWN": "",
+            "collect_faucet": "",
+            "mint_tokens": "",
+            "new_process": "",
+            "register_key": "",
+            "send_tokens": "",
+            "set_account_delegate_tx": "",
+            "set_account_info": "",
+            "set_key_keeper": "",
+            "set_process": "",
+            "set_transaction_costs": "",
+            "unknown": "",
             "vote": ""
         },
         "created_on": "",

@@ -114,9 +114,15 @@
         "yesterday": "yesterday"
     },
     "elections": {
-        "badge": {
+        "census_origin_badge": {
             "CENSUS_UNKNOWN": "Unknown census",
-            "OFF_CHAIN": "Off chain"
+            "ERC1155": "ERC1155",
+            "ERC20": "ERC20",
+            "ERC721": "ERC721",
+            "ERC777": "ERC777",
+            "MINI_ME": "Mini me",
+            "OFF_CHAIN": "Off Chain",
+            "UNRECOGNIZED": "Unrecognized"
         },
         "details": {
             "created_on": "Created on",
@@ -131,10 +137,6 @@
             "total_questions": "Total questions",
             "total_votes": "Total votes"
         },
-        "enevelope_type_badge": {
-            "encryptedVotes": "Encrypted votes",
-            "notEncryptedVotes": "Not encrypted votes"
-        },
         "envelope_explorer": {
             "back": "Back",
             "envelope_details": "Envelope details",
@@ -145,6 +147,10 @@
             "total_votes": "Total votes: {{totalVotes}}",
             "transaction_details": "Transaction details",
             "tx_number": "Transaction number: {{txNumber}}"
+        },
+        "envelope_type_badge": {
+            "encrypted_votes": "Encrypted votes",
+            "not_encrypted_votes": "Not encrypted votes"
         },
         "filter": {
             "check_with_results": "Check with results",
@@ -295,24 +301,24 @@
     },
     "transaction": {
         "card": {
-            "index_n": ""
+            "index_n": "#{{ index }}"
         }
     },
     "transactions": {
         "badge": {
-            "admin": "",
-            "collectFaucet": "",
-            "mintTokens": "",
-            "newProcess": "",
-            "registerKey": "",
-            "sendTokens": "",
-            "setAccountDelegateTx": "",
-            "setAccountInfo": "",
-            "setKeykeeper": "",
-            "setProcess": "",
-            "setTransactionCosts": "",
-            "UNKNOWN": "",
-            "vote": ""
+            "admin": "Admin",
+            "collect_faucet": "Collect faucet",
+            "mint_tokens": "Mint tokens",
+            "new_process": "New process",
+            "register_key": "Register key",
+            "send_tokens": "Send tokens",
+            "set_account_delegate_tx": "Set account delegate transaction",
+            "set_account_info": "Set account info",
+            "set_key_keeper": "Set key keeper",
+            "set_process": "Set process",
+            "set_transaction_costs": "Set transaction costs",
+            "unknown": "Unknown",
+            "vote": "Vote"
         },
         "created_on": "Created on",
         "details": {
@@ -326,7 +332,9 @@
             "search_by_transaction_height": "Search by transaction height"
         },
         "no_transactions_found": "Nº of transactions found",
+        "on_block_n": "On block {{ blockHeight }}",
         "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
+        "transaction_index": "Transaction index",
         "transactions_list_title": "Transactions list"
     },
     "validators_list": {

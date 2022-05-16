@@ -19,49 +19,49 @@ export const TransactionTypeBadge = ({ type }: { type: TxType }) => {
         <ActiveBadge>{i18n.t('transactions.badge.admin')}</ActiveBadge>
       </Case>
       <Case condition={type == TxType.newProcess}>
-        <UpcomingBadge>{i18n.t('transactions.badge.newProcess')}</UpcomingBadge>
+        <UpcomingBadge>{i18n.t('transactions.badge.new_process')}</UpcomingBadge>
       </Case>
       <Case condition={type == TxType.setProcess}>
-        <UpcomingBadge>{i18n.t('transactions.badge.setProcess')}</UpcomingBadge>
+        <UpcomingBadge>{i18n.t('transactions.badge.set_process')}</UpcomingBadge>
       </Case>
       <Case condition={type == TxType.registerKey}>
-        <ActiveBadge>{i18n.t('transactions.badge.registerKey')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('transactions.badge.register_key')}</ActiveBadge>
       </Case>
       <Case condition={type == TxType.mintTokens}>
-        <ActiveBadge>{i18n.t('transactions.badge.mintTokens')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('transactions.badge.mint_tokens')}</ActiveBadge>
       </Case>
       <Case condition={type == TxType.sendTokens}>
         <CanceledBadge>
-          {i18n.t('transactions.badge.sendTokens')}
+          {i18n.t('transactions.badge.send_tokens')}
         </CanceledBadge>
       </Case>
       <Case condition={type == TxType.setTransactionCosts}>
         <CanceledBadge>
-          {i18n.t('transactions.badge.setTransactionCosts')}
+          {i18n.t('transactions.badge.set_transaction_costs')}
         </CanceledBadge>
       </Case>
       <Case condition={type == TxType.setAccountInfo}>
         <CanceledBadge>
-          {i18n.t('transactions.badge.setAccountInfo')}
+          {i18n.t('transactions.badge.set_account_info')}
         </CanceledBadge>
       </Case>
 
       <Case condition={type == TxType.setAccountDelegateTx}>
         <CanceledBadge>
-          {i18n.t('transactions.badge.setAccountDelegateTx')}
+          {i18n.t('transactions.badge.set_account_delegate_tx')}
         </CanceledBadge>
       </Case>
       <Case condition={type == TxType.collectFaucet}>
-        <EndedBadge>{i18n.t('transactions.badge.collectFaucet')}</EndedBadge>
+        <EndedBadge>{i18n.t('transactions.badge.collect_faucet')}</EndedBadge>
       </Case>
       <Case condition={type == TxType.setKeykeeper}>
         <CanceledBadge>
-          {i18n.t('transactions.badge.setKeykeeper')}
+          {i18n.t('transactions.badge.set_key_keeper')}
         </CanceledBadge>
       </Case>
       <Default>
         <CanceledBadge>
-          {i18n.t('transactions.badge.UNKNOWN')}
+          {i18n.t('transactions.badge.unknown')}
         </CanceledBadge>
       </Default>
     </Switch>

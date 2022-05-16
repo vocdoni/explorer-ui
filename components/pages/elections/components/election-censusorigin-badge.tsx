@@ -18,28 +18,28 @@ export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
           censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA
         }
       >
-        <ActiveBadge>{i18n.t('elections.badge.OFF_CHAIN')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('elections.census_origin_badge.OFF_CHAIN')}</ActiveBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.CENSUS_UNKNOWN}>
-        <EndedBadge>{i18n.t('elections.CENSUS_UNKNOWN')}</EndedBadge>
+        <EndedBadge>{i18n.t('elections.census_origin_badge.CENSUS_UNKNOWN')}</EndedBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.UNRECOGNIZED}>
-        <EndedBadge>{i18n.t('elections.UNRECOGNIZED')}</EndedBadge>
+        <EndedBadge>{i18n.t('elections.census_origin_badge.UNRECOGNIZED')}</EndedBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.MINI_ME}>
-        <ActiveBadge>{i18n.t('elections.MINI_ME')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('elections.census_origin_badge.MINI_ME')}</ActiveBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.ERC1155}>
-        <ActiveBadge> {i18n.t('elections.ERC1155')}</ActiveBadge>
+        <ActiveBadge> {i18n.t('elections.census_origin_badge.ERC1155')}</ActiveBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.ERC20}>
-        <ActiveBadge>{i18n.t('elections.ERC20')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('elections.census_origin_badge.ERC20')}</ActiveBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.ERC721}>
-        <ActiveBadge>{i18n.t('elections.ERC721')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('elections.census_origin_badge.ERC721')}</ActiveBadge>
       </Case>
       <Case condition={censusOrigin == VochainCensusOrigin.ERC777}>
-        <ActiveBadge>{i18n.t('elections.ERC777')}</ActiveBadge>
+        <ActiveBadge>{i18n.t('elections.census_origin_badge.ERC777')}</ActiveBadge>
       </Case>
       {/* <Case condition={censusOrigin == VochainCensusOrigin.OFF_CHAIN_CA}>
         <ActiveBadge>{i18n.t('elections.OFF_CHAIN_CA')}</ActiveBadge>
@@ -54,7 +54,7 @@ export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
       </Case> */}
       <Default>
         <EndedBadge>
-          {i18n.t('elections.badge.CENSUS_UNKNOWN')}
+          {i18n.t('elections.census_origin_badge.CENSUS_UNKNOWN')}
         </EndedBadge>
       </Default>
     </Switch>

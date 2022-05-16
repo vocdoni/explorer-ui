@@ -16,7 +16,18 @@
             "REMOVE_ORACLE": "",
             "REMOVE_VALIDATOR": "",
             "SET_PROCESS": "",
-            "VOTE": ""
+            "VOTE": "",
+            "collectFaucet": "",
+            "mintTokens": "",
+            "newProcess": "",
+            "registerKey": "",
+            "sendTokens": "",
+            "setAccountDelegateTx": "",
+            "setAccountInfo": "",
+            "setKeykeeper": "",
+            "setProcess": "",
+            "setTransactionCosts": "",
+            "UNKNOWN": ""
         },
         "ADMIN": "",
         "details": {
@@ -26,6 +37,27 @@
     "transaction": {
         "card": {
             "index": ""
+        }
+    },
+    "elections": {
+        "badge": {
+            "CENSUS_UNKNOWN": "",
+            "OFF_CHAIN": ""
+        },
+        "CENSUS_UNKNOWN": "",
+        "enevelope_type_badge": {
+            "encryptedVotes": "",
+            "notEncryptedVotes": ""
+        },
+        "ERC1155": "",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC777": "",
+        "MINI_ME": "",
+        "UNRECOGNIZED": "",
+        "envelope_type_badge": {
+            "encryptedVotes": "",
+            "notEncryptedVotes": ""
         }
     }
 }
