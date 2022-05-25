@@ -55,7 +55,7 @@ export const DashboardTransactionsList = ({
     methods: { setCurrentPage },
   } = useInvertedPaginatedList({
     pageSize: pageSize,
-    lastElement: transactionHeight,
+    lastElement: transactionHeight + 1,
     loadingElements: loadingTransactions,
     jumpTo: jumpTo,
     setDataPagination: setDataPagination,

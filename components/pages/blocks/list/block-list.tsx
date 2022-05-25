@@ -49,7 +49,7 @@ export const DashboardBlockList = ({
     methods: { setCurrentPage },
   } = useInvertedPaginatedList({
     pageSize: pageSize,
-    lastElement: blockHeight,
+    lastElement: blockHeight + 1,
     loadingElements: loadingBlockList,
     jumpTo: jumpTo,
     setDataPagination: setDataPagination,
