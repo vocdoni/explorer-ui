@@ -78,6 +78,7 @@ export const DashboardTransactionsList = ({
         renderElementFunction={renderTransactionItem}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        pageSize={pageSize}
       />
     </>
   )
