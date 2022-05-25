@@ -87,15 +87,36 @@ export function useInvertedPaginatedList({
     setLoading(loadingElements || dataPagination == null || lastElement == null)
   }, [loadingElements, dataPagination])
 
-  const getFirstPageIndex = (page) => page * pageSize
+  const getFirstPageIndex = (page) => lastElement - (page * pageSize)
+
+  // Get the page where the block are you searching is
+  const getPageFromPosition = (position) => {
+    const totalPages = Math.ceil(lastElement / pageSize)
+    return totalPages - Math.ceil(jumpTo / pageSize)
+  }
+
+  const jumpToPosition = (newPos) => {
+    // Calculate new position
+    // const jumpToPosition = (jumpTo + 1) - pageSize
+    // But if paginator is used, page can change but the filter could be still set
+    // As we are using the paginator with pages instead of with positions, we have to handle
+    // the fact that somebody jump to a position and then advance the page.
+    // todo(ritmo): use paginator based on positions and not on pages for easy use.
+    const pageOfPosition = getPageFromPosition(newPos)
+    const offset = () => (newPos + 1) - (getFirstPageIndex(pageOfPosition))
+    setDataPagination((getFirstPageIndex(currentPage) +  offset()) - pageSize)
+  }
 
   // Jump to height on filter
   useEffect(() => {
-    const totalPages = Math.ceil(lastElement / pageSize)
     if (jumpTo) {
-      // Get the page where the block are you searching is
-      const page = totalPages - Math.ceil(jumpTo / pageSize)
-      setCurrentPage(page)
+      const page = getPageFromPosition(jumpTo)
+      // Some times you want to jump to a position that is in the same page that previous position
+      if(page === currentPage) {
+        jumpToPosition(jumpTo)
+      } else {
+        setCurrentPage(page)
+      }
     } else {
       setCurrentPage(1)
     }
@@ -103,8 +124,14 @@ export function useInvertedPaginatedList({
 
   // When current page changed get next blocks
   useEffect(() => {
-    if (lastElement)
-      setDataPagination(lastElement - getFirstPageIndex(currentPage))
+    if (lastElement){
+      // If jumpTo is set (from the page filter), don't use normal pagination
+      if(jumpTo) {
+        jumpToPosition(jumpTo)
+      }
+      else setDataPagination(getFirstPageIndex(currentPage))
+    }
+    
   }, [currentPage, lastElement])
 
   return {
