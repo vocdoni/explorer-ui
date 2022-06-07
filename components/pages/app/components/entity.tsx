@@ -33,9 +33,11 @@ export const EntityCardLittle = ({
       alignItem={FlexAlignItem.Start}
       justify={FlexJustifyContent.Start}
     >
-      <ImageContainer width="30px" height="30px">
-        <Image src={icon || FALLBACK_ACCOUNT_ICON} />
-      </ImageContainer>
+      <CenterLogo>
+        <ImageContainer width="30px" height="30px">
+          <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+        </ImageContainer>
+      </CenterLogo>
       <EntityName>
         <EntityLink entityId={entityId}>{children}</EntityLink>
       </EntityName>
@@ -66,9 +68,11 @@ export const EntityCardMedium = ({
         alignItem={FlexAlignItem.Start}
         justify={FlexJustifyContent.Start}
       >
-        <ImageContainer width="30px" height="30px">
-          <Image src={icon || FALLBACK_ACCOUNT_ICON} />
-        </ImageContainer>
+        <CenterLogo>
+          <ImageContainer width="30px" height="30px">
+            <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+          </ImageContainer>
+        </CenterLogo>
         <EntityNameBig>
           <EntityLink entityId={entityId}>{children}</EntityLink>
         </EntityNameBig>
@@ -105,8 +109,15 @@ const EntityName = styled.h5`
 
 const EntityNameBig = styled.h2`
   display: inline-block;
-  //margin: 6px;
   font-weight: bold;
-  // font-size: 18px;
-  color: ${(props) => props.theme.text};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${(props) => props.theme.textAccent1};
 `
+
+const CenterLogo = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+`
+
