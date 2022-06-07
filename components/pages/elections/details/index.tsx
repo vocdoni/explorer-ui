@@ -5,7 +5,7 @@ import {
 } from '@vocdoni/react-hooks'
 
 import { Question } from '@lib/types'
-import { Column, Grid } from '@components/elements/grid'
+import { BadgeColumn, Column, Grid } from '@components/elements/grid'
 import { PageCard, StatusCard } from '@components/elements/cards'
 import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { CardImageHeader } from '@components/blocks/card/image-header'
@@ -39,6 +39,7 @@ import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/election-envelope-explorer'
 import { useElectionResults } from '@hooks/use-elections'
+import styled from 'styled-components'
 
 interface ElectionDetailPageProps {
   processId: string,
@@ -99,7 +100,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
 
         {/* Labels and badges */}
         <Grid>
-          <Column>
+          <BadgeColumn>
             <ProcessStatusLabel status={voteStatus} />
             <ElectionStatusBadge status={processInfo?.state?.status} />
             <CensusOriginBadge
@@ -111,7 +112,7 @@ const ElectionDetailPage = ({ processId, processInfo }: ElectionDetailPageProps)
             <EnvelopeTypeBadge
               encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}
             />
-          </Column>
+          </BadgeColumn>
         </Grid>
 
         {/* Three cards grid with various info */}

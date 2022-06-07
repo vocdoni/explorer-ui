@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Button } from '@components/elements/button'
 import { useState, ReactElement, ReactNode } from 'react'
+import { BadgeColumn } from '@components/elements/grid'
 
 interface TabButtonProps {
   activeTab: string
@@ -36,13 +37,13 @@ export const Tabs = ({ children }: TabsProps) => {
     <>
       <DivWithMarginChildren>
         {children?.map?.((tab: ReactElement<TabProps>, index: number) => (
-          <span key={index}>
+          <div key={index}>
             <TabButton
               label={tab.props.label}
               activeTab={activeTab}
               onClick={() => tab.props.label === activeTab ? setActiveTab("") : setActiveTab(tab.props.label)}
             ></TabButton>
-          </span>
+          </div>
         ))}
       </DivWithMarginChildren>
       <ContentDiv>
@@ -56,10 +57,12 @@ export const Tabs = ({ children }: TabsProps) => {
 }
 
 const DivWithMarginChildren = styled.div`
+  display: flex;
+  text-align: center;
   & > * {
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 `
 

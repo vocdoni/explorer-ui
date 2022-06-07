@@ -45,6 +45,10 @@ export const Column = (props: ColumnProps) => {
   return <ColumnDiv {...props} />
 }
 
+export const BadgeColumn = styled(Column)`
+  display: contents;
+`
+
 export const ColumnDiv = styled.div<ColumnProps>`
   margin: ${GRID_GUTTER / 2}px;
   box-sizing: border-box;
