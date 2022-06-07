@@ -9,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Envelope } from '@lib/types'
 import { colors } from '@theme/colors'
+import { BreakWordAll } from '@components/elements/styled-divs'
 
 export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
   const { i18n } = useTranslation()
@@ -21,9 +22,9 @@ export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
               {i18n.t('envelopes.details.envelope_details')}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              <span>
+              <BreakWordAll>
                 {i18n.t('envelopes.details.nullifier')}: {envelope.meta.nullifier}
-              </span>
+              </BreakWordAll>
             </Typography>
 
             <Typography
