@@ -18,3 +18,11 @@ export const BlockContainer = styled.div`
   margin: auto;
   padding: 0 15px;
 `
+
+export const BreakWord = styled.div`
+  word-break: break-word;
+`
+
+export const BreakWordAll = styled.div`
+  word-break: break-all;
+`

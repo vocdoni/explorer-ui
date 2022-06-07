@@ -9,6 +9,7 @@ import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
 import { Grid, Column } from '@components/elements/grid'
 
 import { Image } from '../../elements/image'
+import { BreakWord } from '@components/elements/styled-divs'
 
 interface ICardImageHeader {
   title: string
@@ -51,9 +52,9 @@ export const CardImageHeader = ({
           {subtitle && (
 
             <SectionText align={TextAlign.Center} color="accent1">
-              <SubtitleContainer>
+              <BreakWord>
                 {subtitle}
-              </SubtitleContainer>
+              </BreakWord>
             </SectionText>
           )}
         </Column>
@@ -77,8 +78,4 @@ const EntityLogoWrapper = styled.div`
     max-height: 100%;
     max-width: 100%;
   }
-`
-
-const SubtitleContainer = styled.div`
-  word-break: break-word;
 `

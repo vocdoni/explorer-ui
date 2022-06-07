@@ -13,6 +13,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import React from 'react'
 import { EntityLink } from '@components/pages/app/components/get-links'
+import { BreakWord, BreakWordAll } from '@components/elements/styled-divs'
 
 export const GenericListItemWithBadge = ({
   title,
@@ -42,14 +43,28 @@ export const GenericListItemWithBadge = ({
             alignItem={FlexAlignItem.Center}
             justify={FlexJustifyContent.Center}
           >
-            {topLeft}
+            <BreakWord>
+              {topLeft}
+            </BreakWord>
           </FlexContainer>
           {badge}
         </TopDiv>
 
-        {title ? <VoteListItemTitle>{title}</VoteListItemTitle> : null}
-        {dateText ? <VoteListItemDate>{dateText}</VoteListItemDate> : null}
-        {children ? children : null}
+        {title 
+          ? <VoteListItemTitle> 
+            <BreakWord>
+              {title}
+            </BreakWord>
+          </VoteListItemTitle> : null}
+        {dateText 
+          ? <VoteListItemDate>
+              <BreakWordAll>
+                {dateText}
+              </BreakWordAll>
+            </VoteListItemDate> : null}
+        <BreakWordAll>
+          {children ? children : null}
+        </BreakWordAll>
       </ListItemDiv>
     )
   }
@@ -74,6 +89,7 @@ const LinkCardContainer = styled.div`
     cursor: pointer;
   }
 `
+
 
 /** Same as VoteListItem but with a browsawle entity link and other properties to
  * show for the elections list page

@@ -10,6 +10,7 @@ import { CardImageHeader } from '@components/blocks/card/image-header'
 import { useTranslation } from 'react-i18next'
 import { ProcessListItem } from '@components/blocks/card/process-item'
 import { getElectionDetailsPath } from '@components/pages/app/components/get-links'
+import { BreakWord } from '@components/elements/styled-divs'
 
 interface IEntityViewProps {
   address: string
@@ -54,10 +55,12 @@ export const EntityView = ({
             {i18n.t('entities.details.entity_address')}{' '}
           </Typography>
           <Typography variant={TypographyVariant.Small}>
-            {address}
-            <a href={plazaUrl} target="blank">
-              ({i18n.t('entity.home.view_profile')})
-            </a>
+            <BreakWord>
+              {address}
+              <a href={plazaUrl} target="blank">
+                ({i18n.t('entity.home.view_profile')})
+              </a>
+            </BreakWord>
           </Typography>
         </Column>
       </Grid>
