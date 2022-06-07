@@ -50,7 +50,7 @@ export const EntityLink = ({
   entityId: string
   children: ReactNode
 }) => {
-  return <Link href={getOrganizationPath(entityId)}>{children}</Link>
+  return <Link href={getOrganizationPath(entityId)}><span title={entityId}>{children}</span></Link>
 }
 
 export const TransactionLink = ({
