@@ -28,7 +28,6 @@ export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
 
             <Typography
               variant={TypographyVariant.Small}
-              color={colors.lightText}
             >
               {i18n.t('envelopes.details.envelope_weight')} {envelope.weight}
             </Typography>
