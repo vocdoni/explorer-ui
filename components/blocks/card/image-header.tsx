@@ -49,8 +49,11 @@ export const CardImageHeader = ({
         <Column>
           <SectionTitle align={TextAlign.Center}>{title}</SectionTitle>
           {subtitle && (
+
             <SectionText align={TextAlign.Center} color="accent1">
-              {subtitle}
+              <SubtitleContainer>
+                {subtitle}
+              </SubtitleContainer>
             </SectionText>
           )}
         </Column>
@@ -74,4 +77,8 @@ const EntityLogoWrapper = styled.div`
     max-height: 100%;
     max-width: 100%;
   }
+`
+
+const SubtitleContainer = styled.div`
+  word-break: break-word;
 `
