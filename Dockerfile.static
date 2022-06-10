@@ -18,7 +18,7 @@ ENV DISCOVERY_POOL_SIZE=${DISCOVERY_POOL_SIZE}
 
 ADD . /app
 WORKDIR /app
-RUN npm install && npm run export
+RUN npm install --legacy-peer-deps && npm run export
 
 ## Static web server
 FROM nginx:1.19
