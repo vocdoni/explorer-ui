@@ -19,7 +19,7 @@ ENV DISCOVERY_POOL_SIZE=${DISCOVERY_POOL_SIZE}
 WORKDIR /app
 ADD package.json /app
 ADD package-lock.json /app
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 ADD . /app
 RUN npm run export
