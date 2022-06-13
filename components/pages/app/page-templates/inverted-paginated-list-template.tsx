@@ -49,7 +49,6 @@ export const InvertedPaginatedListTemplate = <Elements,>({
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
         <Grid>
-          {paginator()}
           <Column >
             {elementsList.map(renderElementFunction)}
           </Column>
