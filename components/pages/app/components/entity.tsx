@@ -16,37 +16,31 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { NProcessesBadge } from '@components/pages/organizations/components/entities-n-process-badge'
 import { EntityLink, getOrganizationPath } from './get-links'
 
-type EntityCardIconProps = {
-  entityId: string
-  children: ReactNode
-  icon: string
-}
-
 // Wrap a entityId into a link to its entity page and an icon.
-export const EntityCardLittle = ({
+export const EntityNameWithIcon = ({
   icon,
+  entityName,
   entityId,
-  children,
-}: EntityCardIconProps) => {
+}:{
+  entityName: string,
+  entityId: string,
+  icon: string }) => {
   return (
-    <FlexContainer
-      alignItem={FlexAlignItem.Start}
-      justify={FlexJustifyContent.Start}
-    >
-      <CenterLogo>
-        <ImageContainer width="30px" height="30px">
-          <Image src={icon || FALLBACK_ACCOUNT_ICON} />
-        </ImageContainer>
-      </CenterLogo>
-      <EntityName>
-        <EntityLink entityId={entityId}>{children}</EntityLink>
-      </EntityName>
-    </FlexContainer>
+    <EntityNameAndLogoWrapper>
+      <ImageContainer width="30px" height="30px">
+              <Image src={ icon || FALLBACK_ACCOUNT_ICON} />
+      </ImageContainer>
+      <EntityLink entityId={entityId}>{entityName}</EntityLink>
+    </EntityNameAndLogoWrapper>
   )
 }
 
-type EntityCardMediumProps = EntityCardIconProps & {
+
+type EntityCardMediumProps = {
   md: number
+  entityId: string
+  children: ReactNode
+  icon: string
 }
 
 // Wrap a entityId into a link to its entity page and an icon.
@@ -121,3 +115,9 @@ const CenterLogo = styled.div`
   margin-right: 10px;
 `
 
+const EntityNameAndLogoWrapper = styled.div`
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+`
