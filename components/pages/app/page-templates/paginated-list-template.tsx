@@ -59,7 +59,6 @@ export const PaginatedListTemplate = <Elements,>({
 
   return (
     <Grid>
-      {paginator()}
       {loading ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
