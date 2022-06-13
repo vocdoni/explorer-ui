@@ -4,7 +4,7 @@ import { Switch, Case, Default } from 'react-if'
 
 export const NProcessesBadge = ({ processes }: { processes: number }) => {
   const { i18n } = useTranslation()
-  const text = i18n.t('entities.upcoming_processes_badge.processes')
+  const text = i18n.t('organizations.upcoming_processes_badge.processes')
   return (
     <Switch>
       <Case condition={processes == 1}>

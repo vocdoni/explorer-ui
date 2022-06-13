@@ -2,6 +2,13 @@
     "components": {
         "block_card": {
             "number": ""
+        },
+        "cardimage": {
+            "entity_logo_alt": ""
+        },
+        "entity_card_medium": {
+            "host_explore": "",
+            "host_organization": ""
         }
     },
     "converter": {
@@ -31,7 +38,8 @@
         },
         "ADMIN": "",
         "details": {
-            "n_transaction_for_block_n": ""
+            "n_transaction_for_block_n": "",
+            "belong_to_entity": ""
         }
     },
     "transaction": {
@@ -63,6 +71,38 @@
     "processes": {
         "details": {
             "election_not_found": ""
+        },
+        "filter": {
+            "search_by_entity_id": ""
         }
+    },
+    "entities": {
+        "details": {
+            "entity_address": "",
+            "entity_description": "",
+            "entity_processes": "",
+            "no_processes_yet": ""
+        },
+        "filter": {
+            "search_by_organization_id": ""
+        },
+        "list": {
+            "organizations_list_title": ""
+        },
+        "total_n_organizations": "",
+        "upcoming_processes_badge": {
+            "processes": ""
+        }
+    },
+    "entity": {
+        "home": {
+            "view_profile": ""
+        }
+    },
+    "error": {
+        "could_not_fetch_entities_count": ""
+    },
+    "errors": {
+        "the_list_of_entities_cannot_be_loaded": ""
     }
 }

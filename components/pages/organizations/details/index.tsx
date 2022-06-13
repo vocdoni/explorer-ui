@@ -40,7 +40,7 @@ export const EntityView = ({
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.Body1}>
-              {i18n.t('entities.details.entity_description')}
+              {i18n.t('organizations.details.organization_description')}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
               {metadata?.description.default}
@@ -52,13 +52,13 @@ export const EntityView = ({
       <Grid>
         <Column sm={12}>
           <Typography variant={TypographyVariant.Body1}>
-            {i18n.t('entities.details.entity_address')}{' '}
+            {i18n.t('organizations.details.organization_address')}{' '}
           </Typography>
           <Typography variant={TypographyVariant.Small}>
             <BreakWord>
               {address}
               <a href={plazaUrl} target="blank">
-                ({i18n.t('entity.home.view_profile')})
+                ({i18n.t('organization.home.view_profile')})
               </a>
             </BreakWord>
           </Typography>
@@ -68,7 +68,7 @@ export const EntityView = ({
       <Grid>
         <Column sm={12}>
           <Typography variant={TypographyVariant.Body1}>
-            {i18n.t('entities.details.entity_processes')}{' '}
+            {i18n.t('organizations.details.organization_processes')}{' '}
           </Typography>
           {processes.map((process, index) => {
             const processStatus = getVoteStatus(process.summary, blockHeight)
@@ -86,7 +86,7 @@ export const EntityView = ({
           })}
           {processes.length <= 0 && (
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('entities.details.no_processes_yet')}{' '}
+              {i18n.t('organizations.details.no_processes_yet')}{' '}
             </Typography>
           )}
         </Column>

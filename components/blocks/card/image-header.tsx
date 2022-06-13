@@ -41,7 +41,7 @@ export const CardImageHeader = ({
         <EntityLogoWrapper>
           <Image
             src={entityImageSrc}
-            alt={i18n.t('components.cardimage.entity_logo_alt')}
+            alt={i18n.t('components.cardimage.organization_logo_alt')}
           />
         </EntityLogoWrapper>
       )}

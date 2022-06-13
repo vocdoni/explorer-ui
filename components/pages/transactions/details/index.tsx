@@ -174,7 +174,7 @@ export const TransactionDetails = ({
           )}
           {belongsToEntity?.length > 0 && (
             <p>
-              {i18n.t('transactions.details.belong_to_entity')}:
+              {i18n.t('transactions.details.belong_to_organization')}:
               <EntityLink entityId={belongsToEntity}>
                 <a>0x{belongsToEntity}</a>
               </EntityLink>

@@ -23,16 +23,16 @@
             "proposer": "Proposer"
         },
         "cardimage": {
-            "entity_logo_alt": "Entity logo",
+            "organization_logo_alt": "Organization logo",
             "vote_process_image_alt": "Voting process image"
-        },
-        "entity_card_medium": {
-            "host_explore": "Explore",
-            "host_organization": "Organization"
         },
         "filters": {
             "apply_filters": "Apply",
             "clear_filters": "Clear"
+        },
+        "organization_card_medium": {
+            "host_explore": "Explore",
+            "host_organization": "Organization"
         },
         "paginator": {
             "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
@@ -114,29 +114,6 @@
         "tomorrow": "tomorrow",
         "yesterday": "yesterday"
     },
-    "entities": {
-        "details": {
-            "entity_address": "Entity address",
-            "entity_description": "Entity description",
-            "entity_processes": "Entity processes",
-            "no_processes_yet": "No processes yet"
-        },
-        "filter": {
-            "search_by_organization_id": "Search by organization id"
-        },
-        "list": {
-            "organizations_list_title": "Organizations list"
-        },
-        "total_n_organizations": "Total nº organizations:",
-        "upcoming_processes_badge": {
-            "processes": "Processes"
-        }
-    },
-    "entity": {
-        "home": {
-            "view_profile": "View profile"
-        }
-    },
     "envelopes": {
         "details": {
             "block_height": "Block height",
@@ -151,14 +128,14 @@
         "nonce": "Nonce"
     },
     "error": {
-        "could_not_fetch_entities_count": "Could not fetch entities count",
+        "could_not_fetch_organizations_count": "Could not fetch organizations count",
         "could_not_fetch_processes_count": "Could not fetch processes count",
         "could_not_fetch_the_details": "Could not fetch the details"
     },
     "errors": {
         "general_error": "General error",
         "page_not_found": "Page not found",
-        "the_list_of_entities_cannot_be_loaded": "The list of entities cannot be loaded",
+        "the_list_of_organizations_cannot_be_loaded": "The list of organizations cannot be loaded",
         "the_list_of_votes_cannot_be_loaded": "The list of votes cannot be loaded"
     },
     "featured": {
@@ -216,6 +193,29 @@
         "transactions": "Transactions",
         "validators": "Validators"
     },
+    "organization": {
+        "home": {
+            "view_profile": "View profile"
+        }
+    },
+    "organizations": {
+        "details": {
+            "no_processes_yet": "No processes yet",
+            "organization_address": "Organization address",
+            "organization_description": "Organization description",
+            "organization_processes": "Organization processes"
+        },
+        "filter": {
+            "search_by_organization_id": "Search by organization id"
+        },
+        "list": {
+            "organizations_list_title": "Organizations list"
+        },
+        "total_n_organizations": "Total nº organizations:",
+        "upcoming_processes_badge": {
+            "processes": "Processes"
+        }
+    },
     "paginated_template": {
         "no_elements_found": "No elements found"
     },
@@ -262,7 +262,7 @@
         },
         "filter": {
             "check_with_results": "Check with results",
-            "search_by_entity_id": "Search by entity id",
+            "search_by_organization_id": "Search by organization id",
             "search_by_search_term": "Search by search term",
             "select_by_vote_status": "Select by vote status"
         },
@@ -325,7 +325,7 @@
         },
         "created_on": "Created on",
         "details": {
-            "belong_to_entity": "Belongs to entity",
+            "belong_to_organization": "Belongs to organization",
             "belongs_to_process": "Belongs to process",
             "raw_contents": "Raw contents",
             "transaction_details": "Transaction details",

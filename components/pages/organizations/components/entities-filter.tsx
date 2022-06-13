@@ -45,7 +45,7 @@ export const EntitiesFilter = ({
     <InlineFlex>
       <DivWithMarginChildren>
         <Input
-          placeholder={i18n.t('entities.filter.search_by_organization_id')}
+          placeholder={i18n.t('organizations.filter.search_by_organization_id')}
           value={searchTermIT}
           onChange={(ev) => {
             setSearchTermIT(ev.target.value)
