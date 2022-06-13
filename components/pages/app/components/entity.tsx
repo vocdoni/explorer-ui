@@ -101,7 +101,7 @@ const EntityName = styled.h5`
   color: ${(props) => props.theme.text};
 `
 
-const EntityNameBig = styled.h2`
+const EntityNameBig = styled.h4`
   display: inline-block;
   font-weight: bold;
   overflow: hidden;
