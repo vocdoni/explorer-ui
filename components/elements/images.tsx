@@ -7,6 +7,8 @@ type ImageContainerProps = FlexContainerProps & {
 }
 
 export const ImageContainer = styled(FlexContainer)<ImageContainerProps>`
+  justify-content: center;
+  align-items: center;
   & > img {
     max-width: ${({ width }) => width? width: 'auto'};
     width: 100%;
