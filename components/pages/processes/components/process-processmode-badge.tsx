@@ -14,6 +14,6 @@ export const ProcessModeBadge = ({
 
   return ( 
     <UpcomingBadge> 
-        {autostart ? i18n.t("elections.process_mode_badge.autostart") : i18n.t("elections.process_mode_badge.notAutostart")}</UpcomingBadge>
+        {autostart ? i18n.t("processes.process_mode_badge.autostart") : i18n.t("processes.process_mode_badge.notAutostart")}</UpcomingBadge>
   )
 }

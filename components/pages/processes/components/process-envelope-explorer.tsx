@@ -45,34 +45,34 @@ export const EnvelopeExplorer = ({
   return (
     <Card>
       <h4>
-        {i18n.t('elections.envelope_explorer.total_votes', {totalVotes: results.totalVotes || 0 } )}
+        {i18n.t('processes.envelope_explorer.total_votes', {totalVotes: results.totalVotes || 0 } )}
       </h4>
 
       <Grid>
         {envelopeRange.map((envelope, idx) => (
           <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
             <strong>
-              {i18n.t('elections.envelope_explorer.envelope_n', {
+              {i18n.t('processes.envelope_explorer.envelope_n', {
                 number: envelopePage * ENVELOPES_PER_PAGE + idx + 1, // Is not showing tx index, instead show index of map itself
               })}
             </strong>
             <p>
-              {i18n.t('elections.envelope_explorer.envelope_on_block', {block: envelope.height || 0})}
+              {i18n.t('processes.envelope_explorer.envelope_on_block', {block: envelope.height || 0})}
             </p>
             <p>
-              {i18n.t('elections.envelope_explorer.tx_number',  {txNumber: envelope.tx_index || 0})}
+              {i18n.t('processes.envelope_explorer.tx_number',  {txNumber: envelope.tx_index || 0})}
             </p>
             <p>
               <TransactionLink
                 blockHeight={envelope.height.toString()}
                 index={envelope.tx_index.toString()}
               >
-                {i18n.t('elections.envelope_explorer.transaction_details')}
+                {i18n.t('processes.envelope_explorer.transaction_details')}
               </TransactionLink>
             </p>
             <p>
               <EnvelopeLink nullifier={envelope.nullifier}>
-                {i18n.t('elections.envelope_explorer.envelope_details')}
+                {i18n.t('processes.envelope_explorer.envelope_details')}
               </EnvelopeLink>
             </p>
           </Card>
@@ -80,15 +80,15 @@ export const EnvelopeExplorer = ({
       </Grid>
       {results.totalVotes > ENVELOPES_PER_PAGE && <div>
         <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
-          {i18n.t('elections.envelope_explorer.back')}
+          {i18n.t('processes.envelope_explorer.back')}
         </Button>{' '}
         &nbsp;
         <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>
-          {i18n.t('elections.envelope_explorer.next')}
+          {i18n.t('processes.envelope_explorer.next')}
         </Button>{' '}
         &nbsp;
         <small>
-          {i18n.t('elections.envelope_explorer.page')} {envelopePage + 1}/
+          {i18n.t('processes.envelope_explorer.page')} {envelopePage + 1}/
           {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
         </small>
       </div>}

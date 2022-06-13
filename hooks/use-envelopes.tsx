@@ -40,7 +40,6 @@ export const useEnvelopesList = ({
       })
   }
 
-  // Election Envelopes
   useEffect(() => {
     if (processId) loadEnvelopeRange()
   }, [from, processId, listSize])
@@ -78,7 +77,6 @@ export const useEnvelope = ({
       })
   }
 
-  // Election Envelopes
   useEffect(() => {
     if (nullifier) loadEnvelope()
   }, [nullifier])

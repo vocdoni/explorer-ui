@@ -15,8 +15,8 @@ export const DashboardShowProcesses = () => {
       pageSize={page_size}
       title={
         <ListPageTitle
-          title={i18n.t('elections.list.elections_list_title')}
-          subtitle={i18n.t('elections.list.total_n_processes', {
+          title={i18n.t('processes.list.processes_list_title')}
+          subtitle={i18n.t('processes.list.total_n_processes', {
             processCount: processCount,
           })}
         />

@@ -82,7 +82,7 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
               </Typography>
               <p>{stats?.transaction_count}</p>
               <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.total_elections')}
+                {i18n.t('stats.total_processes')}
               </Typography>
               <p>{stats?.process_count}</p>
               <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>

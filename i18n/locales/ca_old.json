@@ -59,5 +59,10 @@
             "encryptedVotes": "",
             "notEncryptedVotes": ""
         }
+    },
+    "processes": {
+        "details": {
+            "election_not_found": ""
+        }
     }
 }

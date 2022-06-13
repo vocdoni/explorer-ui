@@ -1,6 +1,6 @@
 import {
   BLOCKS_DETAILS,
-  ELECTIONS_DETAILS,
+  PROCESS_DETAILS,
   ENVELOPES_DETAILS,
   ORGANIZATIONS_DETAILS,
   TRANSACTIONS_DETAILS,
@@ -74,20 +74,20 @@ export const TransactionLink = ({
   )
 }
 
-export const getElectionDetailsPath = (electionsId: string) => {
-  return getPath(ELECTIONS_DETAILS, {
-    electionsId: electionsId,
+export const getProcessDetailsPath = (processId: string) => {
+  return getPath(PROCESS_DETAILS, {
+    processId: processId,
   })
 }
 
-export const ElectionLink = ({
-  electionsId,
+export const ProcessLink = ({
+  processId,
   children,
 }: {
-  electionsId: string
+  processId: string
   children: ReactNode
 }) => {
-  return <Link href={getElectionDetailsPath(electionsId)}>{children}</Link>
+  return <Link href={getProcessDetailsPath(processId)}>{children}</Link>
 }
 
 export const BlockLink = ({

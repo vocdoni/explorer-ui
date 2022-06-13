@@ -3,7 +3,7 @@ import { PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
-  ElectionLink,
+  ProcessLink,
   TransactionLink,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
@@ -49,9 +49,9 @@ export const EnvelopeDetails = ({ envelope }: { envelope: Envelope }) => {
         >
           <p>
             {i18n.t('envelopes.details.process_id')}{': '}
-            <ElectionLink electionsId={envelope.meta.process_id}>
+            <ProcessLink processId={envelope.meta.process_id}>
               <a>0x{envelope.meta.process_id}</a>
-            </ElectionLink>
+            </ProcessLink>
           </p>
           <p>
             {i18n.t('envelopes.details.tx_id')}{': '}

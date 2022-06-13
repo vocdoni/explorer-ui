@@ -4,7 +4,7 @@ import { SummaryProcess, useEntity } from '@vocdoni/react-hooks'
 import { EntityMetadata } from 'dvote-js'
 
 import { ProcessListItem } from '@components/blocks/card/process-item'
-import { ELECTIONS_DETAILS } from '@const/routes'
+import { PROCESS_DETAILS } from '@const/routes'
 import { getPath } from '@components/pages/app/components/get-links'
 
 interface IDashboardProcessListItemProps {
@@ -19,15 +19,15 @@ export const DashboardProcessListItem = ({
 
   const { metadata } = useEntity(entityId)
   const entityMetadata = metadata as EntityMetadata
-  const electionDetailPath = getPath(ELECTIONS_DETAILS, {
-    electionsId: process.id,
+  const processDetailPath = getPath(PROCESS_DETAILS, {
+    processId: process.id,
   })
 
   return (
     <ProcessListItem
       process={process}
       entityId={entityId}
-      link={electionDetailPath}
+      link={processDetailPath}
       entityMetadata={metadata}
       entityLogo={metadata?.media.header}
     ></ProcessListItem>
