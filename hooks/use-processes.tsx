@@ -15,6 +15,7 @@ export interface useProcessListProps {
   from?: number
   searchTerm?: string
   listSize?: number
+  reverse?: boolean
 }
 
 export const useProcessesList = ({
@@ -24,7 +25,8 @@ export const useProcessesList = ({
   withResults,
   from,
   searchTerm,
-  listSize
+  listSize,
+  reverse = false
 }: useProcessListProps) => {
   const [processIds, setProcessIds] = useState([] as string[])
   const [loadingProcessList, setLoadingProcessList] = useState(true)
@@ -33,19 +35,22 @@ export const useProcessesList = ({
 
   // Loaders
   const updateProcessIds = useCallback(() => {
+    const f = from < 0 ? 0 : from;
+
     console.debug('DEBUG', 'Updating processes list', 
-      entityId, namespace, status, withResults, from, searchTerm )
+      entityId, namespace, status, withResults, from, f, listSize, searchTerm )
     setLoadingProcessList(true)
+
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status , withResults, from, searchTerm, listSize} as any,
+          { entityId, namespace, status , withResults, from: f, searchTerm, listSize} as any,
           pool
         )
       )
       .then((ids) => {
         console.debug('DEBUG', 'Retrieved process list', ids)
-        setProcessIds(ids)
+        setProcessIds(reverse ? ids.reverse() : ids )
         setLoadingProcessList(false)
       })
       .catch((err) => {
@@ -57,7 +62,7 @@ export const useProcessesList = ({
 
 
   useEffect(() => {
-    updateProcessIds()
+    if (from || from === 0) updateProcessIds()
   }, [entityId, namespace, status, withResults, from, searchTerm, updateProcessIds])
 
 
