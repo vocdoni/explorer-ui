@@ -46,16 +46,15 @@ export const PaginatedListTemplate = <Elements,>({
   const { i18n } = useTranslation()
 
   const paginator = () => (
-    <>  </>
-    // <Column md={8} sm={12}>
-    //   <Paginator
-    //     totalCount={totalElementsCount}
-    //     pageSize={pageSize}
-    //     currentPage={currentPage}
-    //     onPageChange={(page) => setCurrentPage(page)}
-    //     disableGoLastBtn
-    //   ></Paginator>
-    // </Column>
+    <Column md={8} sm={12}>
+      <Paginator
+        totalCount={totalElementsCount}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={(page) => setCurrentPage(page)}
+        disableGoLastBtn
+      ></Paginator>
+    </Column>
   )
 
   return (
