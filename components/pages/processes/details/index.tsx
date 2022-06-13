@@ -92,7 +92,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
           {dateDiffStr}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          <span>{i18n.t('processes.details.created_on')}: </span>
+          <span>{i18n.t('processes.details.created_on')} </span>
           <span>
             {localizedDateDiff(new Date(processInfo?.state?.creationTime))}
           </span>

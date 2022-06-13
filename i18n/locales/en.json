@@ -231,7 +231,7 @@
             "UNRECOGNIZED": "Unrecognized"
         },
         "details": {
-            "created_on": "Created on",
+            "created_on": "Created ",
             "detailed_data": "Detailed data",
             "id": "Id",
             "process_details": "Process details",
