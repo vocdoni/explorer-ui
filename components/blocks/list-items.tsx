@@ -14,6 +14,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 import React from 'react'
 import { EntityLink } from '@components/pages/app/components/get-links'
 import { BreakWord, BreakWordAll } from '@components/elements/styled-divs'
+import { EntityNameWithIcon } from '@components/pages/app/components/entity'
 
 export const GenericListItemWithBadge = ({
   title,
@@ -95,7 +96,7 @@ const LinkCardContainer = styled.div`
  * show for the elections list page
  */
 type ProcessSummaryProps = ColumnProps & {
-  icon: ReactNode
+  icon: string
   link: string
   entityName: string
   entityId: string
@@ -121,10 +122,7 @@ export const ProcessSummaryListItem = ({
       dateText={dateText}
       link={link}
       topLeft={
-        <EntityNameAndLogo>
-          {icon}
-          <EntityLink entityId={entityId}>{entityName}</EntityLink>
-        </EntityNameAndLogo>
+        <EntityNameWithIcon entityName={entityName} entityId={entityId} icon={icon}></EntityNameWithIcon> 
       }
       badge={<ProcessStatusLabel status={status}></ProcessStatusLabel>}
     ></GenericListItemWithBadge>
@@ -162,13 +160,6 @@ const EntityName = styled.h5`
   font-weight: normal;
   font-size: 90%;
   color: ${(props) => props.theme.text};
-`
-
-const EntityNameAndLogo = styled.div`
-  display: flex;
-  column-gap: 10px;
-  justify-content: space-between;
-  align-items: center;
 `
 
 const VoteListItemTitle = styled.h3`

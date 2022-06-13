@@ -87,11 +87,7 @@ export const ProcessListItem = ({
   return (
     <VoteItemWrapper>
       <ProcessSummaryListItem
-        icon={
-          <ImageContainer width="30px" height="30px">
-            <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
-          </ImageContainer>
-        }
+        icon={ entityLogo }
         link={link}
         description={process?.metadata?.description?.default ?? ''}
         title={process?.metadata?.title?.default ?? process?.id}
