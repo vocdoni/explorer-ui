@@ -12,7 +12,7 @@ import { Card } from '@components/elements/cards'
 
 
 export const HeroBanner = (props: {
-  elections: number
+  processes: number
   organizations: number
   averageBlockTime: number
   envelopes: number
@@ -37,9 +37,9 @@ export const HeroBanner = (props: {
               </p>
             </Card>
             <Card sm={6} lg={3}>
-              <h4>{i18n.t('home.total_elections')}</h4>
+              <h4>{i18n.t('home.total_processes')}</h4>
               <p>
-                {i18n.t('home.n_elections', { elections: props.elections })}
+                {i18n.t('home.n_processes', { processes: props.processes })}
               </p>
             </Card>
             <Card sm={6} lg={3}>

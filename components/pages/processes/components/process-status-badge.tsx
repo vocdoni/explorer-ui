@@ -3,30 +3,30 @@ import { useTranslation } from 'react-i18next'
 import { Switch, Case } from 'react-if'
 import { ActiveBadge, UpcomingBadge, EndedBadge, CanceledBadge } from '@components/elements/text-badge'
 
-interface ElectionStatusBadgeProps {
+interface ProcessStatusBadgeProps {
     status: VochainProcessStatus
 }
 
-export const ElectionStatusBadge = ({
+export const ProcessStatusBadge = ({
     status,
-}: ElectionStatusBadgeProps) => {
+}: ProcessStatusBadgeProps) => {
   const { i18n } = useTranslation()
   return (
     <Switch>
     <Case condition={ status == VochainProcessStatus.READY}>
-      <ActiveBadge>{i18n.t("elections.status_badge.ready")}</ActiveBadge>
+      <ActiveBadge>{i18n.t("processes.status_badge.ready")}</ActiveBadge>
     </Case>
     <Case condition={ status == VochainProcessStatus.PAUSED}>
-      <EndedBadge>{i18n.t("elections.status_badge.paused")}</EndedBadge>
+      <EndedBadge>{i18n.t("processes.status_badge.paused")}</EndedBadge>
     </Case>
     <Case condition={ status == VochainProcessStatus.ENDED}>
-      <EndedBadge>{i18n.t("elections.status_badge.ended")}</EndedBadge>
+      <EndedBadge>{i18n.t("processes.status_badge.ended")}</EndedBadge>
     </Case>
     <Case condition={ status == VochainProcessStatus.CANCELED}>
-      <CanceledBadge>{i18n.t("elections.status_badge.canceled")}</CanceledBadge>
+      <CanceledBadge>{i18n.t("processes.status_badge.canceled")}</CanceledBadge>
     </Case>
     <Case condition={ status == VochainProcessStatus.RESULTS}>
-      <UpcomingBadge>{i18n.t("elections.status_badge.results")}</UpcomingBadge>
+      <UpcomingBadge>{i18n.t("processes.status_badge.results")}</UpcomingBadge>
     </Case>
   </Switch>
   )

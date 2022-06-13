@@ -103,7 +103,7 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
       })
       .catch((err) => {
         console.error(err)
-        setAlertMessage(i18n.t('error.could_not_fetch_elections_count'))
+        setAlertMessage(i18n.t('error.could_not_fetch_processes_count'))
       })
   }, [entityId, poolPromise, setAlertMessage])
 

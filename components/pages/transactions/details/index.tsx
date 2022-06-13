@@ -6,7 +6,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
   BlockLink,
   EntityLink,
-  getElectionDetailsPath,
+  getProcessDetailsPath,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
@@ -167,7 +167,7 @@ export const TransactionDetails = ({
           {belongsToProcess?.length > 0 && (
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
-              <Link href={getElectionDetailsPath(belongsToProcess)}>
+              <Link href={getProcessDetailsPath(belongsToProcess)}>
                 <a>0x{belongsToProcess}</a>
               </Link>
             </p>

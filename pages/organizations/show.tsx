@@ -1,13 +1,12 @@
 import { Loader } from '@components/blocks/loader'
-import ElectionDetailPage from '@components/pages/elections/details'
 import { ViewContext, ViewStrategy } from '@lib/strategy'
-import { useBlockHeight, useEntity, useProcess } from '@vocdoni/react-hooks'
+import { useBlockHeight, useEntity } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
 import { EntityView } from '@components/pages/organizations/details/index'
 import { useProcessesFromAccount } from '@hooks/use-processes'
 
 
-const ElectionsDetailPage = () => {
+const OrganizationsDetailPage = () => {
   const strategies: ViewStrategy[] = []
   const entityId = useUrlHash().slice(1)
   
@@ -39,4 +38,4 @@ const ElectionsDetailPage = () => {
   return viewContext.getView()
 }
 
-export default ElectionsDetailPage
+export default OrganizationsDetailPage

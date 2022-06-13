@@ -93,7 +93,7 @@ const LinkCardContainer = styled.div`
 
 
 /** Same as VoteListItem but with a browsawle entity link and other properties to
- * show for the elections list page
+ * show for the processes list page
  */
 type ProcessSummaryProps = ColumnProps & {
   icon: string

@@ -9,7 +9,7 @@ import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { useTranslation } from 'react-i18next'
 import { ProcessListItem } from '@components/blocks/card/process-item'
-import { getElectionDetailsPath } from '@components/pages/app/components/get-links'
+import { getProcessDetailsPath } from '@components/pages/app/components/get-links'
 import { BreakWord } from '@components/elements/styled-divs'
 
 interface IEntityViewProps {
@@ -79,7 +79,7 @@ export const EntityView = ({
                 process={process}
                 entityId={address}
                 entityLogo={metadata?.media.header}
-                link={getElectionDetailsPath(process.id)}
+                link={getProcessDetailsPath(process.id)}
                 entityMetadata={metadata}
               />
             )

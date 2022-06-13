@@ -1,5 +1,4 @@
 import React from 'react'
-import { useUrlHash } from 'use-url-hash'
 
 import { ViewContext, ViewStrategy } from '@lib/strategy'
 
@@ -10,11 +9,11 @@ import { DashboardShowEntities } from '@components/pages/organizations/list'
 const EntityPage = () => {
   const strategies: ViewStrategy[] = []
 
-  const renderShowElectionPage = new ViewStrategy(
+  const renderShowEntityPage = new ViewStrategy(
     () => true,
     <DashboardShowEntities></DashboardShowEntities>
   )
-  strategies.push(renderShowElectionPage)
+  strategies.push(renderShowEntityPage)
 
 
   const renderLoadingPage = new ViewStrategy(() => true, <Loader visible />)

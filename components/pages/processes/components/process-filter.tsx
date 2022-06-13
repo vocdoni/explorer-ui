@@ -52,7 +52,7 @@ export const ProcessFilter = ({
       <FilterContainer>
         <DivWithMarginChildren>
           <Input
-            placeholder={i18n.t('elections.filter.search_by_search_term')}
+            placeholder={i18n.t('processes.filter.search_by_search_term')}
             value={tempFilter.searchTerm || ''}
             onChange={(ev) => {
               tempFilter.searchTerm = ev.target.value
@@ -60,7 +60,7 @@ export const ProcessFilter = ({
             }}
           />
           <Input
-            placeholder={i18n.t('elections.filter.search_by_entity_id')}
+            placeholder={i18n.t('processes.filter.search_by_entity_id')}
             value={tempFilter.entityId || ''}
             onChange={(ev) => {
               tempFilter.entityId = ev.target.value
@@ -74,7 +74,7 @@ export const ProcessFilter = ({
               <Select
                 instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
                 id={voteStatusSelectId}
-                placeholder={i18n.t('elections.filter.select_by_vote_status')}
+                placeholder={i18n.t('processes.filter.select_by_vote_status')}
                 options={voteStatusOpts}
                 value={
                   tempFilter.status
@@ -104,7 +104,7 @@ export const ProcessFilter = ({
 
                 setTempFilter(Object.assign({}, tempFilter))
               }}
-              text={i18n.t('elections.filter.check_with_results')}
+              text={i18n.t('processes.filter.check_with_results')}
               labelColor={colors.lightText}
             />
         </CheckBoxContainer>

@@ -114,67 +114,6 @@
         "tomorrow": "tomorrow",
         "yesterday": "yesterday"
     },
-    "elections": {
-        "census_origin_badge": {
-            "CENSUS_UNKNOWN": "Unknown census",
-            "ERC1155": "ERC1155",
-            "ERC20": "ERC20",
-            "ERC721": "ERC721",
-            "ERC777": "ERC777",
-            "MINI_ME": "Mini me",
-            "OFF_CHAIN": "Off Chain",
-            "UNRECOGNIZED": "Unrecognized"
-        },
-        "details": {
-            "created_on": "Created on",
-            "detailed_data": "Detailed data",
-            "election_not_found": "Election not found",
-            "elections_additional_information": "Election additional information",
-            "id": "Id",
-            "process_details": "Process details",
-            "show_description": "Show description",
-            "show_envelopes": "Show envelopes",
-            "show_questions": "Show questions",
-            "total_questions": "Total questions",
-            "total_votes": "Total votes"
-        },
-        "envelope_explorer": {
-            "back": "Back",
-            "envelope_details": "Envelope details",
-            "envelope_n": "Envelope nº {{number}}",
-            "envelope_on_block": "Envelope on block: {{block}}",
-            "next": "Next",
-            "page": "Page",
-            "total_votes": "Total votes: {{totalVotes}}",
-            "transaction_details": "Transaction details",
-            "tx_number": "Transaction number: {{txNumber}}"
-        },
-        "envelope_type_badge": {
-            "encrypted_votes": "Encrypted votes",
-            "not_encrypted_votes": "Not encrypted votes"
-        },
-        "filter": {
-            "check_with_results": "Check with results",
-            "search_by_entity_id": "Search by entity id",
-            "search_by_search_term": "Search by search term",
-            "select_by_vote_status": "Select by vote status"
-        },
-        "list": {
-            "elections_list_title": "Elections list",
-            "total_n_processes": "Total nº of processes: {{processCount}}"
-        },
-        "process_mode_badge": {
-            "autostart": "Autostart",
-            "notAutostart": "Not autostart"
-        },
-        "status_badge": {
-            "canceled": "Canceled",
-            "ended": "Ended",
-            "paused": "Paused",
-            "ready": "Ready",
-            "results": "Results"
-        }
-    },
     "entities": {
         "details": {
             "entity_address": "Entity address",
@@ -212,8 +151,8 @@
         "nonce": "Nonce"
     },
     "error": {
-        "could_not_fetch_elections_count": "Could not fetch elections count",
         "could_not_fetch_entities_count": "Could not fetch entities count",
+        "could_not_fetch_processes_count": "Could not fetch processes count",
         "could_not_fetch_the_details": "Could not fetch the details"
     },
     "errors": {
@@ -249,12 +188,12 @@
     "home": {
         "average_block_time": "Average block time",
         "explore_the_vochain": "Explore the Vochain",
-        "n_elections": "{{ elections }} elections",
         "n_organizations": "{{ organizations }} organizations",
+        "n_processes": "{{ processes }} processes",
         "n_seconds": "{{ seconds }} seconds",
         "n_votes": "{{ votes }} Votes",
-        "total_elections": "Total elections",
         "total_organizations": "Total organizations",
+        "total_processes": "Total processes",
         "total_votes": "Total votes",
         "vocdoni_explorer": "Vocdoni explorer"
     },
@@ -267,10 +206,10 @@
         "blocks": "Blocks",
         "blog": "Blog",
         "docs": "Docs",
-        "elections": "Elections",
         "help": "Help",
         "organizations": "Organizations",
         "privacy_policy": "Privacy policy",
+        "processes": "Processes",
         "stats": "Stats",
         "support": "Support",
         "tools": "Tools",
@@ -279,6 +218,69 @@
     },
     "paginated_template": {
         "no_elements_found": "No elements found"
+    },
+    "processes": {
+        "census_origin_badge": {
+            "CENSUS_UNKNOWN": "Unknown census",
+            "ERC1155": "ERC1155",
+            "ERC20": "ERC20",
+            "ERC721": "ERC721",
+            "ERC777": "ERC777",
+            "MINI_ME": "Mini me",
+            "OFF_CHAIN": "Off Chain",
+            "UNRECOGNIZED": "Unrecognized"
+        },
+        "details": {
+            "created_on": "Created on",
+            "detailed_data": "Detailed data",
+            "id": "Id",
+            "process_details": "Process details",
+            "process_not_found": {
+                "renderShowEntityPage": ""
+            },
+            "processes_additional_information": "Process additional information",
+            "show_description": "Show description",
+            "show_envelopes": "Show envelopes",
+            "show_questions": "Show questions",
+            "total_questions": "Total questions",
+            "total_votes": "Total votes"
+        },
+        "envelope_explorer": {
+            "back": "Back",
+            "envelope_details": "Envelope details",
+            "envelope_n": "Envelope nº {{number}}",
+            "envelope_on_block": "Envelope on block: {{block}}",
+            "next": "Next",
+            "page": "Page",
+            "total_votes": "Total votes: {{totalVotes}}",
+            "transaction_details": "Transaction details",
+            "tx_number": "Transaction number: {{txNumber}}"
+        },
+        "envelope_type_badge": {
+            "encrypted_votes": "Encrypted votes",
+            "not_encrypted_votes": "Not encrypted votes"
+        },
+        "filter": {
+            "check_with_results": "Check with results",
+            "search_by_entity_id": "Search by entity id",
+            "search_by_search_term": "Search by search term",
+            "select_by_vote_status": "Select by vote status"
+        },
+        "list": {
+            "processes_list_title": "Processes list",
+            "total_n_processes": "Total nº of processes: {{processCount}}"
+        },
+        "process_mode_badge": {
+            "autostart": "Autostart",
+            "notAutostart": "Not autostart"
+        },
+        "status_badge": {
+            "canceled": "Canceled",
+            "ended": "Ended",
+            "paused": "Paused",
+            "ready": "Ready",
+            "results": "Results"
+        }
     },
     "stats": {
         "bloc_height": "Block height",
@@ -295,8 +297,8 @@
         "sync_status": "Sync status",
         "syncing": "Syncing",
         "the_last_four_blocks": "The last four blocks",
-        "total_elections": "Total elections",
         "total_organizations": "Total organizations",
+        "total_processes": "Total processes",
         "total_transactions": "Total transactions",
         "total_votes": "Total votes"
     },

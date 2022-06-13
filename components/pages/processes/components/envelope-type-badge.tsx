@@ -13,7 +13,7 @@ export const EnvelopeTypeBadge = ({
 
   return ( <>
         {encryptedVotes
-          ? <ActiveBadge>{i18n.t("elections.envelope_type_badge.encrypted_votes")}</ActiveBadge> 
-          : <EndedBadge>{i18n.t("elections.envelope_type_badge.not_encrypted_votes")}</EndedBadge>}</>
+          ? <ActiveBadge>{i18n.t("processes.envelope_type_badge.encrypted_votes")}</ActiveBadge> 
+          : <EndedBadge>{i18n.t("processes.envelope_type_badge.not_encrypted_votes")}</EndedBadge>}</>
   )
 }

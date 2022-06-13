@@ -57,7 +57,82 @@
         "UNRECOGNIZED": "",
         "envelope_type_badge": {
             "encryptedVotes": "",
-            "notEncryptedVotes": ""
+            "notEncryptedVotes": "",
+            "encrypted_votes": "",
+            "not_encrypted_votes": ""
+        },
+        "census_origin_badge": {
+            "CENSUS_UNKNOWN": "",
+            "ERC1155": "",
+            "ERC20": "",
+            "ERC721": "",
+            "ERC777": "",
+            "MINI_ME": "",
+            "OFF_CHAIN": "",
+            "UNRECOGNIZED": ""
+        },
+        "details": {
+            "created_on": "",
+            "detailed_data": "",
+            "election_not_found": "",
+            "elections_additional_information": "",
+            "id": "",
+            "process_details": "",
+            "show_description": "",
+            "show_envelopes": "",
+            "show_questions": "",
+            "total_questions": "",
+            "total_votes": ""
+        },
+        "envelope_explorer": {
+            "back": "",
+            "envelope_details": "",
+            "envelope_n": "",
+            "envelope_on_block": "",
+            "next": "",
+            "page": "",
+            "total_votes": "",
+            "transaction_details": "",
+            "tx_number": ""
+        },
+        "filter": {
+            "check_with_results": "",
+            "search_by_entity_id": "",
+            "search_by_search_term": "",
+            "select_by_vote_status": ""
+        },
+        "list": {
+            "elections_list_title": "",
+            "total_n_processes": ""
+        },
+        "process_mode_badge": {
+            "autostart": "",
+            "notAutostart": ""
+        },
+        "status_badge": {
+            "canceled": "",
+            "ended": "",
+            "paused": "",
+            "ready": "",
+            "results": ""
+        }
+    },
+    "error": {
+        "could_not_fetch_elections_count": ""
+    },
+    "home": {
+        "n_elections": "",
+        "total_elections": ""
+    },
+    "links": {
+        "elections": ""
+    },
+    "stats": {
+        "total_elections": ""
+    },
+    "processes": {
+        "details": {
+            "election_not_found": ""
         }
     }
 }

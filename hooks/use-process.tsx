@@ -3,7 +3,7 @@ import { ProcessDetails, ProcessResultsSingleChoice, RawResults, Voting, VotingA
 import { BigNumber } from "ethers"
 import { useEffect, useState } from "react"
 
-export const useElectionResults = ({
+export const useProcessResults = ({
     processId,
     processInfo,
   }: {
@@ -54,7 +54,7 @@ export const useElectionResults = ({
         })
     }
   
-    // Election Results
+    // Process Results
     useEffect(() => {
       if (processId) getResults()
     }, [poolPromise, processId, processInfo])

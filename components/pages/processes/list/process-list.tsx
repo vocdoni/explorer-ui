@@ -3,7 +3,7 @@ import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
 
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
-import { ProcessFilter } from '../components/election-filter'
+import { ProcessFilter } from '../components/process-filter'
 import {
   PaginatedListTemplate,
   usePaginatedList,

@@ -20,7 +20,7 @@ const IndexPage = () => {
       <>
         <BannerContainer>
           <HeroBanner
-            elections={stats?.process_count}
+            processes={stats?.process_count}
             organizations={stats?.entity_count}
             averageBlockTime={(stats?.block_time[0] || 0) / 1000}
             envelopes={stats?.envelope_count}
