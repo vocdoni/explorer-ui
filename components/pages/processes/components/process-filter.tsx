@@ -60,7 +60,7 @@ export const ProcessFilter = ({
             }}
           />
           <Input
-            placeholder={i18n.t('processes.filter.search_by_entity_id')}
+            placeholder={i18n.t('processes.filter.search_by_organization_id')}
             value={tempFilter.entityId || ''}
             onChange={(ev) => {
               tempFilter.entityId = ev.target.value

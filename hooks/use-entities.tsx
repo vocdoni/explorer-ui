@@ -42,7 +42,7 @@ export const useEntityList = ({
       .catch((err) => {
         setLoadingEntitiesList(false)
         console.error(err)
-        setAlertMessage(i18n.t('errors.the_list_of_entities_cannot_be_loaded'))
+        setAlertMessage(i18n.t('errors.the_list_of_organizations_cannot_be_loaded'))
       })
 
   }, [from, listSize, poolPromise, reverse, searchTerm, setAlertMessage])
@@ -80,7 +80,7 @@ export const useEntityCount = () => {
       })
       .catch((err) => {
         console.error(err)
-        setAlertMessage(i18n.t('error.could_not_fetch_entities_count'))
+        setAlertMessage(i18n.t('error.could_not_fetch_organizations_count'))
       })
   }, [poolPromise, setAlertMessage])
   

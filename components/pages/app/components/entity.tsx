@@ -53,9 +53,9 @@ export const EntityCardMedium = ({
   const { i18n } = useTranslation()
   return (
     <StatusCard
-      title={i18n.t('components.entity_card_medium.host_organization')}
+      title={i18n.t('components.organization_card_medium.host_organization')}
       href={getOrganizationPath(entityId)}
-      rightText={i18n.t('components.entity_card_medium.host_explore')}
+      rightText={i18n.t('components.organization_card_medium.host_explore')}
       md={md}
     >
       <FlexContainer

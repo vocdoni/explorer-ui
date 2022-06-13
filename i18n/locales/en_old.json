@@ -129,7 +129,8 @@
                 "blueBG": "\u001b[44mProcess not found\u001b[49m",
                 "magentaBG": "\u001b[45mProcess not found\u001b[49m",
                 "cyanBG": "\u001b[46mProcess not found\u001b[49m",
-                "whiteBG": "\u001b[47mProcess not found\u001b[49m"
+                "whiteBG": "\u001b[47mProcess not found\u001b[49m",
+                "renderShowOrganizationPage": ""
             }
         }
     }
