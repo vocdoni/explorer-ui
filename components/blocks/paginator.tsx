@@ -49,17 +49,6 @@ export const Paginator = ({
           {'<'}
         </Button>
       </GroupButtonMargin>
-      <GroupButtonMargin>
-        <Button small onClick={() => paginate(currentPage + 1)}>
-          {'>'}
-        </Button>
-
-        {!disableGoLastBtn && (
-          <Button small onClick={() => paginate(totalCount)}>
-            »
-          </Button>
-        )}
-      </GroupButtonMargin>
       <TextDiv>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
           {totalPageCount
@@ -72,11 +61,24 @@ export const Paginator = ({
               false}
         </Typography>
       </TextDiv>
+      <GroupButtonMargin>
+        <Button small onClick={() => paginate(currentPage + 1)}>
+          {'>'}
+        </Button>
+
+        {!disableGoLastBtn && (
+          <Button small onClick={() => paginate(totalCount)}>
+            »
+          </Button>
+        )}
+      </GroupButtonMargin>
     </PaginatorContainer>
   )
 }
 
 const GroupButtonMargin = styled.div`
+  margin-top: auto;
+  margin-bottom: auto;
   & > * {
     margin-right: 2px;
     margin-left: 2px;
