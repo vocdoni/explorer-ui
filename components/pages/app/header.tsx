@@ -113,6 +113,8 @@ const HeaderContainer = styled.div`
   flex-wrap: wrap;
 
   font-size: 16px;
+  
+  background-color: rgba(246, 249, 252, 0.93);
 
   & a {
     font-size: 16px;
