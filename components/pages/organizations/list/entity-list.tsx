@@ -18,7 +18,7 @@ interface IDashboardProcessListProps {
 
 export const DashboardEntityList = ({
   pageSize = 8,
-  totalCount = 0,
+  totalCount,
   title,
 }: IDashboardProcessListProps) => {
   // Render item on the list from it summary
@@ -37,6 +37,7 @@ export const DashboardEntityList = ({
     from: dataPagination,
     searchTerm: filter?.searchTerm,
     listSize: pageSize,
+    reverse: true
   })
 
   // Set loading
@@ -53,6 +54,7 @@ export const DashboardEntityList = ({
     filter,
     setFilter,
     setDataPagination,
+    lastElement: totalCount + 1
   })
 
   return (
