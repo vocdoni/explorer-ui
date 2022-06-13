@@ -175,7 +175,7 @@ const VoteListItemDescription = styled.p`
   color: ${(props) => props.theme.darkLightFg};
   font-size: 85%;
 `
-const VoteListItemDate = styled.p`
+const VoteListItemDate = styled.div`
   color: ${(props) => props.theme.lightText};
   font-size: 80%;
 `
