@@ -81,6 +81,7 @@ interface IUsePaginatedListProps<Filter> {
   setDataPagination: (newIndex: number) => void
   filter: Filter
   setFilter: (Filter: Filter) => void
+  lastElement: number
 }
 
 export function usePaginatedList<Filter>({
@@ -88,6 +89,7 @@ export function usePaginatedList<Filter>({
   filter,
   setFilter,
   setDataPagination,
+  lastElement,
 }: IUsePaginatedListProps<Filter>) {
   ///////////////////////////////
   // PAGINATOR
@@ -96,12 +98,18 @@ export function usePaginatedList<Filter>({
   // Paginator current page
   const [currentPage, setCurrentPage] = useState(1)
 
-  const getFirstPageIndex = (page) => page * pageSize
+  // const getFirstPageIndex = (page) => page * pageSize
+  const getFirstPageIndex = (page) => lastElement - (page * pageSize)
 
   // When current page changed get next blocks
+  // useEffect(() => {
+  //   setDataPagination(getFirstPageIndex(currentPage - 1))
+  // }, [currentPage])
   useEffect(() => {
-    setDataPagination(getFirstPageIndex(currentPage - 1))
-  }, [currentPage])
+    if (lastElement){
+      setDataPagination(getFirstPageIndex(currentPage))
+    }
+  }, [currentPage, lastElement])
 
   ///////////////////////////////
   // FILTER

@@ -27,12 +27,12 @@ interface IDashboardProcessListProps {
 
 export const DashboardProcessList = ({
   pageSize,
-  totalProcessCount = 0,
+  totalProcessCount,
   title
 }: IDashboardProcessListProps) => {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterProcesses>({})
-  const [dataPagination, setDataPagination] = useState(0)
+  const [dataPagination, setDataPagination] = useState<number>()
 
   // Get processes
   const { processIds, loadingProcessList } = useProcessesList({
@@ -42,6 +42,7 @@ export const DashboardProcessList = ({
     withResults: filter?.withResults,
     listSize: pageSize,
     entityId: filter?.entityId,
+    reverse: true
   })
 
   // Get processes details to show on the list
@@ -63,17 +64,22 @@ export const DashboardProcessList = ({
     )
   }
 
-  // Set loading
-  useEffect(() => {
-    setLoading(loadingProcessList || loadingProcessesDetails)
-  }, [loadingProcessList, loadingProcessesDetails])
-
   // View logic
-
   const {
     currentPage,
     methods: { enableFilter, disableFilter, setCurrentPage },
-  } = usePaginatedList<IFilterProcesses>({pageSize, filter, setFilter, setDataPagination})
+  } = usePaginatedList<IFilterProcesses>({
+      pageSize: pageSize, 
+      filter: filter, 
+      setFilter: setFilter, 
+      setDataPagination: setDataPagination, 
+      lastElement: totalProcessCount + 1
+    })
+
+  // Set loading
+  useEffect(() => {
+    setLoading( loadingProcessList || loadingProcessesDetails)
+  }, [loadingProcessList, loadingProcessesDetails])
 
   return (
     <>
