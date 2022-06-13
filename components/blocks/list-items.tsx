@@ -121,10 +121,10 @@ export const ProcessSummaryListItem = ({
       dateText={dateText}
       link={link}
       topLeft={
-        <>
+        <EntityNameAndLogo>
           {icon}
           <EntityLink entityId={entityId}>{entityName}</EntityLink>
-        </>
+        </EntityNameAndLogo>
       }
       badge={<ProcessStatusLabel status={status}></ProcessStatusLabel>}
     ></GenericListItemWithBadge>
@@ -162,6 +162,13 @@ const EntityName = styled.h5`
   font-weight: normal;
   font-size: 90%;
   color: ${(props) => props.theme.text};
+`
+
+const EntityNameAndLogo = styled.div`
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const VoteListItemTitle = styled.h3`
