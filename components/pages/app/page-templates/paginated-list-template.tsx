@@ -66,11 +66,13 @@ export const PaginatedListTemplate = <Elements,>({
           <Column>
             {elementsList.map(renderElementFunction)}
           </Column>
+          {paginator()}
         </>
       ) : (
-        <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
+        <h1>
+          {i18n.t('paginated_template.no_elements_found')}
+        </h1>
       )}
-      {paginator()}
     </Grid>
   )
 }
