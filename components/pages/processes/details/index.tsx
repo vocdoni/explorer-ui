@@ -7,7 +7,7 @@ import {
 import { Question } from '@lib/types'
 import { BadgeColumn, Column, Grid } from '@components/elements/grid'
 import { PageCard, StatusCard } from '@components/elements/cards'
-import { VoteQuestionCard } from '@components/blocks/vote-question-card'
+// import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import {
@@ -149,7 +149,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
               {processInfo?.metadata?.description?.default}
             </SectionText>
           </Tab>
-          <Tab label={i18n.t('processes.details.show_questions')}>
+          {/* <Tab label={i18n.t('processes.details.show_questions')}>
             <>
               {processInfo?.metadata?.questions?.map?.(
                 (question: Question, index: number) => (
@@ -163,7 +163,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
                 )
               )}
             </>
-          </Tab>
+          </Tab> */}
           <Tab label={i18n.t('processes.details.show_envelopes')}>
             <EnvelopeExplorer processId={processId} results={results} />
           </Tab>

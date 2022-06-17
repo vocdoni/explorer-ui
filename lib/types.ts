@@ -1,4 +1,17 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx, VotingApi } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx, VotingApi, ProcessCensusOrigin, ProcessResultsSingleChoice } from 'dvote-js'
+import { BigNumber } from 'ethers'
+
+export enum VotingType{
+  Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
+  Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
+  Anonymous = 3
+}
+
+
+export interface IProcessResults extends ProcessResultsSingleChoice {
+  totalWeightedVotes?: BigNumber
+}
+
 
 // IndexDB types
 export enum AccountStatus {
