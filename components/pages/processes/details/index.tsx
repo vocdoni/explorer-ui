@@ -7,7 +7,7 @@ import {
 import { Question } from '@lib/types'
 import { BadgeColumn, Column, Grid } from '@components/elements/grid'
 import { PageCard, StatusCard } from '@components/elements/cards'
-// import { VoteQuestionCard } from '@components/blocks/vote-question-card'
+import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import {
@@ -40,6 +40,8 @@ import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/process-envelope-explorer'
 import { useProcessResults } from '@hooks/use-process'
 import styled from 'styled-components'
+import { useProcessWrapper } from '@hooks/use-process-wrapper'
+import { ResultsCard } from '../components/results-card'
 
 interface ProcessesDetailPageProps {
   processId: string,
@@ -149,8 +151,10 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
               {processInfo?.metadata?.description?.default}
             </SectionText>
           </Tab>
-          {/* <Tab label={i18n.t('processes.details.show_questions')}>
+          <Tab label={i18n.t('processes.details.show_questions')}>
             <>
+            <ResultsCard />
+
               {processInfo?.metadata?.questions?.map?.(
                 (question: Question, index: number) => (
                   <VoteQuestionCard
@@ -159,11 +163,12 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
                     question={question}
                     resultsWeight={resultsWeight}
                     result={results?.questions[index]}
+
                   />
                 )
-              )}
-            </>
-          </Tab> */}
+              )}</>
+            {/* </ResultsCard> */}
+          </Tab>
           <Tab label={i18n.t('processes.details.show_envelopes')}>
             <EnvelopeExplorer processId={processId} results={results} />
           </Tab>
