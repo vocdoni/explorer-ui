@@ -18,9 +18,13 @@ export const ResultsCard = () => {
   if (!questions) {
     return null
   }
+
+  console.debug("status:", status, "liveResults:", liveResults)
+  console.debug( "votesWeight:", votesWeight, "results:", results)
+  console.debug("questions:", questions,)
+  
   return (
     <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight && votesWeight.gt(0) && questions.length > 0}>
-      {/* IF RESULTS */}
       <Then>
         <Row gutter='2xl'>
           <Col xs={12}>
@@ -42,14 +46,13 @@ export const ResultsCard = () => {
             </Row>
           </Col>
         </Row>
-      </Then>
-      {/* IF NO RESULTS */}
-      <Else>
-        <NoResultsCard
-          title={i18n.t('vote.no_results_title')}
-          subtitle={liveResults ? i18n.t('vote.no_results_subtitle_live') : i18n.t('vote.no_results_subtitle_end')}
-        />
-      </Else>
-    </If>
+       </Then>
+       <Else>
+         <NoResultsCard
+           title={i18n.t('vote.no_results_title')}
+           subtitle={liveResults ? i18n.t('vote.no_results_subtitle_live') : i18n.t('vote.no_results_subtitle_end')}
+         />
+       </Else>
+     </If>
   )
 }
