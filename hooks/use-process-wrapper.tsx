@@ -68,7 +68,7 @@ export const useProcessWrapper = (processId: string) => {
 }
 export const UseProcessWrapperProvider = ({ children }: { children: ReactNode }) => {
   const [processId, setProcessId] = useState("")
-  const invalidProcessId = !processId || !processId.match(/^0x[0-9a-fA-F]{64}$/)
+  const invalidProcessId = !processId || !(processId.match(/^0x[0-9a-fA-F]{64}$/) || processId.match(/^[0-9a-fA-F]{64}$/))
   const processContext = useContext(UseProcessContext)
   const [censusSize, setCensusSize] = useState<number>()
   const [participationRate, setParticipationRate] = useState<string>()
@@ -116,6 +116,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   useEffect(() => {
     if (invalidProcessId) return
     else if (blockHeight % 3 !== 0) return
+
     refreshResults()
     refresh(processId)
   }, [blockHeight])
@@ -274,6 +275,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
+
 
   // RETURN VALUES
   const value: ProcessWrapperContext = {
