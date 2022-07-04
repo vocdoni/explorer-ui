@@ -152,22 +152,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
             </SectionText>
           </Tab>
           <Tab label={i18n.t('processes.details.show_questions')}>
-            <>
             <ResultsCard />
-
-              {processInfo?.metadata?.questions?.map?.(
-                (question: Question, index: number) => (
-                  <VoteQuestionCard
-                    questionIdx={index}
-                    key={index}
-                    question={question}
-                    resultsWeight={resultsWeight}
-                    result={results?.questions[index]}
-
-                  />
-                )
-              )}</>
-            {/* </ResultsCard> */}
           </Tab>
           <Tab label={i18n.t('processes.details.show_envelopes')}>
             <EnvelopeExplorer processId={processId} results={results} />
