@@ -19,17 +19,13 @@ export const ResultsCard = () => {
     return null
   }
 
-  console.debug("status:", status, "liveResults:", liveResults)
-  console.debug( "votesWeight:", votesWeight, "results:", results)
-  console.debug("questions:", questions,)
-  
   return (
     <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight && votesWeight.gt(0) && questions.length > 0}>
       <Then>
         <Row gutter='2xl'>
-          <Col xs={12}>
+          {/* <Col xs={12}>
             <TotalVotesCard />
-          </Col>
+          </Col> */}
           <Col xs={12}>
             <Row gutter="md">
               {results?.questions.map(
