@@ -12,7 +12,7 @@ const StatsPageIndex = () => {
   const { i18n } = useTranslation()
 
   return (
-    <If condition={loadingStats}>
+    <If condition={loadingStats && stats === undefined}>
       <Then>
         <Loader visible />
       </Then>
