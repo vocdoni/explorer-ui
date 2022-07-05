@@ -2,7 +2,7 @@ import React from 'react'
 import { DashboardProcessList } from './process-list'
 import { useTranslation } from 'react-i18next'
 import { useProcessCount } from '@hooks/use-processes'
-import { ListPageTitle } from '@components/pages/app/page-templates/list-page-template'
+import { ListPage } from '@components/pages/app/page-templates/list-page'
 
 export const DashboardShowProcesses = () => {
   const { i18n } = useTranslation()
@@ -14,7 +14,7 @@ export const DashboardShowProcesses = () => {
       totalProcessCount={processCount}
       pageSize={page_size}
       title={
-        <ListPageTitle
+        <ListPage
           title={i18n.t('processes.list.processes_list_title')}
           subtitle={i18n.t('processes.list.total_n_processes', {
             processCount: processCount,

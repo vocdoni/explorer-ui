@@ -1,4 +1,4 @@
-import { ListPageTitle } from '@components/pages/app/page-templates/list-page-template'
+import { ListPage } from '@components/pages/app/page-templates/list-page'
 import { useBlockHeight } from '@vocdoni/react-hooks'
 import { DashboardBlockList } from './block-list'
 import { useTranslation } from 'react-i18next'
@@ -14,7 +14,7 @@ export const DashboardShowBlocks = () => {
       blockHeight={blockHeight}
       pageSize={page_size}
       title={
-        <ListPageTitle
+        <ListPage
           title={i18n.t('blocks.list.blocks_list_title')}
           subtitle={
             blockHeight != null

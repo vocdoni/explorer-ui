@@ -3,12 +3,12 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Paginator } from '@components/blocks/paginator'
 import { StatusCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
-import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
 import { useTxForBlock } from '@hooks/use-transactions'
 import { useTranslation } from 'react-i18next'
 import { TxForBlock } from '@lib/types'
 import { useEffect, useState } from 'react'
 import { getTransactionLink } from '@components/pages/app/components/get-links'
+import { renderSkeleton } from '@components/pages/app/page-templates/list-page'
 
 export const TransactionListForBlock = ({
   pageSize,

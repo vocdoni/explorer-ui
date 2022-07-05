@@ -4,11 +4,8 @@ import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/process-filter'
-import {
-  PaginatedListTemplate,
-  usePaginatedList,
-} from '@components/pages/app/page-templates/paginated-list-template'
 import { DashboardProcessListItem } from './process-list-item'
+import { useFilteredPaginatedList, FilteredPaginatedList } from '@components/pages/app/page-templates/list-page-filtered'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
@@ -55,12 +52,11 @@ export const DashboardProcessList = ({
   // Render item on the list from it summary
   const renderProcessItem = (process: SummaryProcess) => {
     return (
-      <div key={process.id}>
         <DashboardProcessListItem
+          key={process.id}
           process={process}
           entityId={process?.summary?.entityId || ''}
         />
-      </div>
     )
   }
 
@@ -68,7 +64,7 @@ export const DashboardProcessList = ({
   const {
     currentPage,
     methods: { enableFilter, disableFilter, setCurrentPage },
-  } = usePaginatedList<IFilterProcesses>({
+  } = useFilteredPaginatedList<IFilterProcesses>({
       pageSize: pageSize, 
       filter: filter, 
       setFilter: setFilter, 
@@ -88,7 +84,7 @@ export const DashboardProcessList = ({
         onEnableFilter={enableFilter}
         onDisableFilter={disableFilter}
       ></ProcessFilter>
-      <PaginatedListTemplate
+      <FilteredPaginatedList
         loading={loading}
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={

@@ -1,13 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 
-import {
-  PaginatedListTemplate,
-  usePaginatedList,
-} from '@components/pages/app/page-templates/paginated-list-template'
 import { EntitiesFilter, IFilterEntity } from '../components/entities-filter'
 import { useEntityList } from '@hooks/use-entities'
 import { DashboardEntityListItem } from './entity-list-item'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page-template'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
+import { FilteredPaginatedList, useFilteredPaginatedList } from '@components/pages/app/page-templates/list-page-filtered'
 
 interface IDashboardProcessListProps {
   loading?: boolean
@@ -49,7 +46,7 @@ export const DashboardEntityList = ({
   const {
     currentPage,
     methods: { enableFilter, disableFilter, setCurrentPage },
-  } = usePaginatedList<IFilterEntity>({
+  } = useFilteredPaginatedList<IFilterEntity>({
     pageSize,
     filter,
     setFilter,
@@ -66,7 +63,7 @@ export const DashboardEntityList = ({
         ></EntitiesFilter>
       </InlineTitleChildrenContainer>
 
-      <PaginatedListTemplate
+      <FilteredPaginatedList
         loading={loading}
         elementsList={!entitiesList.length ? [] : entitiesList}
         totalElementsCount={

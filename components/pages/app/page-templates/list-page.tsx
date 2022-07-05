@@ -1,4 +1,7 @@
+import { Skeleton } from "@components/blocks/skeleton"
+import { Card } from "@components/elements/cards"
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "@components/elements/flex"
+import { Column } from "@components/elements/grid"
 import { Typography, TypographyVariant } from "@components/elements/typography"
 import { colors } from "@theme/colors"
 import { ReactNode } from "react"
@@ -15,7 +18,7 @@ interface IListPageTemplateProps {
  * @param 
  * @returns 
  */
-export const ListPageTitle = ({ title, subtitle
+export const ListPage = ({ title, subtitle
 }: IListPageTemplateProps) => { 
 
   return (
@@ -48,3 +51,17 @@ const TopDiv = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
 `
+
+export const renderSkeleton = (skeletonItems) => {
+  return (
+    <Column>
+      {Array(skeletonItems)
+        .fill(0)
+        .map((value, index: number) => (
+          <Card key={index}>
+            <Skeleton />
+          </Card>
+        ))}
+    </Column>
+  )
+}

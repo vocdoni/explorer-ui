@@ -2,7 +2,7 @@ import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
-import { renderSkeleton } from './paginated-list-template'
+import { renderSkeleton } from './list-page'
 
 const skeletonItems = 3
 
@@ -11,7 +11,7 @@ interface IPaginatedListTemplateProps<Elements> {
   elementsList: Elements[]
   totalElementsCount: number
   pageSize?: number
-  //   // Function that render map of elements
+  // Function that render map of elements
   renderElementFunction: (element: ReactNode) => void
   currentPage: number
   setCurrentPage: (x: number) => void
@@ -20,7 +20,7 @@ interface IPaginatedListTemplateProps<Elements> {
 /**
  * Template for those pages that show a list that starts from the end element
  */
-export const InvertedPaginatedListTemplate = <Elements,>({
+export const JumpToPaginatedList = <Elements,>({
   loading,
   elementsList,
   totalElementsCount,
@@ -70,7 +70,7 @@ interface IUseInvertedPaginatedListProps {
   dataPagination: number
 }
 
-export function useInvertedPaginatedList({
+export function useJumpToPaginatedList({
   pageSize,
   lastElement,
   loadingElements,

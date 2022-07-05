@@ -2,22 +2,8 @@ import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Card } from '@components/elements/cards'
-import { Skeleton } from '@components/blocks/skeleton'
+import { renderSkeleton } from './list-page'
 
-export const renderSkeleton = (skeletonItems) => {
-  return (
-    <Column>
-      {Array(skeletonItems)
-        .fill(0)
-        .map((value, index: number) => (
-          <Card key={index}>
-            <Skeleton />
-          </Card>
-        ))}
-    </Column>
-  )
-}
 
 const skeletonItems = 3
 
@@ -34,7 +20,7 @@ interface IPaginatedListTemplateProps<Elements> {
   setCurrentPage: (x: number) => void
 }
 
-export const PaginatedListTemplate = <Elements,>({
+export const FilteredPaginatedList = <Elements,>({
   loading,
   elementsList,
   totalElementsCount,
@@ -86,7 +72,7 @@ interface IUsePaginatedListProps<Filter> {
   lastElement: number
 }
 
-export function usePaginatedList<Filter>({
+export function useFilteredPaginatedList<Filter>({
   pageSize,
   filter,
   setFilter,

@@ -1,11 +1,7 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
-import {
-  InvertedPaginatedListTemplate,
-  useInvertedPaginatedList,
-} from '@components/pages/app/page-templates/inverted-paginated-list-template'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page-template'
-import { renderSkeleton } from '@components/pages/app/page-templates/paginated-list-template'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
+import { useJumpToPaginatedList, JumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to'
 import { useTxListById } from '@hooks/use-transactions'
 import { TxById } from '@lib/types'
 import React, { ReactNode, useEffect, useState } from 'react'
@@ -53,7 +49,7 @@ export const DashboardTransactionsList = ({
     loading,
     currentPage,
     methods: { setCurrentPage },
-  } = useInvertedPaginatedList({
+  } = useJumpToPaginatedList({
     pageSize: pageSize,
     lastElement: transactionHeight + 1,
     loadingElements: loadingTransactions,
@@ -71,7 +67,7 @@ export const DashboardTransactionsList = ({
       <InlineTitleChildrenContainer title={title}>
         <TransactionsFilter setFilter={setFilter}></TransactionsFilter>
       </InlineTitleChildrenContainer>
-      <InvertedPaginatedListTemplate
+      <JumpToPaginatedList
         loading={loading}
         elementsList={transactions}
         totalElementsCount={transactionHeight}

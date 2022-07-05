@@ -1,8 +1,6 @@
-import { Typography, TypographyVariant } from '@components/elements/typography'
 import { useEntityCount } from '@hooks/use-entities'
-import { colors } from '@theme/colors'
 import { useTranslation } from 'react-i18next'
-import { ListPageTitle } from '@components/pages/app/page-templates/list-page-template'
+import { ListPage } from '@components/pages/app/page-templates/list-page'
 import { DashboardEntityList } from './entity-list'
 
 export const DashboardShowEntities = () => {
@@ -16,7 +14,7 @@ export const DashboardShowEntities = () => {
       totalCount={entitiesCount}
       pageSize={page_size}
       title={
-        <ListPageTitle
+        <ListPage
           title={i18n.t('organizations.list.organizations_list_title')}
           subtitle={i18n.t('organizations.total_n_organizations') + entitiesCount}
         />

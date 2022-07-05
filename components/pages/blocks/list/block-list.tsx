@@ -1,10 +1,7 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
-import {
-  InvertedPaginatedListTemplate,
-  useInvertedPaginatedList,
-} from '@components/pages/app/page-templates/inverted-paginated-list-template'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page-template'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
+import { JumpToPaginatedList, useJumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to'
 import { useBlocks } from '@hooks/use-blocks'
 import { BlockInfo } from '@lib/types'
 import React, { ReactNode, useEffect, useState } from 'react'
@@ -47,7 +44,7 @@ export const DashboardBlockList = ({
     loading,
     currentPage,
     methods: { setCurrentPage },
-  } = useInvertedPaginatedList({
+  } = useJumpToPaginatedList({
     pageSize: pageSize,
     lastElement: blockHeight + 1,
     loadingElements: loadingBlockList,
@@ -65,7 +62,7 @@ export const DashboardBlockList = ({
       <InlineTitleChildrenContainer title={title}>
         <BlocksFilter setFilter={setFilter}></BlocksFilter>
       </InlineTitleChildrenContainer>
-      <InvertedPaginatedListTemplate
+      <JumpToPaginatedList
         loading={loading}
         elementsList={blockList}
         totalElementsCount={blockHeight}
