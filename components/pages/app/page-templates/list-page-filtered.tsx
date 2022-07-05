@@ -1,9 +1,13 @@
 import { Paginator } from '@components/blocks/paginator'
+import {
+  FlexContainer,
+  FlexAlignItem,
+  FlexJustifyContent,
+} from '@components/elements/flex'
 import { Column, Grid } from '@components/elements/grid'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { renderSkeleton } from './list-page'
-
 
 const skeletonItems = 3
 
@@ -32,34 +36,35 @@ export const FilteredPaginatedList = <Elements,>({
   const { i18n } = useTranslation()
 
   const paginator = () => (
-    <Column md={8} sm={12}>
-      <Paginator
-        totalCount={totalElementsCount}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-        disableGoLastBtn
-      ></Paginator>
-    </Column>
+    <Paginator
+      totalCount={totalElementsCount}
+      pageSize={pageSize}
+      currentPage={currentPage}
+      onPageChange={(page) => setCurrentPage(page)}
+      disableGoLastBtn
+    ></Paginator>
   )
 
   return (
-    <Grid>
+    <>
       {loading ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
         <>
-          <Column>
-            {elementsList.map(renderElementFunction)}
-          </Column>
-          {paginator()}
+          <Grid>
+            <Column>{elementsList.map(renderElementFunction)}</Column>
+          </Grid>
+          <FlexContainer
+            alignItem={FlexAlignItem.End}
+            justify={FlexJustifyContent.End}
+          >
+            {paginator()}
+          </FlexContainer>
         </>
       ) : (
-        <h1>
-          {i18n.t('paginated_template.no_elements_found')}
-        </h1>
+        <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
-    </Grid>
+    </>
   )
 }
 
@@ -87,14 +92,14 @@ export function useFilteredPaginatedList<Filter>({
   const [currentPage, setCurrentPage] = useState(1)
 
   // const getFirstPageIndex = (page) => page * pageSize
-  const getFirstPageIndex = (page) => lastElement - (page * pageSize)
+  const getFirstPageIndex = (page) => lastElement - page * pageSize
 
   // When current page changed get next blocks
   // useEffect(() => {
   //   setDataPagination(getFirstPageIndex(currentPage - 1))
   // }, [currentPage])
   useEffect(() => {
-    if (lastElement){
+    if (lastElement) {
       setDataPagination(getFirstPageIndex(currentPage))
     }
   }, [currentPage, lastElement])

@@ -3,6 +3,11 @@ import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import { renderSkeleton } from './list-page'
+import {
+  FlexContainer,
+  FlexAlignItem,
+  FlexJustifyContent,
+} from '@components/elements/flex'
 
 const skeletonItems = 3
 
@@ -32,15 +37,13 @@ export const JumpToPaginatedList = <Elements,>({
   const { i18n } = useTranslation()
 
   const paginator = () => (
-    <Column md={8} sm={12}>
-      <Paginator
-        totalCount={totalElementsCount}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={(page) => setCurrentPage(page)}
-        disableGoLastBtn
-      ></Paginator>
-    </Column>
+    <Paginator
+      totalCount={totalElementsCount}
+      pageSize={pageSize}
+      currentPage={currentPage}
+      onPageChange={(page) => setCurrentPage(page)}
+      disableGoLastBtn
+    ></Paginator>
   )
 
   return (
@@ -48,12 +51,17 @@ export const JumpToPaginatedList = <Elements,>({
       {(loading && !elementsList?.length) || totalElementsCount == null ? (
         renderSkeleton(skeletonItems)
       ) : elementsList != null && elementsList.length ? (
-        <Grid>
-          <Column >
-            {elementsList.map(renderElementFunction)}
-          </Column>
-          {paginator()}
-        </Grid>
+        <>
+          <Grid>
+            <Column>{elementsList.map(renderElementFunction)}</Column>
+          </Grid>
+          <FlexContainer
+            alignItem={FlexAlignItem.End}
+            justify={FlexJustifyContent.End}
+          >
+            {paginator()}
+          </FlexContainer>
+        </>
       ) : (
         <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
       )}
@@ -86,7 +94,7 @@ export function useJumpToPaginatedList({
     setLoading(loadingElements || dataPagination == null || lastElement == null)
   }, [loadingElements, dataPagination])
 
-  const getFirstPageIndex = (page) => lastElement - (page * pageSize)
+  const getFirstPageIndex = (page) => lastElement - page * pageSize
 
   // Get the page where the block are you searching is
   const getPageFromPosition = (position) => {
@@ -102,8 +110,8 @@ export function useJumpToPaginatedList({
     // the fact that somebody jump to a position and then advance the page.
     // todo(ritmo): use paginator based on positions and not on pages for easy use.
     const pageOfPosition = getPageFromPosition(newPos)
-    const offset = () => (newPos + 1) - (getFirstPageIndex(pageOfPosition))
-    setDataPagination((getFirstPageIndex(currentPage) +  offset()) - pageSize)
+    const offset = () => newPos + 1 - getFirstPageIndex(pageOfPosition)
+    setDataPagination(getFirstPageIndex(currentPage) + offset() - pageSize)
   }
 
   // Jump to height on filter
@@ -111,7 +119,7 @@ export function useJumpToPaginatedList({
     if (jumpTo) {
       const page = getPageFromPosition(jumpTo)
       // Some times you want to jump to a position that is in the same page that previous position
-      if(page === currentPage) {
+      if (page === currentPage) {
         jumpToPosition(jumpTo)
       } else {
         setCurrentPage(page)
@@ -123,14 +131,12 @@ export function useJumpToPaginatedList({
 
   // When current page changed get next blocks
   useEffect(() => {
-    if (lastElement){
+    if (lastElement) {
       // If jumpTo is set (from the page filter), don't use normal pagination
-      if(jumpTo) {
+      if (jumpTo) {
         jumpToPosition(jumpTo)
-      }
-      else setDataPagination(getFirstPageIndex(currentPage))
+      } else setDataPagination(getFirstPageIndex(currentPage))
     }
-    
   }, [currentPage, lastElement])
 
   return {
