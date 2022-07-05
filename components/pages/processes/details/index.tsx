@@ -152,7 +152,9 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
             </SectionText>
           </Tab>
           <Tab label={i18n.t('processes.details.show_questions')}>
-            <ResultsCard />
+            <Grid>
+              <ResultsCard />
+            </Grid>
           </Tab>
           <Tab label={i18n.t('processes.details.show_envelopes')}>
             <EnvelopeExplorer processId={processId} results={results} />
