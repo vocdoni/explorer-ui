@@ -4,10 +4,8 @@ import {
   useBlockStatus,
 } from '@vocdoni/react-hooks'
 
-import { Question } from '@lib/types'
-import { BadgeColumn, Column, Grid } from '@components/elements/grid'
+import { BadgeColumn, Grid } from '@components/elements/grid'
 import { PageCard, StatusCard } from '@components/elements/cards'
-import { VoteQuestionCard } from '@components/blocks/vote-question-card'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { VoteStatus, getVoteStatus } from '@lib/util'
 import {
