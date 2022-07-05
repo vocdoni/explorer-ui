@@ -130,7 +130,11 @@
     "error": {
         "could_not_fetch_organizations_count": "Could not fetch organizations count",
         "could_not_fetch_processes_count": "Could not fetch processes count",
-        "could_not_fetch_the_details": "Could not fetch the details"
+        "could_not_fetch_the_details": "Could not fetch the details",
+        "invalid_choice_error": "",
+        "invalid_description": "",
+        "invalid_question_error": "",
+        "invalid_title": ""
     },
     "errors": {
         "general_error": "General error",
@@ -302,6 +306,13 @@
         "total_transactions": "Total transactions",
         "total_votes": "Total votes"
     },
+    "status": {
+        "the_vote_has_ended": "",
+        "the_vote_is_canceled": "",
+        "the_vote_is_open_for_voting": "",
+        "the_vote_is_paused": "",
+        "the_vote_will_start_soon": ""
+    },
     "transaction": {
         "card": {
             "index_n": "#{{ index }}"
@@ -358,6 +369,14 @@
             "ended_vote": "Ended vote",
             "paused_vote": "Paused vote",
             "upcoming_vote": "Upcoming vote"
-        }
+        },
+        "loading_results": "Loading results",
+        "no_questions_yet": "No questions yet",
+        "no_results_live": "No live results",
+        "no_results_title": "No results",
+        "results_question": "Question",
+        "total_votes_submited": "Total votes submited",
+        "vote_count": "{{count}} votes",
+        "vote_count_plural": ""
     }
 }

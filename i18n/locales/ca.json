@@ -130,7 +130,11 @@
     "error": {
         "could_not_fetch_organizations_count": "",
         "could_not_fetch_processes_count": "",
-        "could_not_fetch_the_details": ""
+        "could_not_fetch_the_details": "",
+        "invalid_choice_error": "",
+        "invalid_description": "",
+        "invalid_question_error": "",
+        "invalid_title": ""
     },
     "errors": {
         "general_error": "",
@@ -302,6 +306,13 @@
         "total_transactions": "",
         "total_votes": ""
     },
+    "status": {
+        "the_vote_has_ended": "",
+        "the_vote_is_canceled": "",
+        "the_vote_is_open_for_voting": "",
+        "the_vote_is_paused": "",
+        "the_vote_will_start_soon": ""
+    },
     "transaction": {
         "card": {
             "index_n": ""
@@ -358,6 +369,14 @@
             "ended_vote": "",
             "paused_vote": "",
             "upcoming_vote": ""
-        }
+        },
+        "loading_results": "",
+        "no_questions_yet": "",
+        "no_results_live": "",
+        "no_results_title": "",
+        "results_question": "",
+        "total_votes_submited": "",
+        "vote_count": "",
+        "vote_count_plural": ""
     }
 }
