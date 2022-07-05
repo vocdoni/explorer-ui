@@ -1,21 +1,20 @@
 import { Col, Row } from "@components/elements-v2/grid"
 import { Spacer } from "@components/elements-v2/spacer"
 import { Text } from "@components/elements-v2/text"
-import { Choice, Question } from "@lib/types"
-import { questionsValidator } from "@lib/validators/questions-validator"
+import { Question } from "@lib/types"
 import { theme } from "@theme/global"
-import { JsonFeedTemplate, MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
+import { MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
 import { useTranslation } from "react-i18next"
 import { ProgressBar, } from "react-rainbow-components"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
 import { ProgressBarProps } from "react-rainbow-components/components/ProgressBar"
 import { useIsMobile } from "@hooks/use-window-size"
-import { i18n } from "i18next"
 import { useProcessWrapper } from "@hooks/use-process-wrapper"
 import { useUrlHash } from "use-url-hash"
 import { BigNumber } from "ethers"
 import { colorsV2 } from "@theme/colors-v2"
+import { VoteStatus } from "@lib/util"
 
 
 export type QuestionsResultsProps = {
@@ -34,28 +33,44 @@ type ChoiceResult = {
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation()
   const processId = useUrlHash().slice(1)
-  const { votesWeight } = useProcessWrapper(processId)
+  const { votesWeight, liveResults, status } = useProcessWrapper(processId)
   const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([])
   const [hasWinner, setHasWinner] = useState<boolean>(false)
   const isMobile = useIsMobile()
+  const [showResults, setSetShowResults] = useState(false)
+
   useEffect(() => {
-    // sort all the responses by number of votes higher to lower
-    const sortedChoices = props.results.voteResults.sort((a, b) => {
-      const diff = b.votes.sub(a.votes)
-      if (b.votes.eq(a.votes)) return 0
-      else if (diff.lt(0)) return -1
-      return 1
-    })
+    let sortedChoices: ChoiceResult[];
+    if (props.results === undefined ) {
+      // If not results yet, show the questions without results
+      sortedChoices = props.question.choices.map((a) => {
+        return {
+          title: a.title,
+          votes: undefined
+        }
+      })
+    } else {
+      // sort all the responses by number of votes higher to lower
+      sortedChoices = props.results.voteResults.sort((a, b) => {
+        const diff = b.votes.sub(a.votes)
+        if (b.votes.eq(a.votes)) return 0
+        else if (diff.lt(0)) return -1
+        return 1
+      })
+    }
+    
     setSortedChoices(sortedChoices)
     // Check if is one response that is winning
-    if (sortedChoices.length > 1) {
+    if (props.results !== undefined  && sortedChoices.length > 1) {
       if (sortedChoices[0].votes.eq(sortedChoices[1].votes)) {
         setHasWinner(false)
       } else {
         setHasWinner(true)
       }
     }
-  }, [votesWeight])
+    setSetShowResults((status === VoteStatus.Ended || liveResults) && props.results !== undefined )
+  }, [votesWeight, props.results])
+
   return (
     <Card isMobile={isMobile}>
       {/* TITLE */}
@@ -69,7 +84,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
             </Col>
             <Col xs={12}>
               <Text size="2xl" color="dark-blue" weight="bold">
-                {props.results.title.default}
+                {props.question.title.default}
               </Text>
             </Col>
             {props.question.description &&
@@ -104,32 +119,10 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         {choice.title.default}
                       </Text>
                     </Col>
-                    <Col hiddenSmAndDown md={2}>
-                      <Text
-                        size="lg"
-                        weight="bold"
-                        color="dark-blue"
-                      >
-                        {getStringPercent(getPercent(choice.votes, votesWeight))}%
-                      </Text>
-                      <Text
-                        size="sm"
-                        color="dark-gray"
-                        weight="regular"
-                      >
-                        {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
-                      </Text>
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <StyledProgressBar
-                        value={getBarPercent(choice.votes, votesWeight)}
-                        size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
-                        disabled={choice.votes.eq(0)}
-                      />
-                    </Col>
-                    <Col xs={12} hiddenSmAndUp>
-                      <Row align="end" gutter="md">
-                        <Col>
+                    {/* SHOW RESULTS */}
+                    {showResults ?
+                      <>
+                        <Col hiddenSmAndDown md={2}>
                           <Text
                             size="lg"
                             weight="bold"
@@ -137,8 +130,6 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                           >
                             {getStringPercent(getPercent(choice.votes, votesWeight))}%
                           </Text>
-                        </Col>
-                        <Col>
                           <Text
                             size="sm"
                             color="dark-gray"
@@ -147,8 +138,44 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
                           </Text>
                         </Col>
-                      </Row>
-                    </Col>
+                        <Col xs={12} md={6}>
+                          <StyledProgressBar
+                            value={getBarPercent(choice.votes, votesWeight)}
+                            size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
+                            disabled={choice.votes.eq(0)}
+                          />
+                        </Col>
+                        <Col xs={12} hiddenSmAndUp>
+                          <Row align="end" gutter="md">
+                            <Col>
+                              <Text
+                                size="lg"
+                                weight="bold"
+                                color="dark-blue"
+                              >
+                                {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                              </Text>
+                            </Col>
+                            <Col>
+                              <Text
+                                size="sm"
+                                color="dark-gray"
+                                weight="regular"
+                              >
+                                {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
+                              </Text>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </>
+                      // NO RESULTS YET
+                      : <Col xs={12} md={6} justify="end">
+                          <Text size={isMobile ? 'sm' : 'xl'} color="dark-gray" align="right">
+                          { status !== VoteStatus.Ended && !liveResults ? 
+                             i18n.t('vote.no_results_live') : i18n.t('vote.loading_results')}
+                          </Text>
+                        </Col>
+                      }
                   </Row>
                 </Col>
             )}
@@ -166,7 +193,7 @@ const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
 }
 const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   if (!totalVotes || totalVotes.isZero()) return 0
-  
+
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000)
   return ratio.div(totalVotes).toNumber() /100
