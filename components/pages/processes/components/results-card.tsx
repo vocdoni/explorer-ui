@@ -20,20 +20,17 @@ export const ResultsCard = () => {
   }
 
   return (
-    <If condition={(status === VoteStatus.Ended || liveResults) && votesWeight && votesWeight.gt(0) && questions.length > 0}>
+    <If condition={questions.length > 0}>
       <Then>
         <Row gutter='2xl'>
-          {/* <Col xs={12}>
-            <TotalVotesCard />
-          </Col> */}
           <Col xs={12}>
             <Row gutter="md">
-              {results?.questions.map(
-                (results: SingleChoiceQuestionResults, index: number) =>
+              {questions.map(
+                (question: Question, index: number) =>
                   <Col xs={12} key={index}>
                     <QuestionResults
-                      question={questions[index]}
-                      results={results}
+                      question={question}
+                      results={results?.questions[index]}
                       index={index}
                       key={index}
                     />
@@ -46,7 +43,7 @@ export const ResultsCard = () => {
        <Else>
          <NoResultsCard
            title={i18n.t('vote.no_results_title')}
-           subtitle={liveResults ? i18n.t('vote.no_results_subtitle_live') : i18n.t('vote.no_results_subtitle_end')}
+           subtitle={i18n.t('vote.no_questions_yet')}
          />
        </Else>
      </If>
