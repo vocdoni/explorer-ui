@@ -191,12 +191,12 @@ const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   }
   return getPercent(votes, totalVotes)
 }
-const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
-  if (!totalVotes || totalVotes.isZero()) return 0
+const getPercent = (votes: BigNumber, resultsWeight: BigNumber): number => {
+  if (!resultsWeight || resultsWeight.isZero()) return 0
 
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000)
-  return ratio.div(totalVotes).toNumber() /100
+  return ratio.div(resultsWeight).div(100).toNumber()
 }
 const getStringPercent = (percent: number): string => {
   const decimal = percent % 1
