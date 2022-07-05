@@ -165,6 +165,8 @@ const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   return getPercent(votes, totalVotes)
 }
 const getPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
+  if (!totalVotes || totalVotes.isZero()) return 0
+  
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000)
   return ratio.div(totalVotes).toNumber() /100
