@@ -15,6 +15,7 @@ import { useUrlHash } from "use-url-hash"
 import { BigNumber } from "ethers"
 import { colorsV2 } from "@theme/colors-v2"
 import { VoteStatus } from "@lib/util"
+import { BreakWord } from "@components/elements/styled-divs"
 
 
 export type QuestionsResultsProps = {
@@ -135,7 +136,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             color="dark-gray"
                             weight="regular"
                           >
-                            {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
+                            <BreakWord>
+                              {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
+                            </BreakWord>
                           </Text>
                         </Col>
                         <Col xs={12} md={6}>
@@ -161,8 +164,10 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                                 size="sm"
                                 color="dark-gray"
                                 weight="regular"
-                              >
-                                {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
+                              > 
+                                <BreakWord>
+                                  {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
+                                </BreakWord>
                               </Text>
                             </Col>
                           </Row>
