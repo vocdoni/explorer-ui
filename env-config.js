@@ -4,10 +4,8 @@
 const LANG = process.env.APP_LANG || 'en'
 const DEVELOPMENT = process.env.NODE_ENV !== 'production'
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
-// const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
-const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'prod'
-// let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
-let bootnodes = 'https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.azeno.json'
+const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
+let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 
 
 switch (VOCDONI_ENVIRONMENT) {
@@ -30,8 +28,7 @@ module.exports = {
   APP_TITLE: 'Explorer',
 
   // BLOCKCHAIN
-  // ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'rinkeby',
-  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'mainnet',
+  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'rinkeby',
 
   // VOCHAIN
   BLOCK_TIME: process.env.BLOCK_TIME || '12',
