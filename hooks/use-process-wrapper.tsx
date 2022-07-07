@@ -283,9 +283,6 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
 
-  console.debug("HOOK votesWeight", votesWeight, votingType, results?.totalWeightedVotes)
-  console.debug("HOOK  VotingType.Weighted === votingType", VotingType.Weighted === votingType)
-
 
   // RETURN VALUES
   const value: ProcessWrapperContext = {
