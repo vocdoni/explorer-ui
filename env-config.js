@@ -10,7 +10,7 @@ let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 
 switch (VOCDONI_ENVIRONMENT) {
   case 'dev':
-    plaza = `https://plaza.${VOCDONI_ENVIRONMENT}.vocdoni.net`
+    plaza = `https://dev.vocdoni.app`
     break
   case 'prod':
     plaza = `https://vocdoni.app`
