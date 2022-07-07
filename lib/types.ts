@@ -3,9 +3,7 @@ import { BigNumber } from 'ethers'
 
 export enum VotingType{
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
-  Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED | ProcessCensusOrigin.ERC20 
-    | ProcessCensusOrigin.ERC721 | ProcessCensusOrigin.ERC1155 |  ProcessCensusOrigin.ERC777
-    |  ProcessCensusOrigin.MINI_ME,
+  Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
   Anonymous = 3
 }
 

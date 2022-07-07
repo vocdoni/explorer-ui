@@ -1,5 +1,5 @@
 import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi } from 'dvote-js'
+import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi, ProcessCensusOrigin, IProcessCensusOrigin, VochainCensusOrigin } from 'dvote-js'
 import { Wallet } from '@ethersproject/wallet'
 
 import { createContext, ReactNode, useContext } from 'react'
@@ -252,8 +252,15 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
         setResults(parsedResults)
       })
       .catch((err) => console.log(err))
-  }
+    }  
 
+  const isWeighted = (votingType: VochainCensusOrigin): boolean => {
+   return votingType == ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
+    votingType == ProcessCensusOrigin.ERC20 ||
+    votingType == ProcessCensusOrigin.ERC721 ||
+    votingType == ProcessCensusOrigin.ERC1155 ||
+    votingType == ProcessCensusOrigin.ERC777 ||
+    votingType == ProcessCensusOrigin.MINI_ME}
 
   // Callbacks
   const hasStarted = startDate && startDate.getTime() <= Date.now()
@@ -266,7 +273,7 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   const discussionUrl = processInfo?.metadata?.meta[MetadataFields.DiscussionLink]
   const attachmentUrl = processInfo?.metadata?.meta[MetadataFields.AttachmentLink]
   const questions = processInfo?.metadata?.questions
-  const votesWeight = VotingType.Weighted === votingType
+  const votesWeight = isWeighted(processInfo?.state?.censusOrigin)
     ? results?.totalWeightedVotes
     : results?.totalVotes ? BigNumber.from(results?.totalVotes) : undefined
   const title = processInfo?.metadata?.title.default
@@ -275,6 +282,9 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       ? localizedStrDateDiff(DateDiffType.End, endDate)
       : localizedStrDateDiff(DateDiffType.Start, startDate)
     : ''
+
+  console.debug("HOOK votesWeight", votesWeight, votingType, results?.totalWeightedVotes)
+  console.debug("HOOK  VotingType.Weighted === votingType", VotingType.Weighted === votingType)
 
 
   // RETURN VALUES
