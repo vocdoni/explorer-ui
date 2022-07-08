@@ -24,12 +24,21 @@ export const useProcessResults = ({
       poolPromise
         .then((pool) =>
           Promise.all([
-            VotingApi.getResults(processId, pool),
+            // todo(ritmo): VotingApi.getResults for encrypted not finished votes don't return envelopHeight properly
+            // VotingApi.getResults(processId, pool),
+            pool.sendRequest({
+              method: 'getResults',
+              processId: processId
+            }),
             VotingApi.getResultsWeight(processId, pool),
           ])
         )
-        .then(([rawResults, resultsWeight]) => {
-          console.debug('DEBUG:', 'rawResults', rawResults)
+        .then(([results, resultsWeight]) => {
+          const rawResults: RawResults = {
+            envelopHeight: results['height'] as number,
+            results: results['results'] as string[][],
+            status: results['state']
+          }
           setRawResults(rawResults)
           setResultsWeight(resultsWeight)
   
