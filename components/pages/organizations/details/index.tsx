@@ -24,7 +24,7 @@ export const EntityView = ({
   processes,
   blockHeight,
 }: IEntityViewProps) => {
-  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/0x${address}`
+  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${address}`
   const { i18n } = useTranslation()
 
   return (
