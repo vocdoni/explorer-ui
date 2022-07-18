@@ -24,7 +24,8 @@ export const EntityView = ({
   processes,
   blockHeight,
 }: IEntityViewProps) => {
-  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${address}`
+  const correctedAddress = address.startsWith('0x') ? address : '0x' + address
+  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${correctedAddress}`
   const { i18n } = useTranslation()
 
   return (
@@ -56,7 +57,7 @@ export const EntityView = ({
           </Typography>
           <Typography variant={TypographyVariant.Small}>
             <BreakWord>
-              {address}
+              {correctedAddress}
               <a href={plazaUrl} target="blank">
                 ({i18n.t('organization.home.view_profile')})
               </a>
