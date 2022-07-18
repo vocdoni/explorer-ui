@@ -79,6 +79,11 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               <a>0x{envelope.meta.tx_hash}</a>
             </TransactionLink>
           </Typography>
+          <Typography variant={TypographyVariant.Small}>
+            {envelope.registered 
+            ? i18n.t('envelopes.details.envelope_is_registered') 
+            : i18n.t('envelopes.details.envelope_not_registered') }
+          </Typography>
           </Column>
         </Grid>
         <Card>

@@ -114,7 +114,9 @@
             "commited_in_block": "Commited in block",
             "encryption_keys_used": "Encryption keys used",
             "envelope_details": "Envelope details",
+            "envelope_is_registered": "Envelope registered",
             "envelope_not_found": "Envelope not found",
+            "envelope_not_registered": "Envelope not registered",
             "envelope_weight": "Envolope weight"
         },
         "encryption_keys": {

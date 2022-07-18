@@ -114,7 +114,9 @@
             "commited_in_block": "",
             "encryption_keys_used": "",
             "envelope_details": "",
+            "envelope_is_registered": "",
             "envelope_not_found": "",
+            "envelope_not_registered": "",
             "envelope_weight": ""
         },
         "encryption_keys": {
