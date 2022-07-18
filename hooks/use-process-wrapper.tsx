@@ -10,7 +10,7 @@ import i18n from '../i18n'
 import { DateDiffType, localizedStrDateDiff } from '../lib/date'
 import { IProcessResults, VotingType } from '@lib/types'
 import { Question } from '@lib/types'
-import { VoteStatus } from '@lib/util'
+import { isInValidProcessId, VoteStatus } from '@lib/util'
 import { MetadataFields } from '@components/blocks/metadata'
 import { BigNumber } from 'ethers'
 
@@ -68,7 +68,7 @@ export const useProcessWrapper = (processId: string) => {
 }
 export const UseProcessWrapperProvider = ({ children }: { children: ReactNode }) => {
   const [processId, setProcessId] = useState("")
-  const invalidProcessId = !processId || !(processId.match(/^0x[0-9a-fA-F]{64}$/) || processId.match(/^[0-9a-fA-F]{64}$/))
+  const invalidProcessId = isInValidProcessId(processId)
   const processContext = useContext(UseProcessContext)
   const [censusSize, setCensusSize] = useState<number>()
   const [participationRate, setParticipationRate] = useState<string>()
