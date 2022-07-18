@@ -30,3 +30,8 @@ export const BreakWordAll = styled.div`
 export const OverflowScroll = styled.pre`
   overflow-x: scroll;
 `
+
+export const ItemDate = styled.div`
+  color: ${(props) => props.theme.lightText};
+  font-size: 80%;
+`

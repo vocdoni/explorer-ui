@@ -13,7 +13,7 @@ import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import React from 'react'
 import { EntityLink } from '@components/pages/app/components/get-links'
-import { BreakWord, BreakWordAll } from '@components/elements/styled-divs'
+import { BreakWord, BreakWordAll, ItemDate } from '@components/elements/styled-divs'
 import { EntityNameWithIcon } from '@components/pages/app/components/entity'
 
 export const GenericListItemWithBadge = ({
@@ -58,11 +58,11 @@ export const GenericListItemWithBadge = ({
             </BreakWord>
           </VoteListItemTitle> : null}
         {dateText 
-          ? <VoteListItemDate>
+          ? <ItemDate>
               <BreakWordAll>
                 {dateText}
               </BreakWordAll>
-            </VoteListItemDate> : null}
+            </ItemDate> : null}
         <BreakWordAll>
           {children ? children : null}
         </BreakWordAll>
@@ -178,8 +178,5 @@ const VoteListItemDescription = styled.p`
   color: ${(props) => props.theme.darkLightFg};
   font-size: 85%;
 `
-const VoteListItemDate = styled.div`
-  color: ${(props) => props.theme.lightText};
-  font-size: 80%;
-`
+
 const VotingStatus = styled.div``
