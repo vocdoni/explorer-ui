@@ -182,5 +182,15 @@
     },
     "errors": {
         "the_list_of_entities_cannot_be_loaded": ""
+    },
+    "envelopes": {
+        "details": {
+            "block_height": "",
+            "nullifier": "",
+            "process_id": "",
+            "tx_id": "",
+            "vote_package": ""
+        },
+        "nonce": ""
     }
 }
