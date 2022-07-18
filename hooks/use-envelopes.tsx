@@ -1,4 +1,4 @@
-import { Envelope, EnvelopeList } from '@lib/types'
+import { Envelope, EnvelopeAll, EnvelopeList } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import {
   VotingApi,
@@ -56,7 +56,7 @@ export const useEnvelope = ({
 }: {
   nullifier: string
 }) => {
-  const [envelope, setEnvelope] = useState<Envelope>()
+  const [envelope, setEnvelope] = useState<EnvelopeAll>()
   const { poolPromise } = usePool()
   const [loadingEnvelope, setLoadingEnvelope] = useState(false)
 
@@ -64,11 +64,18 @@ export const useEnvelope = ({
     setLoadingEnvelope(true)
     poolPromise
       .then((pool) =>
-        VotingApi.getEnvelope(nullifier, pool)
+        // todo(ritmo): VotingApi.getEnvelope return a EnvelopeFull object which not implement encryption_key_indexes
+        pool.sendRequest({
+          method: 'getEnvelope',
+          nullifier: nullifier
+        }),
       )
-      .then((envelope) => {
+      .then((response) => {
         setLoadingEnvelope(false)
-        setEnvelope(envelope)
+        const e: EnvelopeAll = response['envelope'] as EnvelopeAll
+        e.timestamp = response['timestamp']
+        e.registered = response['registered']
+        setEnvelope(e)
         console.debug('DEBUG:', 'getEnvelope', envelope)
       })
       .catch((err) => {

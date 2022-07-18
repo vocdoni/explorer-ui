@@ -1,4 +1,4 @@
-import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx, VotingApi, ProcessCensusOrigin, ProcessResultsSingleChoice } from 'dvote-js'
+import { EntityMetadata, ProcessSummary, MultiLanguage, ProcessMetadata, Tx, VotingApi, ProcessCensusOrigin, ProcessResultsSingleChoice, EnvelopeFull } from 'dvote-js'
 import { BigNumber } from 'ethers'
 
 export enum VotingType{
@@ -138,3 +138,8 @@ export type TxById = {
 
 export type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 export type Envelope = Awaited<ReturnType<typeof VotingApi.getEnvelope>>
+export declare type EnvelopeAll = EnvelopeFull & {
+  encryption_key_indexes: number[]
+  timestamp: number 
+  registered: boolean
+}
