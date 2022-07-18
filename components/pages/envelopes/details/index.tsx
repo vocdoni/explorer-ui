@@ -1,4 +1,4 @@
-import { GenericListItemWithBadge, VoteListItemDate } from '@components/blocks/list-items'
+import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Card, PageCard } from '@components/elements/cards'
 import { BadgeColumn, Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
