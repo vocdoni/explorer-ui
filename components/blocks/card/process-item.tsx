@@ -85,6 +85,8 @@ export const ProcessListItem = ({
           break
       }
   }, [blockStatus])
+  
+  const title = process?.metadata?.title?.default 
 
   return (
     <VoteItemWrapper>
@@ -92,7 +94,7 @@ export const ProcessListItem = ({
         icon={ entityLogo }
         link={link}
         description={process?.metadata?.description?.default ?? ''}
-        title={process?.metadata?.title?.default ?? process?.id}
+        title={title && title.length > 0 ? title : process?.id}
         entityId={entityId}
         entityName={
           entityMetadata?.name?.default

@@ -118,9 +118,7 @@ export const ProcessSummaryListItem = ({
   dateText,
   hideEntity = false, // If true, identity details not shown, instead it show processId if the title is not a processId
 }: ProcessSummaryProps) => {
-  console.debug("AAAAAAAAAAAAAA", title)
-  console.debug("invalid", isInValidProcessId('title'))
-  console.debug("valid", isInValidProcessId(title))
+  
   return (
     <GenericListItemWithBadge
       title={title}
