@@ -8,7 +8,7 @@ import {
   FlexContainer,
   FlexJustifyContent,
 } from '../elements/flex'
-import { VoteStatus } from '@lib/util'
+import { isInValidProcessId, VoteStatus } from '@lib/util'
 import { ProcessStatusLabel } from '@components/blocks/process-status-label'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import React from 'react'
@@ -104,6 +104,7 @@ type ProcessSummaryProps = ColumnProps & {
   description: string
   status: VoteStatus
   dateText: string
+  hideEntity: boolean
 }
 
 export const ProcessSummaryListItem = ({
@@ -115,14 +116,20 @@ export const ProcessSummaryListItem = ({
   description,
   status,
   dateText,
+  hideEntity = false, // If true, identity details not shown, instead it show processId if the title is not a processId
 }: ProcessSummaryProps) => {
+  console.debug("AAAAAAAAAAAAAA", title)
+  console.debug("invalid", isInValidProcessId('title'))
+  console.debug("valid", isInValidProcessId(title))
   return (
     <GenericListItemWithBadge
       title={title}
       dateText={dateText}
       link={link}
       topLeft={
-        <EntityNameWithIcon entityName={entityName} entityId={entityId} icon={icon}></EntityNameWithIcon> 
+        !hideEntity ? 
+          <EntityNameWithIcon entityName={entityName} entityId={entityId} icon={icon}></EntityNameWithIcon> 
+          : isInValidProcessId(title) ? entityId : null
       }
       badge={<ProcessStatusLabel status={status}></ProcessStatusLabel>}
     ></GenericListItemWithBadge>

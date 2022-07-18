@@ -77,10 +77,11 @@ export const EntityView = ({
               <ProcessListItem
                 key={index}
                 process={process}
-                entityId={address}
-                entityLogo={metadata?.media.header}
+                entityId={process.id}
+                entityLogo={null}
                 link={getProcessDetailsPath(process.id)}
                 entityMetadata={metadata}
+                hideEntity={true}
               />
             )
           })}

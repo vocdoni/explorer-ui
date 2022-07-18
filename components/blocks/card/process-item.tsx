@@ -24,6 +24,7 @@ interface IProcessListItemProps {
   entityLogo?: string
   link?: string
   entityMetadata?: EntityMetadata
+  hideEntity?: boolean
 }
 
 export const ProcessListItem = ({
@@ -32,6 +33,7 @@ export const ProcessListItem = ({
   entityLogo,
   link,
   entityMetadata,
+  hideEntity = false
 }: IProcessListItemProps) => {
   const { i18n } = useTranslation()
 
@@ -99,6 +101,7 @@ export const ProcessListItem = ({
         }
         dateText={date}
         status={status}
+        hideEntity={hideEntity}
       />
     </VoteItemWrapper>
   )
