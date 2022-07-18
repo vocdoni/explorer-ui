@@ -130,8 +130,18 @@
                 "magentaBG": "\u001b[45mProcess not found\u001b[49m",
                 "cyanBG": "\u001b[46mProcess not found\u001b[49m",
                 "whiteBG": "\u001b[47mProcess not found\u001b[49m",
-                "renderShowOrganizationPage": ""
+                "renderShowOrganizationPage": "",
+                "renderShowEntityPage": ""
             }
+        }
+    },
+    "components": {
+        "question_results": {
+            "number_votes": "Number of votes: {{ number }}"
+        },
+        "vote_question_card": {
+            "no_results_available": "No results available",
+            "question": "Question"
         }
     }
 }

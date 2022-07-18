@@ -18,7 +18,7 @@ const ProcessesDetailPage = () => {
       <Else>
         {!!processInfo && !loading
           ? (<ProcessDetailPage processId={processId} processInfo={processInfo} />) 
-          : (<h1>{i18n.t('processes.details.process_not_found.renderShowEntityPage')}</h1>)}
+          : (<h1>{i18n.t('processes.details.process_not_found')}</h1>)}
       </Else>
     </If>
   )

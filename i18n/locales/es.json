@@ -37,16 +37,9 @@
         "paginator": {
             "page_n_of_n": ""
         },
-        "question_results": {
-            "number_votes": ""
-        },
         "transaction_card": {
             "hash": "",
             "number": ""
-        },
-        "vote_question_card": {
-            "no_results_available": "",
-            "question": ""
         }
     },
     "converter": {
@@ -239,9 +232,7 @@
             "detailed_data": "",
             "id": "",
             "process_details": "",
-            "process_not_found": {
-                "renderShowEntityPage": ""
-            },
+            "process_not_found": "",
             "processes_additional_information": "",
             "show_description": "",
             "show_envelopes": "",

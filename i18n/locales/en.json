@@ -37,16 +37,9 @@
         "paginator": {
             "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
         },
-        "question_results": {
-            "number_votes": "Number of votes: {{ number }}"
-        },
         "transaction_card": {
             "hash": "Hash",
             "number": "Number"
-        },
-        "vote_question_card": {
-            "no_results_available": "No results available",
-            "question": "Question"
         }
     },
     "converter": {
@@ -239,9 +232,7 @@
             "detailed_data": "Detailed data",
             "id": "Id",
             "process_details": "Process details",
-            "process_not_found": {
-                "renderShowEntityPage": ""
-            },
+            "process_not_found": "Process not found",
             "processes_additional_information": "Process additional information",
             "show_description": "Show description",
             "show_envelopes": "Show envelopes",

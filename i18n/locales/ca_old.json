@@ -9,6 +9,13 @@
         "entity_card_medium": {
             "host_explore": "",
             "host_organization": ""
+        },
+        "question_results": {
+            "number_votes": ""
+        },
+        "vote_question_card": {
+            "no_results_available": "",
+            "question": ""
         }
     },
     "converter": {
@@ -70,7 +77,10 @@
     },
     "processes": {
         "details": {
-            "election_not_found": ""
+            "election_not_found": "",
+            "process_not_found": {
+                "renderShowEntityPage": ""
+            }
         },
         "filter": {
             "search_by_entity_id": ""
