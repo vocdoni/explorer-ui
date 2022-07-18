@@ -191,7 +191,8 @@
         "support": "Support",
         "tools": "Tools",
         "transactions": "Transactions",
-        "validators": "Validators"
+        "validators": "Validators",
+        "verify_vote": "Verify"
     },
     "organization": {
         "home": {

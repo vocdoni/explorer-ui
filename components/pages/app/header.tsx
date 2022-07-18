@@ -5,7 +5,7 @@ import { Unless } from 'react-if'
 
 import { useTranslation } from 'react-i18next'
 
-import { HOME_PATH, ORGANIZATIONS_PATH, PROCESSES_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH, TOOLS_PATH } from '@const/routes'
+import { HOME_PATH, ORGANIZATIONS_PATH, PROCESSES_PATH, BLOCKS_PATH, TRANSACTIONS_PATH, VALIDATORS_PATH, STATS_PATH, TOOLS_PATH, VERIFY } from '@const/routes'
 
 import { MenuIcon } from '@components/blocks/menu-icon'
 import { useIsMobile } from '@hooks/use-window-size'
@@ -46,6 +46,10 @@ export const Header = ({ children }: IHeaderProps) => {
     {
       name: i18n.t("links.stats"),
       url: STATS_PATH,
+    },
+    {
+      name: i18n.t("links.verify_vote"),
+      url: VERIFY,
     },
     {
       name: i18n.t("links.tools"),
