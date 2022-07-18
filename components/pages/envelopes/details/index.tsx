@@ -17,7 +17,6 @@ import { localizedDateDiff } from '@lib/date'
 export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
   const { i18n } = useTranslation()
   
-  console.debug("AAAAAAAAA", envelope)
   return (
     <PageCard>
       <>
