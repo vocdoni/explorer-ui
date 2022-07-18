@@ -109,16 +109,17 @@
     },
     "envelopes": {
         "details": {
-            "block_height": "",
+            "belongs_to_process": "",
+            "belongs_to_transaction": "",
+            "commited_in_block": "",
+            "encryption_keys_used": "",
             "envelope_details": "",
             "envelope_not_found": "",
-            "envelope_weight": "",
-            "nullifier": "",
-            "process_id": "",
-            "tx_id": "",
-            "vote_package": ""
+            "envelope_weight": ""
         },
-        "nonce": ""
+        "encryption_keys": {
+            "none": ""
+        }
     },
     "error": {
         "could_not_fetch_organizations_count": "",
@@ -352,6 +353,12 @@
             "voting_power": ""
         },
         "no_validators_found": ""
+    },
+    "verify": {
+        "add_vote_id": "",
+        "introduce_vote_id_below_to_verify_your_vote": "",
+        "verify": "",
+        "verify_your_vote": ""
     },
     "vote": {
         "badge": {

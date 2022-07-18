@@ -143,5 +143,15 @@
             "no_results_available": "No results available",
             "question": "Question"
         }
+    },
+    "envelopes": {
+        "details": {
+            "block_height": "Block height",
+            "nullifier": "Nullifier",
+            "process_id": "Process id",
+            "tx_id": "Transaction id",
+            "vote_package": "Vote package"
+        },
+        "nonce": "Nonce"
     }
 }
