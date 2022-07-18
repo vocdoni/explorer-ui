@@ -12,9 +12,14 @@ import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import i18n from '@i18n'
 import { colors } from '@theme/colors'
+import Link from 'next/link'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const Page = () => {
+
+  const [nullifier, setNullifier] = useState('')
+
   return (
     <>
       <VoteImageContainer>
@@ -28,7 +33,13 @@ const Page = () => {
         </Typography>
       <Col align="center">
         <Row align="center">
-          <Input wide placeholder={i18n.t('verify.add_vote_id')} />
+          <Input 
+            wide 
+            placeholder={i18n.t('verify.add_vote_id')} 
+            onChange={(ev) => {
+              setNullifier(ev.target.value)
+            }}
+          />
         </Row>
       </Col>
       <FlexContainer
@@ -38,11 +49,12 @@ const Page = () => {
         <Button
           positive
           small
-          onClick={() => {
-            return
-          }}
         >
-          {i18n.t('verify.verify')}
+          <LinkContainer>
+            <Link href={'/envelopes/show/#/' + nullifier} passHref>
+              {i18n.t('verify.verify')}
+            </Link>
+          </LinkContainer>
         </Button>
       </FlexContainer>
     </>
@@ -57,5 +69,11 @@ const VoteImageContainer = styled.div`
 
   & > img {
     width: 100%;
+  }
+`
+
+const LinkContainer = styled.div`
+  & > a {
+    color: #FFF
   }
 `
