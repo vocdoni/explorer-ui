@@ -26,3 +26,7 @@ export const BreakWord = styled.div`
 export const BreakWordAll = styled.div`
   word-break: break-all;
 `
+
+export const OverflowScroll = styled.pre`
+  overflow-x: scroll;
+`

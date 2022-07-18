@@ -26,6 +26,7 @@ import { useDateAtBlock } from '@vocdoni/react-hooks'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { OverflowScroll } from '@components/elements/styled-divs'
 
 export const TransactionDetails = ({
   txIndex,
@@ -203,6 +204,4 @@ export const TransactionDetails = ({
   )
 }
 
-const OverflowScroll = styled.pre`
-  overflow-x: scroll;
-`
+
