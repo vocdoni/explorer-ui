@@ -20,7 +20,7 @@ export const EncryptionKeysIndexesBadge = ({ type }: { type: number }) => {
       </Case>
       <Default>
         <CanceledBadge>
-          {i18n.t('envelope.encryption_keys.none')}
+          {i18n.t('envelopes.encryption_keys.none')}
         </CanceledBadge>
       </Default>
     </Switch>
