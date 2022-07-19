@@ -18,7 +18,7 @@ const StatsPageIndex = () => {
         <Loader visible />
       </Then>
       <Else>
-        {stats !== undefined || !loadingStats ? (
+        {stats !== undefined && !loadingStats ? (
           <>
             <BannerContainer>
               <HeroBanner

@@ -15,7 +15,7 @@ const IndexPage = () => {
 
   // todo(ritmo): implement error page?
   const renderStatsPage = new ViewStrategy(
-    () => stats !== undefined || !loadingStats,
+    () => stats !== undefined && !loadingStats,
     (
       <>
         <BannerContainer>
