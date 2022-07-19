@@ -1,10 +1,8 @@
 import { Loader } from '@components/blocks/loader'
-import { BlockView } from '@components/pages/blocks/details'
 import { EnvelopeDetails } from '@components/pages/envelopes/details'
 import { useEnvelope } from '@hooks/use-envelopes'
 import { Else, If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
-import { isNullOrUndefined } from 'util'
 import { useTranslation } from 'react-i18next'
 
 const BlockDetailPage = () => {
@@ -15,7 +13,7 @@ const BlockDetailPage = () => {
   })
 
   return (
-    <If condition={loading}>
+    <If condition={loading && !envelope}>
       <Then>
         <Loader visible />
       </Then>
