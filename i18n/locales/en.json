@@ -235,10 +235,12 @@
         "details": {
             "created_on": "Created ",
             "detailed_data": "Detailed data",
+            "encrypted_keys": "Encrypted keys",
             "id": "Id",
             "process_details": "Process details",
             "process_not_found": "Process not found",
             "processes_additional_information": "Process additional information",
+            "published_keys": "Published keys",
             "show_description": "Show description",
             "show_envelopes": "Show envelopes",
             "show_questions": "Show questions",

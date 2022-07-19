@@ -235,10 +235,12 @@
         "details": {
             "created_on": "",
             "detailed_data": "",
+            "encrypted_keys": "",
             "id": "",
             "process_details": "",
             "process_not_found": "",
             "processes_additional_information": "",
+            "published_keys": "",
             "show_description": "",
             "show_envelopes": "",
             "show_questions": "",
