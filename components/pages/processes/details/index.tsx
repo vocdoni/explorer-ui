@@ -40,6 +40,8 @@ import { useProcessResults } from '@hooks/use-process'
 import styled from 'styled-components'
 import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ResultsCard } from '../components/results-card'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
+import { EncryptionKeys } from '../components/process_keys'
 
 interface ProcessesDetailPageProps {
   processId: string,
@@ -133,6 +135,11 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
             <h2>{processInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
+        
+        {/* If encrypted votes show reveal keys status */}
+        {processInfo?.state?.envelopeType.encryptedVotes && 
+          <EncryptionKeys processId={processId} />
+        }
 
         {/* Technical details */}
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
