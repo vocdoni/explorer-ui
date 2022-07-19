@@ -10,7 +10,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Envelope, EnvelopeAll } from '@lib/types'
 import { colors } from '@theme/colors'
-import { BreakWordAll, OverflowScroll } from '@components/elements/styled-divs'
+import { BreakWordAll, ItemDate, OverflowScroll } from '@components/elements/styled-divs'
 import { EncryptionKeysIndexesBadge } from '@components/blocks/badges/envelope_encryption_keys'
 import { localizedDateDiff } from '@lib/date'
 
@@ -28,10 +28,9 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
             <Typography variant={TypographyVariant.H5}>
               <BreakWordAll>{envelope.meta.nullifier}</BreakWordAll>
             </Typography>
-            {/* todo(ritmo): finish implementing this */}
-            {/* <VoteListItemDate>
-              {new Date(envelope.timestamp * 1000).toDateString()}
-            </VoteListItemDate> */}
+            <ItemDate>
+              {localizedDateDiff(new Date(envelope.timestamp * 1000))}
+            </ItemDate> 
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.encryption_keys_used')}
               <BadgeColumn>
@@ -55,18 +54,22 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               {i18n.t('envelopes.details.envelope_weight')} {envelope.weight}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.belongs_to_process')}
-              {': '}
-              <ProcessLink processId={envelope.meta.process_id}>
-                <a>0x{envelope.meta.process_id}</a>
-              </ProcessLink>
+              {i18n.t('envelopes.details.envelope_height')} {envelope.height}
             </Typography>
+
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.commited_in_block')}
               {': '}
               <BlockLink blockHeight={envelope.meta.height}>
                 <a>#{envelope.meta.height}</a>
               </BlockLink>
+            </Typography>
+            <Typography variant={TypographyVariant.Small}>
+              {i18n.t('envelopes.details.belongs_to_process')}
+              {': '}
+              <ProcessLink processId={envelope.meta.process_id}>
+                <a>0x{envelope.meta.process_id}</a>
+              </ProcessLink>
             </Typography>
             <Typography variant={TypographyVariant.Small}>
             {i18n.t('envelopes.details.belongs_to_transaction')}

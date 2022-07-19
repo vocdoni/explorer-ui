@@ -65,16 +65,25 @@ export const useEnvelope = ({
     poolPromise
       .then((pool) =>
         // todo(ritmo): VotingApi.getEnvelope return a EnvelopeFull object which not implement encryption_key_indexes
-        pool.sendRequest({
-          method: 'getEnvelope',
-          nullifier: nullifier
-        }),
+        Promise.all([
+          // todo(ritmo): VotingApi.getResults for encrypted not finished votes don't return envelopHeight properly
+          // VotingApi.getResults(processId, pool),
+          pool.sendRequest({
+            method: 'getEnvelope',
+            nullifier: nullifier
+          }),
+          pool.sendRequest({
+            method: 'getEnvelopeStatus',
+            nullifier: nullifier
+          }),
+        ])
       )
-      .then((response) => {
+      .then(([getEnvelope, getEnvelopeStatus]) => {
         setLoadingEnvelope(false)
-        const e: EnvelopeAll = response['envelope'] as EnvelopeAll
-        e.timestamp = response['timestamp']
-        e.registered = response['registered']
+        const e: EnvelopeAll = getEnvelope['envelope'] as EnvelopeAll
+        e.timestamp = getEnvelopeStatus['blockTimestamp']
+        e.registered = getEnvelopeStatus['registered']
+        e.height = getEnvelopeStatus['height']
         setEnvelope(e)
         console.debug('DEBUG:', 'getEnvelope', envelope)
       })

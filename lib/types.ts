@@ -142,4 +142,5 @@ export declare type EnvelopeAll = EnvelopeFull & {
   encryption_key_indexes: number[]
   timestamp: number 
   registered: boolean
+  height: number
 }
