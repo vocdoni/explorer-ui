@@ -132,7 +132,8 @@
                 "whiteBG": "\u001b[47mProcess not found\u001b[49m",
                 "renderShowOrganizationPage": "",
                 "renderShowEntityPage": ""
-            }
+            },
+            "encrypted_keys": "Encrypted keys"
         }
     },
     "components": {

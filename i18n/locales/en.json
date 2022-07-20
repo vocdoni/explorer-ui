@@ -235,17 +235,19 @@
         "details": {
             "created_on": "Created ",
             "detailed_data": "Detailed data",
-            "encrypted_keys": "Encrypted keys",
+            "election_encryption_keys": "Election encryption keys",
             "id": "Id",
             "process_details": "Process details",
             "process_not_found": "Process not found",
             "processes_additional_information": "Process additional information",
-            "published_keys": "Published keys",
+            "published": "Published",
+            "revealed": "Revealed",
             "show_description": "Show description",
             "show_envelopes": "Show envelopes",
             "show_questions": "Show questions",
             "total_questions": "Total questions",
-            "total_votes": "Total votes"
+            "total_votes": "Total votes",
+            "published_keys": "Published keys"
         },
         "envelope_explorer": {
             "back": "Back",

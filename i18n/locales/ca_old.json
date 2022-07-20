@@ -80,7 +80,8 @@
             "election_not_found": "",
             "process_not_found": {
                 "renderShowEntityPage": ""
-            }
+            },
+            "encrypted_keys": ""
         },
         "filter": {
             "search_by_entity_id": ""
