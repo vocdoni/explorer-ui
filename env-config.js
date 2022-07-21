@@ -7,7 +7,7 @@ const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 
-const VERIFY_SINGLE_PAGE = process.env.VERIFY_SINGLE_PAGE || false
+const VERIFY_SINGLE_PAGE = process.env.VERIFY_SINGLE_PAGE || true
 
 
 
