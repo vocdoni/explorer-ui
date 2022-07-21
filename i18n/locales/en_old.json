@@ -151,7 +151,10 @@
             "nullifier": "Nullifier",
             "process_id": "Process id",
             "tx_id": "Transaction id",
-            "vote_package": "Vote package"
+            "vote_package": "Vote package",
+            "envelope_height": "Envelope height",
+            "envelope_is_registered": "Envelope is registered",
+            "envelope_not_registered": "Envelope is not registered"
         },
         "nonce": "Nonce"
     },

@@ -106,7 +106,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.commited_in_block')}:
               {noLinks ? (
-                envelope.meta.height
+                '#' + envelope.meta.height
               ) : (
                 <BlockLink blockHeight={envelope.height}>
                   <a>#{envelope.height}</a>

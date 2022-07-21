@@ -115,11 +115,10 @@
             "emitted": "Emitted ",
             "encryption_keys_used": "Encryption keys used",
             "envelope_details": "Envelope details",
-            "envelope_height": "Envelope height",
-            "envelope_is_registered": "Envelope is registered",
             "envelope_not_found": "Envelope not found",
-            "envelope_not_registered": "Envelope is not registered",
-            "envelope_weight": "Envelope weight"
+            "envelope_weight": "Envelope weight",
+            "verifier_code": "Verifier code",
+            "vote_has_been_registered_correctly": "Vote has been registered correctly"
         },
         "encryption_keys": {
             "none": "None"
@@ -243,6 +242,7 @@
             "processes_additional_information": "Process additional information",
             "published": "Published",
             "revealed": "Revealed",
+            "see_raw_envelopment_content": "See raw envelopment content",
             "show_description": "Show description",
             "show_envelopes": "Show envelopes",
             "show_questions": "Show questions",

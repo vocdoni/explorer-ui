@@ -115,11 +115,10 @@
             "emitted": "",
             "encryption_keys_used": "",
             "envelope_details": "",
-            "envelope_height": "",
-            "envelope_is_registered": "",
             "envelope_not_found": "",
-            "envelope_not_registered": "",
-            "envelope_weight": ""
+            "envelope_weight": "",
+            "verifier_code": "",
+            "vote_has_been_registered_correctly": ""
         },
         "encryption_keys": {
             "none": ""
@@ -243,6 +242,7 @@
             "processes_additional_information": "",
             "published": "",
             "revealed": "",
+            "see_raw_envelopment_content": "",
             "show_description": "",
             "show_envelopes": "",
             "show_questions": "",
