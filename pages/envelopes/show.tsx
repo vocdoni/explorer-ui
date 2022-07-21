@@ -5,7 +5,7 @@ import { Else, If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { useTranslation } from 'react-i18next'
 
-const BlockDetailPage = () => {
+const EnvelopeDetailPage = () => {
   const { i18n } = useTranslation()
   const nullifier: string = useUrlHash().slice(1)
   const { loadingEnvelope: loading, envelope } = useEnvelope({
@@ -31,4 +31,4 @@ const BlockDetailPage = () => {
   )
 }
 
-export default BlockDetailPage
+export default EnvelopeDetailPage
