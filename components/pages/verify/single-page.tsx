@@ -11,8 +11,6 @@ import { useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 
-// NOTE: This page uses a custom Layout. See below.
-
 const VerifySinglePage = () => {
   const [nullifier, setNullifier] = useState('')
   const [etNullifier, setEtNullifier] = useState('') // Handle edit text state
@@ -66,9 +64,6 @@ const VerifySinglePage = () => {
     </>
   )
 }
-
-// Defining the custom layout to use
-VerifySinglePage['Layout'] = process.env.VERIFY_SINGLE_PAGE ? LayoutVerify : DefaultLayout
 
 export default VerifySinglePage
 
