@@ -33,10 +33,11 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
 
   const [showRawContent, setShowRawContent] = useState(false)
 
+  const noLinks = process.env.VERIFY_SINGLE_PAGE
+
   return (
     <PageCard>
       <>
-        
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.H3}>
@@ -49,7 +50,9 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               alignItem={FlexAlignItem.Center}
               justify={FlexJustifyContent.Center}
             >
-              <h2>{i18n.t('envelopes.details.vote_has_been_registered_correctly')}</h2>
+              <h2>
+                {i18n.t('envelopes.details.vote_has_been_registered_correctly')}
+              </h2>
             </FlexContainer>
 
             <FlexContainer
@@ -57,11 +60,17 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               justify={FlexJustifyContent.Center}
               wrap={FlexWrap.Wrap}
             >
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} >
+              <Typography
+                variant={TypographyVariant.H5}
+                color={colors.blueText}
+              >
                 <CenterText>
-                  <strong>{i18n.t('envelopes.details.verifier_code')}</strong><br></br>
+                  <strong>{i18n.t('envelopes.details.verifier_code')}</strong>
+                  <br></br>
                 </CenterText>
-                <BreakWordAll><span>{envelope.meta.nullifier}</span></BreakWordAll>
+                <BreakWordAll>
+                  <span>{envelope.meta.nullifier}</span>
+                </BreakWordAll>
               </Typography>
             </FlexContainer>
             <ItemDate>
@@ -90,37 +99,44 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.envelope_weight')}: {envelope.weight}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>
+            {/* <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.envelope_height')}: {envelope.height}
-            </Typography>
+            </Typography> */}
 
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.commited_in_block')}:
-              <BlockLink blockHeight={envelope.meta.height}>
-                <a>#{envelope.meta.height}</a>
-              </BlockLink>
+              {noLinks ? (
+                envelope.meta.height
+              ) : (
+                <BlockLink blockHeight={envelope.height}>
+                  <a>#{envelope.height}</a>
+                </BlockLink>
+              )}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.belongs_to_process')}
               {': '}
-              <ProcessLink processId={envelope.meta.process_id}>
-                <a>0x{envelope.meta.process_id}</a>
-              </ProcessLink>
+              {noLinks ? (
+                '0x'+envelope.meta.process_id
+              ) : (
+                <ProcessLink processId={envelope.meta.process_id}>
+                  <a>0x{envelope.meta.process_id}</a>
+                </ProcessLink>
+              )}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.belongs_to_transaction')}
               {': '}
-              <TransactionLink
-                blockHeight={envelope.meta.height.toString()}
-                index={envelope.meta.tx_index.toString()}
-              >
-                <a>0x{envelope.meta.tx_hash}</a>
-              </TransactionLink>
-            </Typography>
-            <Typography variant={TypographyVariant.Small}>
-              {envelope.registered
-                ? i18n.t('envelopes.details.envelope_is_registered')
-                : i18n.t('envelopes.details.envelope_not_registered')}
+              {noLinks ? (
+                '0x' +envelope.meta.tx_hash
+              ) : (
+                <TransactionLink
+                  blockHeight={envelope.meta.height.toString()}
+                  index={envelope.meta.tx_index.toString()}
+                >
+                  <a>0x{envelope.meta.tx_hash}</a>
+                </TransactionLink>
+              )}
             </Typography>
           </Column>
         </Grid>
@@ -142,7 +158,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
   )
 }
 const CenterText = styled.div`
-text-align: center;
+  text-align: center;
 `
 
 const VoteImageContainer = styled.div`
