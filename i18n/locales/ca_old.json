@@ -125,5 +125,8 @@
             "vote_package": ""
         },
         "nonce": ""
+    },
+    "verify": {
+        "introduce_vote_id_below_to_verify_your_vote": ""
     }
 }

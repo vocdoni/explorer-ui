@@ -112,13 +112,14 @@
             "belongs_to_process": "Belongs to process",
             "belongs_to_transaction": "Belongs to transaction",
             "commited_in_block": "Commited in block",
+            "emitted": "Emitted ",
             "encryption_keys_used": "Encryption keys used",
             "envelope_details": "Envelope details",
             "envelope_height": "Envelope height",
             "envelope_is_registered": "Envelope is registered",
             "envelope_not_found": "Envelope not found",
             "envelope_not_registered": "Envelope is not registered",
-            "envelope_weight": "Envolope weight"
+            "envelope_weight": "Envelope weight"
         },
         "encryption_keys": {
             "none": "None"
@@ -364,7 +365,7 @@
     },
     "verify": {
         "add_vote_id": "Add vote Id",
-        "introduce_vote_id_below_to_verify_your_vote": "Introduce vote id below to verify your vote",
+        "enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote": "Enter the voting receipt you received after voting to verify your vote",
         "verify": "Verify",
         "verify_your_vote": "Verify your vote"
     },

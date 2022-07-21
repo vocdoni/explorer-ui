@@ -112,6 +112,7 @@
             "belongs_to_process": "",
             "belongs_to_transaction": "",
             "commited_in_block": "",
+            "emitted": "",
             "encryption_keys_used": "",
             "envelope_details": "",
             "envelope_height": "",
@@ -364,7 +365,7 @@
     },
     "verify": {
         "add_vote_id": "",
-        "introduce_vote_id_below_to_verify_your_vote": "",
+        "enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote": "",
         "verify": "",
         "verify_your_vote": ""
     },

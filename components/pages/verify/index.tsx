@@ -27,7 +27,7 @@ const VerifyPage = ({button, setNullifier} : {button: ReactNode, setNullifier: (
           {i18n.t('verify.verify_your_vote')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {i18n.t('verify.introduce_vote_id_below_to_verify_your_vote')}
+          {i18n.t('verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote')}
         </Typography>
       <Col align="center">
         <Row align="center">

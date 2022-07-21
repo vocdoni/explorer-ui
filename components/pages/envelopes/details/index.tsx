@@ -29,10 +29,10 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               <BreakWordAll>{envelope.meta.nullifier}</BreakWordAll>
             </Typography>
             <ItemDate>
-              {localizedDateDiff(new Date(envelope.timestamp * 1000))}
+              {i18n.t('envelopes.details.emitted')} {localizedDateDiff(new Date(envelope.timestamp * 1000))}
             </ItemDate> 
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.encryption_keys_used')}
+              {i18n.t('envelopes.details.encryption_keys_used')}:
               <BadgeColumn>
                 {envelope.encryption_key_indexes?.length > 0 ? (
                   envelope.encryption_key_indexes.map((n) => {
@@ -51,15 +51,14 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               </BadgeColumn>
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.envelope_weight')} {envelope.weight}
+              {i18n.t('envelopes.details.envelope_weight')}: {envelope.weight}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.envelope_height')} {envelope.height}
+              {i18n.t('envelopes.details.envelope_height')}: {envelope.height}
             </Typography>
 
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.commited_in_block')}
-              {': '}
+              {i18n.t('envelopes.details.commited_in_block')}: 
               <BlockLink blockHeight={envelope.meta.height}>
                 <a>#{envelope.meta.height}</a>
               </BlockLink>
