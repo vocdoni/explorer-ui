@@ -23,7 +23,7 @@ const VerifySinglePage = () => {
 
   return (
     <>
-    <VerifyPAgeContainer>
+    <VerifyPageContainer>
         <VerifyPage
           button={
             <Button
@@ -38,7 +38,7 @@ const VerifySinglePage = () => {
           }
           setNullifier={setEtNullifier}
         />
-      </VerifyPAgeContainer>
+      </VerifyPageContainer>
       <If condition={loading && !envelope}>
         <Then>
           <Loader visible />
@@ -55,7 +55,6 @@ const VerifySinglePage = () => {
                   alignItem={FlexAlignItem.Center}
                   justify={FlexJustifyContent.Center}
                 >
-                  
                   <h2>{i18n.t('envelopes.details.envelope_not_found')}</h2>
                 </FlexContainer>
                 </Then>
@@ -73,6 +72,6 @@ VerifySinglePage['Layout'] = process.env.VERIFY_SINGLE_PAGE ? LayoutVerify : Def
 
 export default VerifySinglePage
 
-const VerifyPAgeContainer =  styled.div`
+const VerifyPageContainer =  styled.div`
 margin-bottom: 20px;
 `

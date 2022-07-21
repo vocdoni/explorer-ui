@@ -20,6 +20,13 @@ import { localizedDateDiff } from '@lib/date'
 import { Tab, TabButton, Tabs } from '@components/blocks/tabs'
 import { useState } from 'react'
 import { Button } from '@components/elements/button'
+import {
+  FlexAlignItem,
+  FlexContainer,
+  FlexJustifyContent,
+  FlexWrap,
+} from '@components/elements/flex'
+import styled from 'styled-components'
 
 export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
   const { i18n } = useTranslation()
@@ -29,14 +36,34 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
   return (
     <PageCard>
       <>
+        
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.H3}>
               {i18n.t('envelopes.details.envelope_details')}
             </Typography>
-            <Typography variant={TypographyVariant.H5}>
-              <BreakWordAll>{envelope.meta.nullifier}</BreakWordAll>
-            </Typography>
+            <VoteImageContainer>
+              <img src="/images/vocdoni-vote.png" alt="Vote registered" />
+            </VoteImageContainer>
+            <FlexContainer
+              alignItem={FlexAlignItem.Center}
+              justify={FlexJustifyContent.Center}
+            >
+              <h2>{i18n.t('envelopes.details.vote_has_been_registered_correctly')}</h2>
+            </FlexContainer>
+
+            <FlexContainer
+              alignItem={FlexAlignItem.Center}
+              justify={FlexJustifyContent.Center}
+              wrap={FlexWrap.Wrap}
+            >
+              <Typography variant={TypographyVariant.H5} color={colors.blueText} >
+                <CenterText>
+                  <strong>{i18n.t('envelopes.details.verifier_code')}</strong><br></br>
+                </CenterText>
+                <BreakWordAll><span>{envelope.meta.nullifier}</span></BreakWordAll>
+              </Typography>
+            </FlexContainer>
             <ItemDate>
               {i18n.t('envelopes.details.emitted')}{' '}
               {localizedDateDiff(new Date(envelope.timestamp * 1000))}
@@ -114,3 +141,15 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
     </PageCard>
   )
 }
+const CenterText = styled.div`
+text-align: center;
+`
+
+const VoteImageContainer = styled.div`
+  width: 100px;
+  margin: 60px auto 26px;
+
+  & > img {
+    width: 100%;
+  }
+`
