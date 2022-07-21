@@ -10,13 +10,22 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Envelope, EnvelopeAll } from '@lib/types'
 import { colors } from '@theme/colors'
-import { BreakWordAll, ItemDate, OverflowScroll } from '@components/elements/styled-divs'
+import {
+  BreakWordAll,
+  ItemDate,
+  OverflowScroll,
+} from '@components/elements/styled-divs'
 import { EncryptionKeysIndexesBadge } from '@components/blocks/badges/envelope_encryption_keys'
 import { localizedDateDiff } from '@lib/date'
+import { Tab, TabButton, Tabs } from '@components/blocks/tabs'
+import { useState } from 'react'
+import { Button } from '@components/elements/button'
 
 export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
   const { i18n } = useTranslation()
-  
+
+  const [showRawContent, setShowRawContent] = useState(false)
+
   return (
     <PageCard>
       <>
@@ -29,8 +38,9 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               <BreakWordAll>{envelope.meta.nullifier}</BreakWordAll>
             </Typography>
             <ItemDate>
-              {i18n.t('envelopes.details.emitted')} {localizedDateDiff(new Date(envelope.timestamp * 1000))}
-            </ItemDate> 
+              {i18n.t('envelopes.details.emitted')}{' '}
+              {localizedDateDiff(new Date(envelope.timestamp * 1000))}
+            </ItemDate>
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.encryption_keys_used')}:
               <BadgeColumn>
@@ -58,7 +68,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
             </Typography>
 
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.commited_in_block')}: 
+              {i18n.t('envelopes.details.commited_in_block')}:
               <BlockLink blockHeight={envelope.meta.height}>
                 <a>#{envelope.meta.height}</a>
               </BlockLink>
@@ -71,44 +81,35 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               </ProcessLink>
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-            {i18n.t('envelopes.details.belongs_to_transaction')}
-            {': '}
-            <TransactionLink
-              blockHeight={envelope.meta.height.toString()}
-              index={envelope.meta.tx_index.toString()}
-            >
-              <a>0x{envelope.meta.tx_hash}</a>
-            </TransactionLink>
-          </Typography>
-          <Typography variant={TypographyVariant.Small}>
-            {envelope.registered 
-            ? i18n.t('envelopes.details.envelope_is_registered') 
-            : i18n.t('envelopes.details.envelope_not_registered') }
-          </Typography>
+              {i18n.t('envelopes.details.belongs_to_transaction')}
+              {': '}
+              <TransactionLink
+                blockHeight={envelope.meta.height.toString()}
+                index={envelope.meta.tx_index.toString()}
+              >
+                <a>0x{envelope.meta.tx_hash}</a>
+              </TransactionLink>
+            </Typography>
+            <Typography variant={TypographyVariant.Small}>
+              {envelope.registered
+                ? i18n.t('envelopes.details.envelope_is_registered')
+                : i18n.t('envelopes.details.envelope_not_registered')}
+            </Typography>
           </Column>
         </Grid>
-        <Card>
+        <Button
+          small
+          positive
+          onClick={() => setShowRawContent(!showRawContent)}
+        >
+          {i18n.t('processes.details.see_raw_envelopment_content')}
+        </Button>
+        {showRawContent && (
+          <Card>
             <h3>{i18n.t('transactions.details.raw_contents')}</h3>
             <OverflowScroll>{JSON.stringify(envelope, null, 2)}</OverflowScroll>
-        </Card>
-        {/* <GenericListItemWithBadge
-          topLeft={
-            <>
-              {i18n.t('envelopes.details.block_height')} {envelope.meta.height}
-            </>
-          }
-          badge={<></>}
-          dateText={
-            i18n.t('envelopes.details.vote_package') +
-            ': ' +
-            envelope.vote_package
-          }
-          link={null}
-          title={i18n.t('envelopes.nonce') + ' 0x' + envelope?.nonce}
-        >
-          
-          
-        </GenericListItemWithBadge> */}
+          </Card>
+        )}
       </>
     </PageCard>
   )
