@@ -1,6 +1,8 @@
 import { Loader } from '@components/blocks/loader'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
+import { DefaultLayout } from '@components/pages/app/layout/layout'
+import { LayoutVerify } from '@components/pages/app/layout/verify'
 import { EnvelopeDetails } from '@components/pages/envelopes/details'
 import VerifyPage from '@components/pages/verify'
 import { useEnvelope } from '@hooks/use-envelopes'
@@ -9,7 +11,9 @@ import { useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
 
-const Page = () => {
+// NOTE: This page uses a custom Layout. See below.
+
+const VerifySinglePage = () => {
   const [nullifier, setNullifier] = useState('')
   const [etNullifier, setEtNullifier] = useState('') // Handle edit text state
 
@@ -64,7 +68,10 @@ const Page = () => {
   )
 }
 
-export default Page
+// Defining the custom layout to use
+VerifySinglePage['Layout'] = process.env.VERIFY_SINGLE_PAGE ? LayoutVerify : DefaultLayout
+
+export default VerifySinglePage
 
 const VerifyPAgeContainer =  styled.div`
 margin-bottom: 20px;

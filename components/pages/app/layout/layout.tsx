@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { useRouter } from 'next/router'
-import { sizes } from '../../../theme/sizes'
-import { Footer } from './footer'
-import { Header } from './header'
-import { MessageAlert } from '../../blocks/msg-alert'
-import { LoadingAlert } from '../../blocks/loading-alert'
+import { sizes } from '../../../../theme/sizes'
+import { Footer } from '../footer'
+import { Header } from '../header'
+import { MessageAlert } from '../../../blocks/msg-alert'
+import { LoadingAlert } from '../../../blocks/loading-alert'
 
 
 const LayoutContainer = styled.div<{ isHomePage?: boolean }>`

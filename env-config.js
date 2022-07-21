@@ -7,6 +7,9 @@ const COMMIT_SHA = process.env.COMMIT_SHA || 'development'
 const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev'
 let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json'
 
+const VERIFY_SINGLE_PAGE = process.env.VERIFY_SINGLE_PAGE || false
+
+
 
 switch (VOCDONI_ENVIRONMENT) {
   case 'dev':
@@ -26,6 +29,7 @@ module.exports = {
   DEVELOPMENT,
   VOCDONI_ENVIRONMENT,
   APP_TITLE: 'Explorer',
+  VERIFY_SINGLE_PAGE,
 
   // BLOCKCHAIN
   ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'rinkeby',
@@ -40,7 +44,7 @@ module.exports = {
   PLAZA_URL: process.env.PLAZA_URL || plaza,
 
   // HELPSCOUT
-  HELPSCOUT_PROJECT_ID: '' // TODO: 
+  HELPSCOUT_PROJECT_ID: '', // TODO: 
 }
 
 console.log('Building the frontend with ENV:', module.exports)

@@ -8,7 +8,7 @@ import { Router } from 'next/router'
 
 import { ThemeProvider } from 'styled-components'
 
-import { DefaultLayout } from '@components/pages/app/layout'
+import { DefaultLayout } from '@components/pages/app/layout/layout'
 import { DefaultProviders } from '@components/pages/app/providers/default-providers'
 
 import { FixedGlobalStyle, theme } from '../theme'
