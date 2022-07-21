@@ -44,7 +44,9 @@ const VerifyPage = ({button, setNullifier} : {button: ReactNode, setNullifier: (
         alignItem={FlexAlignItem.Center}
         justify={FlexJustifyContent.Center}
       >
-        {button}
+        <ButtonContainer>
+            {button}
+        </ButtonContainer>
       </FlexContainer>
     </>
   )
@@ -59,5 +61,8 @@ const VoteImageContainer = styled.div`
   & > img {
     width: 100%;
   }
+`
+const ButtonContainer = styled.div`
+margin-top: 10px;
 `
 
