@@ -89,6 +89,7 @@ export const useEnvelope = ({
       })
       .catch((err) => {
         setLoadingEnvelope(false)
+        setEnvelope(null)
         console.error(err)
       })
   }
