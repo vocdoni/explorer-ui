@@ -15,41 +15,93 @@ import { colors } from '@theme/colors'
 import Link from 'next/link'
 import { ReactNode, useState } from 'react'
 import styled from 'styled-components'
+import {
+  InlineTitleChildrenContainer,
+  ListPage,
+  TopDiv,
+} from '../app/page-templates/list-page'
 
-const VerifyPage = ({button, setNullifier} : {button: ReactNode, setNullifier: (nullifier: string) => void }) => {
-
-  return (
-    <>
-      <VoteImageContainer>
-        <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
-      </VoteImageContainer>
-      <Typography variant={TypographyVariant.H4} color={colors.blueText} margin='0px auto auto'>
-          {i18n.t('verify.verify_your_vote')}
-        </Typography>
-        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {i18n.t('verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote')}
-        </Typography>
-      <Col align="center">
-        <Row align="center">
-          <Input 
-            wide 
-            placeholder={i18n.t('verify.add_vote_id')} 
-            onChange={(ev) => {
-              setNullifier(ev.target.value)
-            }}
-          />
-        </Row>
-      </Col>
-      <FlexContainer
-        alignItem={FlexAlignItem.Center}
-        justify={FlexJustifyContent.Center}
-      >
-        <ButtonContainer>
-            {button}
-        </ButtonContainer>
-      </FlexContainer>
-    </>
+const VerifyPage = ({
+  button,
+  setNullifier,
+  minified = false,
+}: {
+  button: ReactNode
+  setNullifier: (nullifier: string) => void
+  minified?: boolean
+}) => {
+  const nullifierInput = (
+    <Input
+      wide
+      placeholder={i18n.t('verify.add_vote_id')}
+      onChange={(ev) => {
+        setNullifier(ev.target.value)
+      }}
+    />
   )
+
+  const logo = <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
+
+  const title = (<Typography
+    variant={TypographyVariant.H4}
+    color={colors.blueText}
+    margin="20px 0 20px 0 "
+  >
+    {i18n.t('verify.verify_your_vote')}
+  </Typography>)
+
+  const minifiedLayout = () => {
+    return (
+      <>
+        <FlexContainer
+          alignItem={FlexAlignItem.Start}
+          justify={FlexJustifyContent.Start}
+        >
+        <VoteImageContainerMinified>
+          <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
+        </VoteImageContainerMinified>
+          {title}
+        </FlexContainer>
+        <TopDiv>
+          <InlineInput>{nullifierInput}</InlineInput>
+          <LeftMargin>
+            <Grid>
+              <Column>
+                <DivWithMarginChildren>{button}</DivWithMarginChildren>
+              </Column>
+            </Grid>
+          </LeftMargin>
+        </TopDiv>
+      </>
+    )
+  }
+
+  const normalLayout = () => {
+    return (
+      <>
+        <VoteImageContainer>
+          {logo}
+        </VoteImageContainer>
+        {title}
+        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+          {i18n.t(
+            'verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote'
+          )}
+        </Typography>
+        <Col align="center">
+          <Row align="center">{nullifierInput}</Row>
+        </Col>
+        <FlexContainer
+          alignItem={FlexAlignItem.Center}
+          justify={FlexJustifyContent.Center}
+        >
+          <ButtonContainer>{button}</ButtonContainer>
+        </FlexContainer>
+      </>
+    )
+  }
+
+  return <>{minified ? minifiedLayout() : normalLayout()}</>
 }
 
 export default VerifyPage
@@ -62,7 +114,26 @@ const VoteImageContainer = styled.div`
     width: 100%;
   }
 `
-const ButtonContainer = styled.div`
-margin-top: 10px;
+
+const VoteImageContainerMinified = styled.div`
+  width: 30px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  margin-left: 10px;
+  & > img {
+    width: 100%;
+  }
 `
 
+const ButtonContainer = styled.div`
+  margin-top: 10px;
+`
+
+const InlineInput = styled.span`
+  width: 100%;
+`
+
+const LeftMargin = styled.span`
+  margin-left: 40px;
+`
