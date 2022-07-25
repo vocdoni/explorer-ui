@@ -45,7 +45,7 @@ export const InlineTitleChildrenContainer=({title, children} : {title: ReactNode
   </TopDiv>)
 }
 
-const TopDiv = styled.div`
+export const TopDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
