@@ -23,6 +23,7 @@ const VerifySinglePage = () => {
     <>
     <VerifyPageContainer>
         <VerifyPage
+          minified={envelope !== null && envelope !== undefined}
           button={
             <Button
               positive
