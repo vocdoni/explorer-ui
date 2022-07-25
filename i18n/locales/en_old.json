@@ -154,7 +154,8 @@
             "vote_package": "Vote package",
             "envelope_height": "Envelope height",
             "envelope_is_registered": "Envelope is registered",
-            "envelope_not_registered": "Envelope is not registered"
+            "envelope_not_registered": "Envelope is not registered",
+            "belongs_to_transaction": "Belongs to transaction"
         },
         "nonce": "Nonce"
     },

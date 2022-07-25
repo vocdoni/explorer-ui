@@ -110,13 +110,13 @@
     "envelopes": {
         "details": {
             "belongs_to_process": "Belongs to process",
-            "belongs_to_transaction": "Belongs to transaction",
             "commited_in_block": "Commited in block",
             "emitted": "Emitted ",
             "encryption_keys_used": "Encryption keys used",
             "envelope_details": "Envelope details",
             "envelope_not_found": "Envelope not found",
             "envelope_weight": "Envelope weight",
+            "transaction_hash": "Transaction hash",
             "verifier_code": "Verifier code",
             "vote_has_been_registered_correctly": "Vote has been registered correctly"
         },

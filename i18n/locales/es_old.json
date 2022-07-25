@@ -193,7 +193,8 @@
             "vote_package": "",
             "envelope_height": "",
             "envelope_is_registered": "",
-            "envelope_not_registered": ""
+            "envelope_not_registered": "",
+            "belongs_to_transaction": ""
         },
         "nonce": ""
     },
