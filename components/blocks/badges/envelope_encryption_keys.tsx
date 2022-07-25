@@ -9,14 +9,8 @@ export const EncryptionKeysIndexesBadge = ({ type }: { type: number }) => {
   const { i18n } = useTranslation()
   return (
     <Switch>
-      <Case condition={type === 1}>
-        <ActiveBadge>1</ActiveBadge>
-      </Case>
-      <Case condition={type === 2}>
-        <ActiveBadge>2</ActiveBadge>
-      </Case>
-      <Case condition={type === 3}>
-        <ActiveBadge>3</ActiveBadge>
+      <Case condition={type > 0}>
+        <ActiveBadge>{type}</ActiveBadge>
       </Case>
       <Default>
         <CanceledBadge>
