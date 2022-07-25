@@ -125,7 +125,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               )}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.belongs_to_transaction')}
+              {i18n.t('envelopes.details.transaction_hash')}
               {': '}
               {noLinks ? (
                 '0x' +envelope.meta.tx_hash
