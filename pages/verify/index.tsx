@@ -1,4 +1,5 @@
 import { Button } from '@components/elements/button'
+import { FakedButton } from '@components/elements/styled-divs'
 import { DefaultLayout } from '@components/pages/app/layout/layout'
 import { LayoutVerify } from '@components/pages/app/layout/verify'
 import VerifyPage from '@components/pages/verify'
@@ -13,6 +14,8 @@ import styled from 'styled-components'
 const VerifyIndexPage = () => {
   const [nullifier, setNullifier] = useState('')
 
+  const url = '/envelopes/show/#/' + nullifier
+
   return (
     <>
       {process.env.VERIFY_SINGLE_PAGE ? 
@@ -22,13 +25,16 @@ const VerifyIndexPage = () => {
       :
       (
         <VerifyPage
+          onSubmit={() => {window.location.href=url}}
           button={
             <Button positive small>
-              <LinkContainer>
-                <Link href={'/envelopes/show/#/' + nullifier} passHref>
-                  {i18n.t('verify.verify')}
-                </Link>
-              </LinkContainer>
+              <FakedButton type="submit">
+                <LinkContainer>
+                  <Link href={url} passHref>
+                    {i18n.t('verify.verify')}
+                  </Link>
+                </LinkContainer>
+              </FakedButton>
             </Button>
           }
           setNullifier={setNullifier}

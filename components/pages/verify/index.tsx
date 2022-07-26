@@ -25,11 +25,14 @@ const VerifyPage = ({
   button,
   setNullifier,
   minified = false,
+  onSubmit,
 }: {
   button: ReactNode
   setNullifier: (nullifier: string) => void
   minified?: boolean
+  onSubmit?: () => void
 }) => {
+  
   const nullifierInput = (
     <Input
       wide
@@ -101,7 +104,12 @@ const VerifyPage = ({
     )
   }
 
-  return <>{minified ? minifiedLayout() : normalLayout()}</>
+  return <form 
+  onSubmit={(ev) => {
+    ev.preventDefault()
+    if(onSubmit) onSubmit()
+  }}
+  >{minified ? minifiedLayout() : normalLayout()}</form>
 }
 
 export default VerifyPage
