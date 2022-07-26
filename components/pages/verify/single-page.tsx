@@ -1,6 +1,7 @@
 import { Loader } from '@components/blocks/loader'
 import { Button } from '@components/elements/button'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
+import { FakedButton } from '@components/elements/styled-divs'
 import { DefaultLayout } from '@components/pages/app/layout/layout'
 import { LayoutVerify } from '@components/pages/app/layout/verify'
 import { EnvelopeDetails } from '@components/pages/envelopes/details'
@@ -19,20 +20,25 @@ const VerifySinglePage = () => {
     nullifier: nullifier,
   })
 
+  const onClick = () => {
+    if (etNullifier.length) setNullifier(etNullifier)
+  }
+
   return (
     <>
     <VerifyPageContainer>
         <VerifyPage
           minified={envelope !== null && envelope !== undefined}
+          onSubmit={onClick}
           button={
             <Button
               positive
               small
-              onClick={(ev) => {
-                if (etNullifier.length) setNullifier(etNullifier)
-              }}
+              onClick={onClick}
             >
-              {i18n.t('verify.verify')}
+              <FakedButton>
+                {i18n.t('verify.verify')}
+              </FakedButton>
             </Button>
           }
           setNullifier={setEtNullifier}
