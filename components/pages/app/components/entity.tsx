@@ -24,13 +24,14 @@ export const EntityNameWithIcon = ({
 }:{
   entityName: string,
   entityId: string,
-  icon: string }) => {
+  icon: string,
+ }) => {
   return (
     <EntityNameAndLogoWrapper>
       <ImageContainer width="30px" height="30px">
               <Image src={ icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
-      <EntityLink entityId={entityId}>{entityName}</EntityLink>
+      <span title={entityId}>{entityName}</span>
     </EntityNameAndLogoWrapper>
   )
 }
