@@ -75,7 +75,9 @@ export const GenericListItemWithBadge = ({
       {link ? (
         <LinkCardContainer>
           <Link href={link ?? ''} passHref>
-            {childrenData()}
+            <a href={link ?? ''}>
+              {childrenData()}
+            </a>
           </Link>
         </LinkCardContainer>
       ) : (
@@ -86,8 +88,8 @@ export const GenericListItemWithBadge = ({
 }
 
 const LinkCardContainer = styled.div`
-   {
-    cursor: pointer;
+  & > a {
+    color: inherit;
   }
 `
 
