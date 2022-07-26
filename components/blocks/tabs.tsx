@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Button } from '@components/elements/button'
 import { useState, ReactElement, ReactNode } from 'react'
 import { BadgeColumn } from '@components/elements/grid'
+import { FakedButton } from '@components/elements/styled-divs'
 
 interface TabButtonProps {
   activeTab: string
@@ -12,7 +13,9 @@ interface TabButtonProps {
 export const TabButton = ({ activeTab, label, onClick }: TabButtonProps) => {
   return (
     <Button onClick={() => onClick()} small positive>
-      {label}
+      <FakedButton>
+        {label}
+      </FakedButton>
     </Button>
   )
 }
