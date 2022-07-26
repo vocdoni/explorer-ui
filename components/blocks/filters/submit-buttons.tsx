@@ -2,7 +2,6 @@ import { Button } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
 import { DivWithMarginChildren, FakedButton } from '@components/elements/styled-divs'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
 export const SubmitFilterButtons = ({
   onEnableFilter,
