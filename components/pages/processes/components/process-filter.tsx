@@ -13,6 +13,7 @@ import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { Column } from 'react-rainbow-components'
+import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -48,7 +49,7 @@ export const ProcessFilter = ({
   }
 
   return (
-    <>
+    <FilterForm onEnableFilter={_onEnableFilter}>
       <FilterContainer>
         <DivWithMarginChildren>
           <Input
@@ -95,25 +96,25 @@ export const ProcessFilter = ({
           </DivWithMarginChildren>
         </FlexContainer>
         <CheckBoxContainer>
-            <Checkbox
-              id="with_results"
-              checked={tempFilter.withResults}
-              onChange={(ack: boolean) => {
-                // setWithResults(ack)
-                tempFilter.withResults = ack
+          <Checkbox
+            id="with_results"
+            checked={tempFilter.withResults}
+            onChange={(ack: boolean) => {
+              // setWithResults(ack)
+              tempFilter.withResults = ack
 
-                setTempFilter(Object.assign({}, tempFilter))
-              }}
-              text={i18n.t('processes.filter.check_with_results')}
-              labelColor={colors.lightText}
-            />
+              setTempFilter(Object.assign({}, tempFilter))
+            }}
+            text={i18n.t('processes.filter.check_with_results')}
+            labelColor={colors.lightText}
+          />
         </CheckBoxContainer>
       </FilterContainer>
       <SubmitFilterButtons
         onEnableFilter={_onEnableFilter}
         onDisableFilter={_onDisableFilter}
       />
-    </>
+    </FilterForm>
   )
 }
 const SelectContainer = styled.div`
@@ -126,7 +127,6 @@ const CheckBoxContainer = styled(FlexContainer)`
   align-items: center;
   padding-bottom: 10px;
   margin-right: 20px;
-
 `
 
 const FilterContainer = styled(Grid)`

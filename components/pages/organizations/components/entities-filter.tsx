@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next'
 import { Column, Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
@@ -7,11 +6,12 @@ import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useState } from 'react'
+import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterEntity {
-    searchTerm?: string 
-  }
+  searchTerm?: string
+}
 
 export const EntitiesFilter = ({
   onEnableFilter,
@@ -25,7 +25,6 @@ export const EntitiesFilter = ({
   const { i18n } = useTranslation()
 
   const [searchTermIT, setSearchTermIT] = useState('')
-
 
   const [tempFilter, setTempFilter] = useState<IFilterEntity>({})
 
@@ -42,19 +41,26 @@ export const EntitiesFilter = ({
   }
 
   return (
-    <InlineFlex>
-      <DivWithMarginChildren>
-        <Input
-          placeholder={i18n.t('organizations.filter.search_by_organization_id')}
-          value={searchTermIT}
-          onChange={(ev) => {
-            setSearchTermIT(ev.target.value)
-            tempFilter.searchTerm = ev.target.value
-            setTempFilter(Object.assign({}, tempFilter))
-          }}
+    <FilterForm onEnableFilter={_onEnableFilter}>
+      <InlineFlex>
+        <DivWithMarginChildren>
+          <Input
+            placeholder={i18n.t(
+              'organizations.filter.search_by_organization_id'
+            )}
+            value={searchTermIT}
+            onChange={(ev) => {
+              setSearchTermIT(ev.target.value)
+              tempFilter.searchTerm = ev.target.value
+              setTempFilter(Object.assign({}, tempFilter))
+            }}
+          />
+        </DivWithMarginChildren>
+        <SubmitFilterButtons
+          onEnableFilter={_onEnableFilter}
+          onDisableFilter={_onDisableFilter}
         />
-      </DivWithMarginChildren>
-      <SubmitFilterButtons onEnableFilter={_onEnableFilter} onDisableFilter={_onDisableFilter}/>
-    </InlineFlex>
+      </InlineFlex>
+    </FilterForm>
   )
 }

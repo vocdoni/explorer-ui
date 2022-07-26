@@ -5,6 +5,7 @@ import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useState } from 'react'
+import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 
 // Used to filter blocks by height
 export interface IFilterTransactions {
@@ -36,29 +37,31 @@ export const TransactionsFilter = ({
   }
 
   return (
-    <InlineFlex>
-      <DivWithMarginChildren>
-        <Input
-          placeholder={i18n.t(
-            'transactions.filter.search_by_transaction_height'
-          )}
-          value={searchTermIT}
-          onChange={(ev) => {
-            setSearchTermIT(ev.target.value)
-            tempFilter.from = +ev.target.value
-            setTempFilter(Object.assign({}, tempFilter))
-          }}
-          onKeyPress={(event) => {
-            if (!/[0-9]/.test(event.key)) {
-              event.preventDefault()
-            }
-          }}
+    <FilterForm onEnableFilter={_onEnableFilter}>
+      <InlineFlex>
+        <DivWithMarginChildren>
+          <Input
+            placeholder={i18n.t(
+              'transactions.filter.search_by_transaction_height'
+            )}
+            value={searchTermIT}
+            onChange={(ev) => {
+              setSearchTermIT(ev.target.value)
+              tempFilter.from = +ev.target.value
+              setTempFilter(Object.assign({}, tempFilter))
+            }}
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key) && event.key !== 'Enter') {
+                event.preventDefault()
+              }
+            }}
+          />
+        </DivWithMarginChildren>
+        <SubmitFilterButtons
+          onEnableFilter={_onEnableFilter}
+          onDisableFilter={_onDisableFilter}
         />
-      </DivWithMarginChildren>
-      <SubmitFilterButtons
-        onEnableFilter={_onEnableFilter}
-        onDisableFilter={_onDisableFilter}
-      />
-    </InlineFlex>
+      </InlineFlex>
+    </FilterForm>
   )
 }
