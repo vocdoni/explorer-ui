@@ -5,6 +5,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { FakedButton } from '@components/elements/styled-divs'
 
 type PaginatorProps = {
   totalCount: number
@@ -42,11 +43,11 @@ export const Paginator = ({
       <GroupButtonMargin>
         {!disableGoFirstBtn && (
           <Button small onClick={() => paginate(1)}>
-            «
+            <FakedButton>«</FakedButton>
           </Button>
         )}
         <Button small onClick={() => paginate(currentPage - 1)}>
-          {'<'}
+          <FakedButton>{'<'}</FakedButton>
         </Button>
       </GroupButtonMargin>
       <TextDiv>
@@ -63,12 +64,12 @@ export const Paginator = ({
       </TextDiv>
       <GroupButtonMargin>
         <Button small onClick={() => paginate(currentPage + 1)}>
-          {'>'}
+          <FakedButton>{'>'}</FakedButton>
         </Button>
 
         {!disableGoLastBtn && (
           <Button small onClick={() => paginate(totalCount)}>
-            »
+            <FakedButton>»</FakedButton>
           </Button>
         )}
       </GroupButtonMargin>
