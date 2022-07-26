@@ -35,3 +35,10 @@ export const ItemDate = styled.div`
   color: ${(props) => props.theme.lightText};
   font-size: 80%;
 `
+
+export const FakedButton = styled.button`
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+`

@@ -1,7 +1,8 @@
 import { Button } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
-import { DivWithMarginChildren } from '@components/elements/styled-divs'
+import { DivWithMarginChildren, FakedButton } from '@components/elements/styled-divs'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 
 export const SubmitFilterButtons = ({
   onEnableFilter,
@@ -22,7 +23,9 @@ export const SubmitFilterButtons = ({
               onEnableFilter()
             }}
           >
-            {i18n.t('components.filters.apply_filters')}
+            <FakedButton type="submit">
+              {i18n.t('components.filters.apply_filters')}
+            </FakedButton>
           </Button>
           <Button
             small
@@ -30,7 +33,9 @@ export const SubmitFilterButtons = ({
               onDisableFilter()
             }}
           >
-            {i18n.t('components.filters.clear_filters')}
+            <FakedButton>
+              {i18n.t('components.filters.clear_filters')}
+            </FakedButton>
           </Button>
         </DivWithMarginChildren>
       </Column>
