@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Switch, Case, Default } from 'react-if'
 import { UpcomingBadge, EndedBadgeLight } from '@components/elements/text-badge'
 import { VochainCensusOrigin } from 'dvote-js'
+import styled from 'styled-components'
 
 
 export const NTransactionsBadge = ({
@@ -12,7 +13,7 @@ export const NTransactionsBadge = ({
   return (
     <Switch>
       <Case condition={ transactions === 0 }>
-        <EndedBadgeLight>{text}</EndedBadgeLight>
+        <TransactionsBadge>{text}</TransactionsBadge>
       </Case>
       <Default>
         <UpcomingBadge>{text}</UpcomingBadge>
@@ -20,3 +21,8 @@ export const NTransactionsBadge = ({
     </Switch>
   )
 }
+
+const TransactionsBadge = styled(EndedBadgeLight)`
+  background-color: ${({theme}) => theme.textAccent2B}
+  opacity: 0.7;
+`
