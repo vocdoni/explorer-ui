@@ -16,27 +16,23 @@ const IndexPage = () => {
   const { loading: loadingStats, stats } = useStats({})
 
   return (
-    <If condition={loadingStats && stats === undefined}>
+    <If condition={loadingStats || stats === undefined}>
       <Then>
         <Loader visible />
       </Then>
       <Else>
-        {stats !== undefined ? (
-          <>
-            <BannerContainer>
-              <HeroBanner
-                processes={stats?.process_count}
-                organizations={stats?.entity_count}
-                averageBlockTime={(stats?.block_time[0] || 0) / 1000}
-                envelopes={stats?.envelope_count}
-              />
-            </BannerContainer>
-            <StatsPage stats={stats} />
-            <FeaturedContent />
-          </>
-        ) : (
-          <h1>{i18n.t('stats.stats_not_found')}</h1>
-        )}
+        <>
+          <BannerContainer>
+            <HeroBanner
+              processes={stats?.process_count}
+              organizations={stats?.entity_count}
+              averageBlockTime={(stats?.block_time[0] || 0) / 1000}
+              envelopes={stats?.envelope_count}
+            />
+          </BannerContainer>
+          <StatsPage stats={stats} />
+          <FeaturedContent />
+        </>
       </Else>
     </If>
   )
