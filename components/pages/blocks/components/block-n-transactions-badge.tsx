@@ -23,6 +23,6 @@ export const NTransactionsBadge = ({
 }
 
 const TransactionsBadge = styled(EndedBadgeLight)`
-  background-color: ${({theme}) => theme.textAccent2B}
+  background-color: ${({theme}) => theme.textAccent2B};
   opacity: 0.7;
 `
