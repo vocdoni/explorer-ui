@@ -88,7 +88,7 @@ const FeaturedContent = () => {
       <br /><br />
 
       <Section background="linear-gradient(101.89deg, #F1FFDF 17.32%, #E1FFFF 68.46%);">
-        <BlockContainer>
+        <CenteredBlockContainer>
           <Grid>
             <Column sm={12} md={6}>
               <Typography variant={TypographyVariant.H1} margin='70px 0px 30px'>
@@ -152,13 +152,18 @@ const FeaturedContent = () => {
               </ImageContainer>
             </Column>
           </Grid>
-        </BlockContainer>
+        </CenteredBlockContainer>
       </Section>
     </>
   )
 }
 
 export default FeaturedContent
+
+const CenteredBlockContainer = styled(BlockContainer)`
+  display: flex;
+  justify-content: center;
+`
 
 const CuttingEdgeFeaturesContainer = styled.div`
   margin-top: 40px;
