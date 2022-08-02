@@ -91,7 +91,7 @@ export const HeroBanner = (props: {
 }
 
 export const BannerContainer = styled.div`
-  min-height: 430px;
+  min-height: 340px;
   margin-top: -110px;
   padding-top: 40px;
   width: 100%;

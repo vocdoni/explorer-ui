@@ -8,8 +8,8 @@ export const DivWithMarginChildren = styled.div`
 }
 `
 
-export const Section = styled.section<{ background?: string }>`
-  padding: 30px 0;
+export const Section = styled.section<{ background?: string, padding?: string }>`
+  padding: ${({padding}) => (padding ? `padding: ${padding};` : ' 30px 0;')}
   ${({ background }) => (background ? `background: ${background};` : '')}
 `
 

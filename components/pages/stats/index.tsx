@@ -33,7 +33,7 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
 
   return (
     <div>
-      <Section>
+      <Section padding={'0'}>
         <BlockContainer>
           <Typography variant={TypographyVariant.H3} color={colors.blueText}>
             {i18n.t('stats.recent_blocks')}
