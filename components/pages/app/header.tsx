@@ -48,12 +48,15 @@ export const Header = ({ children }: IHeaderProps) => {
       url: STATS_PATH,
     },
     {
-      name: i18n.t("links.verify_vote"),
-      url: VERIFY,
-    },
-    {
       name: i18n.t("links.tools"),
       url: TOOLS_PATH,
+    },
+  ]
+
+  const RIGHT_LINKS: HeaderLink[] = [
+    {
+      name: i18n.t("links.verify_vote"),
+      url: VERIFY,
     },
   ]
 
@@ -75,7 +78,7 @@ export const Header = ({ children }: IHeaderProps) => {
         </ListContainer>
 
         <MobileMenuContainer showMenu={openMobileMenu}>
-          {LINKS.map((link) => (
+          {[...LINKS, ...RIGHT_LINKS].map((link) => (
             <MenuItem key={link.name}>
               <LinkItem
                 {...link}
@@ -92,6 +95,9 @@ export const Header = ({ children }: IHeaderProps) => {
 
         {!isMobile && (
           <RightContainer>
+            {RIGHT_LINKS.map((link) => (
+              <LinkItem {...link} key={link.name} >{link.name}</LinkItem>
+            ))}
             {children}
           </RightContainer>
         )}
@@ -143,7 +149,7 @@ const RightContainer = styled.div`
   padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
 
   @media ${({ theme }) => theme.screenMin.tablet} {
-    padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
+    padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
