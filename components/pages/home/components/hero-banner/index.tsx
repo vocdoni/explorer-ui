@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Typography, TypographyVariant } from '@components/elements/typography'
+import {
+  BaseParagraphTypography,
+  Typography,
+  TypographyVariant,
+} from '@components/elements/typography'
 import { useTranslation } from 'react-i18next'
 import { colors } from 'theme/colors'
 
@@ -10,7 +14,6 @@ import { sizes } from 'theme/sizes'
 import { Grid } from '@components/elements/grid'
 import { Card } from '@components/elements/cards'
 
-
 export const HeroBanner = (props: {
   processes: number
   organizations: number
@@ -18,41 +21,67 @@ export const HeroBanner = (props: {
   envelopes: number
 }) => {
   const { i18n } = useTranslation()
+  const innerCardMargin = '22px 0'
+
   return (
     <>
       <ContentContainer>
         <div>
           <Title>
             <strong>{i18n.t('home.vocdoni_explorer')}</strong> <br />
-            <Typography variant={TypographyVariant.H1}>{i18n.t('home.explore_the_vochain')}</Typography>
+            <Typography variant={TypographyVariant.H1}>
+              {i18n.t('home.explore_the_vochain')}
+            </Typography>
           </Title>
 
           <Grid>
             <Card sm={6} lg={3}>
-              <h4>{i18n.t('home.average_block_time')}</h4>
-              <p>
+              <Typography
+                variant={TypographyVariant.H5}
+                margin={innerCardMargin}
+              >
+                {i18n.t('home.average_block_time')}
+              </Typography>
+              <BaseParagraphTypography margin={innerCardMargin}>
                 {i18n.t('home.n_seconds', {
                   seconds: Number(props.averageBlockTime || 0).toFixed(1),
                 })}
-              </p>
+              </BaseParagraphTypography>
             </Card>
             <Card sm={6} lg={3}>
-              <h4>{i18n.t('home.total_processes')}</h4>
-              <p>
+              <Typography
+                variant={TypographyVariant.H5}
+                margin={innerCardMargin}
+              >
+                {i18n.t('home.total_processes')}
+              </Typography>
+              <BaseParagraphTypography margin={innerCardMargin}>
                 {i18n.t('home.n_processes', { processes: props.processes })}
-              </p>
+              </BaseParagraphTypography>
             </Card>
             <Card sm={6} lg={3}>
-              <h4>{i18n.t('home.total_organizations')}</h4>
-              <p>
+              <Typography
+                variant={TypographyVariant.H5}
+                margin={innerCardMargin}
+              >
+                {i18n.t('home.total_organizations')}
+              </Typography>
+              <BaseParagraphTypography margin={innerCardMargin}>
                 {i18n.t('home.n_organizations', {
                   organizations: props.organizations,
                 })}
-              </p>
+              </BaseParagraphTypography>
             </Card>
             <Card sm={6} lg={3}>
-              <h4>{i18n.t('home.total_votes')}</h4>
-              <p>{i18n.t('home.n_votes', { votes: props.envelopes })}</p>
+              <Typography
+                variant={TypographyVariant.H5}
+                margin={innerCardMargin}
+              >
+                {i18n.t('home.total_votes')}
+              </Typography>
+              <BaseParagraphTypography margin={innerCardMargin}>
+                {i18n.t('home.n_votes', { votes: props.envelopes })}
+              </BaseParagraphTypography>
             </Card>
           </Grid>
         </div>
@@ -62,7 +91,7 @@ export const HeroBanner = (props: {
 }
 
 export const BannerContainer = styled.div`
-  height: 430px;
+  min-height: 430px;
   margin-top: -110px;
   padding-top: 40px;
   width: 100%;

@@ -112,7 +112,7 @@ export const H5 = styled.h5<ITypographyCommon>`
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
 `
 
-const BaseParagraphTypography = styled.p<ITypographyCommon>`
+export const BaseParagraphTypography = styled.p<ITypographyCommon>`
   font-weight: 400;
   line-height: 1.2em;
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
@@ -156,3 +156,4 @@ const typographyMap = new Map<
   [TypographyVariant.Small, Small],
   [TypographyVariant.ExtraSmall, ExtraSmall],
 ])
+
