@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Typography, TypographyVariant } from '@components/elements/typography'
+import {
+  TextAlign,
+  Typography,
+  TypographyVariant,
+} from '@components/elements/typography'
 import { colors } from 'theme/colors'
 import { Grid } from '@components/elements/grid'
 import { Card, CardDiv } from '@components/elements/cards'
@@ -9,7 +13,11 @@ import { useEffect, useState } from 'react'
 import { localizedDateDiff } from '@lib/date'
 import { useTranslation } from 'react-i18next'
 import { Stats } from '@lib/types'
-import { Section, BlockContainer } from '@components/elements/styled-divs'
+import {
+  Section,
+  BlockContainer,
+  CenterText,
+} from '@components/elements/styled-divs'
 import { BlockCard } from '@components/blocks/card/block-card'
 import { useBlocks } from '@hooks/use-blocks'
 
@@ -43,17 +51,20 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
           </Typography>
 
           <Grid>
-            {recentBlocks.length ? recentBlocks.map((item) => (
-              <BlockCard
-                key={item.height}
-                proposerShrink={6}
-                blockData={item}
-                sm={6}
-                md={4}
-                lg={3}
-              />
-            )) : (<h3>{i18n.t('stats.getting_block_info')}</h3>) 
-            }
+            {recentBlocks.length ? (
+              recentBlocks.map((item) => (
+                <BlockCard
+                  key={item.height}
+                  proposerShrink={6}
+                  blockData={item}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                />
+              ))
+            ) : (
+              <h3>{i18n.t('stats.getting_block_info')}</h3>
+            )}
           </Grid>
         </BlockContainer>
       </Section>
@@ -66,55 +77,108 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
           <Typography variant={TypographyVariant.Small} color={colors.blueText}>
             {i18n.t('stats.network_details')}
           </Typography>
-
           <Grid>
             <Card md={6}>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.network_id')}
-              </Typography>
-              <p>{stats?.chain_id}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.bloc_height')}
-              </Typography>
-              <p>{stats?.block_height}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.total_transactions')}
-              </Typography>
-              <p>{stats?.transaction_count}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.total_processes')}
-              </Typography>
-              <p>{stats?.process_count}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.total_votes')}
-              </Typography>
-              <p>{stats?.envelope_count}</p>
+              <CenterText>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.network_id')}
+                </Typography>
+                <p>{stats?.chain_id}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.bloc_height')}
+                </Typography>
+                <p>{stats?.block_height}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.total_transactions')}
+                </Typography>
+                <p>{stats?.transaction_count}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.total_processes')}
+                </Typography>
+                <p>{stats?.process_count}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.total_votes')}
+                </Typography>
+                <p>{stats?.envelope_count}</p>
+              </CenterText>
             </Card>
             <Card md={6}>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.genesis_block_date')}
-              </Typography>
-              <p>{localizedDateDiff(new Date(stats?.genesis_time_stamp))}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.latest_block_date')}
-              </Typography>
-              <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.total_organizations')}
-              </Typography>
-              <p>{stats?.entity_count}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.number_of_validators')}
-              </Typography>
-              <p>{stats?.validator_count}</p>
-              <Typography variant={TypographyVariant.H5} color={colors.blueText} margin='30px 0px -3px'>
-                {i18n.t('stats.sync_status')}
-              </Typography>
-              <p>
-                {stats?.syncing
-                  ? i18n.t('stats.syncing')
-                  : i18n.t('stats.in_sync')}
-              </p>
+              <CenterText>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.genesis_block_date')}
+                </Typography>
+                <p>{localizedDateDiff(new Date(stats?.genesis_time_stamp))}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.latest_block_date')}
+                </Typography>
+                <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.total_organizations')}
+                </Typography>
+                <p>{stats?.entity_count}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.number_of_validators')}
+                </Typography>
+                <p>{stats?.validator_count}</p>
+                <Typography
+                  variant={TypographyVariant.H5}
+                  color={colors.blueText}
+                  align={TextAlign.Center}
+                  margin="30px 0px -3px"
+                >
+                  {i18n.t('stats.sync_status')}
+                </Typography>
+                <p>
+                  {stats?.syncing
+                    ? i18n.t('stats.syncing')
+                    : i18n.t('stats.in_sync')}
+                </p>
+              </CenterText>
             </Card>
           </Grid>
         </BlockContainer>

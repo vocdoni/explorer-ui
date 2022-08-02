@@ -12,6 +12,7 @@ import { Envelope, EnvelopeAll } from '@lib/types'
 import { colors } from '@theme/colors'
 import {
   BreakWordAll,
+  CenterText,
   ItemDate,
   OverflowScroll,
 } from '@components/elements/styled-divs'
@@ -157,9 +158,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
     </PageCard>
   )
 }
-const CenterText = styled.div`
-  text-align: center;
-`
+
 
 const VoteImageContainer = styled.div`
   width: 100px;
