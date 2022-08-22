@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Column, ColumnProps } from './grid'
 import { Skeleton } from '../blocks/skeleton'
 
-type CardProps = ColumnProps & {
+export type CardProps = ColumnProps & {
   border?: boolean
 }
 
@@ -57,7 +57,7 @@ export const PageCardHeader = styled.div<{ variant?: PageCardHeaderVariant }>`
 
 export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
   <Column {...{ span, sm, md, lg, xl }}>
-    <CardDiv border>{props.children}</CardDiv>
+    <CardDiv border={border}>{props.children}</CardDiv>
   </Column>
 )
 
