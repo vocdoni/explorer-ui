@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import {
   BaseParagraphTypography,
+  TextAlign,
   Typography,
   TypographyVariant,
 } from '@components/elements/typography'
@@ -11,8 +12,10 @@ import { colors } from 'theme/colors'
 
 import { Button } from '@components/elements/button'
 import { sizes } from 'theme/sizes'
-import { Grid } from '@components/elements/grid'
-import { Card } from '@components/elements/cards'
+import { Column, Grid } from '@components/elements/grid'
+import { Card, CardDiv, CardProps } from '@components/elements/cards'
+
+const innerCardMargin = '10px 0'
 
 export const HeroBanner = (props: {
   processes: number
@@ -21,7 +24,6 @@ export const HeroBanner = (props: {
   envelopes: number
 }) => {
   const { i18n } = useTranslation()
-  const innerCardMargin = '22px 0'
 
   return (
     <>
@@ -35,54 +37,28 @@ export const HeroBanner = (props: {
           </Title>
 
           <Grid>
-            <Card sm={6} lg={3}>
-              <Typography
-                variant={TypographyVariant.H5}
-                margin={innerCardMargin}
-              >
-                {i18n.t('home.average_block_time')}
-              </Typography>
-              <BaseParagraphTypography margin={innerCardMargin}>
-                {i18n.t('home.n_seconds', {
-                  seconds: Number(props.averageBlockTime || 0).toFixed(1),
-                })}
-              </BaseParagraphTypography>
-            </Card>
-            <Card sm={6} lg={3}>
-              <Typography
-                variant={TypographyVariant.H5}
-                margin={innerCardMargin}
-              >
-                {i18n.t('home.total_processes')}
-              </Typography>
-              <BaseParagraphTypography margin={innerCardMargin}>
-                {i18n.t('home.n_processes', { processes: props.processes })}
-              </BaseParagraphTypography>
-            </Card>
-            <Card sm={6} lg={3}>
-              <Typography
-                variant={TypographyVariant.H5}
-                margin={innerCardMargin}
-              >
-                {i18n.t('home.total_organizations')}
-              </Typography>
-              <BaseParagraphTypography margin={innerCardMargin}>
-                {i18n.t('home.n_organizations', {
-                  organizations: props.organizations,
-                })}
-              </BaseParagraphTypography>
-            </Card>
-            <Card sm={6} lg={3}>
-              <Typography
-                variant={TypographyVariant.H5}
-                margin={innerCardMargin}
-              >
-                {i18n.t('home.total_votes')}
-              </Typography>
-              <BaseParagraphTypography margin={innerCardMargin}>
-                {i18n.t('home.n_votes', { votes: props.envelopes })}
-              </BaseParagraphTypography>
-            </Card>
+            <HeroCard
+              title={i18n.t('home.average_block_time')}
+              subtitle={i18n.t('home.n_seconds', {
+                seconds: Number(props.averageBlockTime || 0).toFixed(1),
+              })}
+            />
+            <HeroCard
+              title={i18n.t('home.total_processes')}
+              subtitle={i18n.t('home.n_processes', {
+                processes: props.processes,
+              })}
+            />
+            <HeroCard
+              title={i18n.t('home.total_organizations')}
+              subtitle={i18n.t('home.n_organizations', {
+                organizations: props.organizations,
+              })}
+            />
+            <HeroCard
+              title={i18n.t('home.total_votes')}
+              subtitle={i18n.t('home.n_votes', { votes: props.envelopes })}
+            />
           </Grid>
         </div>
       </ContentContainer>
@@ -113,6 +89,33 @@ export const BannerContainer = styled.div`
   // @media ${({ theme }) => theme.screenMax.tabletL} {
   //   height: auto;
   // }
+`
+
+const HeroCard = ({ title, subtitle }: { title: string; subtitle: string }) => {
+  return (
+    <Column sm={6} lg={3}>
+      <HeroCardDiv>
+        <Typography
+          variant={TypographyVariant.H5}
+          margin={innerCardMargin}
+          align={TextAlign.Center}
+
+        >
+          <strong>{title}</strong>
+        </Typography>
+        <BaseParagraphTypography
+          margin={innerCardMargin}
+          align={TextAlign.Center}
+        >
+          {subtitle}
+        </BaseParagraphTypography>
+      </HeroCardDiv>
+    </Column>
+  )
+}
+
+export const HeroCardDiv = styled(CardDiv)`
+  background: rgba(255, 255, 255, 0.5);
 `
 
 const ContentContainer = styled.div`
