@@ -15,7 +15,7 @@ const TransactionDetailPage = () => {
 
   return (
     <>
-      <If condition={loading}>
+      <If condition={loading || tx === undefined}>
         <Then>
           <Loader visible />
         </Then>

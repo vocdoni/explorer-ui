@@ -99,16 +99,14 @@ export const useTx = ({
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
         transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
-          
         console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
-        setLoading(false)
       })
       .catch((err) => {
         console.error(err)
-        setLoading(false)
+        setTx(null)
         setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      })
+      }).finally(() => setLoading(false))
   }
 
   useEffect(() => {
