@@ -16,7 +16,7 @@ const IndexPage = () => {
   const { loading: loadingStats, stats } = useStats({})
 
   return (
-    <If condition={loadingStats || stats === undefined}>
+    <If condition={loadingStats && stats === undefined}>
       <Then>
         <Loader visible />
       </Then>

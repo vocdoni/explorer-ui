@@ -18,21 +18,17 @@ const StatsPageIndex = () => {
         <Loader visible />
       </Then>
       <Else>
-        {stats !== undefined && !loadingStats ? (
-          <>
-            <BannerContainer>
-              <HeroBanner
-                processes={stats?.process_count}
-                organizations={stats?.entity_count}
-                averageBlockTime={(stats?.block_time[0] || 0) / 1000}
-                envelopes={stats?.envelope_count}
-              />
-            </BannerContainer>
-            <StatsPage stats={stats} />
-          </>
-        ) : (
-          <h1>{i18n.t('stats.stats_not_found')}</h1>
-        )}
+        <>
+          <BannerContainer>
+            <HeroBanner
+              processes={stats?.process_count}
+              organizations={stats?.entity_count}
+              averageBlockTime={(stats?.block_time[0] || 0) / 1000}
+              envelopes={stats?.envelope_count}
+            />
+          </BannerContainer>
+          <StatsPage stats={stats} />
+        </>
       </Else>
     </If>
   )
@@ -48,7 +44,6 @@ const BannerContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
   }
-
 `
 
 export default StatsPageIndex
