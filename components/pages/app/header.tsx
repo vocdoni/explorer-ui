@@ -117,7 +117,9 @@ export const Header = ({ children }: IHeaderProps) => {
         {!isMobile && (
           <RightContainer>
             {RIGHT_LINKS.map((link, i) => (
-              <CTAButton key={i} url={link.url}>{link.name}</CTAButton>
+              <CTAButton key={i} url={link.url}>
+                {link.name}
+              </CTAButton>
             ))}
             {children}
           </RightContainer>
@@ -284,15 +286,16 @@ const ButtonLink = styled.div`
   }
 `
 
-const CTAButton = ({url, children, external}: ILinkItemProps) => {
+const CTAButton = ({ url, children, external }: ILinkItemProps) => {
   return (
-  <Button small>
-    <ButtonLink>
+    <Button small positive>
       <Link href={url} passHref>
-        <a target={external ? '_blank' : '_self'}>
-          {children}
-        </a>
+        <CTAStyle target={external ? '_blank' : '_self'}>{children}</CTAStyle>
       </Link>
-    </ButtonLink>
-  </Button>)
+    </Button>
+  )
 }
+
+const CTAStyle = styled.a`
+  color: inherit;
+`
