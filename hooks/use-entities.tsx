@@ -31,12 +31,12 @@ export const useEntityList = ({
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getEntityList', response)
-        if (!response['ok']) {
-          throw new Error('Error retrieving getProcessCount')
+        if (!response['ok'] || response['entityIds'] === undefined ) {
+          setEntitiesList([] as string[])
+        } else {
+          const ids = response['entityIds'] as string[]
+          setEntitiesList(reverse ? ids.reverse() : ids)
         }
-        const ids = response['entityIds'] as string[]
-        setEntitiesList(reverse ? ids.reverse() : ids)
       })
       .catch((err) => {
         console.error(err)
