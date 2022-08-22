@@ -92,16 +92,19 @@ export const useBlock = ({ blockHeight }:{ blockHeight: number }) => {
       })
       .then((response) => {
         console.debug('DEBUG', 'getBlock', response )
-        const block = response.response.block as BlockInfo || null 
-        block.height = blockHeight
-        setBlock(block) 
-        setLoading(false)
+        if(response.response.ok){
+          const block = response.response.block as BlockInfo || null 
+          block.height = blockHeight
+          setBlock(block)
+        } else {
+          setBlock(null)
+        }
       })
       .catch((err) => {
         console.error(err)
-        setLoading(false)
+        setBlock(null)
         setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      })
+      }).finally(() => setLoading(false))
   }
 
   useEffect(() => {

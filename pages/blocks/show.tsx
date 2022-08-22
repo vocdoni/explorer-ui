@@ -9,16 +9,21 @@ const BlockDetailPage = () => {
   const { i18n } = useTranslation()
   const blockHeight: number = +useUrlHash().slice(1)
   const { block, loading } = useBlock({ blockHeight: blockHeight })
-  
+
   return (
-    <If condition={loading}>
+    <If condition={block && !loading}>
       <Then>
-        <Loader visible />
+        <BlockView blockData={block} ></BlockView>
       </Then>
       <Else>
-        {block
-          ? (<BlockView blockData={block} ></BlockView>) 
-          : (<h1>{i18n.t('blocks.details.block_not_found')}</h1>)}
+        <If condition={block === null && !loading}>
+          <Then>
+            <h1>{i18n.t('blocks.details.block_not_found')}</h1>
+          </Then>
+          <Else>
+            <Loader visible />
+          </Else>
+        </If>
       </Else>
     </If>
   )
