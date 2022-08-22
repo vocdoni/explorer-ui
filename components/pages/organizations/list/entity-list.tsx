@@ -26,21 +26,16 @@ export const DashboardEntityList = ({
       </div>
     )
   }
-  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterEntity>({})
   const [dataPagination, setDataPagination] = useState(0)
 
-  const { entitiesList, loadingEntitiesList } = useEntityList({
+  const { entitiesList, loading } = useEntityList({
     from: dataPagination,
     searchTerm: filter?.searchTerm,
     listSize: pageSize,
     reverse: true
   })
 
-  // Set loading
-  useEffect(() => {
-    setLoading(loadingEntitiesList)
-  }, [loadingEntitiesList])
 
   // View logic
   const {

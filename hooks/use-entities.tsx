@@ -17,12 +17,12 @@ export const useEntityList = ({
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()
   const [entitiesList, setEntitiesList] = useState([] as string[])
-  const [loadingEntitiesList, setLoadingEntitiesList] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const getEntityIDs = useCallback(() => {
     const f = from < 0 ? 0 : from;
 
-    setLoadingEntitiesList(true)
+    setLoading(true)
     poolPromise
       .then((pool) =>{
         return pool.sendRequest({
@@ -32,7 +32,6 @@ export const useEntityList = ({
       })
       .then((response) => {
         console.debug('DEBUG', 'getEntityList', response)
-        setLoadingEntitiesList(false)
         if (!response['ok']) {
           throw new Error('Error retrieving getProcessCount')
         }
@@ -40,10 +39,9 @@ export const useEntityList = ({
         setEntitiesList(reverse ? ids.reverse() : ids)
       })
       .catch((err) => {
-        setLoadingEntitiesList(false)
         console.error(err)
         setAlertMessage(i18n.t('errors.the_list_of_organizations_cannot_be_loaded'))
-      })
+      }).finally(() => setLoading(false))
 
   }, [from, listSize, poolPromise, reverse, searchTerm, setAlertMessage])
 
@@ -53,7 +51,7 @@ export const useEntityList = ({
 
   return {
     entitiesList,
-    loadingEntitiesList
+    loading
   }
 
 }
