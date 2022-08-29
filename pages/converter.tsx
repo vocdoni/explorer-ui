@@ -57,6 +57,17 @@ const BlocksPage = () => {
     if(stats) setGenesisDate(new Date(stats.genesis_time_stamp))
   }, [stats])
 
+  const enviormentName = (env) => {
+    switch(env) {
+      case 'prod':
+        return 'production';
+      case 'dev':
+        return 'development';
+      default:
+        return env;
+    }
+  }
+
 
   return (
     <PageCard>
@@ -70,7 +81,7 @@ const BlocksPage = () => {
           </MainDescription>
           <p>
             {i18n.t('converter.current_enviorment')} {': '}
-            <strong>{process.env.VOCDONI_ENVIRONMENT}</strong>
+            <strong>{enviormentName(process.env.VOCDONI_ENVIRONMENT)}</strong>
           </p>
           <p>
             {i18n.t('converter.genesis_date')} {': '}
