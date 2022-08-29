@@ -1,6 +1,6 @@
 import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
+import { IInputProps, Input } from '@components/elements/inputs'
 import { MainDescription, SectionTitle } from '@components/elements/text'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {

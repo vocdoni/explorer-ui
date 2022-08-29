@@ -7,7 +7,7 @@ import {
 } from 'react-select'
 import { useTranslation } from 'react-i18next'
 
-interface IInputProps {
+export interface IInputProps {
   wide?: boolean
   type?: string
   error?: boolean
