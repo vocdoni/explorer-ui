@@ -12,8 +12,9 @@ import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
-import { Column } from 'react-rainbow-components'
+import { ButtonOption, Column } from 'react-rainbow-components'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
+import { ButtonGroupPicker } from 'react-rainbow-components'
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -34,7 +35,14 @@ export const ProcessFilter = ({
   const voteStatusOpts = Object.keys(VochainProcessStatus)
     .filter((value) => isNaN(Number(value)) === false)
     .map((key) => {
-      return { value: key, label: VochainProcessStatus[key] }
+      // return { value: key, label: VochainProcessStatus[key] }
+      return (
+        <ButtonOption
+          key={key}
+          name={key}
+          label={VochainProcessStatus[key]}
+        ></ButtonOption>
+      )
     })
 
   const resetFilter = () => {
@@ -69,7 +77,7 @@ export const ProcessFilter = ({
             }}
           />
         </DivWithMarginChildren>
-        <FlexContainer>
+        {/* <FlexContainer>
           <DivWithMarginChildren>
             <SelectContainer>
               <Select
@@ -94,7 +102,7 @@ export const ProcessFilter = ({
               />
             </SelectContainer>
           </DivWithMarginChildren>
-        </FlexContainer>
+        </FlexContainer> */}
         <CheckBoxContainer>
           <Checkbox
             id="with_results"
@@ -114,6 +122,37 @@ export const ProcessFilter = ({
         onEnableFilter={_onEnableFilter}
         onDisableFilter={_onDisableFilter}
       />
+      <ButtonGroupPicker
+        id="button-group-picker-component-1"
+        label="Select view type"
+        value={tempFilter.status ? tempFilter.status.toString() : 'ALL'}
+        onChange={(value) => {
+          console.debug(value, tempFilter)
+          if (value === 'ALL') tempFilter.status = null
+          else {
+          console.debug(VochainProcessStatus[value])
+
+            
+            tempFilter.status = VochainProcessStatus[
+              value as string
+            ] as any as VochainProcessStatus
+          }
+          setTempFilter(Object.assign({}, tempFilter))
+        }}
+        name="filter"
+        size="medium"
+        // bottomHelpText="Select one option"
+      >
+        <ButtonOption label={i18n.t('All')} name="ALL" />
+        <ButtonOption label={i18n.t('Active')} name="ACTIVE" />
+        <ButtonOption label={i18n.t('Upcoming')} name="UPCOMING" />
+        <ButtonOption label={i18n.t('Paused')} name="PAUSED" />
+        <ButtonOption label={i18n.t('Ended')} name="ENDED" />
+        {/* <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
+          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
+          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
+          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" /> */}
+      </ButtonGroupPicker>
     </FilterForm>
   )
 }
