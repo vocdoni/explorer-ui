@@ -21,8 +21,6 @@ import { useTranslation } from 'react-i18next'
 import { useStats } from '@hooks/use-stats'
 import { localizedDateDiff } from '@lib/date'
 
-
-
 const BlocksPage = () => {
   const { i18n } = useTranslation()
 
@@ -55,20 +53,19 @@ const BlocksPage = () => {
   }, [dateInput])
 
   useEffect(() => {
-    if(stats) setGenesisDate(new Date(stats.genesis_time_stamp))
+    if (stats) setGenesisDate(new Date(stats.genesis_time_stamp))
   }, [stats])
 
   const enviormentName = (env) => {
-    switch(env) {
+    switch (env) {
       case 'prod':
-        return 'production';
+        return 'production'
       case 'dev':
-        return 'development';
+        return 'development'
       default:
-        return env;
+        return env
     }
   }
-
 
   return (
     <PageCard>
@@ -105,12 +102,13 @@ const BlocksPage = () => {
             />
           </CalendarContainer>
         </Column>
-        <Column md={2}>
+        <ColumnBottomAligned md={2}>
           <FlexContainer
             direction={FlexDirection.Column}
             justify={FlexJustifyContent.Center}
             alignItem={FlexAlignItem.Center}
           >
+            <InputTitle></InputTitle>
             <MiddleCardContainer>
               <Card>
                 <FlexContainer justify={FlexJustifyContent.Center}>
@@ -119,29 +117,29 @@ const BlocksPage = () => {
               </Card>
             </MiddleCardContainer>
           </FlexContainer>
-        </Column>
+        </ColumnBottomAligned>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
-          <Input
-            placeholder={i18n.t('converter.search_by_block_height')}
-            value={targetBlock ?? estimatedBlockNumber ?? ''}
-            onChange={(ev) => {
-              setBlockInput(+ev.target.value)
-            }}
-            onKeyPress={(event) => {
-              if (!/[0-9]/.test(event.key)) {
-                event.preventDefault()
-              }
-            }}
-          />
+          <CalendarContainer>
+            <Input
+              placeholder={i18n.t('converter.search_by_block_height')}
+              value={targetBlock ?? estimatedBlockNumber ?? ''}
+              onChange={(ev) => {
+                setBlockInput(+ev.target.value)
+              }}
+              onKeyPress={(event) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault()
+                }
+              }}
+            />
+          </CalendarContainer>
         </Column>
       </Grid>
 
       <LoadingContainer>
         {loading ? (
-          <MainDescription>
-            {i18n.t('converter.loading_info')}
-          </MainDescription>
+          <MainDescription>{i18n.t('converter.loading_info')}</MainDescription>
         ) : null}
       </LoadingContainer>
     </PageCard>
@@ -150,16 +148,49 @@ const BlocksPage = () => {
 
 export default BlocksPage
 
+const ColumnBottomAligned = styled(Column)`{
+  justify-content: flex-end;
+  flex-direction: column;
+  display: flex;
+}`
+
 const LoadingContainer = styled.div`
   height: 20px;
 `
 
-const CalendarContainer = styled.div`
+const CalendarContainer = styled.div<IInputProps>`
   display: flex;
   flex-wrap: wrap;
 
   margin-right: 16px;
   margin-top: 8px;
+
+  svg {
+    display: none;
+  }
+
+  input {
+    padding: ${({ type }) => (type == 'color' ? '0px' : '11px')};
+    margin-top: 8px;
+    color: ${({ error, theme }) => (error ? '#FF2929' : theme.blueText)};
+    border: 2px solid ${({ theme, error }) => (error ? '#FF2929' : '#EFF1F7;')};
+    box-shadow: ${({ error }) =>
+      error
+        ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'
+        : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
+    box-sizing: border-box;
+    border-radius: 8px;
+    outline-width: 0;
+    margin-bottom: 10px;
+    ${({ wide }) => (wide ? 'width: 100%;' : '')}
+    ${({ type }) => (type == 'color' ? 'height: 40px' : '')};
+
+    @media ${({ theme }) => theme.screenMax.mobileL} {
+      padding: 11px 16px;
+      line-height: 22px;
+      font-size: 16px;
+    }
+  }
 `
 const InputTitle = styled(SectionTitle)`
   font-size: 20px;
