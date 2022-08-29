@@ -87,9 +87,9 @@ const BlocksPage = () => {
             {i18n.t('converter.genesis_date')} {': '}
             {localizedDateDiff(genesisDate)}
           </p>
-          <InputTitle>
-            {i18n.t('converter.block_height')} {blockHeight}
-          </InputTitle>
+          <p>
+            {i18n.t('converter.block_height')} {': '} {blockHeight}
+          </p>
         </Column>
         <Column md={4} sm={6}>
           <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
