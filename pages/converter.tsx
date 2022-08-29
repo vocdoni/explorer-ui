@@ -12,6 +12,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import DateTimePicker from 'react-rainbow-components/components/DateTimePicker'
 import {
+  FlexAlignItem,
   FlexContainer,
   FlexDirection,
   FlexJustifyContent,
@@ -107,7 +108,8 @@ const BlocksPage = () => {
         <Column md={2}>
           <FlexContainer
             direction={FlexDirection.Column}
-            justify={FlexJustifyContent.End}
+            justify={FlexJustifyContent.Center}
+            alignItem={FlexAlignItem.Center}
           >
             <MiddleCardContainer>
               <Card>
@@ -164,4 +166,5 @@ const InputTitle = styled(SectionTitle)`
   font-weight: 400;
   color: ${({ theme }) => theme.blueText};
 `
-const MiddleCardContainer = styled(SectionTitle)``
+// const MiddleCardContainer = styled(SectionText)``
+const MiddleCardContainer = styled.div``
