@@ -132,18 +132,25 @@ const BlocksPage = () => {
               }
             }}
           />
-          {loading ? (
-            <MainDescription>
-              {i18n.t('converter.loading_info')}
-            </MainDescription>
-          ) : null}
         </Column>
       </Grid>
+
+      <LoadingContainer>
+        {loading ? (
+          <MainDescription>
+            {i18n.t('converter.loading_info')}
+          </MainDescription>
+        ) : null}
+      </LoadingContainer>
     </PageCard>
   )
 }
 
 export default BlocksPage
+
+const LoadingContainer = styled.div`
+  height: 20px;
+`
 
 const CalendarContainer = styled.div`
   display: flex;
