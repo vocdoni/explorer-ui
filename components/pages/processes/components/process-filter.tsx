@@ -23,12 +23,8 @@ import { isInValidEntityId } from '@lib/util'
 
 export const ProcessFilter = ({
   onEnableFilter,
-  onDisableFilter,
 }: {
   onEnableFilter: { (tempFilter: IFilterProcesses): void }
-  onDisableFilter: {
-    (tempFilter: IFilterProcesses, resetFilter: { (): void }): void
-  }
 }) => {
   const { i18n } = useTranslation()
 
@@ -52,16 +48,13 @@ export const ProcessFilter = ({
       )
     })
 
-  const resetFilter = () => {
-    setTempFilter({})
-  }
-
   const _onEnableFilter = () => {
     onEnableFilter(tempFilter)
   }
-  const _onDisableFilter = () => {
-    onDisableFilter(tempFilter, resetFilter)
-  }
+
+  useEffect(() => {
+    _onEnableFilter()
+  }, [tempFilter])
 
   return (
     <FilterForm onEnableFilter={_onEnableFilter}>
@@ -143,10 +136,6 @@ export const ProcessFilter = ({
           </ButtonGroupPicker>
         </ButtonGroupContainer>
       </FlexContainer>
-      <SubmitFilterButtons
-        onEnableFilter={_onEnableFilter}
-        onDisableFilter={_onDisableFilter}
-      />
     </FilterForm>
   )
 }

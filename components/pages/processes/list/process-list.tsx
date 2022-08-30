@@ -63,7 +63,7 @@ export const DashboardProcessList = ({
   // View logic
   const {
     currentPage,
-    methods: { enableFilter, disableFilter, setCurrentPage },
+    methods: { enableFilter, setCurrentPage },
   } = useFilteredPaginatedList<IFilterProcesses>({
       pageSize: pageSize, 
       filter: filter, 
@@ -82,7 +82,6 @@ export const DashboardProcessList = ({
       {title}
       <ProcessFilter
         onEnableFilter={enableFilter}
-        onDisableFilter={disableFilter}
       ></ProcessFilter>
       <FilteredPaginatedList
         loading={loading}
