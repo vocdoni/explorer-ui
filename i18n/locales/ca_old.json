@@ -84,7 +84,13 @@
             "encrypted_keys": ""
         },
         "filter": {
-            "search_by_entity_id": ""
+            "search_by_entity_id": "",
+            "check_with_results": "",
+            "search_by_organization_id": "",
+            "search_by_search_term": "",
+            "select_by_vote_status": "",
+            "search_by_search_term_or_organization_details": "",
+            "search_by_term_or_organization_details": ""
         }
     },
     "entities": {
@@ -132,5 +138,18 @@
     },
     "verify": {
         "introduce_vote_id_below_to_verify_your_vote": ""
+    },
+    "stats": {
+        "stats_not_found": ""
+    },
+    "process": {
+        "filter": {
+            "status_selector": {
+                "active": "",
+                "all": "",
+                "ended": "",
+                "paused": ""
+            }
+        }
     }
 }
