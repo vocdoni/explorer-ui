@@ -4,8 +4,9 @@ import { Input } from '@components/elements/inputs'
 import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
+import { DELAY_BOUNCE_TIME } from '@const/filters'
 
 // Used to filter blocks by height
 export interface IFilterTransactions {
@@ -31,10 +32,13 @@ export const TransactionsFilter = ({
   const _onEnableFilter = () => {
     setFilter(Object.assign({}, tempFilter))
   }
-  const _onDisableFilter = () => {
-    setFilter({})
-    resetFilter()
-  }
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      _onEnableFilter()
+    }, DELAY_BOUNCE_TIME)
+    return () => clearTimeout(delayDebounceFn)
+  }, [tempFilter])
 
   return (
     <FilterForm onEnableFilter={_onEnableFilter}>
@@ -46,9 +50,13 @@ export const TransactionsFilter = ({
             )}
             value={searchTermIT}
             onChange={(ev) => {
-              setSearchTermIT(ev.target.value)
-              tempFilter.from = +ev.target.value
-              setTempFilter(Object.assign({}, tempFilter))
+              if (ev.target.value.length === 0) {
+                resetFilter()
+              } else {
+                setSearchTermIT(ev.target.value)
+                tempFilter.from = +ev.target.value
+                setTempFilter(Object.assign({}, tempFilter))
+              }
             }}
             onKeyPress={(event) => {
               if (!/[0-9]/.test(event.key) && event.key !== 'Enter') {
@@ -57,10 +65,6 @@ export const TransactionsFilter = ({
             }}
           />
         </DivWithMarginChildren>
-        <SubmitFilterButtons
-          onEnableFilter={_onEnableFilter}
-          onDisableFilter={_onDisableFilter}
-        />
       </InlineFlex>
     </FilterForm>
   )
