@@ -45,6 +45,7 @@ export const TransactionsFilter = ({
       <InlineFlex>
         <DivWithMarginChildren>
           <Input
+            wide
             placeholder={i18n.t(
               'transactions.filter.search_by_transaction_height'
             )}

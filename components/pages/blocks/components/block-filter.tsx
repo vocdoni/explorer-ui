@@ -45,6 +45,7 @@ export const BlocksFilter = ({
       <InlineFlex>
         <DivWithMarginChildren>
           <Input
+            wide
             placeholder={i18n.t('blocks.filter.search_by_block_height')}
             value={searchTermIT}
             onChange={(ev) => {
