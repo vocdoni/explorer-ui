@@ -7,6 +7,7 @@ import {
 import { Column, Grid } from '@components/elements/grid'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Else, If, Then } from 'react-if'
 import { renderSkeleton } from './list-page'
 
 const skeletonItems = 3
@@ -47,23 +48,29 @@ export const FilteredPaginatedList = <Elements,>({
 
   return (
     <>
-      {loading ? (
-        renderSkeleton(skeletonItems)
-      ) : elementsList != null && elementsList.length ? (
-        <>
-          <Grid>
-            <Column>{elementsList.map(renderElementFunction)}</Column>
-          </Grid>
-          <FlexContainer
-            alignItem={FlexAlignItem.End}
-            justify={FlexJustifyContent.End}
-          >
-            {paginator()}
-          </FlexContainer>
-        </>
-      ) : (
-        <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
-      )}
+      <If condition={loading || !elementsList?.length || elementsList === undefined}>
+        <Then>{renderSkeleton(skeletonItems)}</Then>
+        <Else>
+          <If condition={elementsList != null && elementsList.length}>
+            <Then>
+              <>
+                <Grid>
+                  <Column>{elementsList.map(renderElementFunction)}</Column>
+                </Grid>
+                <FlexContainer
+                  alignItem={FlexAlignItem.End}
+                  justify={FlexJustifyContent.End}
+                >
+                  {paginator()}
+                </FlexContainer>
+              </>
+            </Then>
+            <Else>
+              <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
+            </Else>
+          </If>
+        </Else>
+      </If>
     </>
   )
 }
