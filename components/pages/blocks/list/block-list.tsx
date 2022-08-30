@@ -1,10 +1,12 @@
 import { Paginator } from '@components/blocks/paginator'
 import { Column } from '@components/elements/grid'
+import { MainDescription } from '@components/elements/text'
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
 import { JumpToPaginatedList, useJumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to'
 import { useBlocks } from '@hooks/use-blocks'
 import { BlockInfo } from '@lib/types'
 import React, { ReactNode, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter'
 import { DashboardBlockItem } from './block-list-item'
@@ -22,6 +24,8 @@ export const DashboardBlockList = ({
   skeletonItems = 4,
   title,
 }: IDashboardBlockListProps) => {
+  const { i18n } = useTranslation()
+
   // Render item on the list from it summary
   const renderBlockItem = (block: BlockInfo) => {
     return <DashboardBlockItem key={block.height} blockData={block} />
