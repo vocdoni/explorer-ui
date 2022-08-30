@@ -78,6 +78,13 @@ export const DashboardProcessList = ({
     setLoading( loadingProcessList || loadingProcessesDetails)
   }, [loadingProcessList, loadingProcessesDetails])
 
+  const isUsingFilter = () => 
+    filter?.entityId?.length > 0 || 
+    filter?.searchTerm?.length > 0 ||
+    filter?.withResults ||
+    filter?.status != null
+  
+
   return (
     <>
       <InlineTitleChildrenContainer title={title}>
@@ -90,9 +97,9 @@ export const DashboardProcessList = ({
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
-          Object.keys(filter).length === 0
-            ? totalProcessCount
-            : null}
+          isUsingFilter()
+            ? null
+            : totalProcessCount}
         renderElementFunction={renderProcessItem}
         pageSize={pageSize} 
         currentPage={currentPage} 
