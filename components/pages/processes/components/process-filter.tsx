@@ -164,8 +164,16 @@ const ButtonGroupContainer = styled.div`
   margin: 20px 0 0 0;
   label > span {
     border-radius: 8px !important;
-    margin: 0 7px;
+    margin: 0 3px;
+    padding: 0 1rem;
     font-weight: bold;
-    padding: 0 1.5rem;
+  }
+
+
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    label > span { 
+      margin: 0 7px;
+      padding: 0 1.5rem;
+    }
   }
 `

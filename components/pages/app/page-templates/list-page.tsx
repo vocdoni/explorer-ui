@@ -48,9 +48,13 @@ export const InlineTitleChildrenContainer=({title, children} : {title: ReactNode
 
 export const TopDiv = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin: 20px 0;
+
+  @media ${({ theme }) => theme.screenMin.tablet} {
+    flex-direction: row;
+  }
 `
 
 export const renderSkeleton = (skeletonItems) => {
