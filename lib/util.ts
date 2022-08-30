@@ -162,3 +162,6 @@ export function getEnumKeyByEnumValue<T extends {[index:string]:string}>(myEnum:
 
 export const isInValidProcessId = (processId: string): boolean => 
   !processId || !(processId.match(/^0x[0-9a-fA-F]{64}$/) || processId.match(/^[0-9a-fA-F]{64}$/));
+
+export const isInValidEntityId = (entityId: string): boolean => 
+  !entityId || !entityId.match(/^0x[0-9a-fA-F]{40}$/);

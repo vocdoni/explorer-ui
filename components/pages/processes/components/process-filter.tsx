@@ -19,6 +19,7 @@ import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { ButtonOption, Column } from 'react-rainbow-components'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 import { ButtonGroupPicker } from 'react-rainbow-components'
+import { isInValidEntityId } from '@lib/util'
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -33,6 +34,8 @@ export const ProcessFilter = ({
 
   // const [filter, setFilter] = useState<IFilterProcesses>({})
   const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
+
+  const [searchTerm, setSearchTerm] = useState("")
 
   const voteStatusSelectId = 'vote_status_select_id_1'
   // Map vote status select options
@@ -65,19 +68,19 @@ export const ProcessFilter = ({
       <FilterContainer>
         <DivWithMarginChildren>
           <Input
-            placeholder={i18n.t('processes.filter.search_by_search_term')}
-            value={tempFilter.searchTerm || ''}
+            placeholder={i18n.t('processes.filter.search_by_search_term_or_organization_details')}
+            value={searchTerm}
             onChange={(ev) => {
-              tempFilter.searchTerm = ev.target.value
-              setTempFilter(Object.assign({}, tempFilter))
-            }}
-          />
-          <Input
-            placeholder={i18n.t('processes.filter.search_by_organization_id')}
-            value={tempFilter.entityId || ''}
-            onChange={(ev) => {
-              tempFilter.entityId = ev.target.value
-              setTempFilter(Object.assign({}, tempFilter))
+              setSearchTerm(ev.target.value)
+              if (isInValidEntityId(ev.target.value)) {
+                tempFilter.searchTerm = ev.target.value
+                tempFilter.entityId = ""
+                setTempFilter(Object.assign({}, tempFilter))
+              } else {
+                tempFilter.searchTerm = ""
+                tempFilter.entityId = ev.target.value
+                setTempFilter(Object.assign({}, tempFilter))
+              }
             }}
           />
         </DivWithMarginChildren>
@@ -121,10 +124,22 @@ export const ProcessFilter = ({
             size="medium"
             // bottomHelpText="Select one option"
           >
-            <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="ALL" />
-            <ButtonOption label={i18n.t('process.filter.status_selector.active')} name="READY" />
-            <ButtonOption label={i18n.t('process.filter.status_selector.paused')} name="PAUSED" />
-            <ButtonOption label={i18n.t('process.filter.status_selector.ended')} name="ENDED" />
+            <ButtonOption
+              label={i18n.t('process.filter.status_selector.all')}
+              name="ALL"
+            />
+            <ButtonOption
+              label={i18n.t('process.filter.status_selector.active')}
+              name="READY"
+            />
+            <ButtonOption
+              label={i18n.t('process.filter.status_selector.paused')}
+              name="PAUSED"
+            />
+            <ButtonOption
+              label={i18n.t('process.filter.status_selector.ended')}
+              name="ENDED"
+            />
           </ButtonGroupPicker>
         </ButtonGroupContainer>
       </FlexContainer>
