@@ -6,6 +6,7 @@ import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useEffect, useState } from 'react'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
+import { DELAY_BOUNCE_TIME } from '@const/filters'
 
 // Used to filter blocks by height
 export interface IFilterBlocks {
@@ -33,7 +34,10 @@ export const BlocksFilter = ({
   }
 
   useEffect(() => {
-    _onEnableFilter()
+    const delayDebounceFn = setTimeout(() => {
+      _onEnableFilter()
+    }, DELAY_BOUNCE_TIME)
+    return () => clearTimeout(delayDebounceFn)
   }, [tempFilter])
 
   return (
