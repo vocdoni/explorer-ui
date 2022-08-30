@@ -40,7 +40,7 @@ export const DashboardEntityList = ({
   // View logic
   const {
     currentPage,
-    methods: { enableFilter, disableFilter, setCurrentPage },
+    methods: { enableFilter, setCurrentPage },
   } = useFilteredPaginatedList<IFilterEntity>({
     pageSize,
     filter,
@@ -54,7 +54,6 @@ export const DashboardEntityList = ({
       <InlineTitleChildrenContainer title={title}>
         <EntitiesFilter
           onEnableFilter={enableFilter}
-          onDisableFilter={disableFilter}
         ></EntitiesFilter>
       </InlineTitleChildrenContainer>
 
