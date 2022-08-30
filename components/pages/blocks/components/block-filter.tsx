@@ -4,7 +4,7 @@ import { Input } from '@components/elements/inputs'
 import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 
 // Used to filter blocks by height
@@ -31,10 +31,10 @@ export const BlocksFilter = ({
   const _onEnableFilter = () => {
     setFilter(Object.assign({}, tempFilter))
   }
-  const _onDisableFilter = () => {
-    setFilter({})
-    resetFilter()
-  }
+
+  useEffect(() => {
+    _onEnableFilter()
+  }, [tempFilter])
 
   return (
     <FilterForm onEnableFilter={_onEnableFilter}>
@@ -44,9 +44,13 @@ export const BlocksFilter = ({
             placeholder={i18n.t('blocks.filter.search_by_block_height')}
             value={searchTermIT}
             onChange={(ev) => {
-              setSearchTermIT(ev.target.value)
-              tempFilter.from = +ev.target.value
-              setTempFilter(Object.assign({}, tempFilter))
+              if (ev.target.value.length === 0) {
+                resetFilter()
+              } else {
+                setSearchTermIT(ev.target.value)
+                tempFilter.from = +ev.target.value
+                setTempFilter(Object.assign({}, tempFilter))
+              }
             }}
             onKeyPress={(event) => {
               if (!/[0-9]/.test(event.key)) {
@@ -55,10 +59,6 @@ export const BlocksFilter = ({
             }}
           />
         </DivWithMarginChildren>
-        <SubmitFilterButtons
-          onEnableFilter={_onEnableFilter}
-          onDisableFilter={_onDisableFilter}
-        />
       </InlineFlex>
     </FilterForm>
   )
