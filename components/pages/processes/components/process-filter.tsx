@@ -61,6 +61,7 @@ export const ProcessFilter = ({
       <FilterContainer>
         <DivWithMarginChildren>
           <Input
+            wide
             placeholder={i18n.t('processes.filter.search_by_term_or_organization_address')}
             value={searchTerm}
             onChange={(ev) => {
@@ -156,9 +157,11 @@ const FilterContainer = styled(Grid)`
 `
 
 const ButtonGroupContainer = styled.div`
+  margin: 20px 0 0 0;
   label > span {
     border-radius: 8px !important;
-    margin: 0 5px;
+    margin: 0 7px;
     font-weight: bold;
+    padding: 0 1.5rem;
   }
 `
