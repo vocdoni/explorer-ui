@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
 
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
@@ -79,10 +80,11 @@ export const DashboardProcessList = ({
 
   return (
     <>
-      {title}
-      <ProcessFilter
-        onEnableFilter={enableFilter}
-      ></ProcessFilter>
+      <InlineTitleChildrenContainer title={title}>
+        <ProcessFilter
+          onEnableFilter={enableFilter}
+        ></ProcessFilter>
+      </InlineTitleChildrenContainer>
       <FilteredPaginatedList
         loading={loading}
         elementsList={!processIds.length ? [] : processes}

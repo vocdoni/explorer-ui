@@ -34,9 +34,10 @@ export const ListPage = ({ title, subtitle
 }
 
 export const InlineTitleChildrenContainer=({title, children} : {title: ReactNode, children: ReactNode}) => {
-  return (<TopDiv>
+  return (
+  <TopDiv>
     <FlexContainer
-      alignItem={FlexAlignItem.Center}
+      alignItem={FlexAlignItem.Baseline}
       justify={FlexJustifyContent.Center}
     >
       {title}
@@ -49,7 +50,7 @@ export const TopDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: 20px 0;
 `
 
 export const renderSkeleton = (skeletonItems) => {
