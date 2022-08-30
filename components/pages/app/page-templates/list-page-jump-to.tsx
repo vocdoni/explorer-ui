@@ -8,6 +8,7 @@ import {
   FlexAlignItem,
   FlexJustifyContent,
 } from '@components/elements/flex'
+import { Else, If, Then } from 'react-if'
 
 const skeletonItems = 3
 
@@ -48,23 +49,36 @@ export const JumpToPaginatedList = <Elements,>({
 
   return (
     <>
-      {(loading && !elementsList?.length) || totalElementsCount == null ? (
-        renderSkeleton(skeletonItems)
-      ) : elementsList != null && elementsList.length ? (
-        <>
-          <Grid>
-            <Column>{elementsList.map(renderElementFunction)}</Column>
-          </Grid>
-          <FlexContainer
-            alignItem={FlexAlignItem.End}
-            justify={FlexJustifyContent.End}
-          >
-            {paginator()}
-          </FlexContainer>
-        </>
-      ) : (
-        <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
-      )}
+    <If
+        condition={
+          (loading && !elementsList?.length) 
+          || totalElementsCount == null 
+          || elementsList === undefined
+          || !elementsList?.length
+        }
+      >
+        <Then>{renderSkeleton(skeletonItems)}</Then>
+        <Else>
+          <If condition={elementsList != null && elementsList.length}>
+            <Then>
+              <>
+                <Grid>
+                  <Column>{elementsList?.map(renderElementFunction)}</Column>
+                </Grid>
+                <FlexContainer
+                  alignItem={FlexAlignItem.End}
+                  justify={FlexJustifyContent.End}
+                >
+                  {paginator()}
+                </FlexContainer>
+              </>
+            </Then>
+            <Else>
+              <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
+            </Else>
+          </If>
+        </Else>
+      </If>
     </>
   )
 }
