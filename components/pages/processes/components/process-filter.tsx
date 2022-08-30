@@ -68,7 +68,7 @@ export const ProcessFilter = ({
       <FilterContainer>
         <DivWithMarginChildren>
           <Input
-            placeholder={i18n.t('processes.filter.search_by_search_term_or_organization_details')}
+            placeholder={i18n.t('processes.filter.search_by_term_or_organization_address')}
             value={searchTerm}
             onChange={(ev) => {
               setSearchTerm(ev.target.value)
@@ -94,7 +94,7 @@ export const ProcessFilter = ({
 
               setTempFilter(Object.assign({}, tempFilter))
             }}
-            text={i18n.t('processes.filter.check_with_results')}
+            text={i18n.t('processes.filter.show_only_processes_with_results')}
             labelColor={colors.lightText}
           />
         </CheckBoxContainer>
@@ -125,19 +125,19 @@ export const ProcessFilter = ({
             // bottomHelpText="Select one option"
           >
             <ButtonOption
-              label={i18n.t('process.filter.status_selector.all')}
+              label={i18n.t('processes.filter.status_selector.all')}
               name="ALL"
             />
             <ButtonOption
-              label={i18n.t('process.filter.status_selector.active')}
+              label={i18n.t('processes.filter.status_selector.active')}
               name="READY"
             />
             <ButtonOption
-              label={i18n.t('process.filter.status_selector.paused')}
+              label={i18n.t('processes.filter.status_selector.paused')}
               name="PAUSED"
             />
             <ButtonOption
-              label={i18n.t('process.filter.status_selector.ended')}
+              label={i18n.t('processes.filter.status_selector.ended')}
               name="ENDED"
             />
           </ButtonGroupPicker>

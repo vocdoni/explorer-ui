@@ -134,6 +134,14 @@
                 "renderShowEntityPage": ""
             },
             "encrypted_keys": "Encrypted keys"
+        },
+        "filter": {
+            "check_with_results": "Check with results",
+            "search_by_organization_id": "Search by organization id",
+            "search_by_search_term": "Search by search term",
+            "select_by_vote_status": "Select by vote status",
+            "search_by_search_term_or_organization_details": "",
+            "search_by_term_or_organization_details": ""
         }
     },
     "components": {
@@ -161,5 +169,18 @@
     },
     "verify": {
         "introduce_vote_id_below_to_verify_your_vote": "Introduce vote id below to verify your vote"
+    },
+    "stats": {
+        "stats_not_found": "Stats not found"
+    },
+    "process": {
+        "filter": {
+            "status_selector": {
+                "active": "",
+                "all": "",
+                "ended": "",
+                "paused": ""
+            }
+        }
     }
 }

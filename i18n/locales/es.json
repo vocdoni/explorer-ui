@@ -266,10 +266,14 @@
             "not_encrypted_votes": ""
         },
         "filter": {
-            "check_with_results": "",
-            "search_by_organization_id": "",
-            "search_by_search_term": "",
-            "select_by_vote_status": ""
+            "search_by_term_or_organization_address": "",
+            "show_only_processes_with_results": "",
+            "status_selector": {
+                "active": "",
+                "all": "",
+                "ended": "",
+                "paused": ""
+            }
         },
         "list": {
             "processes_list_title": "",
@@ -298,7 +302,6 @@
         "network_id": "",
         "number_of_validators": "",
         "recent_blocks": "",
-        "stats_not_found": "",
         "sync_status": "",
         "syncing": "",
         "the_last_four_blocks": "",

@@ -266,10 +266,14 @@
             "not_encrypted_votes": "Not encrypted votes"
         },
         "filter": {
-            "check_with_results": "Check with results",
-            "search_by_organization_id": "Search by organization id",
-            "search_by_search_term": "Search by search term",
-            "select_by_vote_status": "Select by vote status"
+            "search_by_term_or_organization_address": "Search by term / Organization address",
+            "show_only_processes_with_results": "Show only processes with results",
+            "status_selector": {
+                "active": "Active",
+                "all": "All",
+                "ended": "Ended",
+                "paused": "Paused"
+            }
         },
         "list": {
             "processes_list_title": "Processes list",
@@ -298,7 +302,6 @@
         "network_id": "Network id",
         "number_of_validators": "Number of validators",
         "recent_blocks": "Recent blocks",
-        "stats_not_found": "Stats not found",
         "sync_status": "Sync status",
         "syncing": "Syncing",
         "the_last_four_blocks": "The last four blocks",
