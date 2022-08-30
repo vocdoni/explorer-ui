@@ -20,6 +20,7 @@ import { ButtonOption, Column } from 'react-rainbow-components'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 import { ButtonGroupPicker } from 'react-rainbow-components'
 import { isInValidEntityId } from '@lib/util'
+import { DELAY_BOUNCE_TIME } from '@const/filters'
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -53,7 +54,10 @@ export const ProcessFilter = ({
   }
 
   useEffect(() => {
-    _onEnableFilter()
+    const delayDebounceFn = setTimeout(() => {
+      _onEnableFilter()
+    }, DELAY_BOUNCE_TIME)
+    return () => clearTimeout(delayDebounceFn)
   }, [tempFilter])
 
   return (
