@@ -7,7 +7,11 @@ import { colors } from '@theme/colors'
 import { Input, Select } from '@components/elements/inputs'
 import styled from 'styled-components'
 import { OptionTypeBase } from 'react-select'
-import { FlexContainer } from '@components/elements/flex'
+import {
+  FlexAlignItem,
+  FlexContainer,
+  FlexJustifyContent,
+} from '@components/elements/flex'
 import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
@@ -77,32 +81,6 @@ export const ProcessFilter = ({
             }}
           />
         </DivWithMarginChildren>
-        {/* <FlexContainer>
-          <DivWithMarginChildren>
-            <SelectContainer>
-              <Select
-                instanceId={voteStatusSelectId} // Fix `react-select Prop `id` did not match`
-                id={voteStatusSelectId}
-                placeholder={i18n.t('processes.filter.select_by_vote_status')}
-                options={voteStatusOpts}
-                value={
-                  tempFilter.status
-                    ? {
-                        value: tempFilter.status,
-                        label: VochainProcessStatus[tempFilter.status],
-                      }
-                    : null
-                }
-                onChange={(selectedValue: OptionTypeBase) => {
-                  tempFilter.status = VochainProcessStatus[
-                    selectedValue.label
-                  ] as any as VochainProcessStatus
-                  setTempFilter(Object.assign({}, tempFilter))
-                }}
-              />
-            </SelectContainer>
-          </DivWithMarginChildren>
-        </FlexContainer> */}
         <CheckBoxContainer>
           <Checkbox
             id="with_results"
@@ -118,41 +96,42 @@ export const ProcessFilter = ({
           />
         </CheckBoxContainer>
       </FilterContainer>
+      <FlexContainer
+        alignItem={FlexAlignItem.End}
+        justify={FlexJustifyContent.End}
+      >
+        <ButtonGroupContainer>
+          <ButtonGroupPicker
+            id="button-group-picker-component-1"
+            value={
+              tempFilter.status
+                ? VochainProcessStatus[tempFilter.status]
+                : 'ALL'
+            }
+            onChange={(value) => {
+              if (value === 'ALL') tempFilter.status = null
+              else {
+                tempFilter.status = VochainProcessStatus[
+                  value as string
+                ] as any as VochainProcessStatus
+              }
+              setTempFilter(Object.assign({}, tempFilter))
+            }}
+            name="filter"
+            size="medium"
+            // bottomHelpText="Select one option"
+          >
+            <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="ALL" />
+            <ButtonOption label={i18n.t('process.filter.status_selector.active')} name="READY" />
+            <ButtonOption label={i18n.t('process.filter.status_selector.paused')} name="PAUSED" />
+            <ButtonOption label={i18n.t('process.filter.status_selector.ended')} name="ENDED" />
+          </ButtonGroupPicker>
+        </ButtonGroupContainer>
+      </FlexContainer>
       <SubmitFilterButtons
         onEnableFilter={_onEnableFilter}
         onDisableFilter={_onDisableFilter}
       />
-      <ButtonGroupPicker
-        id="button-group-picker-component-1"
-        label="Select view type"
-        value={tempFilter.status ? tempFilter.status.toString() : 'ALL'}
-        onChange={(value) => {
-          console.debug(value, tempFilter)
-          if (value === 'ALL') tempFilter.status = null
-          else {
-          console.debug(VochainProcessStatus[value])
-
-            
-            tempFilter.status = VochainProcessStatus[
-              value as string
-            ] as any as VochainProcessStatus
-          }
-          setTempFilter(Object.assign({}, tempFilter))
-        }}
-        name="filter"
-        size="medium"
-        // bottomHelpText="Select one option"
-      >
-        <ButtonOption label={i18n.t('All')} name="ALL" />
-        <ButtonOption label={i18n.t('Active')} name="ACTIVE" />
-        <ButtonOption label={i18n.t('Upcoming')} name="UPCOMING" />
-        <ButtonOption label={i18n.t('Paused')} name="PAUSED" />
-        <ButtonOption label={i18n.t('Ended')} name="ENDED" />
-        {/* <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
-          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
-          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" />
-          <ButtonOption label={i18n.t('process.filter.status_selector.all')} name="all" /> */}
-      </ButtonGroupPicker>
     </FilterForm>
   )
 }
@@ -170,4 +149,12 @@ const CheckBoxContainer = styled(FlexContainer)`
 
 const FilterContainer = styled(Grid)`
   margin: 0 0 0;
+`
+
+const ButtonGroupContainer = styled.div`
+  label > span {
+    border-radius: 8px !important;
+    margin: 0 5px;
+    font-weight: bold;
+  }
 `
