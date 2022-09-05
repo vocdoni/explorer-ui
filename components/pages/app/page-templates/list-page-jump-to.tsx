@@ -1,4 +1,3 @@
-import { Paginator } from '@components/blocks/paginator'
 import { Column, Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
@@ -9,8 +8,10 @@ import {
   FlexJustifyContent,
 } from '@components/elements/flex'
 import { Else, If, Then } from 'react-if'
+import { PaginatorRouterParams } from '@components/blocks/paginator-router-params'
 
 const skeletonItems = 3
+
 
 interface IPaginatedListTemplateProps<Elements> {
   loading: boolean
@@ -38,13 +39,13 @@ export const JumpToPaginatedList = <Elements,>({
   const { i18n } = useTranslation()
 
   const paginator = () => (
-    <Paginator
+    <PaginatorRouterParams
       totalCount={totalElementsCount}
       pageSize={pageSize}
       currentPage={currentPage}
       onPageChange={(page) => setCurrentPage(page)}
       disableGoLastBtn
-    ></Paginator>
+    ></PaginatorRouterParams>
   )
 
   return (

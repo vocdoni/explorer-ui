@@ -1,4 +1,4 @@
-import { Paginator } from '@components/blocks/paginator'
+import { PaginatorRouterParams } from '@components/blocks/paginator-router-params'
 import {
   FlexContainer,
   FlexAlignItem,
@@ -37,13 +37,13 @@ export const FilteredPaginatedList = <Elements,>({
   const { i18n } = useTranslation()
 
   const paginator = () => (
-    <Paginator
+    <PaginatorRouterParams
       totalCount={totalElementsCount}
       pageSize={pageSize}
       currentPage={currentPage}
       onPageChange={(page) => setCurrentPage(page)}
       disableGoLastBtn
-    ></Paginator>
+    ></PaginatorRouterParams>
   )
 
   return (

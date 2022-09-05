@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { FakedButton } from '@components/elements/styled-divs'
 
-type PaginatorProps = {
+export type PaginatorProps = {
   totalCount: number
   pageSize: number
   currentPage: number
