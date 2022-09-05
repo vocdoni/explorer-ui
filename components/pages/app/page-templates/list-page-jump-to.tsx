@@ -109,7 +109,10 @@ export function useJumpToPaginatedList({
     setLoading(loadingElements || dataPagination == null || lastElement == null)
   }, [loadingElements, dataPagination])
 
-  const getFirstPageIndex = (page) => lastElement - page * pageSize
+  const getFirstPageIndex = (page) => { 
+    const index = lastElement - page * pageSize
+    return index < 0 ? 0 : index
+  }
 
   // Get the page where the block are you searching is
   const getPageFromPosition = (position) => {
@@ -150,7 +153,7 @@ export function useJumpToPaginatedList({
       // If jumpTo is set (from the page filter), don't use normal pagination
       if (jumpTo) {
         jumpToPosition(jumpTo)
-      } else setDataPagination(getFirstPageIndex(currentPage) < 0 ? 0 : getFirstPageIndex(currentPage))
+      } else setDataPagination(getFirstPageIndex(currentPage))
     }
   }, [currentPage, lastElement])
 
