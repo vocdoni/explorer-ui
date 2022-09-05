@@ -38,13 +38,13 @@ export const JumpToPaginatedList = <Elements,>({
 }: IPaginatedListTemplateProps<Elements>) => {
   const { i18n } = useTranslation()
 
+
   const paginator = () => (
     <PaginatorRouterParams
       totalCount={totalElementsCount}
       pageSize={pageSize}
       currentPage={currentPage}
       onPageChange={(page) => setCurrentPage(page)}
-      disableGoLastBtn
     ></PaginatorRouterParams>
   )
 
@@ -150,7 +150,7 @@ export function useJumpToPaginatedList({
       // If jumpTo is set (from the page filter), don't use normal pagination
       if (jumpTo) {
         jumpToPosition(jumpTo)
-      } else setDataPagination(getFirstPageIndex(currentPage))
+      } else setDataPagination(getFirstPageIndex(currentPage) < 0 ? 0 : getFirstPageIndex(currentPage))
     }
   }, [currentPage, lastElement])
 

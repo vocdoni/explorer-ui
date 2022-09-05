@@ -27,6 +27,7 @@ export const Paginator = ({
   const { i18n } = useTranslation()
 
   const paginate = (nextPage) => {
+    console.debug("AAAAAAa", nextPage)
     if (nextPage < 1 || nextPage > totalPageCount) return
     else onPageChange(nextPage)
   }
@@ -68,7 +69,7 @@ export const Paginator = ({
         </Button>
 
         {!disableGoLastBtn && (
-          <Button small onClick={() => paginate(totalCount)}>
+          <Button small onClick={() => paginate(totalPageCount)}>
             <FakedButton>»</FakedButton>
           </Button>
         )}

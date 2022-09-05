@@ -42,7 +42,7 @@ export const FilteredPaginatedList = <Elements,>({
       pageSize={pageSize}
       currentPage={currentPage}
       onPageChange={(page) => setCurrentPage(page)}
-      disableGoLastBtn
+      disableGoLastBtn={totalElementsCount === null}
     ></PaginatorRouterParams>
   )
 
