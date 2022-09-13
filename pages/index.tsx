@@ -16,11 +16,8 @@ const IndexPage = () => {
   const { loading: loadingStats, stats } = useStats({})
 
   return (
-    <If condition={loadingStats && stats === undefined}>
+    <If condition={stats !== undefined}>
       <Then>
-        <Loader visible />
-      </Then>
-      <Else>
         <>
           <BannerContainer>
             <HeroBanner
@@ -33,6 +30,9 @@ const IndexPage = () => {
           <StatsPage stats={stats} />
           <FeaturedContent />
         </>
+      </Then>
+      <Else>
+        <Loader visible />
       </Else>
     </If>
   )
