@@ -143,7 +143,7 @@ export const useProcessesFromAccount = (entityId: string) => {
         console.error(err)
         setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
       })
-  }, [entityId, poolPromise, setAlertMessage])
+  }, [entityId, poolPromise])
 
 
   useEffect(() => {
