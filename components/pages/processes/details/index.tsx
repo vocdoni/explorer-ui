@@ -42,6 +42,7 @@ import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ResultsCard } from '../components/results-card'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
 import { EncryptionKeys } from '../components/process_keys'
+import { CopyButton } from '@components/blocks/copy-button'
 
 interface ProcessesDetailPageProps {
   processId: string,
@@ -82,7 +83,10 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
       <CardImageHeader
         title={processInfo?.metadata?.title?.default}
         processImage={processInfo?.metadata?.media?.header}
-        subtitle={i18n.t('processes.details.id') + ': #' + processId}
+        subtitle={
+          <> 
+             <CopyButton toCopy={processId} text={i18n.t('processes.details.id') + ': 0x' + processId}/>
+          </>}
         entityImage={entityMetadata?.media?.avatar}
       />
 

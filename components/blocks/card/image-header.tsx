@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 
 import { useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import { BreakWord } from '@components/elements/styled-divs'
 
 interface ICardImageHeader {
   title: string
-  subtitle?: string
+  subtitle?: ReactNode
   entityImage?: string
   processImage?: string
 }

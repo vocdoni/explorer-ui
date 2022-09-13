@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { ProcessListItem } from '@components/blocks/card/process-item'
 import { getProcessDetailsPath } from '@components/pages/app/components/get-links'
 import { BreakWord } from '@components/elements/styled-divs'
+import { CopyButton } from '@components/blocks/copy-button'
 
 interface IEntityViewProps {
   address: string
@@ -57,7 +58,7 @@ export const EntityView = ({
           </Typography>
           <Typography variant={TypographyVariant.Small}>
             <BreakWord>
-              {correctedAddress}
+              <CopyButton toCopy={address} text={correctedAddress} />
               <a href={plazaUrl} target="blank">
                 ({i18n.t('organization.home.view_profile')})
               </a>
