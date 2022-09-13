@@ -53,6 +53,9 @@
         "set_block": "Set block",
         "set_date": "Set date"
     },
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": "The link has been copied to the clipboard"
+    },
     "dashboard": {
         "loading": "Loading",
         "process_ended": "Process ended",

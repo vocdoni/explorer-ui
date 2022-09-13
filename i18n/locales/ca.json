@@ -53,6 +53,9 @@
         "set_block": "",
         "set_date": ""
     },
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": ""
+    },
     "dashboard": {
         "loading": "",
         "process_ended": "",
