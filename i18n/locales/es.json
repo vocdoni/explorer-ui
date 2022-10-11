@@ -254,14 +254,10 @@
             "published_keys": ""
         },
         "envelope_explorer": {
-            "back": "",
-            "envelope_details": "",
+            "block": "",
+            "details": "",
             "envelope_n": "",
-            "envelope_on_block": "",
-            "next": "",
-            "page": "",
             "total_votes": "",
-            "transaction_details": "",
             "tx_number": ""
         },
         "envelope_type_badge": {

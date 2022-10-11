@@ -143,6 +143,14 @@
             "select_by_vote_status": "Select by vote status",
             "search_by_search_term_or_organization_details": "",
             "search_by_term_or_organization_details": ""
+        },
+        "envelope_explorer": {
+            "back": "Back",
+            "envelope_on_block": "Block: {{block}}",
+            "next": "Next",
+            "page": "Page",
+            "envelope_details": "Envelope details",
+            "transaction_details": "Transaction details"
         }
     },
     "components": {

@@ -254,15 +254,11 @@
             "published_keys": "Published keys"
         },
         "envelope_explorer": {
-            "back": "Back",
-            "envelope_details": "Envelope details",
+            "block": "Block: {{block}}",
+            "details": "Details",
             "envelope_n": "Envelope nº {{number}}",
-            "envelope_on_block": "Envelope on block: {{block}}",
-            "next": "Next",
-            "page": "Page",
             "total_votes": "Total votes: {{totalVotes}}",
-            "transaction_details": "Transaction details",
-            "tx_number": "Transaction number: {{txNumber}}"
+            "tx_number": "Transaction: {{txNumber}}"
         },
         "envelope_type_badge": {
             "encrypted_votes": "Encrypted votes",

@@ -92,6 +92,14 @@
             "select_by_vote_status": "",
             "search_by_search_term_or_organization_details": "",
             "search_by_term_or_organization_details": ""
+        },
+        "envelope_explorer": {
+            "back": "",
+            "envelope_on_block": "",
+            "next": "",
+            "page": "",
+            "envelope_details": "",
+            "transaction_details": ""
         }
     },
     "entities": {

@@ -18,6 +18,19 @@ export const Skeleton = () => (
   </>
 )
 
+export const SkeletonOnlyBones = () => (
+  <>
+    <Grid>
+      <Column>
+        <SkeletonBone />
+        <SkeletonBone />
+        <SkeletonBone />
+      </Column>
+    </Grid>
+  </>
+)
+
+
 const SkeletonBone = styled.div`
   position: relative;
   height: 30px;
