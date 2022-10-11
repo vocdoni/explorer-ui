@@ -27,7 +27,6 @@ export const Paginator = ({
   const { i18n } = useTranslation()
 
   const paginate = (nextPage) => {
-    console.debug("AAAAAAa", nextPage)
     if (nextPage < 1 || nextPage > totalPageCount) return
     else onPageChange(nextPage)
   }

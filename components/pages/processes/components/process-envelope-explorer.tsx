@@ -9,6 +9,8 @@ import { useEnvelopesList } from '@hooks/use-envelopes'
 import { useTranslation } from 'react-i18next'
 import { ProcessResultsSingleChoice } from 'dvote-js'
 import React, { useState } from 'react'
+import { FakedButton } from '@components/elements/styled-divs'
+import { Paginator } from '@components/blocks/paginator'
 
 const ENVELOPES_PER_PAGE = 6
 
@@ -23,7 +25,7 @@ export const EnvelopeExplorer = ({
 }: EnvelopeExplorerProps) => {
   const { i18n } = useTranslation()
 
-  const [envelopePage, setEnvelopePage] = useState(0)
+  const [envelopePage, setEnvelopePage] = useState(1)
   const [from, setFrom] = useState(0)
   const { loadingEnvelopes, envelopeRange } = useEnvelopesList({
     processId,
@@ -31,15 +33,9 @@ export const EnvelopeExplorer = ({
     listSize: ENVELOPES_PER_PAGE,
   })
 
-  const nextEnvelopeRange = () => {
-    if ((envelopePage + 1) * ENVELOPES_PER_PAGE >= results.totalVotes) return
-    setEnvelopePage(envelopePage + 1)
-    setFrom((envelopePage + 1) * ENVELOPES_PER_PAGE)
-  }
-  const prevEnvelopeRange = () => {
-    if (envelopePage <= 0) return
-    setEnvelopePage(envelopePage - 1)
-    setFrom((envelopePage - 1) * ENVELOPES_PER_PAGE)
+  const changePage = (page) => {
+    setEnvelopePage(page)
+    setFrom((page - 1) * ENVELOPES_PER_PAGE)
   }
 
   return (
@@ -53,7 +49,7 @@ export const EnvelopeExplorer = ({
           <Card md={6} lg={4} xl={3} key={envelope.nullifier}>
             <strong>
               {i18n.t('processes.envelope_explorer.envelope_n', {
-                number: envelopePage * ENVELOPES_PER_PAGE + idx + 1, // Is not showing tx index, instead show index of map itself
+                number: from + idx + 1, // Is not showing tx index, instead show index of map itself
               })}
             </strong>
             <p>
@@ -78,20 +74,15 @@ export const EnvelopeExplorer = ({
           </Card>
         ))}
       </Grid>
-      {results.totalVotes > ENVELOPES_PER_PAGE && <div>
-        <Button small disabled={loadingEnvelopes} onClick={prevEnvelopeRange}>
-          {i18n.t('processes.envelope_explorer.back')}
-        </Button>{' '}
-        &nbsp;
-        <Button small disabled={loadingEnvelopes} onClick={nextEnvelopeRange}>
-          {i18n.t('processes.envelope_explorer.next')}
-        </Button>{' '}
-        &nbsp;
-        <small>
-          {i18n.t('processes.envelope_explorer.page')} {envelopePage + 1}/
-          {Math.ceil(results.totalVotes / ENVELOPES_PER_PAGE)}
-        </small>
-      </div>}
+
+      {results.totalVotes > ENVELOPES_PER_PAGE && 
+        <Paginator
+          totalCount={results.totalVotes}
+          pageSize={ENVELOPES_PER_PAGE}
+          currentPage={envelopePage}
+          onPageChange={(page) => changePage(page)}
+        ></Paginator>
+      }
     </Card>
   )
 }
