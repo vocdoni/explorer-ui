@@ -250,7 +250,7 @@
             "show_envelopes": "Show envelopes",
             "show_questions": "Show questions",
             "total_questions": "Total questions",
-            "total_votes": "Total votes",
+            "vote_recount": "Vote recount",
             "published_keys": "Published keys"
         },
         "envelope_explorer": {

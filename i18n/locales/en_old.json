@@ -133,7 +133,8 @@
                 "renderShowOrganizationPage": "",
                 "renderShowEntityPage": ""
             },
-            "encrypted_keys": "Encrypted keys"
+            "encrypted_keys": "Encrypted keys",
+            "total_votes": "Total votes"
         },
         "filter": {
             "check_with_results": "Check with results",

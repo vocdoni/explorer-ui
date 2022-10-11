@@ -153,7 +153,8 @@
             "process_not_found": {
                 "renderShowEntityPage": ""
             },
-            "encrypted_keys": ""
+            "encrypted_keys": "",
+            "total_votes": ""
         },
         "filter": {
             "search_by_entity_id": "",

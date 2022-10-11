@@ -77,7 +77,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
     blockHeight,
     blockStatus
   )
-
+  
   return (
     <PageCard>
       <CardImageHeader
@@ -132,7 +132,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
               ? entityMetadata?.name?.default
               : processInfo?.state?.entityId}
           </EntityCardMedium>
-          <StatusCard md={3} title={i18n.t('processes.details.total_votes')}>
+          <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
             <h2>{results?.totalVotes || 0}</h2>
           </StatusCard>
           <StatusCard md={3} title={i18n.t('processes.details.total_questions')}>
