@@ -44,7 +44,7 @@ export const EnvelopeExplorer = ({
       <Grid>
         <If
           condition={
-            results.totalVotes > ENVELOPES_PER_PAGE && !loadingEnvelopes
+            !loadingEnvelopes
           }
         >
           <Then>
@@ -61,13 +61,15 @@ export const EnvelopeExplorer = ({
           </Else>
         </If>
       </Grid>
-
-      <Paginator
-        totalCount={results.totalVotes}
-        pageSize={ENVELOPES_PER_PAGE}
-        currentPage={envelopePage}
-        onPageChange={(page) => changePage(page)}
-      ></Paginator>
+      
+      {results.totalVotes > ENVELOPES_PER_PAGE && 
+        <Paginator
+          totalCount={results.totalVotes}
+          pageSize={ENVELOPES_PER_PAGE}
+          currentPage={envelopePage}
+          onPageChange={(page) => changePage(page)}
+        ></Paginator>
+      }
 
     </Card>
   )
