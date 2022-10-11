@@ -28,7 +28,6 @@ export const DashboardProcessList = ({
   totalProcessCount,
   title
 }: IDashboardProcessListProps) => {
-  const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<IFilterProcesses>({})
   const [dataPagination, setDataPagination] = useState<number>()
 
@@ -73,10 +72,6 @@ export const DashboardProcessList = ({
       lastElement: totalProcessCount + 1
     })
 
-  // Set loading
-  useEffect(() => {
-    setLoading( loadingProcessList || loadingProcessesDetails)
-  }, [loadingProcessList, loadingProcessesDetails])
 
   const isUsingFilter = () => 
     filter?.entityId?.length > 0 || 
@@ -93,7 +88,7 @@ export const DashboardProcessList = ({
         ></ProcessFilter>
       </InlineTitleChildrenContainer>
       <FilteredPaginatedList
-        loading={loading}
+        loading={loadingProcessList || loadingProcessesDetails}
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
