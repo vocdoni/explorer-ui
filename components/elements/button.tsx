@@ -253,7 +253,7 @@ const DisabledButton = styled(BaseButton)`
   cursor: no-drop;
 `
 
-const DefaultButton = styled(BaseButton)`
+export const DefaultButton = styled(BaseButton)`
   cursor: pointer;
   ${({ border, borderColor, theme }) =>
     border

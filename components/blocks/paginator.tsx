@@ -1,18 +1,16 @@
 import { Grid } from '@components/elements/grid'
-import { Button } from '@components/elements/button'
-import { useEffect, useMemo, useState } from 'react'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { colors } from '@theme/colors'
+import { Button, ButtonColor, DefaultButton } from '@components/elements/button'
+import { useMemo, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { FakedButton } from '@components/elements/styled-divs'
+import { theme } from '@theme/global'
 
 export type PaginatorProps = {
   totalCount: number
   pageSize: number
   currentPage: number
   onPageChange: (number) => void
-  disableGoFirstBtn?: boolean
   disableGoLastBtn?: boolean
 }
 
@@ -21,7 +19,6 @@ export const Paginator = ({
   pageSize,
   currentPage,
   onPageChange,
-  disableGoFirstBtn = false,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
   const { i18n } = useTranslation()
@@ -38,38 +35,68 @@ export const Paginator = ({
     }
   }, [totalCount, pageSize, currentPage])
 
+  const NumberButton = ({ page }: { page: number }) => {
+    const active = currentPage === page
+    return active ? (
+      <Button
+        color={currentPage === page ? ButtonColor.Positive : theme.darkLightFg}
+        small
+        onClick={() => paginate(page)}
+      >
+        <FakedButton>{page}</FakedButton>
+      </Button>
+    ) : (
+      <NonActiveButton small onClick={() => paginate(page)}>
+        <FakedButton>{page}</FakedButton>
+      </NonActiveButton>
+    )
+  }
+
   return (
     <PaginatorContainer>
       <GroupButtonMargin>
-        {!disableGoFirstBtn && (
-          <Button small onClick={() => paginate(1)}>
-            <FakedButton>«</FakedButton>
-          </Button>
-        )}
-        <Button small onClick={() => paginate(currentPage - 1)}>
+        <Button
+          small
+          disabled={currentPage === 1}
+          onClick={() => paginate(currentPage - 1)}
+        >
           <FakedButton>{'<'}</FakedButton>
         </Button>
-      </GroupButtonMargin>
-      <TextDiv>
-        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {totalPageCount
-            ? // currentPage +
-              i18n.t('components.paginator.page_n_of_n', {
-                currentPage: currentPage,
-                totalPage: totalPageCount,
-              })
-            : // totalPageCount
-              false}
-        </Typography>
-      </TextDiv>
-      <GroupButtonMargin>
-        <Button small onClick={() => paginate(currentPage + 1)}>
-          <FakedButton>{'>'}</FakedButton>
-        </Button>
 
-        {!disableGoLastBtn && (
-          <Button small onClick={() => paginate(totalPageCount)}>
-            <FakedButton>»</FakedButton>
+        <NumberButton page={1}></NumberButton>
+
+        {currentPage > 3 && <NonActiveButton>...</NonActiveButton>}
+
+        {currentPage === totalPageCount && totalPageCount > 3 && (
+          <NumberButton page={currentPage - 2} />
+        )}
+
+        {currentPage > 2 && <NumberButton page={currentPage - 1} />}
+
+        {currentPage !== 1 && currentPage !== totalPageCount && (
+          <NumberButton page={currentPage} />
+        )}
+
+        {currentPage < totalPageCount - 1 && (
+          <NumberButton page={currentPage + 1 } />
+        )}
+
+        {currentPage === 1 && totalPageCount > 3 && (
+          <NumberButton page={currentPage + 2 } />
+        )}
+
+        {currentPage < totalPageCount - 2 && <NonActiveButton>...</NonActiveButton>}
+
+
+        {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
+
+        {currentPage !== totalPageCount && (
+          <Button
+            small
+            disabled={currentPage === totalPageCount}
+            onClick={() => paginate(currentPage + 1)}
+          >
+            <FakedButton>{'>'}</FakedButton>
           </Button>
         )}
       </GroupButtonMargin>
@@ -95,4 +122,9 @@ const TextDiv = styled.div`
 
 const PaginatorContainer = styled(Grid)`
   margin: 0 0 0;
+`
+
+const NonActiveButton = styled(DefaultButton)`
+  background: transparent;
+  box-shadow: none;
 `
