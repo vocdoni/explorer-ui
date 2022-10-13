@@ -40,7 +40,7 @@ export const ItemDate = styled.div`
 `
 
 export const FakedButton = styled.button`
-  cursor: pointer;
+  cursor: inherit;
   padding: 0;
   border: none;
   background: none;
