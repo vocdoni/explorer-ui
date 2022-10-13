@@ -7,7 +7,6 @@ export const PaginatorRouterParams = ({
   pageSize,
   currentPage,
   onPageChange,
-  disableGoFirstBtn = false,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
 
@@ -18,7 +17,6 @@ export const PaginatorRouterParams = ({
     pageSize={pageSize}
     currentPage={currentPage}
     onPageChange={onPageChange}
-    disableGoFirstBtn={disableGoFirstBtn}
     disableGoLastBtn={disableGoLastBtn}
   ></Paginator>
 
