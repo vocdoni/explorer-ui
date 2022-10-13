@@ -1,10 +1,10 @@
 import { Grid } from '@components/elements/grid'
 import { Button, ButtonColor, DefaultButton } from '@components/elements/button'
-import { useMemo, ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useMemo } from 'react'
 import styled from 'styled-components'
 import { FakedButton } from '@components/elements/styled-divs'
 import { theme } from '@theme/global'
+import { useIsMobile } from '@hooks/use-window-size'
 
 export type PaginatorProps = {
   totalCount: number
@@ -21,7 +21,7 @@ export const Paginator = ({
   onPageChange,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
-  const { i18n } = useTranslation()
+  const isMobile = useIsMobile()
 
   const paginate = (nextPage) => {
     if (nextPage < 1 || nextPage > totalPageCount) return
@@ -52,6 +52,70 @@ export const Paginator = ({
     )
   }
 
+  const InnerButtonsDesktop = () => (
+    <>
+      <NumberButton page={1}></NumberButton>
+
+      {currentPage > 3 && <NonActiveButton>...</NonActiveButton>}
+
+      {currentPage === totalPageCount && totalPageCount > 3 && (
+        <NumberButton page={currentPage - 2} />
+      )}
+
+      {currentPage > 2 && <NumberButton page={currentPage - 1} />}
+
+      {currentPage !== 1 && currentPage !== totalPageCount && (
+        <NumberButton page={currentPage} />
+      )}
+
+      {currentPage < totalPageCount - 1 && (
+        <NumberButton page={currentPage + 1} />
+      )}
+
+      {currentPage === 1 && totalPageCount > 3 && (
+        <NumberButton page={currentPage + 2} />
+      )}
+
+      {currentPage < totalPageCount - 2 && (
+        <NonActiveButton>...</NonActiveButton>
+      )}
+
+      {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
+
+      {currentPage !== totalPageCount && (
+        <Button
+          small
+          disabled={currentPage === totalPageCount}
+          onClick={() => paginate(currentPage + 1)}
+        >
+          <FakedButton>{'>'}</FakedButton>
+        </Button>
+      )}
+    </>
+  )
+
+  const InnerButtonsMobile = () => (
+    <>
+      {currentPage !== totalPageCount ? (
+        <NumberButton page={currentPage} />
+      ) : (
+        <NumberButton page={1} />
+      )}
+
+      <NonActiveButton>...</NonActiveButton>
+
+      {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
+
+      <Button
+        small
+        disabled={currentPage === totalPageCount}
+        onClick={() => paginate(currentPage + 1)}
+      >
+        <FakedButton>{'>'}</FakedButton>
+      </Button>
+    </>
+  )
+
   return (
     <PaginatorContainer>
       <GroupButtonMargin>
@@ -63,42 +127,7 @@ export const Paginator = ({
           <FakedButton>{'<'}</FakedButton>
         </Button>
 
-        <NumberButton page={1}></NumberButton>
-
-        {currentPage > 3 && <NonActiveButton>...</NonActiveButton>}
-
-        {currentPage === totalPageCount && totalPageCount > 3 && (
-          <NumberButton page={currentPage - 2} />
-        )}
-
-        {currentPage > 2 && <NumberButton page={currentPage - 1} />}
-
-        {currentPage !== 1 && currentPage !== totalPageCount && (
-          <NumberButton page={currentPage} />
-        )}
-
-        {currentPage < totalPageCount - 1 && (
-          <NumberButton page={currentPage + 1 } />
-        )}
-
-        {currentPage === 1 && totalPageCount > 3 && (
-          <NumberButton page={currentPage + 2 } />
-        )}
-
-        {currentPage < totalPageCount - 2 && <NonActiveButton>...</NonActiveButton>}
-
-
-        {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
-
-        {currentPage !== totalPageCount && (
-          <Button
-            small
-            disabled={currentPage === totalPageCount}
-            onClick={() => paginate(currentPage + 1)}
-          >
-            <FakedButton>{'>'}</FakedButton>
-          </Button>
-        )}
+        {!isMobile ? <InnerButtonsDesktop /> : <InnerButtonsMobile />}
       </GroupButtonMargin>
     </PaginatorContainer>
   )
