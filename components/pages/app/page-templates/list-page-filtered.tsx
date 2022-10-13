@@ -58,8 +58,8 @@ export const FilteredPaginatedList = <Elements,>({
                   <Column>{elementsList.map(renderElementFunction)}</Column>
                 </Grid>
                 <FlexContainer
-                  alignItem={FlexAlignItem.End}
-                  justify={FlexJustifyContent.End}
+                  alignItem={FlexAlignItem.Start}
+                  justify={FlexJustifyContent.Start}
                 >
                   {paginator()}
                 </FlexContainer>
