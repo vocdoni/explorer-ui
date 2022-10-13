@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { FakedButton } from '@components/elements/styled-divs'
 import { theme } from '@theme/global'
 import { useIsMobile } from '@hooks/use-window-size'
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 
 export type PaginatorProps = {
   totalCount: number
@@ -88,7 +89,9 @@ export const Paginator = ({
           disabled={currentPage === totalPageCount}
           onClick={() => paginate(currentPage + 1)}
         >
-          <FakedButton>{'>'}</FakedButton>
+          <FakedButton>
+            <BiChevronRight />
+          </FakedButton>
         </Button>
       )}
     </>
@@ -111,7 +114,9 @@ export const Paginator = ({
         disabled={currentPage === totalPageCount}
         onClick={() => paginate(currentPage + 1)}
       >
-        <FakedButton>{'>'}</FakedButton>
+        <FakedButton>
+          <BiChevronRight />
+        </FakedButton>
       </Button>
     </>
   )
@@ -124,7 +129,9 @@ export const Paginator = ({
           disabled={currentPage === 1}
           onClick={() => paginate(currentPage - 1)}
         >
-          <FakedButton>{'<'}</FakedButton>
+          <FakedButton>
+            <BiChevronLeft />
+          </FakedButton>
         </Button>
 
         {!isMobile ? <InnerButtonsDesktop /> : <InnerButtonsMobile />}
@@ -139,13 +146,6 @@ const GroupButtonMargin = styled.div`
   & > * {
     margin-right: 2px;
     margin-left: 2px;
-  }
-`
-
-const TextDiv = styled.div`
-  & {
-    margin-right: 12px;
-    margin-left: 12px;
   }
 `
 
