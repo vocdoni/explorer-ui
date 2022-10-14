@@ -41,19 +41,22 @@ export const ReducedEntityNameWithIcon = ({
   icon,
   entityName,
   entityId,
+  iconWidth,
 }: {
   entityName: string
   entityId: string
   icon: string
+  iconWidth?: string
 }) => {
   const entityTxt = entityName.length < 15
     ? entityName
     : entityName.substring(0, 5) +
       '...' +
-      entityName.substring(entityName.length - 4, entityName.length)
+      entityName.substring(entityName.length - 4, entityName.length) ;
+  const w = iconWidth ?? "25px"
   return (
     <EntityNameAndLogoWrapper>
-      <ImageContainer width="20px" height="20px">
+      <ImageContainer width={w} height={w}>
         <Image src={icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
       <CopyButton toCopy={entityId} text={entityTxt} />
