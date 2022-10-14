@@ -2,13 +2,22 @@ import React from 'react'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
 
-
 import { useAlertMessage } from '@hooks/message-alert'
 
-import { BiCopyAlt } from 'react-icons/bi'
+import { IoCopy } from 'react-icons/io5'
 import { IconContext } from 'react-icons'
 
-export const CopyButton = ({ toCopy, text }: { toCopy: string, text: string }) => {
+export const CopyButton = ({
+  toCopy,
+  text,
+  size,
+  style,
+}: {
+  toCopy: string
+  text: string
+  size?: string
+  style?: React.CSSProperties
+}) => {
   const { i18n } = useTranslation()
 
   const { setAlertMessage } = useAlertMessage()
@@ -19,9 +28,15 @@ export const CopyButton = ({ toCopy, text }: { toCopy: string, text: string }) =
 
   return (
     <div onClick={handleCopy}>
-      <IconContext.Provider value={{ color: 'gray', size: '1em', style: { 'paddingLeft': '10px', 'cursor': 'pointer' } }}>
+      <IconContext.Provider
+        value={{
+          color: 'gray',
+          size: size ?? '1em',
+          style: style ?? { paddingLeft: '10px', cursor: 'pointer' },
+        }}
+      >
         <div>
-          {text} <BiCopyAlt />
+          {text} <IoCopy />
         </div>
       </IconContext.Provider>
     </div>
