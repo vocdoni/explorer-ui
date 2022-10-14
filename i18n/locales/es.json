@@ -34,9 +34,6 @@
             "host_explore": "",
             "host_organization": ""
         },
-        "paginator": {
-            "page_n_of_n": ""
-        },
         "transaction_card": {
             "hash": "",
             "number": ""
@@ -276,7 +273,8 @@
         },
         "list": {
             "processes_list_title": "",
-            "total_n_processes": ""
+            "total_n_processes": "",
+            "votes_submitted": ""
         },
         "process_mode_badge": {
             "autostart": "",
@@ -374,9 +372,8 @@
     "vote": {
         "badge": {
             "active_vote": "",
-            "canceled_vote": "",
             "ended_vote": "",
-            "paused_vote": "",
+            "paused_vote_or_canceled": "",
             "upcoming_vote": ""
         },
         "loading_results": "",

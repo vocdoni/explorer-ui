@@ -9,7 +9,7 @@ import {
   FlexJustifyContent,
 } from '../elements/flex'
 import { isInValidProcessId, VoteStatus } from '@lib/util'
-import { ProcessStatusLabel } from '@components/blocks/process-status-label'
+import { ProcessStatusLabel } from '@components/blocks/badges/process-status-badge'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import React from 'react'
 import { EntityLink } from '@components/pages/app/components/get-links'

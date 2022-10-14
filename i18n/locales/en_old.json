@@ -160,6 +160,9 @@
         "vote_question_card": {
             "no_results_available": "No results available",
             "question": "Question"
+        },
+        "paginator": {
+            "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
         }
     },
     "envelopes": {
@@ -190,6 +193,12 @@
                 "ended": "",
                 "paused": ""
             }
+        }
+    },
+    "vote": {
+        "badge": {
+            "canceled_vote": "Canceled vote",
+            "paused_vote": "Paused vote"
         }
     }
 }

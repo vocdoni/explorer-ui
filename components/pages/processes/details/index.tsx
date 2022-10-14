@@ -32,7 +32,7 @@ import {
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/process-censusorigin-badge'
 import { ProcessModeBadge } from '../components/process-processmode-badge'
-import { ProcessStatusLabel } from '@components/blocks/process-status-label'
+import { ProcessStatusLabel } from '@components/blocks/badges/process-status-badge'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/process-envelope-explorer'

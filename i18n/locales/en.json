@@ -34,9 +34,6 @@
             "host_explore": "Explore",
             "host_organization": "Organization"
         },
-        "paginator": {
-            "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
-        },
         "transaction_card": {
             "hash": "Hash",
             "number": "Number"
@@ -276,7 +273,8 @@
         },
         "list": {
             "processes_list_title": "Processes list",
-            "total_n_processes": "Total nº of processes: {{processCount}}"
+            "total_n_processes": "Total nº of processes: {{processCount}}",
+            "votes_submitted": ""
         },
         "process_mode_badge": {
             "autostart": "Autostart",
@@ -374,10 +372,9 @@
     "vote": {
         "badge": {
             "active_vote": "Active vote",
-            "canceled_vote": "Canceled vote",
-            "ended_vote": "Ended vote",
-            "paused_vote": "Paused vote",
-            "upcoming_vote": "Upcoming vote"
+            "ended_vote": "Ended",
+            "paused_vote_or_canceled": "Paused/Canceled",
+            "upcoming_vote": "Upcoming"
         },
         "loading_results": "Loading results",
         "no_questions_yet": "No questions yet",

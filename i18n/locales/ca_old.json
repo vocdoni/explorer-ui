@@ -16,6 +16,9 @@
         "vote_question_card": {
             "no_results_available": "",
             "question": ""
+        },
+        "paginator": {
+            "page_n_of_n": ""
         }
     },
     "converter": {
@@ -159,6 +162,12 @@
                 "ended": "",
                 "paused": ""
             }
+        }
+    },
+    "vote": {
+        "badge": {
+            "canceled_vote": "",
+            "paused_vote": ""
         }
     }
 }
