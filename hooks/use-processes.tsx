@@ -58,7 +58,7 @@ export const useProcessesList = ({
         console.error(err)
         setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'))
       })
-  },[entityId, from, namespace, poolPromise, searchTerm, setAlertMessage, status, withResults])
+  },[entityId, from, namespace, poolPromise, searchTerm, status, withResults])
 
 
   useEffect(() => {
