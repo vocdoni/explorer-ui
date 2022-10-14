@@ -15,27 +15,51 @@ import { StatusCard } from '@components/elements/cards'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { NProcessesBadge } from '@components/pages/organizations/components/entities-n-process-badge'
 import { EntityLink, getOrganizationPath } from './get-links'
+import { CopyButton } from '@components/blocks/copy-button'
 
 // Wrap a entityId into a link to its entity page and an icon.
 export const EntityNameWithIcon = ({
   icon,
   entityName,
   entityId,
-}:{
-  entityName: string,
-  entityId: string,
-  icon: string,
- }) => {
+}: {
+  entityName: string
+  entityId: string
+  icon: string
+}) => {
   return (
     <EntityNameAndLogoWrapper>
       <ImageContainer width="30px" height="30px">
-              <Image src={ icon || FALLBACK_ACCOUNT_ICON} />
+        <Image src={icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
       <span title={entityId}>{entityName}</span>
     </EntityNameAndLogoWrapper>
   )
 }
 
+export const ReducedEntityNameWithIcon = ({
+  icon,
+  entityName,
+  entityId,
+}: {
+  entityName: string
+  entityId: string
+  icon: string
+}) => {
+  const entityTxt = entityName.length < 15
+    ? entityName
+    : entityName.substring(0, 5) +
+      '...' +
+      entityName.substring(entityName.length - 4, entityName.length)
+  return (
+    <EntityNameAndLogoWrapper>
+      <ImageContainer width="20px" height="20px">
+        <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+      </ImageContainer>
+      <CopyButton toCopy={entityId} text={entityTxt} />
+    </EntityNameAndLogoWrapper>
+  )
+}
 
 type EntityCardMediumProps = {
   md: number
@@ -87,10 +111,9 @@ export const EntityCardCount = ({
     <GenericListItemWithBadge
       title={entityId}
       link={getOrganizationPath(entityId)}
-      badge={<NProcessesBadge processes={processCount}></NProcessesBadge>} 
-      topLeft={''}      
-    >
-    </GenericListItemWithBadge>
+      badge={<NProcessesBadge processes={processCount}></NProcessesBadge>}
+      topLeft={''}
+    ></GenericListItemWithBadge>
   )
 }
 

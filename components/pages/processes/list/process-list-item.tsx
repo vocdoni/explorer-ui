@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import { SummaryProcess, useEntity } from '@vocdoni/react-hooks'
 import { EntityMetadata } from 'dvote-js'
 
-import { ProcessListItem } from '@components/blocks/card/process-item'
 import { PROCESS_DETAILS } from '@const/routes'
 import { getPath } from '@components/pages/app/components/get-links'
 import { ensure0x } from '@vocdoni/common'
 
+import { ProcessCard } from '@components/blocks/card/process-card'
 
 interface IDashboardProcessListItemProps {
   process: SummaryProcess
@@ -26,13 +26,13 @@ export const DashboardProcessListItem = ({
   })
 
   return (
-    <ProcessListItem
+    <ProcessCard
       process={process}
       entityId={entityId}
       link={processDetailPath}
       entityMetadata={metadata}
       entityLogo={metadata?.media.header}
-    ></ProcessListItem>
+    ></ProcessCard>
   )
 }
 
