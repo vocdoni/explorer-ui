@@ -12,16 +12,21 @@ export const CopyButton = ({
   text,
   size,
   style,
+  color,
 }: {
   toCopy: string
   text: string
   size?: string
   style?: React.CSSProperties
+  color?: string
 }) => {
   const { i18n } = useTranslation()
 
   const { setAlertMessage } = useAlertMessage()
-  const handleCopy = () => {
+  const handleCopy = (e) => {
+    e.cancelBubble = true;
+    e.stopPropagation();
+    e.preventDefault();
     copy(toCopy)
     setAlertMessage(i18n.t('copy.the_link_has_been_copied_to_the_clipboard'))
   }
@@ -30,7 +35,7 @@ export const CopyButton = ({
     <div onClick={handleCopy}>
       <IconContext.Provider
         value={{
-          color: 'gray',
+          color: color ?? 'inherit',
           size: size ?? '1em',
           style: style ?? { paddingLeft: '10px', cursor: 'pointer' },
         }}
