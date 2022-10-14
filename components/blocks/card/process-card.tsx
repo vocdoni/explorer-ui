@@ -13,7 +13,7 @@ import { getVoteStatus, VoteStatus } from '@lib/util'
 
 
 import moment from 'moment'
-import { ProcessStatusLabel } from '../process-status-label'
+import { ProcessStatusBadge } from '../badges/process-status-badge'
 import { ReducedEntityNameWithIcon } from '@components/pages/app/components/entity'
 import { ItemDate } from '@components/elements/styled-divs'
 import { CardItemSubTitle, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic'
@@ -92,10 +92,10 @@ export const ProcessCard = ({
     : entityId
 
   const Top = () => (
-    <>
-      <ProcessStatusLabel status={status}></ProcessStatusLabel>
+    <TopWrapper>
+      <ProcessStatusBadge status={status}></ProcessStatusBadge>
       <ItemDate>{date}</ItemDate>
-    </>
+    </TopWrapper>
   )
 
   const Footer = () => (
@@ -122,6 +122,15 @@ export const ProcessCard = ({
 
 const EntityWrapper = styled.div`
   color: ${(props) => props.theme.textAccent1};
+`
+
+const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0px;
+  gap: 16px;
 `
 
 
