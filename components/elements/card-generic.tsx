@@ -4,7 +4,6 @@ import { FaChevronRight } from 'react-icons/fa'
 import { Column, ColumnProps } from '@components/elements/grid'
 import Link from 'next/link'
 
-
 export type GenericCardWrapperProps = ColumnProps & {
   link?: string
   top?: ReactElement
@@ -24,11 +23,11 @@ export const GenericCardWrapper = ({
   const Skeleton = () => (
     <CardItemDiv tabIndex={0}>
       {left && <CardLeft>{left}</CardLeft>}
-      <CardCenter>
+      <CardBody>
         {top && <TopDiv>{top}</TopDiv>}
-        {children}
+        <CenterDiv>{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
-      </CardCenter>
+      </CardBody>
       <CardRight>
         <FaChevronRight />
       </CardRight>
@@ -93,10 +92,10 @@ const CardLeft = styled.div`
 `
 
 const CardRight = styled.div`
-    align-self: flex-center;
+  align-self: flex-center;
 `
 
-const CardCenter = styled.div`
+const CardBody = styled.div`
   flex: 10;
   margin: 0 10px;
 
@@ -116,17 +115,20 @@ const FooterDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: 8px;
+`
+
+const CenterDiv = styled.div`
+  padding-left: 1px;
+  margin: 15px 0;
 `
 
 export const CardItemTitle = styled.h3`
   margin-top: 7px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-weight: bold;
 `
 
 export const CardItemSubTitle = styled.div`
   color: ${(props) => props.theme.text};
 `
-
