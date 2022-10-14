@@ -109,7 +109,6 @@ const TopDiv = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 10px;
   justify-content: flex-start;
 `
 
@@ -117,11 +116,17 @@ const FooterDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  margin-top: 12px;
 `
 
 export const CardItemTitle = styled.h3`
-  margin-top: 16px;
+  margin-top: 7px;
   margin-bottom: 6px;
   font-weight: bold;
 `
+
+export const CardItemSubTitle = styled.div`
+  color: ${(props) => props.theme.text};
+`
+

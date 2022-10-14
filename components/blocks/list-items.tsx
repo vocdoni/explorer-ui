@@ -93,49 +93,6 @@ const LinkCardContainer = styled.div`
   }
 `
 
-
-/** Same as VoteListItem but with a browsawle entity link and other properties to
- * show for the processes list page
- */
-type ProcessSummaryProps = ColumnProps & {
-  icon: string
-  link: string
-  entityName: string
-  entityId: string
-  title: string
-  description: string
-  status: VoteStatus
-  dateText: string
-  hideEntity: boolean
-}
-
-export const ProcessSummaryListItem = ({
-  icon,
-  entityName,
-  entityId,
-  link,
-  title,
-  description,
-  status,
-  dateText,
-  hideEntity = false, // If true, identity details not shown, instead it show processId if the title is not a processId
-}: ProcessSummaryProps) => {
-  
-  return (
-    <GenericListItemWithBadge
-      title={title}
-      dateText={dateText}
-      link={link}
-      topLeft={
-        !hideEntity ? 
-          <EntityNameWithIcon entityName={entityName} entityId={entityId} icon={icon}></EntityNameWithIcon> 
-          : isInValidProcessId(title) ? entityId : null
-      }
-      badge={<ProcessStatusLabel status={status}></ProcessStatusLabel>}
-    ></GenericListItemWithBadge>
-  )
-}
-
 // Styles
 
 const ListItemDiv = styled.div`
