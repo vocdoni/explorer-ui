@@ -272,8 +272,8 @@
             }
         },
         "list": {
-            "processes_list_title": "",
-            "total_n_processes": "",
+            "count": "",
+            "processes": "",
             "votes_submitted": ""
         },
         "process_mode_badge": {

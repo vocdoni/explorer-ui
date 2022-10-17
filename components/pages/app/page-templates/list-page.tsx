@@ -1,49 +1,64 @@
-import { Skeleton } from "@components/blocks/skeleton"
-import { Card } from "@components/elements/cards"
-import { FlexAlignItem, FlexContainer, FlexJustifyContent } from "@components/elements/flex"
-import { Column } from "@components/elements/grid"
-import { Typography, TypographyVariant } from "@components/elements/typography"
-import { colors } from "@theme/colors"
-import { ReactNode } from "react"
-import styled from "styled-components"
+import { Skeleton } from '@components/blocks/skeleton'
+import { Card } from '@components/elements/cards'
+import {
+  FlexAlignItem,
+  FlexContainer,
+  FlexJustifyContent,
+} from '@components/elements/flex'
+import { Column } from '@components/elements/grid'
+import { Typography, TypographyVariant } from '@components/elements/typography'
+import { colors } from '@theme/colors'
+import { ReactNode } from 'react'
+import styled from 'styled-components'
 
 interface IListPageTemplateProps {
-    title: string
-    subtitle: string    
+  title: string
+  subtitle: string
 }
 
 /**
- * Used as template for "lists" pages, for ex: page of entities or 
- * page of processes. 
- * @param 
- * @returns 
+ * Used as template for "lists" pages, for ex: page of entities or
+ * page of processes.
+ * @param
+ * @returns
  */
-export const ListPage = ({ title, subtitle
-}: IListPageTemplateProps) => { 
-
+export const ListPage = ({ title, subtitle }: IListPageTemplateProps) => {
   return (
     <div>
-      <Typography variant={TypographyVariant.H3} color={colors.blueText} margin='0px auto auto'>
+      <Typography
+        variant={TypographyVariant.H4}
+        color={colors.text}
+        margin="0px auto auto"
+      >
+        <strong>
           {title}
-        </Typography>
-        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {subtitle}
-        </Typography>
+        </strong>
+      </Typography>
+      <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+        {subtitle}
+      </Typography>
     </div>
   )
 }
 
-export const InlineTitleChildrenContainer=({title, children} : {title: ReactNode, children: ReactNode}) => {
+export const InlineTitleChildrenContainer = ({
+  title,
+  children,
+}: {
+  title: ReactNode
+  children: ReactNode
+}) => {
   return (
-  <TopDiv>
-    <FlexContainer
-      alignItem={FlexAlignItem.Baseline}
-      justify={FlexJustifyContent.Center}
-    >
-      {title}
-    </FlexContainer>
-    {children}
-  </TopDiv>)
+    <TopDiv>
+      <FlexContainer
+        alignItem={FlexAlignItem.Baseline}
+        justify={FlexJustifyContent.Center}
+      >
+        {title}
+      </FlexContainer>
+      {children}
+    </TopDiv>
+  )
 }
 
 export const TopDiv = styled.div`

@@ -272,9 +272,9 @@
             }
         },
         "list": {
-            "processes_list_title": "Processes list",
-            "total_n_processes": "Total nº of processes: {{processCount}}",
-            "votes_submitted": ""
+            "count": "Count",
+            "processes": "Processes",
+            "votes_submitted": "Votes submitted"
         },
         "process_mode_badge": {
             "autostart": "Autostart",
