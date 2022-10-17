@@ -13,22 +13,23 @@ const EnvelopeDetailPage = () => {
   })
 
   return (
-    <If condition={loading && !envelope}>
+    <If condition={envelope && !loading}>
       <Then>
-        <Loader visible />
+        <EnvelopeDetails envelope={envelope} />
       </Then>
       <Else>
-        <If condition={envelope !== null && envelope !== undefined}>
+        <If condition={envelope === null && !loading}>
           <Then>
-            <EnvelopeDetails envelope={envelope} />
+            <h1>{i18n.t('envelopes.details.envelope_not_found')}</h1>
           </Then>
           <Else>
-              <h1>{i18n.t('envelopes.details.envelope_not_found')}</h1>
+            <Loader visible />
           </Else>
         </If>
       </Else>
     </If>
   )
+
 }
 
 export default EnvelopeDetailPage
