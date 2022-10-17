@@ -3,7 +3,7 @@ import { VochainProcessStatus } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
 import { Grid } from '@components/elements/grid'
 import { colors } from '@theme/colors'
-import { Input } from '@components/elements/inputs'
+import { InputSearch } from '@components/elements/inputs'
 import styled from 'styled-components'
 import {
   FlexAlignItem,
@@ -108,10 +108,10 @@ const CheckBoxAndSearchBar = ({
         />
       </CheckBoxContainer>
       <DivWithMarginChildren>
-        <Input
+        <InputSearch
           wide
           placeholder={i18n.t(
-            'processes.filter.search_by_term_or_organization_address'
+            'processes.filter.search'
           )}
           value={searchTerm}
           onChange={(ev) => {
@@ -190,6 +190,14 @@ const CheckBoxContainer = styled(FlexContainer)`
 
 const SearchBoxContainer = styled(Grid)`
   margin: 0 0 0;
+
+  div[class^='inputs__'], div[class*=' inputs__']{
+    margin: 0;
+  }
+  
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    flex-direction: column-reverse;
+  }
 `
 
 const FilterContainer = styled.div`

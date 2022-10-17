@@ -6,6 +6,7 @@ import {
   OptionTypeBase,
 } from 'react-select'
 import { useTranslation } from 'react-i18next'
+import { FiSearch } from 'react-icons/fi'
 
 export interface IInputProps {
   wide?: boolean
@@ -54,7 +55,8 @@ export const InputPassword = (
   const [inputType, setInputType] = useState<InputType>(InputType.Password)
 
   const handleClick = () => {
-    const newType = inputType === InputType.Password ? InputType.Text : InputType.Password
+    const newType =
+      inputType === InputType.Password ? InputType.Text : InputType.Password
     setInputType(newType)
   }
 
@@ -62,9 +64,7 @@ export const InputPassword = (
     <InputContainer wide={props.wide}>
       <Input {...props} type={inputType} />
 
-      <ShowContainer
-        onClick={handleClick}
-      >
+      <ShowContainer onClick={handleClick}>
         {inputType === InputType.Password
           ? i18n.t('input.show')
           : i18n.t('input.hide')}
@@ -72,6 +72,7 @@ export const InputPassword = (
     </InputContainer>
   )
 }
+
 
 const ShowContainer = styled.div`
   position: absolute;
@@ -88,6 +89,38 @@ const InputContainer = styled.div<{ wide: boolean }>`
   position: relative;
 `
 
+export const InputSearch = (
+  props: StyledComponentProps<'input', DefaultTheme, IInputProps, never>
+) => {
+  return (
+    <InputSearchContainer wide={props.wide}>
+      <InputIconContainer>
+        <FiSearch />
+      </InputIconContainer>
+      <Input {...props} />
+    </InputSearchContainer>
+  )
+}
+
+const InputIconContainer = styled.div`
+  height: 1.5rem;
+  width: 1.5rem;
+  color: ${({ theme }) => theme.lightText};
+  padding: 4px;
+  position: absolute;
+  box-sizing: border-box;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+`
+const InputSearchContainer = styled(InputContainer)`
+  & > input {
+    box-sizing:border-box;
+    padding-left: 1.9rem;
+  }
+`
+
+
 export type Textarea = typeof Textarea
 export const Textarea = styled.textarea<IInputProps>`
   padding: 11px;
@@ -99,7 +132,8 @@ export const Textarea = styled.textarea<IInputProps>`
   box-shadow: ${({ error }) =>
     error
       ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'
-      : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};  border-radius: 8px;
+      : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
+  border-radius: 8px;
   outline-width: 0;
   margin-bottom: 10px;
   ${({ wide }) => (wide ? 'width: 100%;' : '')}
