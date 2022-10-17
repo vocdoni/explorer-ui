@@ -32,7 +32,7 @@ module.exports = {
   VERIFY_SINGLE_PAGE,
 
   // BLOCKCHAIN
-  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'rinkeby',
+  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'goerli',
 
   // VOCHAIN
   BLOCK_TIME: process.env.BLOCK_TIME || '12',
