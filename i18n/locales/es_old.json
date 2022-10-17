@@ -175,6 +175,10 @@
             "page": "",
             "envelope_details": "",
             "transaction_details": ""
+        },
+        "list": {
+            "processes_list_title": "",
+            "total_n_processes": ""
         }
     },
     "entities": {

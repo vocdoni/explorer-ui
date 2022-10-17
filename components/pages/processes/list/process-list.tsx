@@ -1,12 +1,14 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
 
 import { useProcessesList } from '@hooks/use-processes'
 import { VochainProcessStatus } from 'dvote-js'
 import { ProcessFilter } from '../components/process-filter'
 import { DashboardProcessListItem } from './process-list-item'
-import { useFilteredPaginatedList, FilteredPaginatedList } from '@components/pages/app/page-templates/list-page-filtered'
+import {
+  useFilteredPaginatedList,
+  FilteredPaginatedList,
+} from '@components/pages/app/page-templates/list-page-filtered'
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
@@ -26,7 +28,7 @@ interface IDashboardProcessListProps {
 export const DashboardProcessList = ({
   pageSize,
   totalProcessCount,
-  title
+  title,
 }: IDashboardProcessListProps) => {
   const [filter, setFilter] = useState<IFilterProcesses>({})
   const [dataPagination, setDataPagination] = useState<number>()
@@ -39,7 +41,7 @@ export const DashboardProcessList = ({
     withResults: filter?.withResults,
     listSize: pageSize,
     entityId: filter?.entityId,
-    reverse: true
+    reverse: true,
   })
 
   // Get processes details to show on the list
@@ -52,11 +54,11 @@ export const DashboardProcessList = ({
   // Render item on the list from it summary
   const renderProcessItem = (process: SummaryProcess) => {
     return (
-        <DashboardProcessListItem
-          key={process.id}
-          process={process}
-          entityId={process?.summary?.entityId || ''}
-        />
+      <DashboardProcessListItem
+        key={process.id}
+        process={process}
+        entityId={process?.summary?.entityId || ''}
+      />
     )
   }
 
@@ -65,40 +67,34 @@ export const DashboardProcessList = ({
     currentPage,
     methods: { enableFilter, setCurrentPage },
   } = useFilteredPaginatedList<IFilterProcesses>({
-      pageSize: pageSize, 
-      filter: filter, 
-      setFilter: setFilter, 
-      setDataPagination: setDataPagination, 
-      lastElement: totalProcessCount + 1
-    })
+    pageSize: pageSize,
+    filter: filter,
+    setFilter: setFilter,
+    setDataPagination: setDataPagination,
+    lastElement: totalProcessCount + 1,
+  })
 
-
-  const isUsingFilter = () => 
-    filter?.entityId?.length > 0 || 
+  const isUsingFilter = () =>
+    filter?.entityId?.length > 0 ||
     filter?.searchTerm?.length > 0 ||
     filter?.withResults ||
     filter?.status != null
-  
 
   return (
     <>
-      <InlineTitleChildrenContainer title={title}>
-        <ProcessFilter
-          onEnableFilter={enableFilter}
-        ></ProcessFilter>
-      </InlineTitleChildrenContainer>
+      <ProcessFilter onEnableFilter={enableFilter} title={title}></ProcessFilter>
       <FilteredPaginatedList
         loading={loadingProcessList || loadingProcessesDetails}
         elementsList={!processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
-          isUsingFilter()
-            ? null
-            : totalProcessCount}
+          isUsingFilter() ? null : totalProcessCount
+        }
         renderElementFunction={renderProcessItem}
-        pageSize={pageSize} 
-        currentPage={currentPage} 
-        setCurrentPage={setCurrentPage}      />
+        pageSize={pageSize}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   )
 }
