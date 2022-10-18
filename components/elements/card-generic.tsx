@@ -7,7 +7,7 @@ import Link from 'next/link'
 export type GenericCardWrapperProps = ColumnProps & {
   link?: string
   top?: ReactElement
-  children: ReactElement
+  children?: ReactElement
   footer?: ReactElement
   left?: ReactElement
 }
@@ -25,7 +25,13 @@ export const GenericCardWrapper = ({
       {left && <CardLeft>{left}</CardLeft>}
       <CardBody>
         {top && <TopDiv>{top}</TopDiv>}
-        <CenterDiv>{children}</CenterDiv>
+        <CenterDiv
+        style={
+          { margin: top ? '15px 0' : '0 0 15px 0' }
+        }
+        //  style={
+        //   } 
+          >{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
       </CardBody>
       <CardRight>
@@ -88,7 +94,12 @@ const CardItemDiv = styled.div`
 `
 
 const CardLeft = styled.div`
-  flex: 1;
+  @media ${({ theme }) => theme.screenMax.tablet} {
+    flex: 2;
+    padding-right: 10px;
+  }
+
+  flex: 0.5;
 `
 
 const CardRight = styled.div`
@@ -120,7 +131,6 @@ const FooterDiv = styled.div`
 
 const CenterDiv = styled.div`
   padding-left: 1px;
-  margin: 15px 0;
 `
 
 export const CardItemTitle = styled.h3`
