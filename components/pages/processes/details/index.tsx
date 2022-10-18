@@ -43,6 +43,7 @@ import { ResultsCard } from '../components/results-card'
 import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
 import { EncryptionKeys } from '../components/process_keys'
 import { CopyButton } from '@components/blocks/copy-button'
+import { ensure0x } from '@vocdoni/common'
 
 interface ProcessesDetailPageProps {
   processId: string,
@@ -77,7 +78,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
     blockHeight,
     blockStatus
   )
-  
+
   return (
     <PageCard>
       <CardImageHeader

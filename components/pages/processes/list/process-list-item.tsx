@@ -6,6 +6,8 @@ import { EntityMetadata } from 'dvote-js'
 import { ProcessListItem } from '@components/blocks/card/process-item'
 import { PROCESS_DETAILS } from '@const/routes'
 import { getPath } from '@components/pages/app/components/get-links'
+import { ensure0x } from '@vocdoni/common'
+
 
 interface IDashboardProcessListItemProps {
   process: SummaryProcess
@@ -17,7 +19,7 @@ export const DashboardProcessListItem = ({
   entityId,
 }: IDashboardProcessListItemProps) => {
 
-  const { metadata } = useEntity(entityId)
+  const { metadata } = useEntity(ensure0x(entityId))
   const entityMetadata = metadata as EntityMetadata
   const processDetailPath = getPath(PROCESS_DETAILS, {
     processId: process.id,

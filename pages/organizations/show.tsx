@@ -4,13 +4,14 @@ import { useBlockHeight, useEntity } from '@vocdoni/react-hooks'
 import { useUrlHash } from 'use-url-hash'
 import { EntityView } from '@components/pages/organizations/details/index'
 import { useProcessesFromAccount } from '@hooks/use-processes'
+import { ensure0x } from '@vocdoni/common'
 
 
 const OrganizationsDetailPage = () => {
   const strategies: ViewStrategy[] = []
   const entityId = useUrlHash().slice(1)
   
-  const { metadata, loading } = useEntity(entityId)
+  const { metadata, loading } = useEntity(ensure0x(entityId))
   const { blockHeight } = useBlockHeight()
   const { processes, loadingProcessList, loadingProcessesDetails } =
     useProcessesFromAccount(entityId)
