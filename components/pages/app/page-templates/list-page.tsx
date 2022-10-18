@@ -30,9 +30,7 @@ export const ListPage = ({ title, subtitle }: IListPageTemplateProps) => {
         color={colors.text}
         margin="0px auto auto"
       >
-        <strong>
-          {title}
-        </strong>
+        <strong>{title}</strong>
       </Typography>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         {subtitle}
@@ -50,12 +48,7 @@ export const InlineTitleChildrenContainer = ({
 }) => {
   return (
     <TopDiv>
-      <FlexContainer
-        alignItem={FlexAlignItem.Baseline}
-        justify={FlexJustifyContent.Center}
-      >
         {title}
-      </FlexContainer>
       {children}
     </TopDiv>
   )

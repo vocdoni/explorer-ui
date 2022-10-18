@@ -16,7 +16,7 @@ export const DashboardShowEntities = () => {
       title={
         <ListPage
           title={i18n.t('organizations.list.organizations_list_title')}
-          subtitle={i18n.t('organizations.total_n_organizations') + entitiesCount}
+          subtitle={i18n.t('organizations.count') + entitiesCount}
         />
       }
     />

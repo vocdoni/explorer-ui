@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Column, Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
+import { InputSearch } from '@components/elements/inputs'
 import styled from 'styled-components'
 import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
@@ -40,7 +40,7 @@ export const EntitiesFilter = ({
     <FilterForm onEnableFilter={_onEnableFilter}>
       <InlineFlex>
         <DivWithMarginChildren>
-          <Input
+          <InputSearch
             wide
             placeholder={i18n.t(
               'organizations.filter.search_by_organization_id'
