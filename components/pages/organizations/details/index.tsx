@@ -8,7 +8,7 @@ import { Grid, Column } from '@components/elements/grid'
 import { PageCard } from '@components/elements/cards'
 import { CardImageHeader } from '@components/blocks/card/image-header'
 import { useTranslation } from 'react-i18next'
-import { ProcessListItem } from '@components/blocks/card/process-item'
+import { ProcessCard } from '@components/blocks/card/process-card'
 import { getProcessDetailsPath } from '@components/pages/app/components/get-links'
 import { BreakWord } from '@components/elements/styled-divs'
 import { CopyButton } from '@components/blocks/copy-button'
@@ -76,7 +76,7 @@ export const EntityView = ({
             const processStatus = getVoteStatus(process.summary, blockHeight)
 
             return (
-              <ProcessListItem
+              <ProcessCard
                 key={index}
                 process={process}
                 entityId={process.id}

@@ -25,14 +25,14 @@ import {
   TypographyVariant,
 } from '@components/elements/typography'
 import { colors } from '@theme/colors'
-import { ProcessStatusBadge } from '../components/process-status-badge'
+import { ProcessStatusBadge as ProcessInfoBadge } from '../components/process-status-badge'
 import {
   EntityCardMedium,
-} from '@components/pages/app/components/entity'
+} from '@components/blocks/card/entity-card'
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/process-censusorigin-badge'
 import { ProcessModeBadge } from '../components/process-processmode-badge'
-import { ProcessStatusLabel } from '@components/blocks/badges/process-status-badge'
+import { ProcessStatusBadge } from '@components/blocks/badges/process-status-badge'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/process-envelope-explorer'
@@ -108,8 +108,8 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
         {/* Labels and badges */}
         <Grid>
           <BadgeColumn>
-            <ProcessStatusLabel status={voteStatus} />
-            <ProcessStatusBadge status={processInfo?.state?.status} />
+            <ProcessStatusBadge status={voteStatus} />
+            <ProcessInfoBadge status={processInfo?.state?.status} />
             <CensusOriginBadge
               censusOrigin={processInfo?.state?.censusOrigin}
             />

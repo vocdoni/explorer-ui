@@ -8,13 +8,9 @@ import {
   FlexContainer,
   FlexJustifyContent,
 } from '../elements/flex'
-import { isInValidProcessId, VoteStatus } from '@lib/util'
-import { ProcessStatusLabel } from '@components/blocks/badges/process-status-badge'
 // import { MarkDownViewer } from "./mark-down-viewer"
 import React from 'react'
-import { EntityLink } from '@components/pages/app/components/get-links'
 import { BreakWord, BreakWordAll, ItemDate } from '@components/elements/styled-divs'
-import { EntityNameWithIcon } from '@components/pages/app/components/entity'
 
 export const GenericListItemWithBadge = ({
   title,
