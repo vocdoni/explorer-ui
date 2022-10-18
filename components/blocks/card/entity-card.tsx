@@ -14,8 +14,17 @@ import { Image } from '@components/elements/image'
 import { StatusCard } from '@components/elements/cards'
 import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { NProcessesBadge } from '@components/pages/organizations/components/entities-n-process-badge'
-import { EntityLink, getOrganizationPath } from './get-links'
+import {
+  EntityLink,
+  getOrganizationPath,
+} from '@components/pages/app/components/get-links'
 import { CopyButton } from '@components/blocks/copy-button'
+import {
+  CardItemSubTitle,
+  CardItemTitle,
+  GenericCardWrapper,
+} from '@components/elements/card-generic'
+import { BreakWord } from '@components/elements/styled-divs'
 
 // Wrap a entityId into a link to its entity page and an icon.
 export const EntityNameWithIcon = ({
@@ -37,6 +46,22 @@ export const EntityNameWithIcon = ({
   )
 }
 
+export const ReducedEntityName = ({
+  entityName,
+  entityId,
+}: {
+  entityName: string
+  entityId: string
+}) => {
+  const entityTxt =
+    entityName.length < 15
+      ? entityName
+      : entityName.substring(0, 5) +
+        '...' +
+        entityName.substring(entityName.length - 4, entityName.length)
+  return <CopyButton toCopy={entityId} text={entityTxt} />
+}
+
 export const ReducedEntityNameWithIcon = ({
   icon,
   entityName,
@@ -48,18 +73,13 @@ export const ReducedEntityNameWithIcon = ({
   icon: string
   iconWidth?: string
 }) => {
-  const entityTxt = entityName.length < 15
-    ? entityName
-    : entityName.substring(0, 5) +
-      '...' +
-      entityName.substring(entityName.length - 4, entityName.length) ;
-  const w = iconWidth ?? "25px"
+  const w = iconWidth ?? '25px'
   return (
     <EntityNameAndLogoWrapper>
       <ImageContainer width={w} height={w}>
         <Image src={icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
-      <CopyButton toCopy={entityId} text={entityTxt} />
+      <ReducedEntityName entityId={entityId} entityName={entityName} />
     </EntityNameAndLogoWrapper>
   )
 }
@@ -103,22 +123,75 @@ export const EntityCardMedium = ({
   )
 }
 
-export const EntityCardCount = ({
+export const EntityCard = ({
   entityId,
+  entityLogo,
+  entityName,
   processCount,
+  link,
 }: {
   entityId: string
+  entityLogo: string
+  entityName: string
   processCount: number
+  link: string
 }) => {
+  const { i18n } = useTranslation()
+
+  const w = '40px'
+
+  const EntityLogo = () => (
+    <ImageContainer width={w} height={w}>
+      <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
+    </ImageContainer>
+  )
+
+  const Body = () => (
+    <>
+      <BreakWord>
+        <CardItemTitle>{entityName}</CardItemTitle>
+      </BreakWord>
+      <EntityWrapper>
+        <ReducedEntityName
+          entityId={entityId}
+          entityName={entityId}
+        ></ReducedEntityName>
+      </EntityWrapper>
+    </>
+  )
+
+  const Footer = () => (
+    <CardItemSubTitle>
+      <strong>{i18n.t('organizations.list.processes')}: </strong> {processCount}
+    </CardItemSubTitle>
+  )
+
   return (
-    <GenericListItemWithBadge
-      title={entityId}
-      link={getOrganizationPath(entityId)}
-      badge={<NProcessesBadge processes={processCount}></NProcessesBadge>}
-      topLeft={''}
-    ></GenericListItemWithBadge>
+    <GenericCardWrapper left={<EntityLogo />} link={link} footer={<Footer />}>
+      <Body />
+    </GenericCardWrapper>
   )
 }
+
+const EntityWrapper = styled.div`
+  color: ${(props) => props.theme.textAccent1};
+`
+// export const EntityCardCount = ({
+//   entityId,
+//   processCount,
+// }: {
+//   entityId: string
+//   processCount: number
+// }) => {
+//   return (
+//     <GenericListItemWithBadge
+//       title={entityId}
+//       link={getOrganizationPath(entityId)}
+//       badge={<NProcessesBadge processes={processCount}></NProcessesBadge>}
+//       topLeft={''}
+//     ></GenericListItemWithBadge>
+//   )
+// }
 
 const EntityName = styled.h5`
   display: inline-block;

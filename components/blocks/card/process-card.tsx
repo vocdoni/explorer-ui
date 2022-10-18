@@ -14,9 +14,9 @@ import { getVoteStatus, VoteStatus } from '@lib/util'
 
 import moment from 'moment'
 import { ProcessStatusBadge } from '../badges/process-status-badge'
-import { ReducedEntityNameWithIcon } from '@components/pages/app/components/entity'
 import { ItemDate } from '@components/elements/styled-divs'
 import { CardItemSubTitle, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic'
+import { ReducedEntityNameWithIcon } from './entity-card'
 
 
 type ProcessCardProps = GenericCardWrapperProps & {
