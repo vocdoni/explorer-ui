@@ -9,7 +9,7 @@ import { colors } from 'theme/colors'
 import { SectionText, TextSize } from '@components/elements/text'
 import { Button, JustifyContent, LinkTarget } from '@components/elements/button'
 import { Column, Grid } from '@components/elements/grid'
-import { ProcessStatusLabel } from '@components/blocks/badges/process-status-badge'
+import { ProcessStatusBadge } from '@components/blocks/badges/process-status-badge'
 import { When } from 'react-if'
 // import { HelpText } from '@components/blocks/help-text'
 
@@ -33,7 +33,7 @@ export const VoteDescription = ({
   return (
     <Grid>
       <Column>
-        <ProcessStatusLabel status={voteStatus} />
+        <ProcessStatusBadge status={voteStatus} />
       </Column>
 
       <Column>
