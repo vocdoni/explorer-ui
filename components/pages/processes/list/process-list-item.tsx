@@ -24,6 +24,7 @@ export const DashboardProcessListItem = ({
   const processDetailPath = getPath(PROCESS_DETAILS, {
     processId: process.id,
   })
+  
 
   return (
     <ProcessCard
