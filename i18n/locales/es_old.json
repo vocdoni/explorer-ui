@@ -1,7 +1,8 @@
 {
     "components": {
         "block_card": {
-            "number": ""
+            "number": "",
+            "height_n": ""
         },
         "cardimage": {
             "entity_logo_alt": ""
@@ -19,6 +20,9 @@
         },
         "paginator": {
             "page_n_of_n": ""
+        },
+        "transaction_card": {
+            "number": ""
         }
     },
     "converter": {
@@ -50,7 +54,12 @@
         "details": {
             "n_transaction_for_block_n": "",
             "belong_to_entity": ""
-        }
+        },
+        "filter": {
+            "search_by_transaction_height": ""
+        },
+        "total_n_transactions": "",
+        "transactions_list_title": ""
     },
     "transaction": {
         "card": {
@@ -166,7 +175,8 @@
             "search_by_search_term": "",
             "select_by_vote_status": "",
             "search_by_search_term_or_organization_details": "",
-            "search_by_term_or_organization_details": ""
+            "search_by_term_or_organization_details": "",
+            "search_by_term_or_organization_address": ""
         },
         "envelope_explorer": {
             "back": "",
@@ -178,7 +188,8 @@
         },
         "list": {
             "processes_list_title": "",
-            "total_n_processes": ""
+            "total_n_processes": "",
+            "votes_submitted": ""
         }
     },
     "entities": {
@@ -239,5 +250,23 @@
             "canceled_vote": "",
             "paused_vote": ""
         }
+    },
+    "blocks": {
+        "filter": {
+            "search_by_block_height": ""
+        },
+        "list": {
+            "blocks_list_title": "",
+            "current_block_heigh": ""
+        }
+    },
+    "organizations": {
+        "filter": {
+            "search_by_organization_id": ""
+        },
+        "total_n_organizations": ""
+    },
+    "validators_list": {
+        "validators_list_title": ""
     }
 }

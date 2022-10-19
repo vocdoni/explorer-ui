@@ -8,17 +8,17 @@
             "block_not_found": ""
         },
         "filter": {
-            "search_by_block_height": ""
+            "search": ""
         },
         "list": {
-            "blocks_list_title": "",
-            "current_block_heigh": ""
-        }
+            "blocks": "",
+            "count": ""
+        },
+        "transactions": ""
     },
     "components": {
         "block_card": {
             "hash": "",
-            "height_n": "",
             "last_block_hash": "",
             "proposer": ""
         },
@@ -35,8 +35,11 @@
             "host_organization": ""
         },
         "transaction_card": {
-            "hash": "",
-            "number": ""
+            "hash": ""
+        },
+        "validator": {
+            "Pubkey": "",
+            "voting_power": ""
         }
     },
     "converter": {
@@ -201,6 +204,7 @@
         }
     },
     "organizations": {
+        "count": "",
         "details": {
             "no_processes_yet": "",
             "organization_address": "",
@@ -208,12 +212,12 @@
             "organization_processes": ""
         },
         "filter": {
-            "search_by_organization_id": ""
+            "search": ""
         },
         "list": {
-            "organizations_list_title": ""
+            "organizations_list_title": "",
+            "processes": ""
         },
-        "total_n_organizations": "",
         "upcoming_processes_badge": {
             "processes": ""
         }
@@ -262,7 +266,7 @@
             "not_encrypted_votes": ""
         },
         "filter": {
-            "search_by_term_or_organization_address": "",
+            "search": "",
             "show_only_processes_with_results": "",
             "status_selector": {
                 "active": "",
@@ -273,8 +277,7 @@
         },
         "list": {
             "count": "",
-            "processes": "",
-            "votes_submitted": ""
+            "processes": ""
         },
         "process_mode_badge": {
             "autostart": "",
@@ -335,6 +338,7 @@
             "unknown": "",
             "vote": ""
         },
+        "count": "",
         "created_on": "",
         "details": {
             "belong_to_organization": "",
@@ -345,17 +349,17 @@
             "vote_package": ""
         },
         "filter": {
-            "search_by_transaction_height": ""
+            "search": ""
         },
         "no_transactions_found": "",
         "on_block_n": "",
-        "total_n_transactions": "",
         "transaction_index": "",
-        "transactions_list_title": ""
+        "transactions": ""
     },
     "validators_list": {
-        "validators_count": "",
-        "validators_list_title": ""
+        "count": "",
+        "validators": "",
+        "validators_count": ""
     },
     "validators": {
         "badge": {

@@ -24,7 +24,12 @@
         "ADMIN": "Admin",
         "details": {
             "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}"
-        }
+        },
+        "filter": {
+            "search_by_transaction_height": "Search by transaction height"
+        },
+        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
+        "transactions_list_title": "Transactions list"
     },
     "transaction": {
         "card": {
@@ -142,7 +147,8 @@
             "search_by_search_term": "Search by search term",
             "select_by_vote_status": "Select by vote status",
             "search_by_search_term_or_organization_details": "",
-            "search_by_term_or_organization_details": ""
+            "search_by_term_or_organization_details": "",
+            "search_by_term_or_organization_address": "Search by term / Organization address"
         },
         "envelope_explorer": {
             "back": "Back",
@@ -154,7 +160,8 @@
         },
         "list": {
             "processes_list_title": "Processes list",
-            "total_n_processes": "Total nº of processes: {{processCount}}"
+            "total_n_processes": "Total nº of processes: {{processCount}}",
+            "votes_submitted": "Votes submitted"
         }
     },
     "components": {
@@ -167,6 +174,12 @@
         },
         "paginator": {
             "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
+        },
+        "block_card": {
+            "height_n": "#{{ blockHeight }}"
+        },
+        "transaction_card": {
+            "number": "Number"
         }
     },
     "envelopes": {
@@ -204,5 +217,23 @@
             "canceled_vote": "Canceled vote",
             "paused_vote": "Paused vote"
         }
+    },
+    "blocks": {
+        "filter": {
+            "search_by_block_height": "Search by block height"
+        },
+        "list": {
+            "blocks_list_title": "Blocks list",
+            "current_block_heigh": "Current block height: {{ blockHeight }}"
+        }
+    },
+    "organizations": {
+        "filter": {
+            "search_by_organization_id": "Search by organization id"
+        },
+        "total_n_organizations": "Total nº organizations:"
+    },
+    "validators_list": {
+        "validators_list_title": "Validators list"
     }
 }

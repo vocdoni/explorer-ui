@@ -8,17 +8,17 @@
             "block_not_found": "Block not found"
         },
         "filter": {
-            "search_by_block_height": "Search by block height"
+            "search": "search"
         },
         "list": {
-            "blocks_list_title": "Blocks list",
-            "current_block_heigh": "Current block height: {{ blockHeight }}"
-        }
+            "blocks": "Blocks",
+            "count": "Count"
+        },
+        "transactions": "Transactions"
     },
     "components": {
         "block_card": {
             "hash": "Hash",
-            "height_n": "#{{ blockHeight }}",
             "last_block_hash": "Last block hash",
             "proposer": "Proposer"
         },
@@ -35,8 +35,11 @@
             "host_organization": "Organization"
         },
         "transaction_card": {
-            "hash": "Hash",
-            "number": "Number"
+            "hash": "Hash"
+        },
+        "validator": {
+            "Pubkey": "Pubkey",
+            "voting_power": "Voting power"
         }
     },
     "converter": {
@@ -201,6 +204,7 @@
         }
     },
     "organizations": {
+        "count": "Count",
         "details": {
             "no_processes_yet": "No processes yet",
             "organization_address": "Organization address",
@@ -208,12 +212,12 @@
             "organization_processes": "Organization processes"
         },
         "filter": {
-            "search_by_organization_id": "Search by organization id"
+            "search": "Search"
         },
         "list": {
-            "organizations_list_title": "Organizations list"
+            "organizations_list_title": "Organizations list",
+            "processes": "Processes"
         },
-        "total_n_organizations": "Total nº organizations:",
         "upcoming_processes_badge": {
             "processes": "Processes"
         }
@@ -262,7 +266,7 @@
             "not_encrypted_votes": "Not encrypted votes"
         },
         "filter": {
-            "search_by_term_or_organization_address": "Search by term / Organization address",
+            "search": "Search",
             "show_only_processes_with_results": "Show only processes with results",
             "status_selector": {
                 "active": "Active",
@@ -273,8 +277,7 @@
         },
         "list": {
             "count": "Count",
-            "processes": "Processes",
-            "votes_submitted": "Votes submitted"
+            "processes": "Processes"
         },
         "process_mode_badge": {
             "autostart": "Autostart",
@@ -308,11 +311,11 @@
         "total_votes": "Total votes"
     },
     "status": {
-        "the_vote_has_ended": "",
-        "the_vote_is_canceled": "",
-        "the_vote_is_open_for_voting": "",
-        "the_vote_is_paused": "",
-        "the_vote_will_start_soon": ""
+        "the_vote_has_ended": "The vote has ended",
+        "the_vote_is_canceled": "The vote is canceled",
+        "the_vote_is_open_for_voting": "The vote is open for voting",
+        "the_vote_is_paused": "The vote is paused",
+        "the_vote_will_start_soon": "The vote will start soon"
     },
     "transaction": {
         "card": {
@@ -335,6 +338,7 @@
             "unknown": "Unknown",
             "vote": "Vote"
         },
+        "count": "Count",
         "created_on": "Created on",
         "details": {
             "belong_to_organization": "Belongs to organization",
@@ -345,17 +349,17 @@
             "vote_package": "Vote package"
         },
         "filter": {
-            "search_by_transaction_height": "Search by transaction height"
+            "search": "Search"
         },
         "no_transactions_found": "Nº of transactions found",
         "on_block_n": "On block {{ blockHeight }}",
-        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
         "transaction_index": "Transaction index",
-        "transactions_list_title": "Transactions list"
+        "transactions": "Transactions"
     },
     "validators_list": {
-        "validators_count": "Validators count: {{validatorsCount}}",
-        "validators_list_title": "Validators list"
+        "count": "Count",
+        "validators": "Validators",
+        "validators_count": "Validators count: {{validatorsCount}}"
     },
     "validators": {
         "badge": {
@@ -383,6 +387,6 @@
         "results_question": "Question",
         "total_votes_submited": "Total votes submited",
         "vote_count": "{{count}} votes",
-        "vote_count_plural": ""
+        "vote_count_plural": "Votes"
     }
 }
