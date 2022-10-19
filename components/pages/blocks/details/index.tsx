@@ -5,6 +5,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import { BlockInfo } from '@lib/types'
 import { TransactionListForBlock } from './transaction-list-for-block'
 import { useTranslation } from 'react-i18next'
+import { ensure0x } from 'dvote-js'
 
 export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
   const { i18n } = useTranslation()
@@ -24,6 +25,22 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
           blockHeight={blockData?.height}
         ></TransactionListForBlock>
       ) : null}
+      <>
+       <p>{i18n.t('blocks.transactions')} {blockData?.num_txs}</p>
+        <p>
+          {i18n.t('components.block_card.hash')}:{' '}
+          <code>0x{blockData?.hash}</code>
+        </p>
+        <p>
+          {i18n.t('components.block_card.last_block_hash')}:
+          <a href={`#/${(blockData?.height - 1).toString()}`}>
+            <code> 0x{blockData?.last_block_hash}</code>
+          </a>
+        </p>
+        <p>
+        {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.proposer_address)}
+        </p>
+      </>
     </PageCard>
   )
 }
