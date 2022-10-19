@@ -18,7 +18,7 @@ import {
   EntityLink,
   getOrganizationPath,
 } from '@components/pages/app/components/get-links'
-import { CopyButton } from '@components/blocks/copy-button'
+import { ReducedTextAndCopy } from '@components/blocks/copy-button'
 import {
   CardItemSubTitle,
   CardItemTitle,
@@ -46,22 +46,6 @@ export const EntityNameWithIcon = ({
   )
 }
 
-export const ReducedEntityName = ({
-  entityName,
-  entityId,
-}: {
-  entityName: string
-  entityId: string
-}) => {
-  const entityTxt =
-    entityName.length < 15
-      ? entityName
-      : entityName.substring(0, 5) +
-        '...' +
-        entityName.substring(entityName.length - 4, entityName.length)
-  return <CopyButton toCopy={entityId} text={entityTxt} />
-}
-
 export const ReducedEntityNameWithIcon = ({
   icon,
   entityName,
@@ -79,7 +63,7 @@ export const ReducedEntityNameWithIcon = ({
       <ImageContainer width={w} height={w}>
         <Image src={icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
-      <ReducedEntityName entityId={entityId} entityName={entityName} />
+      <ReducedTextAndCopy toCopy={entityId} text={entityName} />
     </EntityNameAndLogoWrapper>
   )
 }
@@ -152,10 +136,10 @@ export const EntityCard = ({
         <CardItemTitle>{entityName}</CardItemTitle>
       </BreakWord>
       <EntityWrapper>
-        <ReducedEntityName
-          entityId={entityId}
-          entityName={entityId}
-        ></ReducedEntityName>
+        <ReducedTextAndCopy
+          toCopy={entityId}
+          text={entityId}
+        ></ReducedTextAndCopy>
       </EntityWrapper>
     </>
   )
