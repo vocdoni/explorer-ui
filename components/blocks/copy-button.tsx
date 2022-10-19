@@ -47,3 +47,20 @@ export const CopyButton = ({
     </div>
   )
 }
+
+export const ReducedTextAndCopy= ({
+  text,
+  toCopy,
+}: {
+  text: string
+  toCopy: string
+}) => {
+  const entityTxt =
+  text.length < 13
+      ? text
+      : text.substring(0, 5) +
+        '...' +
+        text.substring(text.length - 4, text.length)
+  return <CopyButton toCopy={toCopy} text={entityTxt} />
+}
+
