@@ -43,7 +43,7 @@ export const EntitiesFilter = ({
           <InputSearch
             wide
             placeholder={i18n.t(
-              'organizations.filter.search_by_organization_id'
+              'organizations.filter.search'
             )}
             value={searchTermIT}
             onChange={(ev) => {
