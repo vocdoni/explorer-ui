@@ -19,7 +19,7 @@ export const useEntityList = ({
   const [entitiesList, setEntitiesList] = useState([] as string[])
   const [loading, setLoading] = useState(false)
 
-  const getEntityIDs = useCallback(() => {
+  const getEntityIDs = () => {
     const f = from < 0 ? 0 : from;
 
     setLoading(true)
@@ -43,11 +43,11 @@ export const useEntityList = ({
         setAlertMessage(i18n.t('errors.the_list_of_organizations_cannot_be_loaded'))
       }).finally(() => setLoading(false))
 
-  }, [from, listSize, poolPromise, reverse, searchTerm, setAlertMessage])
+  }
 
   useEffect(() => {
     if (from || from === 0) getEntityIDs()
-  }, [searchTerm, from, getEntityIDs])
+  }, [searchTerm, from])
 
   return {
     entitiesList,
