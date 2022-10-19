@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import { Column, Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
-import { FlexContainer, InlineFlex } from '@components/elements/flex'
+import { InputSearch } from '@components/elements/inputs'
+import { InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
-import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
 import { useEffect, useState } from 'react'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 import { DELAY_BOUNCE_TIME } from '@const/filters'
@@ -44,9 +42,9 @@ export const BlocksFilter = ({
     <FilterForm onEnableFilter={_onEnableFilter}>
       <InlineFlex>
         <DivWithMarginChildren>
-          <Input
+          <InputSearch
             wide
-            placeholder={i18n.t('blocks.filter.search_by_block_height')}
+            placeholder={i18n.t('blocks.filter.search')}
             value={searchTermIT}
             onChange={(ev) => {
               if (ev.target.value.length === 0) {
