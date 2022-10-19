@@ -6,45 +6,61 @@ import { TxById, TxType } from '@lib/types'
 import { getEnumKeyByEnumValue } from '@lib/util'
 import { TransactionTypeBadge } from '../badges/transaction-type-badge'
 import { GenericListItemWithBadge } from '../list-items'
+import {
+  CardItemTitle,
+  GenericCardWrapper,
+  GenericCardWrapperProps,
+} from '@components/elements/card-generic'
+import { ensure0x } from '@vocdoni/common'
+import styled from 'styled-components'
+import {  ReducedTextAndCopy } from '@components/blocks/copy-button'
+
 
 export const TransactionCard = ({
-  sm,
-  md,
-  lg,
-  xl,
   transactionData,
-}: ColumnProps & {
+}: GenericCardWrapperProps & {
   transactionData: TxById
 }) => {
   const { i18n } = useTranslation()
+
+  const link = getPath(TRANSACTIONS_DETAILS, {
+    blockHeight: transactionData?.block_height?.toString(),
+    index: transactionData?.index?.toString() ?? '0',
+  })
+
+  const Top = () => (
+    <>
+      <TransactionTypeBadge
+        type={TxType[Object.keys(transactionData.payload)[0]]}
+      ></TransactionTypeBadge>
+    </>
+  )
+
+  const Footer = () => {
+    const hash = ensure0x(transactionData?.hash)
+    return (
+      <FooterWrapper>
+        <div id="hash-text">{i18n.t('components.transaction_card.hash')} {': '}</div> <ReducedTextAndCopy text={hash} toCopy={hash}></ReducedTextAndCopy>
+      </FooterWrapper>
+    )
+  }
+
   return (
-    <GenericListItemWithBadge
-      sm={sm}
-      md={md}
-      lg={lg}
-      xl={xl}
-      topLeft={
-        <>
-          {i18n.t('components.transaction_card.number')} {'#' + transactionData?.id}
-        </>
-      }
-      badge={
-        <>
-          <TransactionTypeBadge type={TxType[Object.keys(transactionData.payload)[0]]}/>
-        </>
-      }
-      // dateText={localizedDateDiff(new Date(blockData?.timestamp))}
-      link={
-        getPath(
-          TRANSACTIONS_DETAILS, {
-              blockHeight: transactionData?.block_height?.toString(),
-              index: transactionData?.index?.toString() ?? "0",
-            })
-      }
-    >
-      <p>
-        {i18n.t('components.transaction_card.hash')}: <code>0x{transactionData?.hash}</code>
-      </p>
-    </GenericListItemWithBadge>
+    <GenericCardWrapper link={link} top={<Top />} footer={<Footer />}>
+      <>
+        <CardItemTitle>{'#' + transactionData?.id}</CardItemTitle>
+      </>
+    </GenericCardWrapper>
   )
 }
+
+const FooterWrapper = styled.span`
+  color: ${(props) => props.theme.textAccent1};
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  & > #hash-text { 
+    color: ${(props) => props.theme.text};
+  }
+`
