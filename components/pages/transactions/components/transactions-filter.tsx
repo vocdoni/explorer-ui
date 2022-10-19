@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
+import { Input, InputSearch } from '@components/elements/inputs'
 import { FlexContainer, InlineFlex } from '@components/elements/flex'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
 import { SubmitFilterButtons } from '@components/blocks/filters/submit-buttons'
@@ -44,10 +44,10 @@ export const TransactionsFilter = ({
     <FilterForm onEnableFilter={_onEnableFilter}>
       <InlineFlex>
         <DivWithMarginChildren>
-          <Input
+          <InputSearch
             wide
             placeholder={i18n.t(
-              'transactions.filter.search_by_transaction_height'
+              'transactions.filter.search'
             )}
             value={searchTermIT}
             onChange={(ev) => {
