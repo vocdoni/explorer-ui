@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { Switch, Case, Default } from 'react-if'
 import {
   ActiveBadge,
   UpcomingBadge,
@@ -7,63 +6,135 @@ import {
   CanceledBadge,
 } from '@components/elements/text-badge'
 import { TxType } from '@lib/types'
+import { BaseStatusBadge } from '@components/elements/card-badge'
+import styled from 'styled-components'
+
 
 export const TransactionTypeBadge = ({ type }: { type: TxType }) => {
   const { i18n } = useTranslation()
-  return (
-    <Switch>
-      <Case condition={type == TxType.vote}>
-        <ActiveBadge>{i18n.t('transactions.badge.vote')}</ActiveBadge>
-      </Case>
-      <Case condition={type == TxType.admin}>
-        <ActiveBadge>{i18n.t('transactions.badge.admin')}</ActiveBadge>
-      </Case>
-      <Case condition={type == TxType.newProcess}>
-        <UpcomingBadge>{i18n.t('transactions.badge.new_process')}</UpcomingBadge>
-      </Case>
-      <Case condition={type == TxType.setProcess}>
-        <UpcomingBadge>{i18n.t('transactions.badge.set_process')}</UpcomingBadge>
-      </Case>
-      <Case condition={type == TxType.registerKey}>
+  switch (type) {
+    case TxType.vote:
+      return <ActiveBadge>{i18n.t('transactions.badge.vote')}</ActiveBadge>
+    case TxType.admin:
+      return <ActiveBadge>{i18n.t('transactions.badge.admin')}</ActiveBadge>
+    case TxType.newProcess:
+      return (
+        <UpcomingBadge>
+          {i18n.t('transactions.badge.new_process')}
+        </UpcomingBadge>
+      )
+    case TxType.setProcess:
+      return (
+        <UpcomingBadge>
+          {i18n.t('transactions.badge.set_process')}
+        </UpcomingBadge>
+      )
+    case TxType.registerKey:
+      return (
         <ActiveBadge>{i18n.t('transactions.badge.register_key')}</ActiveBadge>
-      </Case>
-      <Case condition={type == TxType.mintTokens}>
+      )
+    case TxType.mintTokens:
+      return (
         <ActiveBadge>{i18n.t('transactions.badge.mint_tokens')}</ActiveBadge>
-      </Case>
-      <Case condition={type == TxType.sendTokens}>
+      )
+    case TxType.sendTokens:
+      return (
         <CanceledBadge>
-          {i18n.t('transactions.badge.send_tokens')}
+          {i18n.t('transactions.badge.send_tokens')}{' '}
         </CanceledBadge>
-      </Case>
-      <Case condition={type == TxType.setTransactionCosts}>
+      )
+    case TxType.setTransactionCosts:
+      return (
         <CanceledBadge>
-          {i18n.t('transactions.badge.set_transaction_costs')}
+          {i18n.t('transactions.badge.set_transaction_costs')}{' '}
         </CanceledBadge>
-      </Case>
-      <Case condition={type == TxType.setAccountInfo}>
+      )
+    case TxType.setAccountInfo:
+      return (
         <CanceledBadge>
-          {i18n.t('transactions.badge.set_account_info')}
+          {i18n.t('transactions.badge.set_account_info')}{' '}
         </CanceledBadge>
-      </Case>
-
-      <Case condition={type == TxType.setAccountDelegateTx}>
+      )
+    case TxType.setAccountDelegateTx:
+      return (
         <CanceledBadge>
-          {i18n.t('transactions.badge.set_account_delegate_tx')}
+          {i18n.t('transactions.badge.set_account_delegate_tx')}{' '}
         </CanceledBadge>
-      </Case>
-      <Case condition={type == TxType.collectFaucet}>
+      )
+    case TxType.collectFaucet:
+      return (
         <EndedBadge>{i18n.t('transactions.badge.collect_faucet')}</EndedBadge>
-      </Case>
-      <Case condition={type == TxType.setKeykeeper}>
+      )
+    case TxType.setKeykeeper:
+      return (
         <CanceledBadge>
           {i18n.t('transactions.badge.set_key_keeper')}
         </CanceledBadge>
-      </Case>
-      <Default>
-        <CanceledBadge>
-          {i18n.t('transactions.badge.unknown')}
-        </CanceledBadge>
-      </Default>
-    </Switch>
-  )
+      )
+    default:
+      return (
+        <CanceledBadge>{i18n.t('transactions.badge.unknown')}</CanceledBadge>
+      )
+  }
 }
+
+// Todo: Implement this
+const VoteBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const NewProcessBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const AdminBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SetProcessBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const RegisterKeyBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const MintTokensBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SendTokensBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SetTransactionCostsBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SetAccountInfoBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SetAccountDelegateTxBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const CollectFaucetBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
+
+const SetKeykeeperBadge =  styled(BaseStatusBadge)`
+  color: #74AF07;
+  background: #F3FCCC;
+`
