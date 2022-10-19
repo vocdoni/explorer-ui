@@ -176,22 +176,6 @@ export const EntityCard = ({
 const EntityWrapper = styled.div`
   color: ${(props) => props.theme.textAccent1};
 `
-// export const EntityCardCount = ({
-//   entityId,
-//   processCount,
-// }: {
-//   entityId: string
-//   processCount: number
-// }) => {
-//   return (
-//     <GenericListItemWithBadge
-//       title={entityId}
-//       link={getOrganizationPath(entityId)}
-//       badge={<NProcessesBadge processes={processCount}></NProcessesBadge>}
-//       topLeft={''}
-//     ></GenericListItemWithBadge>
-//   )
-// }
 
 const EntityName = styled.h5`
   display: inline-block;

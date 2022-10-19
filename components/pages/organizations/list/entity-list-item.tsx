@@ -8,6 +8,8 @@ import { EntityMetadata } from 'dvote-js'
 import Link from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
+import { ensure0x } from '@vocdoni/common'
+
 
 
 interface IDashboardEntityItemProps {
@@ -18,7 +20,7 @@ export const DashboardEntityListItem = ({
   entityId,
 }: IDashboardEntityItemProps) => {
   const { processCount } = useProcessCount({ entityId })
-  const { metadata } = useEntity(entityId)
+  const { metadata } = useEntity(ensure0x(entityId))
   const entityMetadata = metadata as EntityMetadata
   const entityDetailLink = getOrganizationPath(entityId)
 
