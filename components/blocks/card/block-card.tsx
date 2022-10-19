@@ -6,70 +6,87 @@ import { useTranslation } from 'react-i18next'
 import { localizedDateDiff } from '@lib/date'
 import { BlockInfo } from '@lib/types'
 import { GenericListItemWithBadge } from '../list-items'
+import {
+  CardItemTitle,
+  GenericCardWrapper,
+  GenericCardWrapperProps,
+} from '@components/elements/card-generic'
+import { ItemDate } from '@components/elements/styled-divs'
+import { ensure0x } from 'dvote-js'
+import styled from 'styled-components'
+import { ReducedTextAndCopy } from '../copy-button'
 
 export const BlockCard = ({
-  sm,
-  md,
-  lg,
-  xl,
   blockData,
   proposerShrink,
   moreDetails = false,
-}: ColumnProps & {
+  ...props
+}: GenericCardWrapperProps & {
   blockData: BlockInfo
   proposerShrink?: number
   moreDetails?: boolean
 }) => {
   const { i18n } = useTranslation()
-  const proposer = proposerShrink
-    ? blockData?.proposer_address.substring(0, proposerShrink) + '...'
-    : blockData?.proposer_address
+  const link =
+    blockData?.height && !moreDetails
+      ? getPath(BLOCKS_DETAILS, {
+          blockHeight: blockData?.height?.toString(),
+        })
+      : null
+
+  const Body = () => (
+    <BodyWrapper>
+      <CardItemTitle>{'#' + blockData?.height}</CardItemTitle>
+      <CustomItemDate>{localizedDateDiff(new Date(blockData?.timestamp))}</CustomItemDate>
+    </BodyWrapper>
+  )
+
+  const Footer = () => {
+    const proposer = ensure0x(blockData?.proposer_address)
+    return (
+      <FooterWrapper>
+        <div id="hash-text">
+          {i18n.t('components.block_card.proposer')} {': '}
+        </div>
+        <ReducedTextAndCopy
+          text={proposer}
+          toCopy={proposer}
+        ></ReducedTextAndCopy>
+      </FooterWrapper>
+    )
+  }
 
   return (
-    <GenericListItemWithBadge
-      sm={sm}
-      md={md}
-      lg={lg}
-      xl={xl}
-      key={blockData?.height}
-      topLeft={
-        <>
-          {i18n.t('components.block_card.height_n' , {blockHeight: blockData?.height})}
-        </>
-      }
-      badge={
-        <>
-          <NTransactionsBadge
-            transactions={blockData?.num_txs}
-          ></NTransactionsBadge>
-          {/* {i18n.t('blocks.transactions')} {blockData?.num_txs} */}
-        </>
-      }
-      dateText={localizedDateDiff(new Date(blockData?.timestamp))}
-      link={
-        blockData?.height && !moreDetails
-          ? getPath(BLOCKS_DETAILS, {
-              blockHeight: blockData?.height?.toString(),
-            })
-          : null
-      }
-    >
-      {moreDetails ? (
-        <>
-          <p>
-            {i18n.t('components.block_card.hash')}: <code>0x{blockData?.hash}</code>
-          </p>
-          <p>
-            {i18n.t('components.block_card.last_block_hash')}:
-            <a href={`#/${(blockData?.height - 1).toString()}`}>
-              <code> 0x{blockData?.last_block_hash}</code>
-            </a>
-          </p>
-        </>
-      ) : null}
-      <p>
-        {i18n.t('components.block_card.proposer')}: <code>0x{proposer}</code>
-      </p>
-    </GenericListItemWithBadge>
+    <GenericCardWrapper {...props} link={link} footer={<Footer />}>
+      <Body />
+    </GenericCardWrapper>
   )
 }
+
+const FooterWrapper = styled.span`
+  color: ${(props) => props.theme.textAccent1};
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+
+  & > #hash-text {
+    color: ${(props) => props.theme.text};
+  }
+`
+
+const BodyWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  & > h3 {
+    margin: 0;
+  }
+`
+
+
+const CustomItemDate = styled(ItemDate)`
+  font-size: 100%;
+`
