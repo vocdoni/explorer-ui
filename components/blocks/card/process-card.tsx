@@ -112,9 +112,9 @@ export const ProcessCard = ({
     <GenericCardWrapper link={link} top={<Top />} footer={<Footer />}>
       <>
         <CardItemTitle>{title}</CardItemTitle>
-        <CardItemSubTitle>
+        {/* <CardItemSubTitle>
           <strong>{i18n.t('processes.list.votes_submitted')}: </strong>xx
-        </CardItemSubTitle>
+        </CardItemSubTitle> */}
       </>
     </GenericCardWrapper>
   )
