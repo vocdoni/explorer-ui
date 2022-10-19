@@ -15,10 +15,10 @@ export const DashboardShowBlocks = () => {
       pageSize={page_size}
       title={
         <ListPage
-          title={i18n.t('blocks.list.blocks_list_title')}
+          title={i18n.t('blocks.list.blocks')}
           subtitle={
             blockHeight != null
-              ? i18n.t('blocks.list.current_block_heigh') +
+              ? i18n.t('blocks.list.count') +
                 ': ' +
                 blockHeight?.toString()
               : ''
