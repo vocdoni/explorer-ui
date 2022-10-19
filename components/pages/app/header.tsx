@@ -147,7 +147,7 @@ const HeaderContainer = styled.div`
 
   font-size: 16px;
 
-  background-color: rgba(246, 249, 252, 0.93);
+  background-color: #FFF;
 
   & a {
     font-size: 16px;
@@ -298,4 +298,9 @@ const CTAButton = ({ url, children, external }: ILinkItemProps) => {
 
 const CTAStyle = styled.a`
   color: inherit;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12.8px;
+  line-height: 150%;
 `
