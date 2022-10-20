@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import {
   TextAlign,
@@ -20,6 +20,9 @@ import {
 } from '@components/elements/styled-divs'
 import { BlockCard } from '@components/blocks/card/block-card'
 import { useBlocks } from '@hooks/use-blocks'
+import { capitalize } from '@lib/util'
+import { MdSpeed } from 'react-icons/md'
+import { VscGraphLine } from 'react-icons/vsc'
 
 const BLOCK_LIST_SIZE = 4
 
@@ -39,9 +42,13 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
     }
   }, [stats])
 
+  const syncing = stats?.syncing
+    ? i18n.t('stats.syncing')
+    : i18n.t('stats.in_sync')
+
   return (
     <div>
-      <Section padding={'0'}>
+      {/* <Section padding={'0'}>
         <BlockContainer>
           <Typography variant={TypographyVariant.H3} color={colors.blueText}>
             {i18n.t('stats.recent_blocks')}
@@ -67,109 +74,56 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
             )}
           </Grid>
         </BlockContainer>
-      </Section>
+      </Section> */}
 
       <Section>
         <BlockContainer>
-          <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-            {i18n.t('stats.blockchain_info')}
-          </Typography>
-          <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-            {i18n.t('stats.network_details')}
-          </Typography>
           <Grid>
             <Card md={6}>
               <VerticallyCenter>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.network_id')}
-              </Typography>
-              <p>{stats?.chain_id}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.bloc_height')}
-              </Typography>
-              <p>{stats?.block_height}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.total_transactions')}
-              </Typography>
-              <p>{stats?.transaction_count}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.total_processes')}
-              </Typography>
-              <p>{stats?.process_count}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.total_votes')}
-              </Typography>
-              <p>{stats?.envelope_count}</p>
+                <CardTitle
+                  title={i18n.t('stats.latest_block')}
+                  icon={<VscGraphLine />}
+                ></CardTitle>
+                {recentBlocks.length ? (
+                  recentBlocks.map((item) => (
+                    <BlockCard
+                      key={item.height}
+                      blockData={item}
+                      style={{border: '1px solid #E4E7EB'}}
+                    />
+                  ))
+                ) : (
+                  <h3>{i18n.t('stats.getting_block_info')}</h3>
+                )}
+                <BlocksButton>skmsakm</BlocksButton>
               </VerticallyCenter>
             </Card>
-            <Card md={6}>
-            <VerticallyCenter>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.genesis_block_date')}
-              </Typography>
-              <p>{localizedDateDiff(new Date(stats?.genesis_time_stamp))}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.latest_block_date')}
-              </Typography>
-              <p>{localizedDateDiff(new Date(recentBlocks[0]?.timestamp))}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.total_organizations')}
-              </Typography>
-              <p>{stats?.entity_count}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.number_of_validators')}
-              </Typography>
-              <p>{stats?.validator_count}</p>
-              <Typography
-                variant={TypographyVariant.H5}
-                color={colors.blueText}
-                margin="30px 0px -3px"
-              >
-                {i18n.t('stats.sync_status')}
-              </Typography>
-              <p>
-                {stats?.syncing
-                  ? i18n.t('stats.syncing')
-                  : i18n.t('stats.in_sync')}
-              </p>
-            </VerticallyCenter>
 
+            <Card md={6}>
+              <VerticallyCenter>
+                <CardTitle
+                  title={i18n.t('stats.blockchain_info')}
+                  icon={<MdSpeed />}
+                ></CardTitle>
+                <TitleSubtitle title={i18n.t('stats.network_id')}>
+                  {capitalize(stats?.chain_id)}
+                </TitleSubtitle>
+                <TitleSubtitle title={i18n.t('stats.bloc_height')}>
+                  {stats?.block_height}
+                </TitleSubtitle>
+                <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>
+                  {stats?.validator_count}
+                </TitleSubtitle>
+
+                <TitleSubtitle title={i18n.t('stats.sync_status')}>
+                  {syncing}
+                </TitleSubtitle>
+
+                <TitleSubtitle title={i18n.t('stats.genesis_block_date')}>
+                  {localizedDateDiff(new Date(stats?.genesis_time_stamp))}
+                </TitleSubtitle>
+              </VerticallyCenter>
             </Card>
           </Grid>
         </BlockContainer>
@@ -177,6 +131,58 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
     </div>
   )
 }
+
+const CardTitle = ({ title, icon }: { title: string; icon: ReactNode }) => (
+  <CardTitleWrapper>
+    <Typography variant={TypographyVariant.H4} color={colors.text}>
+      <TitleIcon>{icon}</TitleIcon>
+      <strong>{title}</strong>
+    </Typography>
+  </CardTitleWrapper>
+)
+
+const CardTitleWrapper = styled.div`
+  h4 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+`
+
+const TitleIcon = styled.div`
+  color: ${(props) => props.theme.textAccent1};
+`
+
+const TitleSubtitle = ({
+  title,
+  children,
+}: {
+  title: string
+  children: string | number
+}) => (
+  <>
+    <Title
+    >
+      <strong>{title}</strong>
+    </Title>
+    <Subtitle>{children}</Subtitle>
+  </>
+)
+
+const Title = styled.h5`
+  color: ${(props) => props.theme.blueText};
+  margin: 30px 0px -3px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+`
+
+const Subtitle = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+`
 
 const ReadyTextContainer = styled.div`
   margin: 40px 0 40px 40px;
@@ -188,6 +194,24 @@ const ReadyToStartCard = styled(CardDiv)`
 
 const VerticallyCenter = styled.div`
   margin: 30px 0;
+  padding-left: 15px;
 `
+
+
+
+
+export const BlocksButton = styled.button`
+
+  width: 160px;
+height: 40px;
+left: calc(50% - 160px/2);
+top: 20px;
+
+/* SECONDARY */
+background: #46C4C2;
+box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+border-radius: 8px;
+`
+
 
 export default StatsPage
