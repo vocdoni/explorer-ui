@@ -14,6 +14,7 @@ import { Button } from '@components/elements/button'
 import { sizes } from 'theme/sizes'
 import { Column, Grid } from '@components/elements/grid'
 import { Card, CardDiv, CardProps } from '@components/elements/cards'
+import { theme } from '@theme/global'
 
 const innerCardMargin = '10px 0'
 
@@ -31,10 +32,10 @@ export const HeroBanner = (props: {
         <div>
           <Title>
             <strong>{i18n.t('home.vocdoni_explorer')}</strong> <br />
-            <Typography variant={TypographyVariant.H1}>
-              {i18n.t('home.explore_the_vochain')}
-            </Typography>
           </Title>
+          <Subtitle>
+            {i18n.t('home.the_most_flexible_and_secure_voting_protocol')}
+          </Subtitle>
 
           <Grid>
             <HeroCard
@@ -98,14 +99,15 @@ const HeroCard = ({ title, subtitle }: { title: string; subtitle: string }) => {
         <Typography
           variant={TypographyVariant.H5}
           margin={innerCardMargin}
-          align={TextAlign.Center}
+          align={TextAlign.Left}
 
         >
           <strong>{title}</strong>
         </Typography>
         <BaseParagraphTypography
           margin={innerCardMargin}
-          align={TextAlign.Center}
+          align={TextAlign.Left}
+          color={theme.lightText}
         >
           {subtitle}
         </BaseParagraphTypography>
@@ -115,7 +117,10 @@ const HeroCard = ({ title, subtitle }: { title: string; subtitle: string }) => {
 }
 
 export const HeroCardDiv = styled(CardDiv)`
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255);
+  text-align: left;
+  box-shadow: 0px 4px 8px rgba(31, 41, 51, 0.04), 0px 0px 2px rgba(31, 41, 51, 0.06), 0px 0px 1px rgba(31, 41, 51, 0.04);
+  border-radius: 12px;
 `
 
 const ContentContainer = styled.div`
@@ -212,6 +217,7 @@ const Title = styled.h1`
   font-size: 40px;
   font-weight: 400;
   margin-top: 55px;
+  margin-bottom: 15px;
 
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 35px;
@@ -220,4 +226,9 @@ const Title = styled.h1`
   @media ${({ theme }) => theme.screenMax.mobileM} {
     font-size: 24px;
   }
+`
+
+const Subtitle = styled.p`
+  font-size: 16px;
+  line-height: 150%;
 `
