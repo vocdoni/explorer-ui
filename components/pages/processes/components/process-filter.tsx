@@ -201,7 +201,6 @@ const SearchBoxContainer = styled(Grid)`
 `
 
 const FilterContainer = styled.div`
-  margin: 10px;
 `
 
 const ButtonGroupContainer = styled.div`

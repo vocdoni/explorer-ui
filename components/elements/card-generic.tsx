@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 import { FaChevronRight } from 'react-icons/fa'
 import { Column, ColumnProps } from '@components/elements/grid'
 import Link from 'next/link'
@@ -10,6 +10,7 @@ export type GenericCardWrapperProps = ColumnProps & {
   children?: ReactElement
   footer?: ReactElement
   left?: ReactElement
+  style?: CSSProperties
 }
 
 export const GenericCardWrapper = ({
@@ -18,10 +19,11 @@ export const GenericCardWrapper = ({
   footer,
   left,
   link,
+  style,
   ...props
 }: GenericCardWrapperProps) => {
   const Skeleton = () => (
-    <CardItemDiv tabIndex={0}>
+    <CardItemDiv tabIndex={0} style={style} >
       {left && <CardLeft>{left}</CardLeft>}
       <CardBody>
         {top && <TopDiv>{top}</TopDiv>}
@@ -29,8 +31,6 @@ export const GenericCardWrapper = ({
         style={
           { margin: top ? '15px 0' : '0 0 15px 0' }
         }
-        //  style={
-        //   } 
           >{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
       </CardBody>
@@ -41,7 +41,7 @@ export const GenericCardWrapper = ({
   )
 
   return (
-    <Column {...props}>
+    <ColumnWrapper {...props}>
       {link ? (
         <LinkCardContainer>
           <Link href={link ?? ''} passHref>
@@ -51,9 +51,13 @@ export const GenericCardWrapper = ({
       ) : (
         <Skeleton />
       )}
-    </Column>
+    </ColumnWrapper>
   )
 }
+
+const ColumnWrapper = styled(Column)`
+  margin: 10px 0;
+` 
 
 const LinkCardContainer = styled.div`
   & > a {
@@ -72,6 +76,7 @@ const CardItemDiv = styled.div`
   border-radius: 16px;
   box-sizing: border-box;
   margin-bottom: 10px;
+
   &:hover {
     color: ${(props) => props.theme.textAccent1};
   }
