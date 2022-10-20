@@ -11,7 +11,7 @@ export const Footer = () => {
   return <Container>
     <LogoSection>
       <Link href={HOME_PATH} passHref>
-        <HomeLink target='_self'><img src="/images/logo-full.svg" alt="Vocdoni" /></HomeLink>
+        <HomeLink target='_self'><img src="/images/logo-full-light.svg" alt="Vocdoni" /></HomeLink>
       </Link>
 
     </LogoSection>
@@ -28,7 +28,7 @@ export const Footer = () => {
         </NavItem>
       ))}
       <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/powered.svg" alt="Aragon" /></AragonLink>
+        <AragonLink target='_blank'><img src="/images/powered-compact.png" alt="Aragon" /></AragonLink>
       </Link>
     </LinksSection>
 
@@ -71,6 +71,9 @@ const Section = styled.div`
 `
 const LogoSection = styled.div`
   margin-left: 40px;
+  img {
+    max-height: 35px;
+  }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin: 20px auto;
@@ -82,15 +85,17 @@ const LinksSection = styled.div`
   flex-wrap: wrap;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    flex-direction: column; 
+    flex-direction: row; 
+    justify-content: center;
     width: 100%;
   }
 `
 
 const ClickableText = styled.a`
-  text-decoration: none;
   line-height: 30px;
-  color: ${({ theme }) => theme.lightText};
+  font-weight: 500;
+font-size: 14px;
+  color: ${({ theme }) => theme.text};
 `
 
 const HomeLink = styled.a`
