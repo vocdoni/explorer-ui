@@ -29,7 +29,7 @@ export const GenericCardWrapper = ({
         {top && <TopDiv>{top}</TopDiv>}
         <CenterDiv
         style={
-          { margin: top ? '15px 0' : '0 0 15px 0' }
+          { margin: top ? '8px 0' : '0 0 8px 0' }
         }
           >{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
