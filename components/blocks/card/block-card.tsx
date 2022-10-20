@@ -18,17 +18,13 @@ import { ReducedTextAndCopy } from '../copy-button'
 
 export const BlockCard = ({
   blockData,
-  proposerShrink,
-  moreDetails = false,
   ...props
 }: GenericCardWrapperProps & {
   blockData: BlockInfo
-  proposerShrink?: number
-  moreDetails?: boolean
 }) => {
   const { i18n } = useTranslation()
   const link =
-    blockData?.height && !moreDetails
+    blockData?.height
       ? getPath(BLOCKS_DETAILS, {
           blockHeight: blockData?.height?.toString(),
         })
