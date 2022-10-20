@@ -3,6 +3,7 @@ import {
   GenericCardWrapper,
   GenericCardWrapperProps,
 } from '@components/elements/card-generic'
+import { BreakWord } from '@components/elements/styled-divs'
 import { useIsMobile } from '@hooks/use-window-size'
 import { Validator } from '@lib/types'
 import { theme } from '@theme/global'
@@ -29,9 +30,13 @@ export const ValidatorCard = ({
           </div>
           <CopyButton
             color={theme.textAccent1}
-            text={isMobile
-              ? pubKey.substring(0, 10) + '...' + pubKey.substring(pubKey.length - 10, pubKey.length)
-              : pubKey}
+            text={
+              isMobile
+                ? pubKey.substring(0, 10) +
+                  '...' +
+                  pubKey.substring(pubKey.length - 10, pubKey.length)
+                : pubKey
+            }
             toCopy={pubKey}
           ></CopyButton>
         </Subtitle>
@@ -47,7 +52,9 @@ export const ValidatorCard = ({
 
   return (
     <GenericCardWrapper {...props} footer={<Footer />}>
-      <CardItemTitle>{validatorData.address}</CardItemTitle>
+      <CardItemTitle>
+        <BreakWord>{validatorData.address}</BreakWord>
+      </CardItemTitle>
     </GenericCardWrapper>
   )
 }
