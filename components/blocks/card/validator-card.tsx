@@ -3,12 +3,12 @@ import {
   GenericCardWrapper,
   GenericCardWrapperProps,
 } from '@components/elements/card-generic'
+import { useIsMobile } from '@hooks/use-window-size'
 import { Validator } from '@lib/types'
 import { theme } from '@theme/global'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { CopyButton } from '../copy-button'
-
 
 export const ValidatorCard = ({
   validatorData,
@@ -17,6 +17,8 @@ export const ValidatorCard = ({
   validatorData: Validator
 }) => {
   const { i18n } = useTranslation()
+  const isMobile = useIsMobile()
+  const pubKey = validatorData.pubKey
 
   const Footer = () => {
     return (
@@ -27,8 +29,10 @@ export const ValidatorCard = ({
           </div>
           <CopyButton
             color={theme.textAccent1}
-            text={validatorData.pubKey}
-            toCopy={validatorData.pubKey}
+            text={isMobile
+              ? pubKey.substring(0, 10) + '...' + pubKey.substring(pubKey.length - 10, pubKey.length)
+              : pubKey}
+            toCopy={pubKey}
           ></CopyButton>
         </Subtitle>
         <Subtitle>
