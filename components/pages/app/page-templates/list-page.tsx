@@ -58,7 +58,7 @@ export const TopDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 20px 0 20px 10px;
+  margin: 20px 0 20px 0;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     flex-direction: row;
