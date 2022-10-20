@@ -1,4 +1,4 @@
-
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 import { colors } from '../../theme/colors'
 import { Colors } from '../../theme/types'
@@ -11,7 +11,7 @@ export const MainTitle = styled.h1`
 `
 
 export const MainDescription = styled.span`
-  color: ${({ theme }) => theme.textAccent1};
+  color: ${({ theme }) => theme.text};
 `
 
 export enum TextAlign {
@@ -69,7 +69,8 @@ export const SectionText = styled.p<{
   font-weight: 400;
   line-height: 1.3em;
   margin: 0 0 0.5em;
-  color: ${({ theme, color }) => (theme[color]? theme[color]: color ? color : colors.text)};
+  color: ${({ theme, color }) =>
+    theme[color] ? theme[color] : color ? color : colors.text};
   font-size: ${({ size }) =>
     size
       ? fontsSize[DeviceSize.Desktop][size]
@@ -84,7 +85,32 @@ export const SectionText = styled.p<{
   }
 `
 
-
 export const SectionDescription = styled.span`
   color: ${({ theme }) => theme.textAccent1};
+`
+
+export const StrongAndText = ({
+  title,
+  children,
+}: {
+  title: string | ReactNode
+  children: string | ReactNode
+}) => (
+  <StrongAndTextWrapper>
+    <div className="title">{title}</div>
+    <div>{children}</div>
+  </StrongAndTextWrapper>
+)
+
+const StrongAndTextWrapper = styled.div`
+  color: ${(props) => props.theme.lightText};
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 8px;
+
+  & > .title {
+    color: ${(props) => props.theme.text};
+    font-weight: bold;
+  }
 `

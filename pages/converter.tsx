@@ -1,7 +1,11 @@
 import { Card, PageCard } from '@components/elements/cards'
 import { Column, Grid } from '@components/elements/grid'
 import { IInputProps, Input } from '@components/elements/inputs'
-import { MainDescription, SectionTitle } from '@components/elements/text'
+import {
+  MainDescription,
+  SectionTitle,
+  StrongAndText,
+} from '@components/elements/text'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import {
   useBlockAtDate,
@@ -20,6 +24,15 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useStats } from '@hooks/use-stats'
 import { localizedDateDiff } from '@lib/date'
+import { capitalize } from '@lib/util'
+
+import {
+  FiChevronDown,
+  FiChevronLeft,
+  FiChevronRight,
+  FiChevronUp,
+} from 'react-icons/fi'
+import { useIsMobile } from '@hooks/use-window-size'
 
 const BlocksPage = () => {
   const { i18n } = useTranslation()
@@ -37,6 +50,9 @@ const BlocksPage = () => {
 
   const [genesisDate, setGenesisDate] = useState<Date>()
   const { loading: loadingStats, stats } = useStats({})
+
+  const isMobile = useIsMobile()
+
 
   useEffect(() => {
     if (blockInput !== targetBlock) {
@@ -67,6 +83,20 @@ const BlocksPage = () => {
     }
   }
 
+  const ChevronPhone = () => (
+    <ChevronPhoneWrapper>
+      <FiChevronUp />
+      <FiChevronDown />
+    </ChevronPhoneWrapper>
+  )
+
+  const Chevron = () => (
+    <>
+      <FiChevronLeft />
+      <FiChevronRight />
+    </>
+  )
+
   return (
     <PageCard>
       <Grid>
@@ -75,66 +105,80 @@ const BlocksPage = () => {
             {i18n.t('converter.date_block_estimation')}
           </Typography>
           <MainDescription>
-            {i18n.t('converter.conversion_between_block_and_dates')}
+            {i18n.t(
+              'converter.calculate_the_conversion_between_Vochain_blocks_and_dates'
+            )}
           </MainDescription>
           <p>
-            {i18n.t('converter.current_enviorment')} {': '}
-            <strong>{enviormentName(process.env.VOCDONI_ENVIRONMENT)}</strong>
+            <StrongAndText
+              title={i18n.t('converter.current_enviorment') + ': '}
+            >
+              {capitalize(enviormentName(process.env.VOCDONI_ENVIRONMENT))}
+            </StrongAndText>
           </p>
           <p>
-            {i18n.t('converter.genesis_date')} {': '}
-            {localizedDateDiff(genesisDate)}
+            <StrongAndText title={i18n.t('converter.genesis_date') + ': '}>
+              {localizedDateDiff(genesisDate)}
+            </StrongAndText>
           </p>
           <p>
-            {i18n.t('converter.block_height')} {': '} {blockHeight}
+            <StrongAndText title={i18n.t('converter.block_height') + ': '}>
+              {blockHeight}
+            </StrongAndText>
           </p>
         </Column>
-        <Column md={4} sm={6}>
-          <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
-          <CalendarContainer>
-            <DateTimePicker
-              id={'datetimeid'}
-              minDate={genesisDate}
-              value={targetDate ?? date ?? new Date()}
-              // value={targetDate}
-              onChange={(value) => setDateInput(value)}
-              hour24
-            />
-          </CalendarContainer>
-        </Column>
-        <ColumnBottomAligned md={2}>
-          <FlexContainer
-            direction={FlexDirection.Column}
-            justify={FlexJustifyContent.Center}
-            alignItem={FlexAlignItem.Center}
-          >
-            <InputTitle></InputTitle>
-            <MiddleCardContainer>
-              <Card>
-                <FlexContainer justify={FlexJustifyContent.Center}>
-                  <>{'<>'}</>
-                </FlexContainer>
-              </Card>
-            </MiddleCardContainer>
-          </FlexContainer>
-        </ColumnBottomAligned>
-        <Column md={4} sm={6}>
-          <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
-          <CalendarContainer>
-            <Input
-              placeholder={i18n.t('converter.search_by_block_height')}
-              value={targetBlock ?? estimatedBlockNumber ?? ''}
-              onChange={(ev) => {
-                setBlockInput(+ev.target.value)
-              }}
-              onKeyPress={(event) => {
-                if (!/[0-9]/.test(event.key)) {
-                  event.preventDefault()
-                }
-              }}
-            />
-          </CalendarContainer>
-        </Column>
+        <ConversorWrapper>
+          {/* <Column md={4} sm={6}> */}
+          <Column md={4} sm={6}>
+            <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
+            <CalendarContainer>
+              <DateTimePicker
+                id={'datetimeid'}
+                minDate={genesisDate}
+                value={targetDate ?? date ?? new Date()}
+                // value={targetDate}
+                onChange={(value) => setDateInput(value)}
+                hour24
+              />
+            </CalendarContainer>
+          </Column>
+          <ColumnBottomAligned md={2}>
+            <FlexContainer
+              direction={FlexDirection.Column}
+              justify={FlexJustifyContent.Center}
+              alignItem={FlexAlignItem.Center}
+            >
+              <InputTitle></InputTitle>
+              <MiddleCardContainer>
+                <Card>
+                  <FlexContainer height={'25px'}
+                    justify={FlexJustifyContent.Center}
+                    alignItem={FlexAlignItem.Center}
+                  >
+                    {isMobile ? <ChevronPhone /> : <Chevron />}
+                  </FlexContainer>
+                </Card>
+              </MiddleCardContainer>
+            </FlexContainer>
+          </ColumnBottomAligned>
+          <Column md={4} sm={6}>
+            <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
+            <CalendarContainer>
+              <Input
+                placeholder={i18n.t('converter.search_by_block_height')}
+                value={targetBlock ?? estimatedBlockNumber ?? ''}
+                onChange={(ev) => {
+                  setBlockInput(+ev.target.value)
+                }}
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault()
+                  }
+                }}
+              />
+            </CalendarContainer>
+          </Column>
+        </ConversorWrapper>
       </Grid>
 
       <LoadingContainer>
@@ -148,11 +192,13 @@ const BlocksPage = () => {
 
 export default BlocksPage
 
-const ColumnBottomAligned = styled(Column)`{
-  justify-content: flex-end;
-  flex-direction: column;
-  display: flex;
-}`
+const ColumnBottomAligned = styled(Column)`
+   {
+    justify-content: flex-end;
+    flex-direction: column;
+    display: flex;
+  }
+`
 
 const LoadingContainer = styled.div`
   height: 20px;
@@ -199,3 +245,24 @@ const InputTitle = styled(SectionTitle)`
 `
 // const MiddleCardContainer = styled(SectionText)``
 const MiddleCardContainer = styled.div``
+
+const ChevronPhoneWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const ConversorWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+  gap: 24px;
+
+  background: #f5f7fa;
+  border-radius: 12px;
+
+  @media ${({ theme }) => theme.screenMax.mobileL} {
+    flex-direction: column;
+  }
+`

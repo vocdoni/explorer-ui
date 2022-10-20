@@ -4,6 +4,7 @@ import {
   GenericCardWrapperProps,
 } from '@components/elements/card-generic'
 import { BreakWord } from '@components/elements/styled-divs'
+import { StrongAndText } from '@components/elements/text'
 import { useIsMobile } from '@hooks/use-window-size'
 import { Validator } from '@lib/types'
 import { theme } from '@theme/global'
@@ -24,10 +25,7 @@ export const ValidatorCard = ({
   const Footer = () => {
     return (
       <FooterWrapper>
-        <Subtitle>
-          <div className="title">
-            {i18n.t('components.validator.Pubkey')} {': '}
-          </div>
+        <StrongAndText title={i18n.t('components.validator.Pubkey') + ': '}>
           <CopyButton
             color={theme.textAccent1}
             text={
@@ -39,13 +37,10 @@ export const ValidatorCard = ({
             }
             toCopy={pubKey}
           ></CopyButton>
-        </Subtitle>
-        <Subtitle>
-          <div className="title">
-            {i18n.t('components.validator.voting_power')} {': '}
-          </div>
+        </StrongAndText>
+        <StrongAndText title={i18n.t('components.validator.voting_power') + ': '}>
           <div>{validatorData.power}</div>
-        </Subtitle>
+        </StrongAndText>
       </FooterWrapper>
     )
   }
@@ -59,18 +54,6 @@ export const ValidatorCard = ({
   )
 }
 
-const Subtitle = styled.div`
-  color: ${(props) => props.theme.lightText};
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 8px;
-
-  & > .title {
-    color: ${(props) => props.theme.text};
-    font-weight: bold;
-  }
-`
 
 const FooterWrapper = styled.div`
   display: inline-flex;

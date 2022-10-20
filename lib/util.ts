@@ -165,3 +165,5 @@ export const isInValidProcessId = (processId: string): boolean =>
 
 export const isInValidEntityId = (entityId: string): boolean => 
   !entityId || !entityId.match(/^0x[0-9a-fA-F]{40}$/);
+
+export const capitalize = (str: string) : string => str.charAt(0).toUpperCase() + str.slice(1);
