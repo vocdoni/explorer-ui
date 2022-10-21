@@ -22,6 +22,7 @@ import { useBlocks } from '@hooks/use-blocks'
 import { capitalize } from '@lib/util'
 import { MdSpeed } from 'react-icons/md'
 import { VscGraphLine } from 'react-icons/vsc'
+import { HomePageButton } from '@components/elements/button'
 
 const BLOCK_LIST_SIZE = 4
 
@@ -68,7 +69,7 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
                 ) : (
                   <h3>{i18n.t('stats.getting_block_info')}</h3>
                 )}
-                <BlocksButton>{i18n.t('stats.view_all_blocks')}</BlocksButton>
+                <HomePageButton>{i18n.t('stats.view_all_blocks')}</HomePageButton>
               </VerticallyCenter>
             </Card>
             <Card md={6} >
@@ -179,30 +180,4 @@ const TitleSubtitleList = styled.div`
   gap: 24px;
 
 `
-
-export const BlocksButton = styled.button`
-  left: calc(50% - 160px/2);
-  top: 20px;
-  padding: 12px 24px;
-
-  /* SECONDARY */
-  background: #46C4C2;
-  box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-  border-radius: 8px;
-  color: white;
-  border: none;
-
-  font-family: 'Manrope';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 150%;
-
-  &:hover, &:active {
-    background: #0D4752;
-    box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-  }
-`
-
-
 export default StatsPage

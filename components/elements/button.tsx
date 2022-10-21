@@ -9,7 +9,7 @@ import { theme } from '../../theme'
 import { colors } from 'theme/colors'
 import { FakedButton } from './styled-divs'
 
-// Div button with a <button> inside added to be accessible throught tab navigation 
+// Div button with a <button> inside added to be accessible throught tab navigation
 export const NavButton = ({ ...props }: ButtonProps) => {
   return (
     <Button {...props}>
@@ -384,4 +384,28 @@ export const LargeButtonText = styled.p`
   font-size: 18px;
   font-weight: 500;
   margin: 0 20px;
+`
+
+export const HomePageButton = styled.button`
+  left: calc(50% - 160px/2);
+  top: 20px;
+  padding: 12px 24px;
+
+  /* SECONDARY */
+  background: #46C4C2;
+  box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+  border-radius: 8px;
+  color: white;
+  border: none;
+
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  &:hover, &:active {
+    background: #0D4752;
+    box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+  }
 `
