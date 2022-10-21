@@ -167,7 +167,7 @@ const ProcessStatusSelector = ({
         />
         <ButtonOption
           label={i18n.t('processes.filter.status_selector.active')}
-          name="READY"
+            name="READY"
         />
         <ButtonOption
           label={i18n.t('processes.filter.status_selector.paused')}
@@ -194,7 +194,7 @@ const SearchBoxContainer = styled(Grid)`
   div[class^='inputs__'], div[class*=' inputs__']{
     margin: 0;
   }
-  
+
   @media ${({ theme }) => theme.screenMax.tablet} {
     flex-direction: column-reverse;
   }
