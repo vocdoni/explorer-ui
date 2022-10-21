@@ -1,13 +1,12 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import {
-  TextAlign,
   Typography,
   TypographyVariant,
 } from '@components/elements/typography'
 import { colors } from 'theme/colors'
 import { Grid } from '@components/elements/grid'
-import { Card, CardDiv } from '@components/elements/cards'
+import { Card } from '@components/elements/cards'
 import { useEffect, useState } from 'react'
 
 import { localizedDateDiff } from '@lib/date'
@@ -16,7 +15,7 @@ import { Stats } from '@lib/types'
 import {
   Section,
   BlockContainer,
-  CenterText,
+
 } from '@components/elements/styled-divs'
 import { BlockCard } from '@components/blocks/card/block-card'
 import { useBlocks } from '@hooks/use-blocks'
@@ -25,6 +24,7 @@ import { MdSpeed } from 'react-icons/md'
 import { VscGraphLine } from 'react-icons/vsc'
 
 const BLOCK_LIST_SIZE = 4
+
 
 const StatsPage = ({ stats }: { stats: Stats }) => {
   const { i18n } = useTranslation()
@@ -48,34 +48,6 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
 
   return (
     <div>
-      {/* <Section padding={'0'}>
-        <BlockContainer>
-          <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-            {i18n.t('stats.recent_blocks')}
-          </Typography>
-          <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-            {i18n.t('stats.the_last_four_blocks')}
-          </Typography>
-
-          <Grid>
-            {recentBlocks.length ? (
-              recentBlocks.map((item) => (
-                <BlockCard
-                  key={item.height}
-                  proposerShrink={6}
-                  blockData={item}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                />
-              ))
-            ) : (
-              <h3>{i18n.t('stats.getting_block_info')}</h3>
-            )}
-          </Grid>
-        </BlockContainer>
-      </Section> */}
-
       <Section>
         <BlockContainer>
           <Grid>
@@ -96,33 +68,32 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
                 ) : (
                   <h3>{i18n.t('stats.getting_block_info')}</h3>
                 )}
-                <BlocksButton>skmsakm</BlocksButton>
+                <BlocksButton>{i18n.t('stats.view_all_blocks')}</BlocksButton>
               </VerticallyCenter>
             </Card>
-
-            <Card md={6}>
+            <Card md={6} >
               <VerticallyCenter>
                 <CardTitle
                   title={i18n.t('stats.blockchain_info')}
                   icon={<MdSpeed />}
                 ></CardTitle>
-                <TitleSubtitle title={i18n.t('stats.network_id')}>
-                  {capitalize(stats?.chain_id)}
-                </TitleSubtitle>
-                <TitleSubtitle title={i18n.t('stats.bloc_height')}>
-                  {stats?.block_height}
-                </TitleSubtitle>
-                <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>
-                  {stats?.validator_count}
-                </TitleSubtitle>
-
-                <TitleSubtitle title={i18n.t('stats.sync_status')}>
-                  {syncing}
-                </TitleSubtitle>
-
-                <TitleSubtitle title={i18n.t('stats.genesis_block_date')}>
-                  {localizedDateDiff(new Date(stats?.genesis_time_stamp))}
-                </TitleSubtitle>
+                <TitleSubtitleList>
+                  <TitleSubtitle title={i18n.t('stats.network_id')}>
+                    {capitalize(stats?.chain_id)}
+                  </TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.bloc_height')}>
+                    {stats?.block_height}
+                  </TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>
+                    {stats?.validator_count}
+                  </TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.sync_status')}>
+                    {syncing}
+                  </TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.genesis_block_date')}>
+                    {localizedDateDiff(new Date(stats?.genesis_time_stamp))}
+                  </TitleSubtitle>
+                </TitleSubtitleList>
               </VerticallyCenter>
             </Card>
           </Grid>
@@ -154,20 +125,27 @@ const TitleIcon = styled.div`
 `
 
 const TitleSubtitle = ({
-  title,
-  children,
-}: {
+   title,
+   children,
+   }: {
   title: string
   children: string | number
 }) => (
-  <>
-    <Title
-    >
+  <TitleSubtitleWrapper>
+    <Title>
       <strong>{title}</strong>
     </Title>
     <Subtitle>{children}</Subtitle>
-  </>
+  </TitleSubtitleWrapper>
 )
+
+const TitleSubtitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 0px 0px;
+  gap: 8px;
+`
 
 const Title = styled.h5`
   color: ${(props) => props.theme.blueText};
@@ -176,41 +154,54 @@ const Title = styled.h5`
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
+  margin: 0;
 `
 
 const Subtitle = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-`
-
-const ReadyTextContainer = styled.div`
-  margin: 40px 0 40px 40px;
-`
-
-const ReadyToStartCard = styled(CardDiv)`
-  background: linear-gradient(101.89deg, #f1ffdf 17.32%, #e1ffff 68.46%);
+  color: #7B8794;
+  margin: 0;
 `
 
 const VerticallyCenter = styled.div`
   margin: 30px 0;
   padding-left: 15px;
+  min-height: 485px;
 `
 
+const TitleSubtitleList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
 
-
+`
 
 export const BlocksButton = styled.button`
+  left: calc(50% - 160px/2);
+  top: 20px;
+  padding: 12px 24px;
 
-  width: 160px;
-height: 40px;
-left: calc(50% - 160px/2);
-top: 20px;
+  /* SECONDARY */
+  background: #46C4C2;
+  box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+  border-radius: 8px;
+  color: white;
+  border: none;
 
-/* SECONDARY */
-background: #46C4C2;
-box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
-border-radius: 8px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+
+  &:hover, &:active {
+    background: #0D4752;
+    box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
+  }
 `
 
 
