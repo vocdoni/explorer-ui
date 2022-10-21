@@ -46,7 +46,9 @@ export const Column = (props: ColumnProps) => {
 }
 
 export const BadgeColumn = styled(Column)`
-  display: contents;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 `
 
 export const ColumnDiv = styled.div<ColumnProps>`
