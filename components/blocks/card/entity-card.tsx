@@ -20,6 +20,7 @@ import {
 } from '@components/pages/app/components/get-links'
 import { ReducedTextAndCopy } from '@components/blocks/copy-button'
 import {
+  BodyWrapper,
   CardItemSubTitle,
   CardItemTitle,
   GenericCardWrapper,
@@ -131,7 +132,7 @@ export const EntityCard = ({
   )
 
   const Body = () => (
-    <>
+    <BodyWrapper>
       <BreakWord>
         <CardItemTitle>{entityName}</CardItemTitle>
       </BreakWord>
@@ -141,17 +142,20 @@ export const EntityCard = ({
           text={entityId}
         ></ReducedTextAndCopy>
       </EntityWrapper>
-    </>
+      <CardItemSubTitle>
+        <strong>{i18n.t('organizations.list.processes')}: </strong> {processCount}
+      </CardItemSubTitle>
+    </BodyWrapper>
   )
 
-  const Footer = () => (
-    <CardItemSubTitle>
-      <strong>{i18n.t('organizations.list.processes')}: </strong> {processCount}
-    </CardItemSubTitle>
-  )
+  // const Footer = () => (
+  //
+  // )
 
   return (
-    <GenericCardWrapper left={<EntityLogo />} link={link} footer={<Footer />}>
+    <GenericCardWrapper left={<EntityLogo />} link={link}
+                        // footer={<Footer />}
+    >
       <Body />
     </GenericCardWrapper>
   )
