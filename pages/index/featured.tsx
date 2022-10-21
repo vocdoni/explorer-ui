@@ -8,6 +8,7 @@ import { Section, BlockContainer } from '@components/elements/styled-divs'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { HomePageButton } from '@components/elements/button'
+import Link from 'next/link'
 
 const FeaturedContent = () => {
   const { i18n } = useTranslation()
@@ -69,7 +70,11 @@ const FeaturedContent = () => {
               <Typography variant={TypographyVariant.Small}>
                 {i18n.t('featured.leveraging_on_decentalized_technologies')}
               </Typography>
-              <HomePageButton>{i18n.t('featured.know_more')}</HomePageButton>
+              <HomePageButton>
+                <Link href={process.env.PLAZA_URL}>
+                  {i18n.t('featured.know_more')}
+                </Link>
+              </HomePageButton>
             </Column>
             <Column sm={12} md={6}>
               <ImageContainer width="400px" alignItem={FlexAlignItem.Center}>
