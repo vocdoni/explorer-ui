@@ -404,6 +404,15 @@ export const HomePageButton = styled.button`
   font-size: 16px;
   line-height: 150%;
 
+  a {
+    color: white;
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+  }
+
   &:hover, &:active {
     background: #0D4752;
     box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
