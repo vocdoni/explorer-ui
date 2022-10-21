@@ -23,6 +23,7 @@ import { capitalize } from '@lib/util'
 import { MdSpeed } from 'react-icons/md'
 import { VscGraphLine } from 'react-icons/vsc'
 import { HomePageButton } from '@components/elements/button'
+import Link from 'next/link'
 
 const BLOCK_LIST_SIZE = 4
 
@@ -30,18 +31,18 @@ const BLOCK_LIST_SIZE = 4
 const StatsPage = ({ stats }: { stats: Stats }) => {
   const { i18n } = useTranslation()
 
-  const [blockHeight, setBlockHeight] = useState<number>()
+  let blockHeight: number;
+  if (stats && stats?.block_height !== blockHeight) {
+    blockHeight = stats.block_height - BLOCK_LIST_SIZE
+  }
+
   const { loading: loadingBlocks, recentBlocks } = useBlocks({
     from: blockHeight,
     listSize: BLOCK_LIST_SIZE,
     reverse: true,
   })
 
-  useEffect(() => {
-    if (stats && stats?.block_height !== blockHeight) {
-      setBlockHeight(stats.block_height - BLOCK_LIST_SIZE)
-    }
-  }, [stats])
+
 
   const syncing = stats?.syncing
     ? i18n.t('stats.syncing')
@@ -69,7 +70,7 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
                 ) : (
                   <h3>{i18n.t('stats.getting_block_info')}</h3>
                 )}
-                <HomePageButton>{i18n.t('stats.view_all_blocks')}</HomePageButton>
+                <HomePageButton><Link href={"blocks/"} passHref>{i18n.t('stats.view_all_blocks')}</Link></HomePageButton>
               </VerticallyCenter>
             </Card>
             <Card md={6} >
