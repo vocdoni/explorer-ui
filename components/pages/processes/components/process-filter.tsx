@@ -166,8 +166,8 @@ const ProcessStatusSelector = ({
           name="ALL"
         />
         <ButtonOption
-          label={i18n.t('processes.filter.status_selector.active')}
-            name="READY"
+          label={i18n.t('processes.filter.status_selector.ended')}
+            name="RESULTS"
         />
         <ButtonOption
           label={i18n.t('processes.filter.status_selector.paused')}
