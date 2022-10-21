@@ -15,7 +15,13 @@ import { getVoteStatus, VoteStatus } from '@lib/util'
 import moment from 'moment'
 import { ProcessStatusBadge } from '../badges/process-status-badge'
 import { ItemDate } from '@components/elements/styled-divs'
-import { CardItemSubTitle, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic'
+import {
+  BodyWrapper,
+  CardItemSubTitle,
+  CardItemTitle,
+  GenericCardWrapper,
+  GenericCardWrapperProps,
+} from '../../elements/card-generic'
 import { ReducedEntityNameWithIcon } from './entity-card'
 
 
@@ -110,12 +116,12 @@ export const ProcessCard = ({
 
   return (
     <GenericCardWrapper link={link} top={<Top />} footer={<Footer />}>
-      <>
+      <BodyWrapper>
         <CardItemTitle>{title}</CardItemTitle>
         {/* <CardItemSubTitle>
           <strong>{i18n.t('processes.list.votes_submitted')}: </strong>xx
         </CardItemSubTitle> */}
-      </>
+      </BodyWrapper>
     </GenericCardWrapper>
   )
 }

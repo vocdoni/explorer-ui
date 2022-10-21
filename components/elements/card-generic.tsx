@@ -27,11 +27,12 @@ export const GenericCardWrapper = ({
       {left && <CardLeft>{left}</CardLeft>}
       <CardBody>
         {top && <TopDiv>{top}</TopDiv>}
-        <CenterDiv
-        style={
-          { margin: top ? '8px 0' : '0 0 8px 0' }
-        }
-          >{children}</CenterDiv>
+        {/*<CenterDiv*/}
+        {/*style={*/}
+        {/*  { margin: top ? '8px 0' : '0 0 8px 0' }*/}
+        {/*}*/}
+        {/*  >{children}</CenterDiv>*/}
+        <CenterDiv>{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
       </CardBody>
       <CardRight>
@@ -57,7 +58,7 @@ export const GenericCardWrapper = ({
 
 const ColumnWrapper = styled(Column)`
   margin: 10px 0;
-` 
+`
 
 const LinkCardContainer = styled.div`
   & > a {
@@ -71,11 +72,10 @@ const CardItemDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 20px 10px;
   background: ${(props) => props.theme.white};
   border-radius: 16px;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  padding: 16px 24px;
 
   &:hover {
     color: ${(props) => props.theme.textAccent1};
@@ -115,6 +115,12 @@ const CardBody = styled.div`
   flex: 10;
   margin: 0 10px;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  gap: 8px;
+
   @media ${({ theme }) => theme.screenMax.mobileL} {
     margin: 0;
   }
@@ -131,7 +137,6 @@ const FooterDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 8px;
 `
 
 const CenterDiv = styled.div`
@@ -139,11 +144,17 @@ const CenterDiv = styled.div`
 `
 
 export const CardItemTitle = styled.h3`
-  margin-top: 7px;
-  margin-bottom: 5px;
+  margin: 0;
   font-weight: bold;
 `
 
 export const CardItemSubTitle = styled.div`
   color: ${(props) => props.theme.text};
+`
+
+export const BodyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
 `
