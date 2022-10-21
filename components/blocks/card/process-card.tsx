@@ -13,7 +13,7 @@ import { getVoteStatus, VoteStatus } from '@lib/util'
 
 
 import moment from 'moment'
-import { ProcessStatusBadge } from '../badges/process-status-badge'
+import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge'
 import { ItemDate } from '@components/elements/styled-divs'
 import {
   BodyWrapper,
@@ -100,6 +100,7 @@ export const ProcessCard = ({
   const Top = () => (
     <TopWrapper>
       <ProcessStatusBadge status={status}></ProcessStatusBadge>
+      {process.summary.envelopeType.anonymous && <AnonVoteBadge />}
       <ItemDate>{date}</ItemDate>
     </TopWrapper>
   )

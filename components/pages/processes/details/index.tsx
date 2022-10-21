@@ -32,7 +32,7 @@ import {
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge'
 import { CensusOriginBadge } from '../components/process-censusorigin-badge'
 import { ProcessModeBadge } from '../components/process-processmode-badge'
-import { ProcessStatusBadge } from '@components/blocks/badges/process-status-badge'
+import { AnonVoteBadge, ProcessStatusBadge } from '@components/blocks/badges/process-status-badge'
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/process-envelope-explorer'
@@ -85,7 +85,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
         title={processInfo?.metadata?.title?.default}
         processImage={processInfo?.metadata?.media?.header}
         subtitle={
-          <> 
+          <>
              <CopyButton toCopy={processId} text={i18n.t('processes.details.id') + ': 0x' + processId}/>
           </>}
         entityImage={entityMetadata?.media?.avatar}
@@ -119,6 +119,7 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
             <EnvelopeTypeBadge
               encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}
             />
+            {processInfo.state.envelopeType.anonymous && <AnonVoteBadge />}
           </BadgeColumn>
         </Grid>
 
@@ -140,9 +141,9 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
             <h2>{processInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
-        
+
         {/* If encrypted votes show reveal keys status */}
-        {processInfo?.state?.envelopeType.encryptedVotes && 
+        {processInfo?.state?.envelopeType.encryptedVotes &&
           <EncryptionKeys processId={processId} />
         }
 

@@ -46,3 +46,13 @@ const PausedVoteBadge = styled(BaseStatusBadge)`
   background: #FEE4D6;
 `
 
+
+export const AnonVoteBadge = () => {
+  const { i18n } = useTranslation()
+  return <AnonVoteBadgeStyle>{i18n.t('vote.badge.anonymous')}</AnonVoteBadgeStyle>
+}
+
+const AnonVoteBadgeStyle = styled(BaseStatusBadge)`
+  color: #c9eaf8;
+  background: #2e6864;
+`
