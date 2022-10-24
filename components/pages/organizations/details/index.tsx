@@ -80,9 +80,7 @@ export const EntityView = ({
                 key={index}
                 process={process}
                 entityId={process.id}
-                entityLogo={null}
                 link={getProcessDetailsPath(process.id)}
-                entityMetadata={metadata}
                 hideEntity={true}
               />
             )

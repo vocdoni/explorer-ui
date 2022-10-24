@@ -25,7 +25,6 @@ import {
   TypographyVariant,
 } from '@components/elements/typography'
 import { colors } from '@theme/colors'
-import { ProcessStatusBadge as ProcessInfoBadge } from '../components/process-status-badge'
 import {
   EntityCardMedium,
 } from '@components/blocks/card/entity-card'
@@ -109,7 +108,6 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
         <Grid>
           <BadgeColumn>
             <ProcessStatusBadge status={voteStatus} />
-            <ProcessInfoBadge status={processInfo?.state?.status} />
             <CensusOriginBadge
               censusOrigin={processInfo?.state?.censusOrigin}
             />
