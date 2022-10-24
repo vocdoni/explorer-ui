@@ -5,7 +5,7 @@ import {
   FlexContainer,
   FlexJustifyContent,
 } from '@components/elements/flex'
-import { Column } from '@components/elements/grid'
+import { Column, ColumnDiv } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
 import { colors } from '@theme/colors'
 import { ReactNode } from 'react'
@@ -54,11 +54,11 @@ export const InlineTitleChildrenContainer = ({
   )
 }
 
-export const TopDiv = styled.div`
+export const TopDiv = styled(ColumnDiv)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 20px 0 20px 0;
+  margin: 20px 10px 0 10px ;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     flex-direction: row;

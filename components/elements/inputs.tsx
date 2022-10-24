@@ -114,6 +114,7 @@ const InputIconContainer = styled.div`
   transform: translateY(-50%);
 `
 const InputSearchContainer = styled(InputContainer)`
+  margin-bottom: 0;
   & > input {
     box-sizing:border-box;
     padding-left: 1.9rem;

@@ -1,12 +1,8 @@
-import { Column, Grid } from '@components/elements/grid'
+import { Column, ListCardContainer } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
 import { ReactNode, useEffect, useState } from 'react'
 import { renderSkeleton } from './list-page'
-import {
-  FlexContainer,
-  FlexAlignItem,
-  FlexJustifyContent,
-} from '@components/elements/flex'
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { Else, If, Then } from 'react-if'
 import { PaginatorRouterParams } from '@components/blocks/paginator-router-params'
 
@@ -52,8 +48,8 @@ export const JumpToPaginatedList = <Elements,>({
     <>
     <If
         condition={
-          (loading && !elementsList?.length) 
-          || totalElementsCount == null 
+          (loading && !elementsList?.length)
+          || totalElementsCount == null
           || elementsList === undefined
           || !elementsList?.length
         }
@@ -63,9 +59,9 @@ export const JumpToPaginatedList = <Elements,>({
           <If condition={elementsList != null && elementsList.length}>
             <Then>
               <>
-                <Grid>
+                <ListCardContainer>
                   <Column>{elementsList?.map(renderElementFunction)}</Column>
-                </Grid>
+                </ListCardContainer>
                 <FlexContainer
                   alignItem={FlexAlignItem.Start}
                   justify={FlexJustifyContent.Start}
@@ -109,7 +105,7 @@ export function useJumpToPaginatedList({
     setLoading(loadingElements || dataPagination == null || lastElement == null)
   }, [loadingElements, dataPagination])
 
-  const getFirstPageIndex = (page) => { 
+  const getFirstPageIndex = (page) => {
     const index = lastElement - page * pageSize
     return index < 0 ? 0 : index
   }
