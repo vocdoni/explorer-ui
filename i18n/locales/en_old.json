@@ -148,7 +148,10 @@
             "select_by_vote_status": "Select by vote status",
             "search_by_search_term_or_organization_details": "",
             "search_by_term_or_organization_details": "",
-            "search_by_term_or_organization_address": "Search by term / Organization address"
+            "search_by_term_or_organization_address": "Search by term / Organization address",
+            "status_selector": {
+                "active": "Active"
+            }
         },
         "envelope_explorer": {
             "back": "Back",
@@ -162,6 +165,13 @@
             "processes_list_title": "Processes list",
             "total_n_processes": "Total nº of processes: {{processCount}}",
             "votes_submitted": "Votes submitted"
+        },
+        "status_badge": {
+            "canceled": "Canceled",
+            "ended": "Ended",
+            "paused": "Paused",
+            "ready": "Ready",
+            "results": "Results"
         }
     },
     "components": {
@@ -200,7 +210,15 @@
         "introduce_vote_id_below_to_verify_your_vote": "Introduce vote id below to verify your vote"
     },
     "stats": {
-        "stats_not_found": "Stats not found"
+        "stats_not_found": "Stats not found",
+        "network_details": "Network details",
+        "number_of_validators": "Number of validators",
+        "recent_blocks": "Recent blocks",
+        "the_last_four_blocks": "The last four blocks",
+        "total_organizations": "Total organizations",
+        "total_processes": "Total processes",
+        "total_transactions": "Total transactions",
+        "total_votes": "Total votes"
     },
     "process": {
         "filter": {
@@ -235,5 +253,25 @@
     },
     "validators_list": {
         "validators_list_title": "Validators list"
+    },
+    "converter": {
+        "conversion_between_block_and_dates": "Conversion between block and dates"
+    },
+    "featured": {
+        "all_in_one_image_alt": "All in one solution image",
+        "all_in_one_solution": "All in one solution",
+        "all_you_have_to_do_is_email_entire_social_base": "All you have to do is an email to your entire social base",
+        "choose_the_time_frame": "Chose the time frame",
+        "get_instant_results": "Get instant results",
+        "instant_image_alt": "Instant image",
+        "notify_image_alt": "Notify image",
+        "notify_your_community": "Notify your community",
+        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "The voting process includes all the requirements for your voting process",
+        "time_frame_image_alt": "Time frame image",
+        "you_and_your_social_base_will_be_able_to_se_the_results": "You and your social base will be able to see the results",
+        "you_cant_set_the_start_and_end_dates": "You can't set the start and end dates"
+    },
+    "home": {
+        "explore_the_vochain": "Explore the Vochain"
     }
 }

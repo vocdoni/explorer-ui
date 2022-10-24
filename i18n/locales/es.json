@@ -44,7 +44,7 @@
     },
     "converter": {
         "block_height": "",
-        "conversion_between_block_and_dates": "",
+        "calculate_the_conversion_between_Vochain_blocks_and_dates": "",
         "current_enviorment": "",
         "date_block_estimation": "",
         "genesis_date": "",
@@ -145,34 +145,23 @@
     "featured": {
         "a_cutting_edge_voting_protocol": "",
         "a_fully_anonymous_voting_system_ensuring_data_availability": "",
-        "all_in_one_image_alt": "",
-        "all_in_one_solution": "",
-        "all_you_have_to_do_is_email_entire_social_base": "",
         "anonymous_image_alt": "",
         "censorship_image_alt": "",
-        "choose_the_time_frame": "",
         "edge_protocol_image_alt": "",
-        "get_instant_results": "",
         "inexpensive_image_alt": "",
-        "instant_image_alt": "",
+        "know_more": "",
         "leveraging_on_decentalized_technologies": "",
-        "notify_image_alt": "",
-        "notify_your_community": "",
         "open_source_image_alt": "",
         "scalable_image_alt": "",
-        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "",
-        "time_frame_image_alt": "",
-        "verifiable_image_alt": "",
-        "you_and_your_social_base_will_be_able_to_se_the_results": "",
-        "you_cant_set_the_start_and_end_dates": ""
+        "verifiable_image_alt": ""
     },
     "home": {
         "average_block_time": "",
-        "explore_the_vochain": "",
         "n_organizations": "",
         "n_processes": "",
         "n_seconds": "",
         "n_votes": "",
+        "the_most_flexible_and_secure_voting_protocol": "",
         "total_organizations": "",
         "total_processes": "",
         "total_votes": "",
@@ -269,7 +258,6 @@
             "search": "",
             "show_only_processes_with_results": "",
             "status_selector": {
-                "active": "",
                 "all": "",
                 "ended": "",
                 "paused": ""
@@ -282,13 +270,6 @@
         "process_mode_badge": {
             "autostart": "",
             "notAutostart": ""
-        },
-        "status_badge": {
-            "canceled": "",
-            "ended": "",
-            "paused": "",
-            "ready": "",
-            "results": ""
         }
     },
     "stats": {
@@ -297,18 +278,13 @@
         "genesis_block_date": "",
         "getting_block_info": "",
         "in_sync": "",
-        "latest_block_date": "",
-        "network_details": "",
+        "latest_block": "",
         "network_id": "",
-        "number_of_validators": "",
-        "recent_blocks": "",
+        "nr_of_validators": "",
         "sync_status": "",
         "syncing": "",
-        "the_last_four_blocks": "",
-        "total_organizations": "",
-        "total_processes": "",
-        "total_transactions": "",
-        "total_votes": ""
+        "view_all_blocks": "",
+        "latest_block_date": ""
     },
     "status": {
         "the_vote_has_ended": "",
@@ -376,6 +352,7 @@
     "vote": {
         "badge": {
             "active_vote": "",
+            "anonymous": "",
             "ended_vote": "",
             "paused_vote_or_canceled": "",
             "upcoming_vote": ""

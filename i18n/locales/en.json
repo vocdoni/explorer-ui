@@ -44,7 +44,7 @@
     },
     "converter": {
         "block_height": "Block Height",
-        "conversion_between_block_and_dates": "Conversion between block and dates",
+        "calculate_the_conversion_between_Vochain_blocks_and_dates": "Calculate the conversion between Vochain blocks and dates",
         "current_enviorment": "Current environment",
         "date_block_estimation": "Date blocks estimation",
         "genesis_date": "Genesis date",
@@ -145,34 +145,23 @@
     "featured": {
         "a_cutting_edge_voting_protocol": "A cutting edge voting protocol",
         "a_fully_anonymous_voting_system_ensuring_data_availability": "A fully anonymous voting system ensuring data availability",
-        "all_in_one_image_alt": "All in one solution image",
-        "all_in_one_solution": "All in one solution",
-        "all_you_have_to_do_is_email_entire_social_base": "All you have to do is an email to your entire social base",
         "anonymous_image_alt": "Anonymous image",
         "censorship_image_alt": "Censorship resistant image",
-        "choose_the_time_frame": "Chose the time frame",
         "edge_protocol_image_alt": "Cutting edge protocol image",
-        "get_instant_results": "Get instant results",
         "inexpensive_image_alt": "Inexpensive image",
-        "instant_image_alt": "Instant image",
+        "know_more": "Know more",
         "leveraging_on_decentalized_technologies": "Leveraging on decentralized technologies",
-        "notify_image_alt": "Notify image",
-        "notify_your_community": "Notify your community",
         "open_source_image_alt": "Open source image",
         "scalable_image_alt": "Scalable imabe",
-        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "The voting process includes all the requirements for your voting process",
-        "time_frame_image_alt": "Time frame image",
-        "verifiable_image_alt": "Verifiable image",
-        "you_and_your_social_base_will_be_able_to_se_the_results": "You and your social base will be able to see the results",
-        "you_cant_set_the_start_and_end_dates": "You can't set the start and end dates"
+        "verifiable_image_alt": "Verifiable image"
     },
     "home": {
         "average_block_time": "Average block time",
-        "explore_the_vochain": "Explore the Vochain",
         "n_organizations": "{{ organizations }} organizations",
         "n_processes": "{{ processes }} processes",
         "n_seconds": "{{ seconds }} seconds",
         "n_votes": "{{ votes }} Votes",
+        "the_most_flexible_and_secure_voting_protocol": "The most flexible and secure voting protocol to organize any kind of voting process: single-choice, multiple-choice, weighted, quadratic voting and much more.",
         "total_organizations": "Total organizations",
         "total_processes": "Total processes",
         "total_votes": "Total votes",
@@ -269,7 +258,6 @@
             "search": "Search",
             "show_only_processes_with_results": "Show only processes with results",
             "status_selector": {
-                "active": "Active",
                 "all": "All",
                 "ended": "Ended",
                 "paused": "Paused"
@@ -282,13 +270,6 @@
         "process_mode_badge": {
             "autostart": "Autostart",
             "notAutostart": "Not autostart"
-        },
-        "status_badge": {
-            "canceled": "Canceled",
-            "ended": "Ended",
-            "paused": "Paused",
-            "ready": "Ready",
-            "results": "Results"
         }
     },
     "stats": {
@@ -297,18 +278,13 @@
         "genesis_block_date": "Genesis block date",
         "getting_block_info": "Getting block info",
         "in_sync": "In sync",
-        "latest_block_date": "Latest block date",
-        "network_details": "Network details",
+        "latest_block": "Latest blocks",
         "network_id": "Network id",
-        "number_of_validators": "Number of validators",
-        "recent_blocks": "Recent blocks",
+        "nr_of_validators": "Nr of validators",
         "sync_status": "Sync status",
         "syncing": "Syncing",
-        "the_last_four_blocks": "The last four blocks",
-        "total_organizations": "Total organizations",
-        "total_processes": "Total processes",
-        "total_transactions": "Total transactions",
-        "total_votes": "Total votes"
+        "view_all_blocks": "View all blocks",
+        "latest_block_date": "Latest block date"
     },
     "status": {
         "the_vote_has_ended": "The vote has ended",
@@ -376,6 +352,7 @@
     "vote": {
         "badge": {
             "active_vote": "Active vote",
+            "anonymous": "Anonymous",
             "ended_vote": "Ended",
             "paused_vote_or_canceled": "Paused/Canceled",
             "upcoming_vote": "Upcoming"

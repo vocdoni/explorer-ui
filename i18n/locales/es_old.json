@@ -26,7 +26,8 @@
         }
     },
     "converter": {
-        "current_enviorment ": ""
+        "current_enviorment ": "",
+        "conversion_between_block_and_dates": ""
     },
     "transactions": {
         "badge": {
@@ -150,14 +151,23 @@
     },
     "home": {
         "n_elections": "",
-        "total_elections": ""
+        "total_elections": "",
+        "explore_the_vochain": ""
     },
     "links": {
         "elections": ""
     },
     "stats": {
         "total_elections": "",
-        "stats_not_found": ""
+        "stats_not_found": "",
+        "network_details": "",
+        "number_of_validators": "",
+        "recent_blocks": "",
+        "the_last_four_blocks": "",
+        "total_organizations": "",
+        "total_processes": "",
+        "total_transactions": "",
+        "total_votes": ""
     },
     "processes": {
         "details": {
@@ -176,7 +186,10 @@
             "select_by_vote_status": "",
             "search_by_search_term_or_organization_details": "",
             "search_by_term_or_organization_details": "",
-            "search_by_term_or_organization_address": ""
+            "search_by_term_or_organization_address": "",
+            "status_selector": {
+                "active": ""
+            }
         },
         "envelope_explorer": {
             "back": "",
@@ -190,6 +203,13 @@
             "processes_list_title": "",
             "total_n_processes": "",
             "votes_submitted": ""
+        },
+        "status_badge": {
+            "canceled": "",
+            "ended": "",
+            "paused": "",
+            "ready": "",
+            "results": ""
         }
     },
     "entities": {
@@ -268,5 +288,19 @@
     },
     "validators_list": {
         "validators_list_title": ""
+    },
+    "featured": {
+        "all_in_one_image_alt": "",
+        "all_in_one_solution": "",
+        "all_you_have_to_do_is_email_entire_social_base": "",
+        "choose_the_time_frame": "",
+        "get_instant_results": "",
+        "instant_image_alt": "",
+        "notify_image_alt": "",
+        "notify_your_community": "",
+        "the_voting_process_includes_all_the_requirements_for_your_voting_process": "",
+        "time_frame_image_alt": "",
+        "you_and_your_social_base_will_be_able_to_se_the_results": "",
+        "you_cant_set_the_start_and_end_dates": ""
     }
 }
