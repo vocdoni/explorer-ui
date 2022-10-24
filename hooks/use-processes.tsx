@@ -4,8 +4,7 @@ import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 import { utils } from 'ethers'
 import { VochainProcessStatus, VotingApi } from 'dvote-js'
-import { fetchMethod, getProcessList } from '@lib/api'
-import { AnyKindOfDictionary } from 'lodash'
+import { getProcessList } from '@lib/api'
 
 export interface useProcessListProps {
   entityId?: string // Deprecated, use search terms instead
@@ -34,10 +33,10 @@ export const useProcessesList = ({
   const { poolPromise } = usePool()
 
   // Loaders
-  const updateProcessIds = useCallback(() => {
+  const updateProcessIds = () => {
     const f = from < 0 ? 0 : from;
 
-    console.debug('DEBUG', 'Updating processes list', 
+    console.debug('DEBUG', 'Updating processes list',
       entityId, namespace, status, withResults, from, f, listSize, searchTerm )
     setLoadingProcessList(true)
 
@@ -58,12 +57,12 @@ export const useProcessesList = ({
         console.error(err)
         setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'))
       })
-  },[entityId, from, namespace, poolPromise, searchTerm, status, withResults])
+  }
 
 
   useEffect(() => {
     if (from || from === 0) updateProcessIds()
-  }, [entityId, namespace, status, withResults, from, searchTerm, updateProcessIds])
+  }, [entityId, namespace, status, withResults, from, searchTerm])
 
 
   return {
@@ -92,7 +91,7 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
       .then((pool) => {
         return pool.sendRequest({
           method: 'getProcessCount',
-          entityId: entityId 
+          entityId: entityId
         })
       })
       .then((response) => {
