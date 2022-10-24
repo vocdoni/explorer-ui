@@ -39,6 +39,10 @@ export const Grid = styled.div`
   justify-content: flex-start;
 `
 
+export const ListCardContainer = styled(Grid)`
+  margin: 0;
+`
+
 // COLUMN
 
 export const Column = (props: ColumnProps) => {

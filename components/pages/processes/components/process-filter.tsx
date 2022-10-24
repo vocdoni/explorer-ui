@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { VochainProcessStatus } from 'dvote-js'
 import { useTranslation } from 'react-i18next'
-import { Grid } from '@components/elements/grid'
+import { Column, ColumnDiv, Grid } from '@components/elements/grid'
 import { colors } from '@theme/colors'
 import { InputSearch } from '@components/elements/inputs'
 import styled from 'styled-components'
@@ -21,9 +21,9 @@ import { DELAY_BOUNCE_TIME } from '@const/filters'
 import { TopDiv } from '@components/pages/app/page-templates/list-page'
 
 export const ProcessFilter = ({
-  onEnableFilter,
-  title,
-}: {
+                                onEnableFilter,
+                                title,
+                              }: {
   onEnableFilter: { (tempFilter: IFilterProcesses): void }
   title: ReactNode
 }) => {
@@ -68,23 +68,25 @@ export const ProcessFilter = ({
           </SearchBoxContainer>
         </FilterForm>
       </TopDiv>
-      <FlexContainer
-        alignItem={FlexAlignItem.Start}
-        justify={FlexJustifyContent.Start}
-      >
-        <ProcessStatusSelector
-          tempFilter={tempFilter}
-          setTempFilter={setTempFilter}
-        />
-      </FlexContainer>
+      <SelectorContainer>
+        <FlexContainer
+          alignItem={FlexAlignItem.Start}
+          justify={FlexJustifyContent.Start}
+        >
+          <ProcessStatusSelector
+            tempFilter={tempFilter}
+            setTempFilter={setTempFilter}
+          />
+        </FlexContainer>
+      </SelectorContainer>
     </FilterContainer>
   )
 }
 
 const CheckBoxAndSearchBar = ({
-  tempFilter,
-  setTempFilter,
-}: {
+                                tempFilter,
+                                setTempFilter,
+                              }: {
   tempFilter: IFilterProcesses
   setTempFilter: { (tempFilter: IFilterProcesses): void }
 }) => {
@@ -132,10 +134,14 @@ const CheckBoxAndSearchBar = ({
   )
 }
 
+const SelectorContainer = styled(Column)`
+  margin: 0;
+`
+
 const ProcessStatusSelector = ({
-  tempFilter,
-  setTempFilter,
-}: {
+                                 tempFilter,
+                                 setTempFilter,
+                               }: {
   tempFilter: IFilterProcesses
   setTempFilter: { (tempFilter: IFilterProcesses): void }
 }) => {
@@ -153,7 +159,7 @@ const ProcessStatusSelector = ({
           else {
             tempFilter.status = VochainProcessStatus[
               value as string
-            ] as any as VochainProcessStatus
+              ] as any as VochainProcessStatus
           }
           setTempFilter(Object.assign({}, tempFilter))
         }}
@@ -167,7 +173,7 @@ const ProcessStatusSelector = ({
         />
         <ButtonOption
           label={i18n.t('processes.filter.status_selector.ended')}
-            name="RESULTS"
+          name="RESULTS"
         />
         <ButtonOption
           label={i18n.t('processes.filter.status_selector.paused')}
@@ -200,7 +206,8 @@ const SearchBoxContainer = styled(Grid)`
   }
 `
 
-const FilterContainer = styled.div`
+const FilterContainer = styled(ColumnDiv)`
+  margin: 0 10px;
 `
 
 const ButtonGroupContainer = styled.div`

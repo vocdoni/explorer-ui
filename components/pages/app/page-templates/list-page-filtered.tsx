@@ -4,11 +4,12 @@ import {
   FlexAlignItem,
   FlexJustifyContent,
 } from '@components/elements/flex'
-import { Column, Grid } from '@components/elements/grid'
+import { Column, Grid, ListCardContainer } from '@components/elements/grid'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Else, If, Then } from 'react-if'
 import { renderSkeleton } from './list-page'
+import styled from 'styled-components'
 
 const skeletonItems = 3
 
@@ -54,9 +55,9 @@ export const FilteredPaginatedList = <Elements,>({
           <If condition={elementsList != null && elementsList.length}>
             <Then>
               <>
-                <Grid>
+                <ListCardContainer>
                   <Column>{elementsList.map(renderElementFunction)}</Column>
-                </Grid>
+                </ListCardContainer>
                 <FlexContainer
                   alignItem={FlexAlignItem.Start}
                   justify={FlexJustifyContent.Start}
@@ -74,6 +75,7 @@ export const FilteredPaginatedList = <Elements,>({
     </>
   )
 }
+
 
 interface IUsePaginatedListProps<Filter> {
   pageSize?: number
