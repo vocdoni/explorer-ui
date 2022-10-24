@@ -110,7 +110,7 @@ export function hasDuplicates<T>(values: T[]): boolean {
 }
 
 /** Convert byte array to hex string */
-export const byteArrayToHex = (bytes: Uint8Array): string => 
+export const byteArrayToHex = (bytes: Uint8Array): string =>
   bytes instanceof Uint8Array ? Buffer.from(bytes).toString("hex") : bytes
 
 /** Iterate an object and convert all Uint8Array values to hex */
@@ -134,8 +134,8 @@ const regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/
 export const b64ToHex = (b64String: string): string =>
   regex.test(b64String) ? Buffer.from(b64String, 'base64').toString('hex') : b64String
 
-/** Iterate an object and convert all base64 strings to hex 
- * 
+/** Iterate an object and convert all base64 strings to hex
+ *
  * It check if is a string and can be converted to a regex.
 */
 export const objectB64StringsToHex = (obj: any, ignoreKeys? : string[]):void => {
@@ -160,10 +160,10 @@ export function getEnumKeyByEnumValue<T extends {[index:string]:string}>(myEnum:
   return keys.length > 0 ? keys[0] : null;
 }
 
-export const isInValidProcessId = (processId: string): boolean => 
+export const isInValidProcessId = (processId: string): boolean =>
   !processId || !(processId.match(/^0x[0-9a-fA-F]{64}$/) || processId.match(/^[0-9a-fA-F]{64}$/));
 
-export const isInValidEntityId = (entityId: string): boolean => 
+export const isInValidEntityId = (entityId: string): boolean =>
   !entityId || !entityId.match(/^0x[0-9a-fA-F]{40}$/);
 
-export const capitalize = (str: string) : string => str.charAt(0).toUpperCase() + str.slice(1);
+export const capitalize = (s?: string) : string => s ? s[0].toUpperCase() + s.slice(1) : null;
