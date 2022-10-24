@@ -1,95 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import {
-  useBlockStatus,
-  SummaryProcess,
-  useBlockHeight,
-} from '@vocdoni/react-hooks'
-import { EntityMetadata, VotingApi } from 'dvote-js'
-import { useTranslation } from 'react-i18next'
-
-import { localizedDateDiff } from '@lib/date'
-import { getVoteStatus, VoteStatus } from '@lib/util'
-
-
-import moment from 'moment'
+import { SummaryProcess, useBlockHeight, useEntity } from '@vocdoni/react-hooks'
+import { EntityMetadata, ProcessSummary } from 'dvote-js'
+import { getVoteStatus } from '@lib/util'
 import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge'
-import { ItemDate } from '@components/elements/styled-divs'
-import {
-  BodyWrapper,
-  CardItemSubTitle,
-  CardItemTitle,
-  GenericCardWrapper,
-  GenericCardWrapperProps,
-} from '../../elements/card-generic'
+import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic'
 import { ReducedEntityNameWithIcon } from './entity-card'
+import { ensure0x } from '@vocdoni/common'
+import { ProcessTimeLeft } from '@components/blocks/process_time_left'
 
 
 type ProcessCardProps = GenericCardWrapperProps & {
   process: SummaryProcess
   entityId?: string
-  entityLogo?: string
   link?: string
-  entityMetadata?: EntityMetadata
   hideEntity?: boolean
 }
 
 export const ProcessCard = ({
-  process,
-  entityId,
-  entityLogo,
-  link,
-  entityMetadata,
-}: ProcessCardProps) => {
-  const { i18n } = useTranslation()
-
-  const [date, setDate] = useState<string>('')
-  const { blockStatus } = useBlockStatus()
-  const { blockHeight } = useBlockHeight()
-  const [status, setStatus] = useState<VoteStatus>()
-
-  useEffect(() => {
-    setStatus(getVoteStatus(process.summary, blockHeight))
-  }, [blockHeight])
-
-  useEffect(() => {
-    let startDate
-
-    switch (status) {
-      case VoteStatus.Active: {
-        const endDate = VotingApi.estimateDateAtBlockSync(
-          process?.summary?.endBlock,
-          blockStatus
-        )
-        const timeLeft = localizedDateDiff(endDate)
-        setDate(timeLeft)
-        break
-      }
-
-      case VoteStatus.Ended:
-        setDate(i18n.t('dashboard.process_ended'))
-        break
-
-      case VoteStatus.Paused:
-      case VoteStatus.Upcoming:
-        startDate = VotingApi.estimateDateAtBlockSync(
-          process?.summary?.startBlock,
-          blockStatus
-        )
-
-        if (
-          !moment(startDate).isAfter(moment.now()) &&
-          status === VoteStatus.Paused
-        ) {
-          setDate(i18n.t('dashboard.process_paused'))
-          break
-        }
-
-        setDate(localizedDateDiff(startDate))
-        setStatus(VoteStatus.Upcoming)
-        break
-    }
-  }, [blockStatus])
+                              process,
+                              entityId,
+                              link,
+                            }: ProcessCardProps) => {
+  const { metadata } = useEntity(ensure0x(entityId))
+  const entityMetadata = metadata as EntityMetadata
+  const entityLogo = metadata?.media.header
 
   const t = process?.metadata?.title?.default
   const title = t && t.length > 0 ? t : process?.id
@@ -99,9 +34,7 @@ export const ProcessCard = ({
 
   const Top = () => (
     <TopWrapper>
-      <ProcessStatusBadge status={status}></ProcessStatusBadge>
-      {process.summary.envelopeType.anonymous && <AnonVoteBadge />}
-      <ItemDate>{date}</ItemDate>
+      <StatusBadgeAndTimeLeft summary={process.summary} />
     </TopWrapper>
   )
 
@@ -124,6 +57,18 @@ export const ProcessCard = ({
         </CardItemSubTitle> */}
       </BodyWrapper>
     </GenericCardWrapper>
+  )
+}
+
+const StatusBadgeAndTimeLeft = ({ summary } : {summary?: ProcessSummary }) => {
+  const { blockHeight } = useBlockHeight()
+  const status = getVoteStatus(summary, blockHeight)
+  return (
+    <>
+      <ProcessStatusBadge status={status} />
+      {summary.envelopeType.anonymous && <AnonVoteBadge />}
+      <ProcessTimeLeft  status={status}/>
+    </>
   )
 }
 
