@@ -39,41 +39,41 @@ export const TransactionTypeBadge = ({ type }: { type: TxType }) => {
       )
     case TxType.sendTokens:
       return (
-        <CanceledBadge>
+        <ActiveBadge>
           {i18n.t('transactions.badge.send_tokens')}{' '}
-        </CanceledBadge>
+        </ActiveBadge>
       )
     case TxType.setTransactionCosts:
       return (
-        <CanceledBadge>
+        <ActiveBadge>
           {i18n.t('transactions.badge.set_transaction_costs')}{' '}
-        </CanceledBadge>
+        </ActiveBadge>
       )
     case TxType.setAccountInfo:
       return (
-        <CanceledBadge>
+        <ActiveBadge>
           {i18n.t('transactions.badge.set_account_info')}{' '}
-        </CanceledBadge>
+        </ActiveBadge>
       )
     case TxType.setAccountDelegateTx:
       return (
-        <CanceledBadge>
+        <ActiveBadge>
           {i18n.t('transactions.badge.set_account_delegate_tx')}{' '}
-        </CanceledBadge>
+        </ActiveBadge>
       )
     case TxType.collectFaucet:
       return (
-        <EndedBadge>{i18n.t('transactions.badge.collect_faucet')}</EndedBadge>
+        <ActiveBadge>{i18n.t('transactions.badge.collect_faucet')}</ActiveBadge>
       )
     case TxType.setKeykeeper:
       return (
-        <CanceledBadge>
+        <ActiveBadge>
           {i18n.t('transactions.badge.set_key_keeper')}
-        </CanceledBadge>
+        </ActiveBadge>
       )
     default:
       return (
-        <CanceledBadge>{i18n.t('transactions.badge.unknown')}</CanceledBadge>
+        <ActiveBadge>{i18n.t('transactions.badge.unknown')}</ActiveBadge>
       )
   }
 }
