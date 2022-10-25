@@ -32,7 +32,6 @@ export const useEnvelopesList = ({
       .then((envelopes) => {
         setLoadingEnvelopes(false)
         setEnvelopeRange(envelopes)
-        console.debug('DEBUG:', 'envelopes', envelopes)
       })
       .catch((err) => {
         setLoadingEnvelopes(false)
@@ -85,7 +84,6 @@ export const useEnvelope = ({
         e.registered = getEnvelopeStatus['registered']
         e.height = getEnvelopeStatus['height']
         setEnvelope(e)
-        console.debug('DEBUG:', 'getEnvelope', envelope)
       })
       .catch((err) => {
         setLoadingEnvelope(false)

@@ -10,8 +10,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { ensure0x } from '@vocdoni/common'
 
-
-
 interface IDashboardEntityItemProps {
   entityId: string
 }
@@ -24,16 +22,13 @@ export const DashboardEntityListItem = ({
   const entityMetadata = metadata as EntityMetadata
   const entityDetailLink = getOrganizationPath(entityId)
 
-
-  console.debug("DEBUG entity metadata", entityMetadata)
-
   const entityName = entityMetadata?.name?.default
   ? entityMetadata?.name?.default
   : entityId
 
   return (
-    <EntityCard 
-      processCount={processCount} 
+    <EntityCard
+      processCount={processCount}
       entityId={entityId}
       entityLogo={metadata?.media.header}
       link={entityDetailLink}

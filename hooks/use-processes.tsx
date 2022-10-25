@@ -36,8 +36,6 @@ export const useProcessesList = ({
   const updateProcessIds = () => {
     const f = from < 0 ? 0 : from;
 
-    console.debug('DEBUG', 'Updating processes list',
-      entityId, namespace, status, withResults, from, f, listSize, searchTerm )
     setLoadingProcessList(true)
 
     poolPromise
@@ -48,7 +46,6 @@ export const useProcessesList = ({
         )
       )
       .then((ids) => {
-        console.debug('DEBUG', 'Retrieved process list', ids)
         setProcessIds(reverse ? ids.reverse() : ids )
         setLoadingProcessList(false)
       })
@@ -95,7 +92,6 @@ export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'useProcessCount', response)
         if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
         setProcessCount(response['size'])

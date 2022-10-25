@@ -29,7 +29,7 @@ export const useBlocks = ({
     if (loading || !poolPromise) return
 
     setLoading(true)
-    
+
     poolPromise
       .then((pool) => {
         return pool.sendRequest({
@@ -39,7 +39,6 @@ export const useBlocks = ({
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getBlockList', response, from)
         const blockList = response.blockList || []
         setRecentBlocks(reverse ? blockList.reverse() : blockList)
         setLoading(false)
@@ -91,9 +90,8 @@ export const useBlock = ({ blockHeight }:{ blockHeight: number }) => {
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getBlock', response )
         if(response.response.ok){
-          const block = response.response.block as BlockInfo || null 
+          const block = response.response.block as BlockInfo || null
           block.height = blockHeight
           setBlock(block)
         } else {

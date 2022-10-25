@@ -27,7 +27,6 @@ export const useStats = ({
         return pool.sendRequest({ method: 'getStats' })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getStats', response.stats)
         setStats(response.stats)
         setLoading(false)
       })

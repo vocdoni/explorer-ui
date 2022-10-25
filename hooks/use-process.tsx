@@ -18,7 +18,7 @@ export const useProcessResults = ({
     })
     const { poolPromise } = usePool()
     const [loadingResults, setLoadingResults] = useState(false)
-  
+
     const getResults = () => {
       setLoadingResults(true)
       poolPromise
@@ -41,33 +41,32 @@ export const useProcessResults = ({
           }
           setRawResults(rawResults)
           setResultsWeight(resultsWeight)
-  
+
           if (
             processInfo &&
             rawResults &&
             processInfo?.metadata &&
             processInfo?.metadata?.questions
           ) {
-            console.debug('DEBUG:', 'processMetadata', processInfo?.metadata)
             setResults(
               Voting.digestSingleChoiceResults(rawResults, processInfo?.metadata)
             )
           }
-  
+
           setLoadingResults(false)
         })
         .catch((err) => {
           console.error(err)
-  
+
           setLoadingResults(false)
         })
     }
-  
+
     // Process Results
     useEffect(() => {
       if (processId) getResults()
     }, [poolPromise, processId, processInfo])
-  
+
     return {
       resultsWeight,
       rawResults,
@@ -75,4 +74,3 @@ export const useProcessResults = ({
       loadingResults,
     }
   }
-  

@@ -60,17 +60,6 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
 
   const {loadingResults:loading, results, resultsWeight} = useProcessResults({processId, processInfo})
 
-  // DEBUG metadata
-  useEffect(() => {
-    console.debug(
-      'DEBUG:',
-      'metadata',
-      entityMetadata,
-      processInfo?.state?.entityId
-    )
-  }, [entityMetadata, metadata, processInfo?.state?.entityId])
-
-
   const dateDiffStr = resolveDate(
     processInfo,
     voteStatus,

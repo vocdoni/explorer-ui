@@ -42,7 +42,6 @@ export const useTxForBlock = ({
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getBlock', response)
         const transactions = (response.response.txList as TxForBlock[]) || null
         setTransactions(transactions)
         setLoading(false)
@@ -99,7 +98,6 @@ export const useTx = ({
       .then((response) => {
         const transaction = (response.response.tx as GetTx) || null
         transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
-        console.debug('DEBUG', 'getTx', transaction)
         setTx(transaction)
       })
       .catch((err) => {
@@ -173,12 +171,11 @@ export const useTxListById = ({
         const txList = response
           .filter((res) => res['response']['ok'])
           .map((res) => {
-            const transaction = res['response']['tx']           
+            const transaction = res['response']['tx']
             transaction["payload"] = JSON.parse(res['response']['payload']) as Tx
             return transaction
           })
         const transactions = (txList as TxById[]) || null
-        console.debug('DEBUG', 'getTxListById', txList)
 
         setTransactions(reverse ? transactions.reverse() : transactions)
         setLoading(false)

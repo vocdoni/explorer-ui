@@ -23,8 +23,7 @@ export const useValidatorList = ({ update }: { update: boolean }) => {
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getValidatorList', response)
-        const validators = response.response.validatorlist as Validator[] || [] 
+        const validators = response.response.validatorlist as Validator[] || []
         setLoadingValidatorList(false)
         setValidatorList(validators)
       })

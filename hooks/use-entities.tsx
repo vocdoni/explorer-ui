@@ -4,13 +4,13 @@ import { useAlertMessage } from './message-alert'
 import i18n from '../i18n'
 
 export const useEntityList = ({
-  searchTerm, 
-  from, 
-  listSize, 
+  searchTerm,
+  from,
+  listSize,
   reverse = false
 }:{
-    searchTerm?: string, 
-    from?: number, 
+    searchTerm?: string,
+    from?: number,
     listSize?: number,
     reverse:boolean
 }) => {
@@ -71,7 +71,6 @@ export const useEntityCount = () => {
         })
       })
       .then((response) => {
-        console.debug('DEBUG', 'getEntityCount', response)
         if (!response['ok'])
           throw new Error('Error retrieving getProcessCount')
           setEntitiesCount(response['size'])
@@ -81,7 +80,7 @@ export const useEntityCount = () => {
         setAlertMessage(i18n.t('error.could_not_fetch_organizations_count'))
       })
   }, [poolPromise, setAlertMessage])
-  
+
   useEffect(() => getEntitiesCountReq(), [getEntitiesCountReq])
 
   return {

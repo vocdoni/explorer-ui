@@ -22,22 +22,20 @@ export const useProcessKeys = ({
         .then((pk) => {
           setloadingProcessKeys(false)
           setProcessKeys(pk)
-          console.debug('DEBUG:', 'getProcessKeys', pk)
         })
         .catch((err) => {
           setloadingProcessKeys(false)
           console.error(err)
         })
     }
-  
+
     useEffect(() => {
       if (processId) loadprocessKeys()
     }, [processId])
-  
+
     return {
       loadingProcessKeys, processKeys
     }
   }
-  
-  
-  
+
+

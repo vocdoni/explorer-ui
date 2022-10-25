@@ -49,23 +49,23 @@ export const TransactionDetails = ({
     const txPayload = transactionData.payload
     const ignoreKeys: string[] = []
 
-    // todo: for some reason, response payload converted transactions have some 
+    // todo: for some reason, response payload converted transactions have some
     // values into base64 string. This values, on the interface declaration are
     // `Uint8Array`, but on JSON decoding are treated as 'strings'.
-    // So is a little bit tricky to know, if a payload value have to be 
-    // converted to a b64 or not. Probably reflection could help with that. BTW 
+    // So is a little bit tricky to know, if a payload value have to be
+    // converted to a b64 or not. Probably reflection could help with that. BTW
     // is solved checking regex.
     switch (Object.keys(txPayload)[0] as TxType) {
       case 'vote': {
         const tx = txPayload['vote'] as VoteEnvelope
         ignoreKeys.push('votePackage')
         try {
-          txPayload['vote']['votePackage'] = tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0 
+          txPayload['vote']['votePackage'] = tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0
           ? tx.votePackage
           : atob(tx.votePackage as any as string)
           setVotePackage(tx.votePackage as any as string)
         } catch (e) {
-          console.debug(e)
+          console.error(e)
         }
         setBelongsToProcess(b64ToHex(tx.processId as any as string))
         // For the moment, this is not needed. Let this here for future uses,
@@ -108,7 +108,7 @@ export const TransactionDetails = ({
         break
       }
     }
-    objectB64StringsToHex(txPayload, ignoreKeys)  
+    objectB64StringsToHex(txPayload, ignoreKeys)
     setTxRaw(txPayload)
     setTxType(TxType[Object.keys(txPayload)[0]])
   }, [transactionData])
