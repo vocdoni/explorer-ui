@@ -264,5 +264,8 @@ const ConversorWrapper = styled.div`
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
+    padding: 20px 10px;
+
   }
+
 `
