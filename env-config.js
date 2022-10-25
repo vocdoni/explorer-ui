@@ -28,7 +28,9 @@ module.exports = {
   LANG,
   DEVELOPMENT,
   VOCDONI_ENVIRONMENT,
-  APP_TITLE: 'Explorer',
+  APP_TITLE: 'Vocdoni Explorer',
+  APP_DESCRIPTION: 'A graphical tool to explore the Vocdoni Blockchain, from organizations, processes and votes to discover lasts blocks, transactions, information about the state of the Blockchain and verify your vote.',
+  APP_TAGS: 'vocdoni, blockchain, explorer, organizations, processes, blocks, transactions, vote, votes',
   VERIFY_SINGLE_PAGE,
 
   // BLOCKCHAIN
