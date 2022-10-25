@@ -73,9 +73,10 @@ const CardItemDiv = styled.div`
   align-items: center;
   width: 100%;
   background: ${(props) => props.theme.white};
-  border-radius: 16px;
   box-sizing: border-box;
   padding: 16px 24px;
+  box-shadow: rgba(180, 193, 228, 0.35) 0px 3px 3px;
+  border-radius: 12px;
 
   &:hover {
     color: ${(props) => props.theme.textAccent1};
