@@ -15,46 +15,46 @@ const FeaturedContent = () => {
 
   return (
     <>
-      <CuttingEdgeFeaturesContainer>
-        <ImageContainer width="106px">
-          <img
-            src="/images/anonymous.png"
-            alt={i18n.t('featured.anonymous_image_alt')}
-          />
-        </ImageContainer>
-        <ImageContainer width="120px">
-          <img
-            src="/images/open-source.png"
-            alt={i18n.t('featured.open_source_image_alt')}
-          />
-        </ImageContainer>
-        <ImageContainer width="94px">
-          <img
-            src="/images/scalable.png"
-            alt={i18n.t('featured.scalable_image_alt')}
-          />
-        </ImageContainer>
-
-        <ImageContainer width="108px">
-          <img
-            src="/images/inexpensive.png"
-            alt={i18n.t('featured.inexpensive_image_alt')}
-          />
-        </ImageContainer>
-        <ImageContainer width="80px">
-          <img
-            src="/images/censorship_subtitle.png"
-            alt={i18n.t('featured.censorship_image_alt')}
-          />
-        </ImageContainer>
-        <ImageContainer width="110px">
-          <img
-            src="/images/verifiable.png"
-            alt={i18n.t('featured.verifiable_image_alt')}
-          />
-        </ImageContainer>
-      </CuttingEdgeFeaturesContainer>
-
+      <BlockContainer>
+        <CuttingEdgeFeaturesContainer>
+          <ImageContainer width="96px">
+            <img
+              src="/images/anonymous.png"
+              alt={i18n.t('featured.anonymous_image_alt')}
+            />
+          </ImageContainer>
+          <ImageContainer width="110px">
+            <img
+              src="/images/open-source.png"
+              alt={i18n.t('featured.open_source_image_alt')}
+            />
+          </ImageContainer>
+          <ImageContainer width="84px">
+            <img
+              src="/images/scalable.png"
+              alt={i18n.t('featured.scalable_image_alt')}
+            />
+          </ImageContainer>
+          <ImageContainer width="98px">
+            <img
+              src="/images/inexpensive.png"
+              alt={i18n.t('featured.inexpensive_image_alt')}
+            />
+          </ImageContainer>
+          <ImageContainer width="70px">
+            <img
+              src="/images/censorship_subtitle.png"
+              alt={i18n.t('featured.censorship_image_alt')}
+            />
+          </ImageContainer>
+          <ImageContainer width="100px">
+            <img
+              src="/images/verifiable.png"
+              alt={i18n.t('featured.verifiable_image_alt')}
+            />
+          </ImageContainer>
+        </CuttingEdgeFeaturesContainer>
+      </BlockContainer>
       <Section background="linear-gradient(101.89deg, #F1FFDF 17.32%, #E1FFFF 68.46%);">
         <CenteredBlockContainer>
           <Grid>
