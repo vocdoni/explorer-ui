@@ -225,6 +225,7 @@ const ButtonGroupContainer = styled.div`
     order: 0;
     align-self: stretch;
     flex-grow: 1;
+    gap: 5px;
   }
 
   label > span {
