@@ -12,7 +12,7 @@ import {
   BlockStatus,
   VotingApi,
   ProcessDetails,
-  EntityMetadata,
+  EntityMetadata, ProcessResultsSingleChoice,
 } from 'dvote-js'
 import {
   DateDiffType,
@@ -35,21 +35,17 @@ import { AnonVoteBadge, ProcessStatusBadge } from '@components/blocks/badges/pro
 import { SectionText } from '@components/elements/text'
 import { Tabs, Tab } from '@components/blocks/tabs'
 import { EnvelopeExplorer } from '../components/process-envelope-explorer'
-import { useProcessResults } from '@hooks/use-process'
-import styled from 'styled-components'
-import { useProcessWrapper } from '@hooks/use-process-wrapper'
 import { ResultsCard } from '../components/results-card'
-import { FlexAlignItem, FlexContainer, FlexJustifyContent, FlexWrap } from '@components/elements/flex'
 import { EncryptionKeys } from '../components/process_keys'
 import { CopyButton } from '@components/blocks/copy-button'
-import { ensure0x } from '@vocdoni/common'
 
 interface ProcessesDetailPageProps {
   processId: string,
   processInfo: ProcessDetails,
+  results: ProcessResultsSingleChoice
 }
 
-const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProps) => {
+const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetailPageProps) => {
   const { i18n } = useTranslation()
   const { metadata } = useEntity(processInfo?.state?.entityId)
   const entityMetadata = metadata as EntityMetadata
@@ -57,8 +53,6 @@ const ProcessesDetailPage = ({ processId, processInfo }: ProcessesDetailPageProp
   const { blockStatus } = useBlockStatus()
   const blockHeight = blockStatus?.blockNumber
   const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
-
-  const {loadingResults:loading, results, resultsWeight} = useProcessResults({processId, processInfo})
 
   const dateDiffStr = resolveDate(
     processInfo,
