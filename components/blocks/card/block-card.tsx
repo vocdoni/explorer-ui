@@ -38,7 +38,7 @@ export const BlockCard = ({
   )
 
   const Footer = () => {
-    const proposer = ensure0x(blockData?.proposer_address)
+    const proposer = ensure0x(blockData?.proposerAddress)
     return (
       <FooterWrapper>
         <div id="hash-text">

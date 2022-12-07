@@ -66,9 +66,9 @@ export type Nullable<T> = T | null
 export type BlockInfo = {
   hash: string
   height: number
-  last_block_hash: string
-  num_txs: number
-  proposer_address: string
+  lastBlockHash: string
+  numTxs: number
+  proposerAddress: string
   timestamp: string
 }
 
@@ -86,7 +86,7 @@ export type Stats = {
   validator_count: number
 }
 
-// Transactions 
+// Transactions
 export enum TxType {
   vote = 'vote',
   newProcess = 'newProcess',
@@ -140,7 +140,7 @@ export type EnvelopeList = Awaited<ReturnType<typeof VotingApi.getEnvelopeList>>
 export type Envelope = Awaited<ReturnType<typeof VotingApi.getEnvelope>>
 export declare type EnvelopeAll = EnvelopeFull & {
   encryption_key_indexes: number[]
-  timestamp: number 
+  timestamp: number
   registered: boolean
   height: number
 }

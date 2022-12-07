@@ -19,14 +19,14 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
         </Column>
       </Grid>
       <BlockCard blockData={blockData} />
-      {blockData?.num_txs > 0 ? (
+      {blockData?.numTxs > 0 ? (
         <TransactionListForBlock
-          totalCount={blockData?.num_txs}
+          totalCount={blockData?.numTxs}
           blockHeight={blockData?.height}
         ></TransactionListForBlock>
       ) : null}
       <>
-       <p>{i18n.t('blocks.transactions')} {blockData?.num_txs}</p>
+       <p>{i18n.t('blocks.transactions')} {blockData?.numTxs}</p>
         <p>
           {i18n.t('components.block_card.hash')}:{' '}
           <code>0x{blockData?.hash}</code>
@@ -34,11 +34,11 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
         <p>
           {i18n.t('components.block_card.last_block_hash')}:
           <a href={`#/${(blockData?.height - 1).toString()}`}>
-            <code> 0x{blockData?.last_block_hash}</code>
+            <code> 0x{blockData?.lastBlockHash}</code>
           </a>
         </p>
         <p>
-        {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.proposer_address)}
+        {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.proposerAddress)}
         </p>
       </>
     </PageCard>
