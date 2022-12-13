@@ -24,7 +24,7 @@ export const TransactionCard = ({
   const { i18n } = useTranslation()
 
   const link = getPath(TRANSACTIONS_DETAILS, {
-    blockHeight: transactionData?.block_height?.toString(),
+    blockHeight: transactionData?.blockHeight?.toString(),
     index: transactionData?.index?.toString() ?? '0',
   })
 
@@ -60,7 +60,7 @@ const FooterWrapper = styled.span`
   flex-direction: row;
   justify-content: flex-start;
 
-  & > #hash-text { 
+  & > #hash-text {
     color: ${(props) => props.theme.text};
   }
 `

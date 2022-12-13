@@ -125,7 +125,7 @@ export type GetTx = {
 
 
 export type TxById = {
-  block_height: number,
+  blockHeight: number,
   hash: string,
   id: number,
   signature: string,
