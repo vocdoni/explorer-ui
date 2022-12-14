@@ -11,12 +11,14 @@ export const CopyButton = ({
   size,
   style,
   color,
+  copyMessage,
 }: {
   toCopy: string
   text: string
   size?: string
   style?: React.CSSProperties
   color?: string
+  copyMessage?: string
 }) => {
   const { i18n } = useTranslation()
 
@@ -27,7 +29,7 @@ export const CopyButton = ({
     e.preventDefault();
     e.target.focus();
     copy(toCopy)
-    setCopiedMessage(i18n.t('copy.the_link_has_been_copied_to_the_clipboard'))
+    setCopiedMessage(copyMessage ?? i18n.t('copy.the_link_has_been_copied_to_the_clipboard'))
   }
 
   return (
@@ -56,9 +58,11 @@ export const CopyButton = ({
 export const ReducedTextAndCopy= ({
   text,
   toCopy,
+  copyMessage
 }: {
   text: string
   toCopy: string
+  copyMessage?: string
 }) => {
   const entityTxt =
   text.length < 13
@@ -66,7 +70,7 @@ export const ReducedTextAndCopy= ({
       : text.substring(0, 5) +
         '...' +
         text.substring(text.length - 4, text.length)
-  return <CopyButton toCopy={toCopy} text={entityTxt} />
+  return <CopyButton toCopy={toCopy} text={entityTxt} copyMessage={copyMessage}/>
 }
 
 

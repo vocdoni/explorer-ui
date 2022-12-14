@@ -140,6 +140,7 @@ export const EntityCard = ({
         <ReducedTextAndCopy
           toCopy={entityId}
           text={entityId}
+          copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')}
         ></ReducedTextAndCopy>
       </EntityWrapper>
       <CardItemSubTitle>

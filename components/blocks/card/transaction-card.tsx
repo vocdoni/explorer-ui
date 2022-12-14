@@ -40,7 +40,13 @@ export const TransactionCard = ({
     const hash = ensure0x(transactionData?.hash)
     return (
       <FooterWrapper>
-        <div id="hash-text">{i18n.t('components.transaction_card.hash')} {': '}</div> <ReducedTextAndCopy text={hash} toCopy={hash}></ReducedTextAndCopy>
+        <div id="hash-text">
+          {i18n.t('components.transaction_card.hash')} {': '}
+        </div>
+        <ReducedTextAndCopy
+          text={hash}
+          toCopy={hash}
+          copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')} />
       </FooterWrapper>
     )
   }

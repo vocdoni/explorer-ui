@@ -47,6 +47,7 @@ export const BlockCard = ({
         <ReducedTextAndCopy
           text={proposer}
           toCopy={proposer}
+          copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')}
         ></ReducedTextAndCopy>
       </FooterWrapper>
     )
