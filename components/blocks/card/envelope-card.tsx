@@ -5,12 +5,12 @@ import {
   TransactionLink,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
-import { EnvelopeMeta } from 'dvote-js'
 import React, { ReactNode } from 'react'
 import { IconContext } from 'react-icons'
 import { BiEnvelope } from 'react-icons/bi'
 import styled from 'styled-components'
 import { SkeletonOnlyBones } from '@components/blocks/skeleton'
+import { EnvelopeMeta } from '@lib/types'
 
 
 export const renderCardSkeleton = (skeletonItems) => {
@@ -26,13 +26,13 @@ export const renderCardSkeleton = (skeletonItems) => {
       </>
     )
   }
-  
+
   const EnvelopeCardSkeleton = ({ children }: { children: ReactNode }) => (
     <Card md={6} lg={3} xl={3}>
       {children}
     </Card>
   )
-  
+
   export const EnvelopeCard = ({
     envelope,
     idx,
@@ -41,7 +41,7 @@ export const renderCardSkeleton = (skeletonItems) => {
     idx: number
   }) => {
     const { i18n } = useTranslation()
-  
+
     return (
       <EnvelopeCardSkeleton>
         <TopDiv>
@@ -74,10 +74,10 @@ export const renderCardSkeleton = (skeletonItems) => {
         <p>
           <TransactionLink
             blockHeight={envelope.height.toString()}
-            index={envelope.tx_index.toString()}
+            index={envelope.txIndex.toString()}
           >
             {i18n.t('processes.envelope_explorer.tx_number', {
-              txNumber: envelope.tx_index || 0,
+              txNumber: envelope.txIndex || 0,
             })}
           </TransactionLink>
         </p>
@@ -89,7 +89,7 @@ export const renderCardSkeleton = (skeletonItems) => {
       </EnvelopeCardSkeleton>
     )
   }
-  
+
   const TopDiv = styled.div`
     display: flex;
     flex-direction: row;
@@ -99,4 +99,3 @@ export const renderCardSkeleton = (skeletonItems) => {
   const RightIcon = styled.div`
     line-height: 20px;
   `
-  

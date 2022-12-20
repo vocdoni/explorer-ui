@@ -1,9 +1,26 @@
-import { Envelope, EnvelopeAll, EnvelopeList } from '@lib/types'
+import { EnvelopeMeta, EnvelopeAll, EnvelopeList } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import {
   VotingApi,
 } from 'dvote-js'
 import { useEffect, useState } from 'react'
+import { IGatewayDVoteClient } from '@vocdoni/client'
+
+// Reimplemented from dvote to use camelCase instead of underscore
+export function getEnvelopeList(processId: string,
+                                from: number, listSize: number, gateway: IGatewayDVoteClient): Promise<EnvelopeMeta[]> {
+  if (!processId || isNaN(from) || isNaN(listSize) || !gateway)
+    return Promise.reject(new Error("Invalid parameters"))
+
+  return gateway.sendRequest({ method: "getEnvelopeList", processId, from, listSize })
+    .then((response) => {
+      return Array.isArray(response.envelopes) ? response.envelopes : []
+    })
+    .catch((error) => {
+      const message = (error.message) ? "Could not retrieve the envelope list: " + error.message : "Could not retrieve the envelope list"
+      throw new Error(message)
+    })
+}
 
 export const useEnvelopesList = ({
   processId,
@@ -31,7 +48,7 @@ export const useEnvelopesList = ({
       )
       .then((envelopes) => {
         setLoadingEnvelopes(false)
-        setEnvelopeRange(envelopes)
+        setEnvelopeRange(envelopes as unknown as EnvelopeList)
       })
       .catch((err) => {
         setLoadingEnvelopes(false)
