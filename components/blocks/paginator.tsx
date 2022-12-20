@@ -8,7 +8,7 @@ import { useIsMobile } from '@hooks/use-window-size'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 
 export type PaginatorProps = {
-  totalCount: number
+  totalCount?: number
   pageSize: number
   currentPage: number
   onPageChange: (number) => void

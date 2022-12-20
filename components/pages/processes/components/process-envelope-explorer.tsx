@@ -38,7 +38,7 @@ export const EnvelopeExplorer = ({
     <Card>
       <h4>
         {i18n.t('processes.envelope_explorer.total_votes', {
-          totalVotes: results.totalVotes || 0,
+          totalVotes: results?.totalVotes || 0,
         })}
       </h4>
       <Grid>
@@ -61,13 +61,22 @@ export const EnvelopeExplorer = ({
           </Else>
         </If>
       </Grid>
-      
-      {results.totalVotes > ENVELOPES_PER_PAGE && 
+
+      {results?.totalVotes > ENVELOPES_PER_PAGE &&
         <Paginator
           totalCount={results.totalVotes}
           pageSize={ENVELOPES_PER_PAGE}
           currentPage={envelopePage}
           onPageChange={(page) => changePage(page)}
+        ></Paginator>
+      }
+
+      {results === null &&
+        <Paginator
+          pageSize={ENVELOPES_PER_PAGE}
+          currentPage={envelopePage}
+          onPageChange={(page) => changePage(page)}
+          disableGoLastBtn={true}
         ></Paginator>
       }
 
