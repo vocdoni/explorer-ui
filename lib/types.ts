@@ -138,11 +138,17 @@ export type TxById = {
 
 export type EnvelopeList = EnvelopeMeta[]
 export type Envelope = Awaited<ReturnType<typeof VotingApi.getEnvelope>>
-export declare type EnvelopeAll = EnvelopeFull & {
+export declare type EnvelopeAll = {
   encryption_key_indexes: number[]
   timestamp: number
   registered: boolean
   height: number
+  // dvote Envelope full part
+  meta: EnvelopeMeta,
+  nonce: string,
+  signature: string,
+  vote_package: string,
+  weight: string
 }
 
 export type EnvelopeMeta = {

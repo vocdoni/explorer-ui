@@ -118,10 +118,10 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               {i18n.t('envelopes.details.belongs_to_process')}
               {': '}
               {noLinks ? (
-                '0x'+envelope.meta.process_id
+                '0x'+envelope.meta.processId
               ) : (
-                <ProcessLink processId={envelope.meta.process_id}>
-                  <a>0x{envelope.meta.process_id}</a>
+                <ProcessLink processId={envelope.meta.processId}>
+                  <a>0x{envelope.meta.processId}</a>
                 </ProcessLink>
               )}
             </Typography>
@@ -129,13 +129,13 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               {i18n.t('envelopes.details.transaction_hash')}
               {': '}
               {noLinks ? (
-                '0x' +envelope.meta.tx_hash
+                '0x' +envelope.meta.txHash
               ) : (
                 <TransactionLink
                   blockHeight={envelope.meta.height.toString()}
-                  index={envelope.meta.tx_index.toString()}
+                  index={envelope.meta.txIndex.toString()}
                 >
-                  <a>0x{envelope.meta.tx_hash}</a>
+                  <a>0x{envelope.meta.txHash}</a>
                 </TransactionLink>
               )}
             </Typography>
