@@ -12,7 +12,9 @@ import { useUrlHash } from 'use-url-hash'
 
 const VerifyIndexPage = () => {
 
-  return <VerifySinglePage />
+  const voteNullifier = useUrlHash().slice(1)
+
+  return <VerifySinglePage voteNullifier={voteNullifier} />
 }
 
 // Defining the custom layout to use

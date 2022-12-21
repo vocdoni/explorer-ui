@@ -8,11 +8,14 @@ import { EnvelopeDetails } from '@components/pages/envelopes/details'
 import VerifyPage from '@components/pages/verify'
 import { useEnvelope } from '@hooks/use-envelopes'
 import i18n from '@i18n'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Else, If, Then } from 'react-if'
 import styled from 'styled-components'
+import Router, { useRouter } from 'next/router'
+import { ENVELOPES_DETAILS, VERIFY_DETAILS } from '@const/routes'
+import { getPath } from '@components/pages/app/components/get-links'
 
-const VerifySinglePage = () => {
+const VerifySinglePage = ({ voteNullifier } : { voteNullifier: string }) => {
   const [nullifier, setNullifier] = useState('')
   const [etNullifier, setEtNullifier] = useState('') // Handle edit text state
 
@@ -21,8 +24,17 @@ const VerifySinglePage = () => {
   })
 
   const onClick = () => {
-    if (etNullifier.length) setNullifier(etNullifier)
+    if (etNullifier.length) {
+      Router.push(getPath(VERIFY_DETAILS, {
+        nullifier: etNullifier
+      }))
+      setNullifier(etNullifier)
+    }
   }
+
+  useEffect(() => {
+    setNullifier(voteNullifier)
+  }, [voteNullifier])
 
   return (
     <>
