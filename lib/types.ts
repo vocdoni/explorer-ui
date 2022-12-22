@@ -123,6 +123,14 @@ export type GetTx = {
   payload: Tx
 }
 
+export type GetTxByHash = {
+  transactionNumber: number
+  transactionHash: string
+  blockHeight: number
+  transactionIndex: number
+  transactionType: string
+}
+
 
 export type TxById = {
   blockHeight: number,
