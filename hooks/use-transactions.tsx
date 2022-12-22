@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { fetchMethod, getTxListById } from '@lib/api'
-import { GetTx, TxById, TxForBlock} from '@lib/types'
+import { GetTx, GetTxByHash, TxById, TxForBlock } from '@lib/types'
 import { usePool } from '@vocdoni/react-hooks'
 import { Tx } from 'dvote-js'
 import { useEffect, useState } from 'react'
@@ -110,6 +110,63 @@ export const useTx = ({
   useEffect(() => {
     if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex) ) loadTransactions()
   }, [blockHeight, txIndex])
+
+  return {
+    tx,
+    loading,
+  }
+}
+
+
+/** Get transaction by hash */
+export const useTxByHash = ({ txHash, }: {
+  txHash: string
+}) => {
+  const { i18n } = useTranslation()
+  const { setAlertMessage } = useAlertMessage()
+  // const { poolPromise } = usePool()
+  const [loading, setLoading] = useState(false)
+  const [tx, setTx] = useState<GetTxByHash>()
+
+  const loadTransactions = () => {
+    // if (loading || !poolPromise) return
+
+    setLoading(true)
+    setTx({
+      transactionNumber: 1,
+      transactionHash: txHash,
+      blockHeight: 13363,
+      transactionIndex: 0,
+      transactionType: "voteEnvelope",
+    })
+    setLoading(false)
+
+    // poolPromise
+    //   .then((pool) => {
+    //     //todo: this method is not exposed yet
+    //     return fetchMethod(pool, {
+    //       method: 'getTx',
+    //       params: {
+    //         height: blockHeight,
+    //         txIndex: txIndex,
+    //       },
+    //     })
+    //   })
+    //   .then((response) => {
+    //     const transaction = (response.response.tx as GetTx) || null
+    //     transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
+    //     setTx(transaction)
+    //   })
+    //   .catch((err) => {
+    //     console.error(err)
+    //     setTx(null)
+    //     setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+    //   }).finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    if (txHash ) loadTransactions()
+  }, [txHash])
 
   return {
     tx,
