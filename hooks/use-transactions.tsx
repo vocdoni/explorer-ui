@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
 import { Reader } from 'protobufjs'
+import { ChainAPI } from '../package'
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -128,40 +129,26 @@ export const useTxByHash = ({ txHash, }: {
   const [loading, setLoading] = useState(false)
   const [tx, setTx] = useState<GetTxByHash>()
 
-  const loadTransactions = () => {
-    // if (loading || !poolPromise) return
+  const loadTransactions = async () => {
+    if (loading) return
 
     setLoading(true)
-    setTx({
-      transactionNumber: 1,
-      transactionHash: txHash,
-      blockHeight: 13363,
-      transactionIndex: 0,
-      transactionType: "voteEnvelope",
-    })
-    setLoading(false)
 
-    // poolPromise
-    //   .then((pool) => {
-    //     //todo: this method is not exposed yet
-    //     return fetchMethod(pool, {
-    //       method: 'getTx',
-    //       params: {
-    //         height: blockHeight,
-    //         txIndex: txIndex,
-    //       },
-    //     })
-    //   })
-    //   .then((response) => {
-    //     const transaction = (response.response.tx as GetTx) || null
-    //     transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
-    //     setTx(transaction)
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //     setTx(null)
-    //     setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-    //   }).finally(() => setLoading(false))
+    ChainAPI.txInfo('https://api-dev.vocdoni.net/v2', txHash).then(
+      (res) => {
+        setTx({
+          transactionNumber: 0,
+          transactionHash: "",
+          blockHeight: res.blockHeight,
+          transactionIndex: res.transactionIndex,
+          transactionType: "voteEnvelope",
+        })
+        setLoading(false)
+      }).catch((err) => {
+          console.error(err)
+          setTx(null)
+          setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
+      }).finally(() => setLoading(false));
   }
 
   useEffect(() => {
