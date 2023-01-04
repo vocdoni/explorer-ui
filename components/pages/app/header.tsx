@@ -33,6 +33,8 @@ export const Header = ({ children }: IHeaderProps) => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const { i18n } = useTranslation()
 
+  const isProduction = process.env.VOCDONI_ENVIRONMENT === 'prod'
+
   const LINKS: HeaderLink[] = [
     {
       name: i18n.t('links.organizations'),
@@ -77,7 +79,9 @@ export const Header = ({ children }: IHeaderProps) => {
         <ListContainer>
           <Link href={HOME_PATH} passHref>
             <HomeLink target="_self">
-              <img src="/images/logo-full.svg" alt="Vocdoni" />
+              <img src={
+                isProduction ? '/images/logo-header.png' : '/images/logo-header-dev.png'
+              } alt="Vocdoni" />
             </HomeLink>
           </Link>
 
