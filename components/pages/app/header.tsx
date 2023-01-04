@@ -207,7 +207,8 @@ const HomeLink = styled.a`
 
   & > img {
     margin-top: 6px;
-    height: 45px;
+    max-height: 45px;
+    max-width: 200px;
   }
 `
 const MobileMenuActionsContainer = styled.div`
