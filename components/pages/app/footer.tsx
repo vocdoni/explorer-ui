@@ -11,7 +11,7 @@ export const Footer = () => {
   return <Container>
     <LogoSection>
       <Link href={HOME_PATH} passHref>
-        <HomeLink target='_self'><img src="/images/logo-full-light.svg" alt="Vocdoni" /></HomeLink>
+        <HomeLink target='_self'><img src="/images/logo-classic.svg" alt="Vocdoni" /></HomeLink>
       </Link>
 
     </LogoSection>
@@ -59,7 +59,7 @@ const NavItem = styled.div`
   margin-right: 30px;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    text-align: center; 
+    text-align: center;
   }
 `
 
@@ -85,7 +85,7 @@ const LinksSection = styled.div`
   flex-wrap: wrap;
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: center;
     width: 100%;
   }
