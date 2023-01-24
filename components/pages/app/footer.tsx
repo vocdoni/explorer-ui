@@ -28,7 +28,7 @@ export const Footer = () => {
         </NavItem>
       ))}
       <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/powered-compact.png" alt="Aragon" /></AragonLink>
+        <AragonLink target='_blank'><img src="/images/powered.svg" alt="Aragon" /></AragonLink>
       </Link>
     </LinksSection>
 
