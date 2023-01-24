@@ -28,7 +28,7 @@ export const Footer = () => {
         </NavItem>
       ))}
       <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/powered.svg" alt="Aragon" /></AragonLink>
+        <AragonLink target='_blank'><img src="/images/powered-aragon.svg" alt="Aragon" /></AragonLink>
       </Link>
     </LinksSection>
 
@@ -112,8 +112,8 @@ const AragonLink = styled.a`
   margin-right: 70px;
 
   & > img {
-    margin-right: 20px;
-    height: 32px;
+    //margin-right: 5px;
+    height: 50px;
   }
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
