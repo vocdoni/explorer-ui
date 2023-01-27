@@ -85,7 +85,7 @@ export const DashboardProcessList = ({
       <ProcessFilter onEnableFilter={enableFilter} title={title}></ProcessFilter>
       <FilteredPaginatedList
         loading={loadingProcessList || loadingProcessesDetails}
-        elementsList={!processIds.length ? [] : processes}
+        elementsList={processIds === undefined || !processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
           isUsingFilter() ? null : totalProcessCount
