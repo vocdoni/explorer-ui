@@ -27,7 +27,7 @@ export const useProcessesList = ({
   listSize,
   reverse = false
 }: useProcessListProps) => {
-  const [processIds, setProcessIds] = useState([] as string[])
+  const [processIds, setProcessIds] = useState<string[]>()
   const [loadingProcessList, setLoadingProcessList] = useState(true)
   const { setAlertMessage } = useAlertMessage()
   const { poolPromise } = usePool()

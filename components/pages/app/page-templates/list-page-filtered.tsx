@@ -49,7 +49,7 @@ export const FilteredPaginatedList = <Elements,>({
 
   return (
     <>
-      <If condition={loading || !elementsList?.length || elementsList === undefined}>
+      <If condition={loading || elementsList === undefined}>
         <Then>{renderSkeleton(skeletonItems)}</Then>
         <Else>
           <If condition={elementsList != null && elementsList.length}>

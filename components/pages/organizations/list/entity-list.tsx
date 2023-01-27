@@ -59,7 +59,7 @@ export const DashboardEntityList = ({
 
       <FilteredPaginatedList
         loading={loading}
-        elementsList={!entitiesList.length ? [] : entitiesList}
+        elementsList={entitiesList === undefined || !entitiesList.length ? [] : entitiesList}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
           Object.keys(filter).length === 0 ? totalCount : null
