@@ -24,6 +24,7 @@
   "dependencies": {
     "@aragon/ui": "^1.7.0",
     "@vocdoni/react-hooks": "0.14.1",
+    "@vocdoni/sdk": "file:vocdoni-sdk.tar.gz",
     "blob-stream": "^0.1.3",
     "bluebird": "^3.7.2",
     "copy-to-clipboard": "^3.3.1",
