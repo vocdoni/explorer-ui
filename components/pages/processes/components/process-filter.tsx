@@ -99,10 +99,8 @@ const CheckBoxAndSearchBar = ({
         <Checkbox
           id="with_results"
           checked={tempFilter.withResults}
-          onChange={(ack: boolean) => {
-            // setWithResults(ack)
-            tempFilter.withResults = ack
-
+          onChange={(ev) => {
+            tempFilter.withResults = ev.target.checked
             setTempFilter(Object.assign({}, tempFilter))
           }}
           text={i18n.t('processes.filter.show_only_processes_with_results')}

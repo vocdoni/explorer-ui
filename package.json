@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/vocdoni/explorer-ui#readme",
   "dependencies": {
-    "@aragon/ui": "^1.7.0",
     "@vocdoni/react-hooks": "0.14.1",
     "@vocdoni/sdk": "file:vocdoni-sdk.tar.gz",
     "blob-stream": "^0.1.3",

@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import Link from 'next/link'
 
 import styled from 'styled-components'
-import { Checkbox as AragonCheckbox } from '@aragon/ui'
+import { Input } from 'react-rainbow-components';
 import { Label } from '@components/elements/label'
 
 interface ICheckboxProps {
   id: string
   checked: boolean
-  onChange: (value: boolean) => void
+  onChange: (value: ChangeEvent<HTMLInputElement>) => void
   text: string
   href?: string
   hrefNewTab?: boolean
@@ -18,7 +18,11 @@ interface ICheckboxProps {
 export const Checkbox = ({ id, checked, onChange, text, href = '', labelColor = '', hrefNewTab }: ICheckboxProps) => (
   <CheckboxContainer>
     <CheckboxWrapper>
-      <AragonCheckbox id={id} checked={checked} onChange={onChange} />
+      <Input className="rainbow-m-around_medium"
+             type="checkbox"
+             id={id}
+             checked={checked}
+             onChange={onChange} />
     </CheckboxWrapper>
 
     {(href) ? (
