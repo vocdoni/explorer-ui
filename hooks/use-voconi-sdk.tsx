@@ -31,5 +31,5 @@ interface ITxByHash {
   txHash: string
 }
 
-const UseTxByHash = ({txHash} :ITxByHash ) =>
+export const useTxByHash = ({txHash} :ITxByHash ) =>
   useSDKFunction(ChainAPI.txInfo, txHash);

@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react'
 import { useAlertMessage } from './message-alert'
 import { useStats } from './use-stats'
 import { Reader } from 'protobufjs'
-import { ChainAPI } from '../package'
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -111,49 +110,6 @@ export const useTx = ({
   useEffect(() => {
     if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex) ) loadTransactions()
   }, [blockHeight, txIndex])
-
-  return {
-    tx,
-    loading,
-  }
-}
-
-
-/** Get transaction by hash */
-export const useTxByHash = ({ txHash, }: {
-  txHash: string
-}) => {
-  const { i18n } = useTranslation()
-  const { setAlertMessage } = useAlertMessage()
-  // const { poolPromise } = usePool()
-  const [loading, setLoading] = useState(false)
-  const [tx, setTx] = useState<GetTxByHash>()
-
-  const loadTransactions = async () => {
-    if (loading) return
-
-    setLoading(true)
-
-    ChainAPI.txInfo('https://api-dev.vocdoni.net/v2', txHash).then(
-      (res) => {
-        setTx({
-          transactionNumber: 0,
-          transactionHash: "",
-          blockHeight: res.blockHeight,
-          transactionIndex: res.transactionIndex,
-          transactionType: "voteEnvelope",
-        })
-        setLoading(false)
-      }).catch((err) => {
-          console.error(err)
-          setTx(null)
-          setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      }).finally(() => setLoading(false));
-  }
-
-  useEffect(() => {
-    if (txHash ) loadTransactions()
-  }, [txHash])
 
   return {
     tx,
