@@ -19,7 +19,7 @@ export class ViewStrategy {
 }
 
 export class ViewContext {
-  private strategies: ViewStrategy[] 
+  private strategies: ViewStrategy[]
   constructor(strategies?: ViewStrategy[]){
     this.strategies = strategies? strategies: []
   }
@@ -31,9 +31,9 @@ export class ViewContext {
   public addStrategies (strategies: ViewStrategy[]) {
     this.strategies = strategies
   }
-  
+
   public getView() {
-    for(let strategy of this.strategies) {
+    for(const strategy of this.strategies) {
       if (strategy.evaluate()) {
         return strategy.view
       }

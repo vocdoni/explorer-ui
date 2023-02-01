@@ -30,7 +30,9 @@ export const Image = (props: IImageProps) => {
       if (props.src != imageSrc) {
         setImageSrc(props.src)
       }
-      return () => { }
+      return () => {
+        return { }
+      }
     }
 
     poolPromise

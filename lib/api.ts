@@ -64,6 +64,8 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
   let result: string[] = []
   let from = 0
 
+  // todo(kon): this is bad
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const processList = await VotingApi.getProcessList({
       entityId,
@@ -83,7 +85,7 @@ export async function getTxListById(id:number, listSize: number, pool: GatewayPo
   for (let i = 0; i < listSize; i++) {
       // todo: this method is not exposed yet
       promises.push(fetchMethod(pool, {
-        method: 'getTxById', 
+        method: 'getTxById',
         params: {
           id: id + i
         }

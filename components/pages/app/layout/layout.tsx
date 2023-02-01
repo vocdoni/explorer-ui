@@ -18,7 +18,7 @@ const LayoutContainer = styled.div<{ isHomePage?: boolean }>`
   }
 `
 
-export const DefaultLayout = ({ children }) => {
+export const DefaultLayout = ({ children } : { children }) => {
   const router = useRouter();
   const isHomePage = router.pathname === '/'
 

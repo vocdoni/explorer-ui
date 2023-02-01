@@ -9,7 +9,7 @@ export const areAllNumbers = (slice: any[]) => {
   return true;
 }
 
-export function limitedText(str: string, maxLength: number = 60): string {
+export function limitedText(str: string, maxLength = 60): string {
   if (!str || !str.length || str.length < maxLength) return str;
 
   return str.substr(0, maxLength) + '...';
@@ -17,7 +17,7 @@ export function limitedText(str: string, maxLength: number = 60): string {
 
 
 /** Transforms a CSS hex value like #F7F7F7 into an rgba() component */
-export function hexToRgbA(hex: string, opacity: number = 1): string {
+export function hexToRgbA(hex: string, opacity = 1): string {
   if (opacity > 1) opacity = 1
   else if (opacity < 0) opacity = 0
 
@@ -50,7 +50,7 @@ export const importedRowToString = (row: string[], entityId: string): string => 
 }
 
 /** Waits for a Vochain block, multiplied by the given factor (by default, 1) */
-export function waitBlockFraction(factor: number = 1) {
+export function waitBlockFraction(factor = 1) {
   const delay = parseInt(process.env.BLOCK_TIME) * 1000 * factor
 
   return new Promise((resolve) =>
@@ -102,7 +102,7 @@ export const getVoteStatus = (state, currentBlock?): VoteStatus => {
 
 export function hasDuplicates<T>(values: T[]): boolean {
   const seen: T[] = []
-  for (let v of values) {
+  for (const v of values) {
     if (seen.includes(v)) return true
     seen.push(v)
   }
