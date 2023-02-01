@@ -25,7 +25,8 @@ export default class RouterService {
   private _generateUrl(url, path, args): string {
     let baseUrl = `${url}${path}?`
 
-    for (let key in args) {
+    for (const key in args) {
+      // eslint-disable-next-line no-prototype-builtins
       if (args.hasOwnProperty(key)) {
         if (baseUrl.indexOf(`{${key}}`) !== -1) {
           baseUrl = baseUrl.replace(`{${key}}`, args[key])

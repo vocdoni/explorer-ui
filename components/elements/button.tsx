@@ -360,7 +360,7 @@ const ButtonContent = styled.div<{
       ? 'color: ' + props.theme.textAccent1 + ';'
       : props.color == 'negative'
       ? 'color: ' + props.theme.textAccent2 + ';'
-      : !!props.color
+      : props.color
       ? 'color: ' + props.color + ';'
       : ''}
 `

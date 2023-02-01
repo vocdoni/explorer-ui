@@ -31,7 +31,7 @@ export const questionsValidator = (
 ): InvalidQuestionsError => {
   const questionErrors: MapQuestionError = new Map()
 
-  for (let index in questions) {
+  for (const index in questions) {
     const errorQuestion = validateQuestion(questions[index])
 
     if (errorQuestion) {

@@ -29,9 +29,11 @@ interface StyledCardProps extends CardProps {
   isMobile: boolean
 }
 
+// eslint-disable-next-line react/display-name
 export const Card = forwardRef<HTMLDivElement, CardProps>((props: CardProps, ref) => {
   const isMobile = useIsMobile()
   return (
+    // eslint-disable-next-line react/prop-types
     <StyledCard onClick={props.onClick} ref={ref} isMobile={isMobile} {...props} />
   )
 })
@@ -64,8 +66,8 @@ function getBorderRadius  (props: StyledCardProps) {
   switch (props.borderRadius) {
     case 'sm':
       return '8px'
-    case 'sm':
-      return '16px'
+    // case 'sm':
+    //   return '16px'
     case 'lg':
       return '20px'
     default:

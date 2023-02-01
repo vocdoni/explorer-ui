@@ -20,7 +20,7 @@ const LayoutContainer = styled.div`
   }
 `
 
-export const LayoutVerify = ({ children }) => {
+export const LayoutVerify = ({ children } : { children }) => {
   // const router = useRouter();
   // const isHomePage = router.pathname === '/'
 
