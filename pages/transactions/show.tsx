@@ -6,23 +6,25 @@ import { TransactionDetails } from '@components/pages/transactions/details'
 import { useTranslation } from 'react-i18next'
 import { useTxByHash } from '@hooks/use-voconi-sdk'
 
-const TransactionByHeightAndIndex = ({blockHeight, txIndex, loading = false} : {
+const TransactionByHeightAndIndex = ({blockHeight, txIndex, loading: l = false, error = false} : {
   blockHeight: number
   txIndex: number
   loading?: boolean
+  error?: boolean
 }) => {
   const { tx, loading: txLoading } = useTx({ blockHeight: blockHeight, txIndex: txIndex })
   const { i18n } = useTranslation()
+  const loading = l || txLoading
 
   return (
     <>
-      <If condition={(loading || txLoading) || tx === undefined}>
+      <If condition={loading || tx === undefined && !error}>
         <Then>
           <Loader visible />
         </Then>
       </If>
       <Else>
-        <If condition={tx != null}>
+        <If condition={tx != null && !error }>
           <Then>
             <TransactionDetails
               txIndex={txIndex}
@@ -40,9 +42,14 @@ const TransactionByHeightAndIndex = ({blockHeight, txIndex, loading = false} : {
 }
 
 const TransactionByHash = ({ txHash } : { txHash: string }) => {
-  const { data: tx, loading } = useTxByHash({ txHash: txHash });
+  const { data: tx, loading, error } = useTxByHash({ txHash: txHash });
   return (
-    <TransactionByHeightAndIndex blockHeight={tx?.blockHeight ?? null} txIndex={tx?.transactionIndex ?? null} loading={loading} />
+    <TransactionByHeightAndIndex
+      blockHeight={tx?.blockHeight ?? null}
+      txIndex={tx?.transactionIndex ?? null}
+      loading={loading}
+      error={error !== null}
+    />
   )
 }
 
