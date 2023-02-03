@@ -10,20 +10,20 @@ import { FilterForm } from '@components/pages/app/page-templates/filter-form'
 import { DELAY_BOUNCE_TIME } from '@const/filters'
 
 // Used to send filter to the useProcessesList hook
-export interface IFilterEntity {
+export interface IFilterOrganization {
   searchTerm?: string
 }
 
 export const EntitiesFilter = ({
   onEnableFilter,
 }: {
-  onEnableFilter: { (tempFilter: IFilterEntity): void }
+  onEnableFilter: { (tempFilter: IFilterOrganization): void }
 }) => {
   const { i18n } = useTranslation()
 
   const [searchTermIT, setSearchTermIT] = useState('')
 
-  const [tempFilter, setTempFilter] = useState<IFilterEntity>({})
+  const [tempFilter, setTempFilter] = useState<IFilterOrganization>({})
 
   const _onEnableFilter = () => {
     onEnableFilter(tempFilter)
@@ -32,7 +32,7 @@ export const EntitiesFilter = ({
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       _onEnableFilter()
-    }, DELAY_BOUNCE_TIME)    
+    }, DELAY_BOUNCE_TIME)
     return () => clearTimeout(delayDebounceFn)
   }, [tempFilter])
 

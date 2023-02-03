@@ -37,5 +37,7 @@ export const useTxByHash = ({ txHash } : { txHash: string} ) =>
 export const useOrganizationList = ({ page } : { page: number } ) =>
   useSDKFunction(ChainAPI.organizationList, page);
 
+export const ORG_LIST_SIZE = 10
+
 export const useOrganizationCount = () =>
   useSDKFunction(ChainAPI.organizationCount);
