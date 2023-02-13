@@ -6,17 +6,17 @@ import {
 import { BreakWord } from '@components/elements/styled-divs'
 import { StrongAndText } from '@components/elements/text'
 import { useIsMobile } from '@hooks/use-window-size'
-import { Validator } from '@lib/types'
 import { theme } from '@theme/global'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { CopyButton } from '../copy-button'
+import { IChainValidator } from '@vocdoni/sdk'
 
 export const ValidatorCard = ({
-  validatorData,
-  ...props
-}: GenericCardWrapperProps & {
-  validatorData: Validator
+                                validatorData,
+                                ...props
+                              }: GenericCardWrapperProps & {
+  validatorData: IChainValidator
 }) => {
   const { i18n } = useTranslation()
   const isMobile = useIsMobile()
@@ -31,13 +31,19 @@ export const ValidatorCard = ({
             text={
               isMobile
                 ? pubKey.substring(0, 10) +
-                  '...' +
-                  pubKey.substring(pubKey.length - 10, pubKey.length)
+                '...' +
+                pubKey.substring(pubKey.length - 10, pubKey.length)
                 : pubKey
             }
             toCopy={pubKey}
           ></CopyButton>
         </StrongAndText>
+        {
+          validatorData.name &&
+          <StrongAndText title={i18n.t('components.validator.name') + ': '}>
+            <div>{validatorData.name}</div>
+          </StrongAndText>
+        }
         <StrongAndText title={i18n.t('components.validator.voting_power') + ': '}>
           <div>{validatorData.power}</div>
         </StrongAndText>

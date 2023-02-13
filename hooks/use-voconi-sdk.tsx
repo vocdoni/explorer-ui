@@ -39,3 +39,6 @@ export const useOrganizationList = ({ page } : { page: number } ) =>
 
 export const useOrganizationCount = () =>
   useSDKFunction(ChainAPI.organizationCount);
+
+export const useValidators = () =>
+  useSDKFunction(ChainAPI.validatorsList)
