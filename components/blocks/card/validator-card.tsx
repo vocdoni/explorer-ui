@@ -12,10 +12,7 @@ import styled from 'styled-components'
 import { CopyButton } from '../copy-button'
 import { IChainValidator } from '@vocdoni/sdk'
 
-export const ValidatorCard = ({
-                                validatorData,
-                                ...props
-                              }: GenericCardWrapperProps & {
+export const ValidatorCard = ({ validatorData, ...props }: GenericCardWrapperProps & {
   validatorData: IChainValidator
 }) => {
   const { i18n } = useTranslation()
