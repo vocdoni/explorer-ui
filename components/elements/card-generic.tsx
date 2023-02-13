@@ -22,21 +22,16 @@ export const GenericCardWrapper = ({
   style,
   ...props
 }: GenericCardWrapperProps) => {
-  const Skeleton = () => (
+  const Skeleton = ({ isLink = false } : { isLink?: boolean }) => (
     <CardItemDiv tabIndex={0} style={style} >
       {left && <CardLeft>{left}</CardLeft>}
       <CardBody>
         {top && <TopDiv>{top}</TopDiv>}
-        {/*<CenterDiv*/}
-        {/*style={*/}
-        {/*  { margin: top ? '8px 0' : '0 0 8px 0' }*/}
-        {/*}*/}
-        {/*  >{children}</CenterDiv>*/}
         <CenterDiv>{children}</CenterDiv>
         {footer && <FooterDiv>{footer}</FooterDiv>}
       </CardBody>
       <CardRight>
-        <FaChevronRight />
+        {isLink && <FaChevronRight />}
       </CardRight>
     </CardItemDiv>
   )
@@ -46,11 +41,13 @@ export const GenericCardWrapper = ({
       {link ? (
         <LinkCardContainer>
           <Link href={link ?? ''} passHref>
-            <a href={link ?? ''}>{<Skeleton />}</a>
+            <a href={link ?? ''}>{
+              <Skeleton isLink={true} />
+            }</a>
           </Link>
         </LinkCardContainer>
       ) : (
-        <Skeleton />
+        <Skeleton  />
       )}
     </ColumnWrapper>
   )
