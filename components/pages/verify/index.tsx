@@ -4,7 +4,7 @@ import {
   FlexAlignItem,
   FlexContainer,
   FlexJustifyContent,
-  InlineFlex,
+
 } from '@components/elements/flex'
 import { Column, Grid } from '@components/elements/grid'
 import { Input } from '@components/elements/inputs'
@@ -13,32 +13,30 @@ import { Typography, TypographyVariant } from '@components/elements/typography'
 import i18n from '@i18n'
 import { colors } from '@theme/colors'
 import Link from 'next/link'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import styled from 'styled-components'
 import {
-  InlineTitleChildrenContainer,
-  ListPage,
   TopDiv,
 } from '../app/page-templates/list-page'
 
 const VerifyPage = ({
   button,
-  setNullifier,
+  setVoteId,
   minified = false,
   onSubmit,
 }: {
   button: ReactNode
-  setNullifier: (nullifier: string) => void
+  setVoteId: (voteId: string) => void
   minified?: boolean
   onSubmit?: () => void
 }) => {
-  
-  const nullifierInput = (
+
+  const voteIdInput = (
     <Input
       wide
       placeholder={i18n.t('verify.add_vote_id')}
       onChange={(ev) => {
-        setNullifier(ev.target.value)
+        setVoteId(ev.target.value)
       }}
     />
   )
@@ -66,7 +64,7 @@ const VerifyPage = ({
           {title}
         </FlexContainer>
         <TopDiv>
-          <InlineInput>{nullifierInput}</InlineInput>
+          <InlineInput>{voteIdInput}</InlineInput>
           <LeftMargin>
             <Grid>
               <Column>
@@ -92,7 +90,7 @@ const VerifyPage = ({
           )}
         </Typography>
         <Col align="center">
-          <Row align="center">{nullifierInput}</Row>
+          <Row align="center">{voteIdInput}</Row>
         </Col>
         <FlexContainer
           alignItem={FlexAlignItem.Center}
@@ -104,7 +102,7 @@ const VerifyPage = ({
     )
   }
 
-  return <form 
+  return <form
   onSubmit={(ev) => {
     ev.preventDefault()
     if(onSubmit) onSubmit()
