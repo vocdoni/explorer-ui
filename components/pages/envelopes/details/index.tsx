@@ -1,4 +1,3 @@
-import { GenericListItemWithBadge } from '@components/blocks/list-items'
 import { Card, PageCard } from '@components/elements/cards'
 import { BadgeColumn, Column, Grid } from '@components/elements/grid'
 import { Typography, TypographyVariant } from '@components/elements/typography'
@@ -8,7 +7,6 @@ import {
   TransactionLink,
 } from '@components/pages/app/components/get-links'
 import { useTranslation } from 'react-i18next'
-import { Envelope, EnvelopeAll } from '@lib/types'
 import { colors } from '@theme/colors'
 import {
   BreakWordAll,
@@ -18,7 +16,6 @@ import {
 } from '@components/elements/styled-divs'
 import { EncryptionKeysIndexesBadge } from '@components/blocks/badges/envelope_encryption_keys'
 import { localizedDateDiff } from '@lib/date'
-import { Tab, TabButton, Tabs } from '@components/blocks/tabs'
 import { useState } from 'react'
 import { Button } from '@components/elements/button'
 import {
@@ -28,8 +25,9 @@ import {
   FlexWrap,
 } from '@components/elements/flex'
 import styled from 'styled-components'
+import { IVoteInfoResponse } from '@vocdoni/sdk'
 
-export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
+export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) => {
   const { i18n } = useTranslation()
 
   const [showRawContent, setShowRawContent] = useState(false)
@@ -70,19 +68,19 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
                   <br></br>
                 </CenterText>
                 <BreakWordAll>
-                  <span>{envelope.meta.nullifier}</span>
+                  <span>{envelope.voteID}</span>
                 </BreakWordAll>
               </Typography>
             </FlexContainer>
             <ItemDate>
               {i18n.t('envelopes.details.emitted')}{' '}
-              {localizedDateDiff(new Date(envelope.timestamp * 1000))}
+              {localizedDateDiff(new Date(envelope.blockTimestamp * 1000))}
             </ItemDate>
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.encryption_keys_used')}:
               <BadgeColumn>
-                {envelope.encryption_key_indexes?.length > 0 ? (
-                  envelope.encryption_key_indexes.map((n) => {
+                {envelope.encryptionKeyIndexes?.length > 0 ? (
+                  envelope.encryptionKeyIndexes.map((n) => {
                     return (
                       <EncryptionKeysIndexesBadge
                         key={n}
@@ -110,10 +108,10 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.commited_in_block')}:
               {noLinks ? (
-                '#' + envelope.meta.height
+                '#' + envelope.blockHeight
               ) : (
-                <BlockLink blockHeight={envelope.height}>
-                  <a>#{envelope.height}</a>
+                <BlockLink blockHeight={envelope.blockHeight}>
+                  <a>#{envelope.blockHeight}</a>
                 </BlockLink>
               )}
             </Typography>
@@ -121,10 +119,10 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               {i18n.t('envelopes.details.belongs_to_process')}
               {': '}
               {noLinks ? (
-                '0x'+envelope.meta.processId
+                '0x'+ envelope.electionID
               ) : (
-                <ProcessLink processId={envelope.meta.processId}>
-                  <a>0x{envelope.meta.processId}</a>
+                <ProcessLink processId={envelope.electionID}>
+                  <a>0x{envelope.electionID}</a>
                 </ProcessLink>
               )}
             </Typography>
@@ -132,13 +130,13 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
               {i18n.t('envelopes.details.transaction_hash')}
               {': '}
               {noLinks ? (
-                '0x' +envelope.meta.txHash
+                '0x' +envelope.txHash
               ) : (
                 <TransactionLink
-                  blockHeight={envelope.meta.height.toString()}
-                  index={envelope.meta.txIndex.toString()}
+                  blockHeight={envelope.blockHeight.toString()}
+                  index={envelope.transactionIndex.toString()}
                 >
-                  <a>0x{envelope.meta.txHash}</a>
+                  <a>0x{envelope.txHash}</a>
                 </TransactionLink>
               )}
             </Typography>
