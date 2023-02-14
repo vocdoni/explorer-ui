@@ -42,3 +42,6 @@ export const useOrganizationCount = () =>
 
 export const useValidators = () =>
   useSDKFunction(ChainAPI.validatorsList)
+
+export const useVoteInfo = ({ voteId } : { voteId: string}) =>
+  useSDKFunction(VoteAPI.info, voteId);
