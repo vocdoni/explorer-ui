@@ -67,53 +67,53 @@ export const useEnvelopesList = ({
 }
 
 
-export const useEnvelope = ({
-  nullifier,
-}: {
-  nullifier: string
-}) => {
-  const [envelope, setEnvelope] = useState<EnvelopeAll>()
-  const { poolPromise } = usePool()
-  const [loadingEnvelope, setLoadingEnvelope] = useState(false)
-
-  const loadEnvelope = () => {
-    setLoadingEnvelope(true)
-    poolPromise
-      .then((pool) =>
-        // todo(ritmo): VotingApi.getEnvelope return a EnvelopeFull object which not implement encryption_key_indexes
-        Promise.all([
-          // todo(ritmo): VotingApi.getResults for encrypted not finished votes don't return envelopHeight properly
-          // VotingApi.getResults(processId, pool),
-          pool.sendRequest({
-            method: 'getEnvelope',
-            nullifier: nullifier
-          }),
-          pool.sendRequest({
-            method: 'getEnvelopeStatus',
-            nullifier: nullifier
-          }),
-        ])
-      )
-      .then(([getEnvelope, getEnvelopeStatus]) => {
-        setLoadingEnvelope(false)
-        const e: EnvelopeAll = getEnvelope['envelope'] as EnvelopeAll
-        e.timestamp = getEnvelopeStatus['blockTimestamp']
-        e.registered = getEnvelopeStatus['registered']
-        e.height = getEnvelopeStatus['height']
-        setEnvelope(e)
-      })
-      .catch((err) => {
-        setLoadingEnvelope(false)
-        setEnvelope(null)
-        console.error(err)
-      })
-  }
-
-  useEffect(() => {
-    if (nullifier) loadEnvelope()
-  }, [nullifier])
-
-  return {
-    loadingEnvelope, envelope
-  }
-}
+// export const useEnvelope = ({
+//   nullifier,
+// }: {
+//   nullifier: string
+// }) => {
+//   const [envelope, setEnvelope] = useState<EnvelopeAll>()
+//   const { poolPromise } = usePool()
+//   const [loadingEnvelope, setLoadingEnvelope] = useState(false)
+//
+//   const loadEnvelope = () => {
+//     setLoadingEnvelope(true)
+//     poolPromise
+//       .then((pool) =>
+//         // todo(ritmo): VotingApi.getEnvelope return a EnvelopeFull object which not implement encryption_key_indexes
+//         Promise.all([
+//           // todo(ritmo): VotingApi.getResults for encrypted not finished votes don't return envelopHeight properly
+//           // VotingApi.getResults(processId, pool),
+//           pool.sendRequest({
+//             method: 'getEnvelope',
+//             nullifier: nullifier
+//           }),
+//           pool.sendRequest({
+//             method: 'getEnvelopeStatus',
+//             nullifier: nullifier
+//           }),
+//         ])
+//       )
+//       .then(([getEnvelope, getEnvelopeStatus]) => {
+//         setLoadingEnvelope(false)
+//         const e: EnvelopeAll = getEnvelope['envelope'] as EnvelopeAll
+//         e.timestamp = getEnvelopeStatus['blockTimestamp']
+//         e.registered = getEnvelopeStatus['registered']
+//         e.height = getEnvelopeStatus['height']
+//         setEnvelope(e)
+//       })
+//       .catch((err) => {
+//         setLoadingEnvelope(false)
+//         setEnvelope(null)
+//         console.error(err)
+//       })
+//   }
+//
+//   useEffect(() => {
+//     if (nullifier) loadEnvelope()
+//   }, [nullifier])
+//
+//   return {
+//     loadingEnvelope, envelope
+//   }
+// }
