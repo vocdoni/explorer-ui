@@ -55,7 +55,7 @@ const VerifySinglePage = ({ urlVoteId } : { urlVoteId: string }) => {
               </FakedButton>
             </Button>
           }
-          setNullifier={setEtVoteId}
+          setVoteId={setEtVoteId}
         />
       </VerifyPageContainer>
       <If condition={isLoading}>
