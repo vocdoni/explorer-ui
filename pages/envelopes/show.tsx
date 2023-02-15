@@ -1,15 +1,15 @@
 import { Loader } from '@components/blocks/loader'
 import { EnvelopeDetails } from '@components/pages/envelopes/details'
-import { useEnvelope } from '@hooks/use-envelopes'
 import { Else, If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { useTranslation } from 'react-i18next'
+import { useVoteInfo } from '@hooks/use-voconi-sdk'
 
 const EnvelopeDetailPage = () => {
   const { i18n } = useTranslation()
-  const nullifier: string = useUrlHash().slice(1)
-  const { loadingEnvelope: loading, envelope } = useEnvelope({
-    nullifier: nullifier,
+  const voteId: string = useUrlHash().slice(1)
+  const { loading, data: envelope } = useVoteInfo({
+    voteId,
   })
 
   return (
