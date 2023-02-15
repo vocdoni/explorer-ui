@@ -1,7 +1,6 @@
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
 import { useTranslation } from 'react-i18next'
-import { ProcessResultsSingleChoice } from 'dvote-js'
 import React, { useState } from 'react'
 import { Paginator } from '@components/blocks/paginator'
 import { Else, If, Then } from 'react-if'
@@ -69,15 +68,6 @@ export const EnvelopeExplorer = ({
           pageSize={ENVELOPES_PER_PAGE}
           currentPage={paginatorPage}
           onPageChange={(page) => changePage(page)}
-        ></Paginator>
-      }
-
-      {envelopeCount === null &&
-        <Paginator
-          pageSize={ENVELOPES_PER_PAGE}
-          currentPage={paginatorPage}
-          onPageChange={(page) => changePage(page)}
-          disableGoLastBtn={true}
         ></Paginator>
       }
 
