@@ -10,7 +10,7 @@ import { IconContext } from 'react-icons'
 import { BiEnvelope } from 'react-icons/bi'
 import styled from 'styled-components'
 import { SkeletonOnlyBones } from '@components/blocks/skeleton'
-import { EnvelopeMeta } from '@lib/types'
+import { IElectionVote } from '@vocdoni/sdk'
 
 
 export const renderCardSkeleton = (skeletonItems) => {
@@ -37,7 +37,7 @@ export const renderCardSkeleton = (skeletonItems) => {
     envelope,
     idx,
   }: {
-    envelope: EnvelopeMeta
+    envelope: IElectionVote
     idx: number
   }) => {
     const { i18n } = useTranslation()
@@ -65,24 +65,24 @@ export const renderCardSkeleton = (skeletonItems) => {
           </RightIcon>
         </TopDiv>
         <p>
-          <BlockLink blockHeight={envelope.height}>
+          <BlockLink blockHeight={envelope.blockHeight}>
             {i18n.t('processes.envelope_explorer.block', {
-              block: envelope.height || 0,
+              block: envelope.blockHeight || 0,
             })}
           </BlockLink>
         </p>
         <p>
           <TransactionLink
-            blockHeight={envelope.height.toString()}
-            index={envelope.txIndex.toString()}
+            blockHeight={envelope.blockHeight.toString()}
+            index={envelope.transactionIndex.toString()}
           >
             {i18n.t('processes.envelope_explorer.tx_number', {
-              txNumber: envelope.txIndex || 0,
+              txNumber: envelope.transactionIndex || 0,
             })}
           </TransactionLink>
         </p>
         <p>
-          <EnvelopeLink nullifier={envelope.nullifier}>
+          <EnvelopeLink nullifier={envelope.voteID}>
             {i18n.t('processes.envelope_explorer.details')}
           </EnvelopeLink>
         </p>

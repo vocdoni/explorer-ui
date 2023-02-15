@@ -1,57 +1,58 @@
 import { Card } from '@components/elements/cards'
 import { Grid } from '@components/elements/grid'
-import { useEnvelopesList } from '@hooks/use-envelopes'
 import { useTranslation } from 'react-i18next'
 import { ProcessResultsSingleChoice } from 'dvote-js'
 import React, { useState } from 'react'
 import { Paginator } from '@components/blocks/paginator'
 import { Else, If, Then } from 'react-if'
 import { renderCardSkeleton, EnvelopeCard } from '@components/blocks/card/envelope-card'
+import { useElectionVotesCount, useElectionVotesList } from '@hooks/use-voconi-sdk'
 
-const ENVELOPES_PER_PAGE = 8
+const ENVELOPES_PER_PAGE = 10
 
 interface EnvelopeExplorerProps {
-  results?: ProcessResultsSingleChoice
-  processId: string
+  electionId: string
 }
 
 export const EnvelopeExplorer = ({
-  results,
-  processId,
+  electionId,
 }: EnvelopeExplorerProps) => {
   const { i18n } = useTranslation()
 
-  const [envelopePage, setEnvelopePage] = useState(1)
-  const [from, setFrom] = useState(0)
-  const { loadingEnvelopes, envelopeRange } = useEnvelopesList({
-    processId,
-    from,
-    listSize: ENVELOPES_PER_PAGE,
+  const [paginatorPage, setPaginatorPage] = useState(1)
+  const votePage = paginatorPage -1
+
+  const { loading: loadingEnvelopes, data: envelopeRange } = useElectionVotesList({
+    electionId,
+    page: votePage,
   })
 
+  const {loading: voteCountLoading, data: envelopeCount } = useElectionVotesCount({ electionId })
+
+  const loading = voteCountLoading || loadingEnvelopes
+
   const changePage = (page) => {
-    setEnvelopePage(page)
-    setFrom((page - 1) * ENVELOPES_PER_PAGE)
+    setPaginatorPage(page)
   }
 
   return (
     <Card>
       <h4>
         {i18n.t('processes.envelope_explorer.total_votes', {
-          totalVotes: results?.totalVotes || 0,
+          totalVotes: envelopeCount?.count || 0,
         })}
       </h4>
       <Grid>
         <If
           condition={
-            !loadingEnvelopes
+            !loading && envelopeRange != null
           }
         >
           <Then>
-            {envelopeRange.map((envelope, idx) => (
+            {envelopeRange?.map((envelope, idx) => (
               <EnvelopeCard
                 envelope={envelope}
-                idx={from + idx + 1}
+                idx={(votePage * ENVELOPES_PER_PAGE) + idx + 1}
                 key={idx}
               ></EnvelopeCard>
             ))}
@@ -62,19 +63,19 @@ export const EnvelopeExplorer = ({
         </If>
       </Grid>
 
-      {results?.totalVotes > ENVELOPES_PER_PAGE &&
+      {envelopeCount?.count > ENVELOPES_PER_PAGE &&
         <Paginator
-          totalCount={results.totalVotes}
+          totalCount={envelopeCount?.count}
           pageSize={ENVELOPES_PER_PAGE}
-          currentPage={envelopePage}
+          currentPage={paginatorPage}
           onPageChange={(page) => changePage(page)}
         ></Paginator>
       }
 
-      {results === null &&
+      {envelopeCount === null &&
         <Paginator
           pageSize={ENVELOPES_PER_PAGE}
-          currentPage={envelopePage}
+          currentPage={paginatorPage}
           onPageChange={(page) => changePage(page)}
           disableGoLastBtn={true}
         ></Paginator>

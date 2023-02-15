@@ -74,7 +74,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
             </FlexContainer>
             <ItemDate>
               {i18n.t('envelopes.details.emitted')}{' '}
-              {localizedDateDiff(new Date(envelope.blockTimestamp * 1000))}
+              {localizedDateDiff(new Date(envelope.date))}
             </ItemDate>
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.encryption_keys_used')}:
