@@ -31,7 +31,7 @@ const ActiveVoteBadge = styled(BaseStatusBadge)`
   background: #F3FCCC;
 `
 
-const UpcomingVoteBadge = styled(BaseStatusBadge)`
+export const UpcomingVoteBadge = styled(BaseStatusBadge)`
   color: #1588B9;
   background: #D1FDFA;
 `
