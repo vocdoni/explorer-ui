@@ -1,19 +1,22 @@
 import {
-  ChainAPI,
-  IChainGetTransactionReferenceResponse,
+  ChainAPI, ElectionAPI,
+  IChainGetTransactionReferenceResponse, VoteAPI,
 } from '@vocdoni/sdk'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
-function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, params?: U) {
+function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, ...args: any[]) {
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Use useMemo to memoize the arguments and recompute only when they change
+  const memoizedArgs = useMemo(() => args, args);
+
   useEffect(() => {
     setLoading(true);
-    promiseFn("https://api-dev.vocdoni.net/v2" , params)
+    promiseFn("https://api-dev.vocdoni.net/v2" , ...args)
       .then(response => {
         setData(response);
         setLoading(false);
@@ -22,7 +25,7 @@ function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, par
         setError(err);
         setLoading(false);
       });
-  }, [promiseFn, params]);
+  }, [promiseFn, memoizedArgs]);
 
   return { data, error, loading };
 }
@@ -45,3 +48,9 @@ export const useValidators = () =>
 
 export const useVoteInfo = ({ voteId } : { voteId: string}) =>
   useSDKFunction(VoteAPI.info, voteId);
+
+export const useElectionVotesList = ({ electionId, page } : { electionId: string, page?: number}) =>
+  useSDKFunction(ElectionAPI.electionVotesList, electionId, page);
+
+export const useElectionVotesCount = ({ electionId } : { electionId: string }) =>
+  useSDKFunction(ElectionAPI.electionVotesCount, electionId);
