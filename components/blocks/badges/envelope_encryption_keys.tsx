@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { Switch, Case, Default } from 'react-if'
 import {
   ActiveBadge,
-  CanceledBadge,
 } from '@components/elements/text-badge'
+import { UpcomingVoteBadge } from '@components/blocks/badges/process-status-badge'
 
 export const EncryptionKeysIndexesBadge = ({ type }: { type: number }) => {
   const { i18n } = useTranslation()
@@ -13,9 +13,9 @@ export const EncryptionKeysIndexesBadge = ({ type }: { type: number }) => {
         <ActiveBadge>{type}</ActiveBadge>
       </Case>
       <Default>
-        <CanceledBadge>
+        <UpcomingVoteBadge>
           {i18n.t('envelopes.encryption_keys.none')}
-        </CanceledBadge>
+        </UpcomingVoteBadge>
       </Default>
     </Switch>
   )
