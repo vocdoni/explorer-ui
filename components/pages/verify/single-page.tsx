@@ -1,9 +1,6 @@
 import { Loader } from '@components/blocks/loader'
 import { Button } from '@components/elements/button'
-import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex'
 import { FakedButton } from '@components/elements/styled-divs'
-import { DefaultLayout } from '@components/pages/app/layout/layout'
-import { LayoutVerify } from '@components/pages/app/layout/verify'
 import { EnvelopeDetails } from '@components/pages/envelopes/details'
 import VerifyPage from '@components/pages/verify'
 import { useEnvelope } from '@hooks/use-envelopes'
@@ -15,7 +12,7 @@ import Router, { useRouter } from 'next/router'
 import { ENVELOPES_DETAILS, VERIFY_DETAILS } from '@const/routes'
 import { getPath } from '@components/pages/app/components/get-links'
 
-const VerifySinglePage = ({ voteNullifier } : { voteNullifier: string }) => {
+const VerifySinglePage = ({ urlNullifier } : { urlNullifier: string }) => {
   const [nullifier, setNullifier] = useState('')
   const [etNullifier, setEtNullifier] = useState('') // Handle edit text state
 
@@ -33,14 +30,18 @@ const VerifySinglePage = ({ voteNullifier } : { voteNullifier: string }) => {
   }
 
   useEffect(() => {
-    setNullifier(voteNullifier)
-  }, [voteNullifier])
+    setNullifier(urlNullifier)
+  }, [urlNullifier])
+
+  const envelopeNotFound = (nullifier || urlNullifier) && envelope === null && !loading
+  const envelopeFound = envelope !== null && envelope !== undefined
+  const isLoading = (loading && !envelope) || (urlNullifier && envelope === undefined)
 
   return (
     <>
-    <VerifyPageContainer>
+      <VerifyPageContainer>
         <VerifyPage
-          minified={envelope !== null && envelope !== undefined}
+          minified={envelopeFound || envelopeNotFound}
           onSubmit={onClick}
           button={
             <Button
@@ -56,25 +57,18 @@ const VerifySinglePage = ({ voteNullifier } : { voteNullifier: string }) => {
           setNullifier={setEtNullifier}
         />
       </VerifyPageContainer>
-      <If condition={loading && !envelope}>
+      <If condition={isLoading}>
         <Then>
           <Loader visible />
         </Then>
         <Else>
-          <If condition={envelope !== null && envelope !== undefined}>
+          <If condition={envelopeFound}>
             <Then>
               <EnvelopeDetails envelope={envelope} />
             </Then>
             <Else>
-              <If condition={nullifier !== null && envelope === null && !loading}>
-                <Then>
-                <FlexContainer
-                  alignItem={FlexAlignItem.Center}
-                  justify={FlexJustifyContent.Center}
-                >
-                  <h2>{i18n.t('envelopes.details.envelope_not_found')}</h2>
-                </FlexContainer>
-                </Then>
+              <If condition={envelopeNotFound}>
+                <h2>{i18n.t('envelopes.details.envelope_not_found')}</h2>
               </If>
             </Else>
           </If>
@@ -87,5 +81,5 @@ const VerifySinglePage = ({ voteNullifier } : { voteNullifier: string }) => {
 export default VerifySinglePage
 
 const VerifyPageContainer =  styled.div`
-margin-bottom: 20px;
+  margin-bottom: 20px;
 `

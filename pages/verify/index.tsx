@@ -1,20 +1,13 @@
-import { Button } from '@components/elements/button'
-import { FakedButton } from '@components/elements/styled-divs'
 import { DefaultLayout } from '@components/pages/app/layout/layout'
 import { LayoutVerify } from '@components/pages/app/layout/verify'
-import VerifyPage from '@components/pages/verify'
 import VerifySinglePage from '@components/pages/verify/single-page'
-import i18n from '@i18n'
-import Link from 'next/link'
-import { useState } from 'react'
-import styled from 'styled-components'
 import { useUrlHash } from 'use-url-hash'
 
 const VerifyIndexPage = () => {
 
-  const voteNullifier = useUrlHash().slice(1)
+  const urlNullifier = useUrlHash().slice(1)
 
-  return <VerifySinglePage voteNullifier={voteNullifier} />
+  return <VerifySinglePage urlNullifier={urlNullifier} />
 }
 
 // Defining the custom layout to use
