@@ -1,4 +1,4 @@
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js'
+import { ElectionStatusEnum } from '@vocdoni/sdk'
 
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
@@ -67,31 +67,29 @@ export enum VoteStatus {
   Upcoming,
 }
 
-export const getVoteStatus = (state, currentBlock?): VoteStatus => {
-  if (state === undefined || currentBlock === undefined) return VoteStatus.Unknown
+export const getVoteStatus = (
+  status: ElectionStatusEnum,
+  initDate: Date,
+  endDate: Date): VoteStatus => {
 
-  const processStatus =  state.status
-  const startBlock = state.startBlock
-  const endBlock = state.endBlock
-
-  switch (processStatus) {
-    case ProcessStatus.READY:
-      if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown
-      if (startBlock > currentBlock) return VoteStatus.Upcoming
-      if (currentBlock > endBlock) return VoteStatus.Ended
-
+  if (status === undefined || initDate === undefined) return VoteStatus.Unknown
+  const now = new Date();
+  switch (status) {
+    case ElectionStatusEnum.READY:
+      if (initDate > now) return VoteStatus.Upcoming
+      if (now > endDate) return VoteStatus.Ended
       return VoteStatus.Active
 
-    case ProcessStatus.ENDED:
+    case ElectionStatusEnum.ENDED:
       return VoteStatus.Ended
 
-    case ProcessStatus.PAUSED:
+    case ElectionStatusEnum.PAUSED:
       return VoteStatus.Paused
 
-    case ProcessStatus.CANCELED:
+    case ElectionStatusEnum.CANCELED:
       return VoteStatus.Canceled
 
-    case ProcessStatus.RESULTS:
+    case ElectionStatusEnum.RESULTS:
       return VoteStatus.Ended
 
     default:

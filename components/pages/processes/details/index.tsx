@@ -59,7 +59,8 @@ const ProcessesDetailPage = ({ electionInfo }: { electionInfo: IElectionInfoResp
   const entityMetadata = metadata as EntityMetadata
 
   const initDate = new Date(electionInfo.startDate);
-  const endDate = new Date(electionInfo.startDate);
+  const endDate = new Date(electionInfo.endDate);
+
   const voteStatus: VoteStatus = getVoteStatus(
     electionInfo.status,
     initDate,
@@ -174,6 +175,7 @@ const ProcessesDetailPage = ({ electionInfo }: { electionInfo: IElectionInfoResp
   )
 }
 
+// todo: move this somewhere
 function resolveLocalizedDateDiff(
   initDate: Date,
   endDate: Date,
