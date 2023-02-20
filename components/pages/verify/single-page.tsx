@@ -6,7 +6,7 @@ import VerifyPage from '@components/pages/verify'
 import { useEnvelope } from '@hooks/use-envelopes'
 import i18n from '@i18n'
 import { useEffect, useState } from 'react'
-import { Else, If, Then } from 'react-if'
+import { Else, If, Then, When } from 'react-if'
 import styled from 'styled-components'
 import Router, { useRouter } from 'next/router'
 import { ENVELOPES_DETAILS, VERIFY_DETAILS } from '@const/routes'
@@ -67,9 +67,9 @@ const VerifySinglePage = ({ urlNullifier } : { urlNullifier: string }) => {
               <EnvelopeDetails envelope={envelope} />
             </Then>
             <Else>
-              <If condition={envelopeNotFound}>
+              <When condition={envelopeNotFound}>
                 <h2>{i18n.t('envelopes.details.envelope_not_found')}</h2>
-              </If>
+              </When>
             </Else>
           </If>
         </Else>
