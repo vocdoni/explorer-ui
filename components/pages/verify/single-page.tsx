@@ -34,14 +34,14 @@ const VerifySinglePage = ({ urlNullifier } : { urlNullifier: string }) => {
   }, [urlNullifier])
 
   const envelopeNotFound = (nullifier || urlNullifier) && envelope === null && !loading
-  const envelopeFound = envelope !== null && envelope !== undefined
+  const envelopeLoaded = envelope !== null && envelope !== undefined
   const isLoading = (loading && !envelope) || (urlNullifier && envelope === undefined)
 
   return (
     <>
       <VerifyPageContainer>
         <VerifyPage
-          minified={envelopeFound || envelopeNotFound}
+          minified={envelopeLoaded || envelopeNotFound}
           onSubmit={onClick}
           button={
             <Button
@@ -62,7 +62,7 @@ const VerifySinglePage = ({ urlNullifier } : { urlNullifier: string }) => {
           <Loader visible />
         </Then>
         <Else>
-          <If condition={envelopeFound}>
+          <If condition={envelopeLoaded}>
             <Then>
               <EnvelopeDetails envelope={envelope} />
             </Then>
