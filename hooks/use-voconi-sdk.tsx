@@ -1,5 +1,5 @@
 import {
-  ChainAPI,
+  ChainAPI, ElectionAPI,
   IChainGetTransactionReferenceResponse,
 } from '@vocdoni/sdk'
 import { useEffect, useState } from 'react'
@@ -39,3 +39,6 @@ export const useOrganizationList = ({ page } : { page: number } ) =>
 
 export const useOrganizationCount = () =>
   useSDKFunction(ChainAPI.organizationCount);
+
+export const useElectionInfo = ({ electionId } : { electionId: string}) =>
+  useSDKFunction(ElectionAPI.info, electionId);

@@ -38,6 +38,9 @@ import { EnvelopeExplorer } from '../components/process-envelope-explorer'
 import { ResultsCard } from '../components/results-card'
 import { EncryptionKeys } from '../components/process_keys'
 import { CopyButton } from '@components/blocks/copy-button'
+import { IElectionInfoResponse } from '@vocdoni/sdk'
+import { ElectionCore } from '@vocdoni/sdk/dist/core/election'
+import { VochainProcessStatus as ProcessStatus } from '@vocdoni/data-models/dist/protobuf'
 
 interface ProcessesDetailPageProps {
   processId: string,
@@ -45,30 +48,39 @@ interface ProcessesDetailPageProps {
   results: ProcessResultsSingleChoice
 }
 
-const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetailPageProps) => {
+const ProcessesDetailPage = ({ electionInfo }: { electionInfo: IElectionInfoResponse }) => {
   const { i18n } = useTranslation()
-  const { metadata } = useEntity(processInfo?.state?.entityId)
+
+  const org = "f1125b3ad1e0f558c017898d7753e93f58cb503d"
+  // todo
+  // const { metadata } = useEntity(electionInfo?.organizationId)
+  const { metadata } = useEntity(org)
+
   const entityMetadata = metadata as EntityMetadata
 
-  const { blockStatus } = useBlockStatus()
-  const blockHeight = blockStatus?.blockNumber
-  const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight)
+  const initDate = new Date(electionInfo.startDate);
+  const endDate = new Date(electionInfo.startDate);
+  const voteStatus: VoteStatus = getVoteStatus(
+    electionInfo.status,
+    initDate,
+    endDate
+  )
 
-  const dateDiffStr = resolveDate(
-    processInfo,
+  const localizedDate = resolveLocalizedDateDiff(
+    initDate,
+    endDate,
     voteStatus,
-    blockHeight,
-    blockStatus
   )
 
   return (
     <PageCard>
       <CardImageHeader
-        title={processInfo?.metadata?.title?.default}
-        processImage={processInfo?.metadata?.media?.header}
+        // title={processInfo?.metadata?.title?.default}
+        title={electionInfo.metadata.title.default}
+        processImage={electionInfo.metadata.media.header}
         subtitle={
           <>
-             <CopyButton toCopy={processId} text={i18n.t('processes.details.id') + ': 0x' + processId}/>
+             <CopyButton toCopy={electionInfo.electionId} text={i18n.t('processes.details.id') + ': 0x' + electionInfo.electionId}/>
           </>}
         entityImage={entityMetadata?.media?.avatar}
       />
@@ -78,12 +90,12 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
           {i18n.t('processes.details.process_details')}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {dateDiffStr}
+          {localizedDate}
         </Typography>
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
           <span>{i18n.t('processes.details.created_on')} </span>
           <span>
-            {localizedDateDiff(new Date(processInfo?.state?.creationTime))}
+            {localizedDateDiff(new Date(electionInfo.startDate))}
           </span>
         </Typography>
 
@@ -92,15 +104,15 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
           <BadgeColumn>
             <ProcessStatusBadge status={voteStatus} />
             <CensusOriginBadge
-              censusOrigin={processInfo?.state?.censusOrigin}
+              censusOrigin={electionInfo.census.censusOrigin}
             />
             <ProcessModeBadge
-              autostart={processInfo?.state?.processMode.autoStart}
+              autostart={electionInfo.electionMode.autoStart}
             />
             <EnvelopeTypeBadge
-              encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes}
+              encryptedVotes={electionInfo.voteMode.encryptedVotes}
             />
-            {processInfo.state.envelopeType.anonymous && <AnonVoteBadge />}
+            {electionInfo.voteMode.anonymous && <AnonVoteBadge />}
           </BadgeColumn>
         </Grid>
 
@@ -109,23 +121,27 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
           <EntityCardMedium
             md={6}
             icon={entityMetadata?.media?.avatar}
-            entityId={processInfo?.state?.entityId}
+            // todo
+            // entityId={electionInfo?.organizationId}
+            entityId={org}
           >
             {entityMetadata?.name?.default
               ? entityMetadata?.name?.default
-              : processInfo?.state?.entityId}
+              // todo
+              // : electionInfo?.organizationId}
+              : org}
           </EntityCardMedium>
           <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
-            <h2>{results?.totalVotes || 0}</h2>
+            <h2>{electionInfo?.voteCount || 0}</h2>
           </StatusCard>
           <StatusCard md={3} title={i18n.t('processes.details.total_questions')}>
-            <h2>{processInfo?.metadata?.questions?.length}</h2>
+            <h2>{electionInfo?.metadata?.questions?.length}</h2>
           </StatusCard>
         </Grid>
 
         {/* If encrypted votes show reveal keys status */}
-        {processInfo?.state?.envelopeType.encryptedVotes &&
-          <EncryptionKeys processId={processId} />
+        {electionInfo?.voteMode.encryptedVotes &&
+          <EncryptionKeys processId={electionInfo.electionId} />
         }
 
         {/* Technical details */}
@@ -140,47 +156,40 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
         <Tabs>
           <Tab label={i18n.t('processes.details.show_description')}>
             <SectionText color={colors.lightText}>
-              {processInfo?.metadata?.description?.default}
+              {electionInfo?.metadata?.description?.default}
             </SectionText>
           </Tab>
           <Tab label={i18n.t('processes.details.show_questions')}>
             <Grid>
+              {/*todo: not working*/}
               <ResultsCard />
             </Grid>
           </Tab>
-          <Tab label={i18n.t('processes.details.show_envelopes')}>
-            <EnvelopeExplorer processId={processId} results={results} />
-          </Tab>
+          {/*todo*/}
+          {/*<Tab label={i18n.t('processes.details.show_envelopes')}>*/}
+            {/*<EnvelopeExplorer processId={electionInfo.electionId} results={results} />*/}
+          {/*</Tab>*/}
         </Tabs>
     </PageCard>
   )
 }
 
-function resolveDate(
-  processInfo: ProcessDetails,
+function resolveLocalizedDateDiff(
+  initDate: Date,
+  endDate: Date,
   voteStatus: VoteStatus,
-  blockHeight: number,
-  blockStatus: BlockStatus
 ) {
   if (
-    processInfo?.state?.startBlock &&
+    initDate &&
     (voteStatus == VoteStatus.Active ||
       voteStatus == VoteStatus.Paused ||
       voteStatus == VoteStatus.Ended)
   ) {
-    if (processInfo?.state?.startBlock > blockHeight) {
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.startBlock,
-        blockStatus
-      )
-      return localizedStartEndDateDiff(DateDiffType.Start, date)
+    const now = new Date();
+    if (initDate > now) {
+      return localizedStartEndDateDiff(DateDiffType.Start, initDate)
     } else {
-      // starting in the past
-      const date = VotingApi.estimateDateAtBlockSync(
-        processInfo?.state?.endBlock,
-        blockStatus
-      )
-      return localizedStartEndDateDiff(DateDiffType.End, date)
+      return localizedStartEndDateDiff(DateDiffType.End, endDate)
     }
   }
 }
