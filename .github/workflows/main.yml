@@ -28,7 +28,7 @@ jobs:
   docker-release:
     runs-on: self-hosted
     needs:
-      - node-tests
+      - node-tests-and-build
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stage' || startsWith(github.ref, 'refs/heads/release') || github.ref == 'refs/heads/wip/mockup'
     steps:
       - uses: AutoModality/action-clean@v1.1.0
