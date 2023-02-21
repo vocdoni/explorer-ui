@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { useEffect, useState } from 'react'
 
-import { isInValidProcessId } from '@lib/util'
+import { getVoteStatus, isInValidProcessId, VoteStatus } from '@lib/util'
 import { ElectionAPI, IElectionInfoResponse } from '@vocdoni/sdk'
 import { useSDKFunction } from '@hooks/use-voconi-sdk'
 
@@ -10,6 +10,9 @@ export interface ElectionInfoContext {
   error: Error,
   loading: boolean,
   electionId: string,
+  initDate: Date
+  endDate: Date
+  voteStatus: VoteStatus
   methods: {
     refetch: () => void
     setElectionId: (processId: string) => void
@@ -42,16 +45,22 @@ export const UseElectionInfoProvider = ({ children }: { children: ReactNode }) =
 
   const { data: electionInfo, loading, error, refetch } = useSDKFunction(ElectionAPI.info, electionId);
 
-  // useEffect(() => {
-  //   if (invalidProcessId) return
-  //   refetch()
-  // }, [electionId])
+  const initDate = new Date(electionInfo.startDate);
+  const endDate = new Date(electionInfo.endDate);
+  const voteStatus: VoteStatus = getVoteStatus(
+    electionInfo.status,
+    initDate,
+    endDate
+  )
 
   const value: ElectionInfoContext = {
     electionInfo,
     error,
     loading,
     electionId,
+    initDate,
+    endDate,
+    voteStatus,
     methods: {
       refetch,
       setElectionId
