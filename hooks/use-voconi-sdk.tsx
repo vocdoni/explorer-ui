@@ -2,16 +2,16 @@ import {
   ChainAPI, ElectionAPI,
   IChainGetTransactionReferenceResponse,
 } from '@vocdoni/sdk'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
-function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, params?: U) {
+export function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, params?: U) {
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     setLoading(true);
     promiseFn("https://api-dev.vocdoni.net/v2" , params)
       .then(response => {
@@ -24,7 +24,15 @@ function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, par
       });
   }, [promiseFn, params]);
 
-  return { data, error, loading };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const refetch = useCallback(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, error, loading, refetch };
 }
 
 interface ITxByHash {
@@ -40,5 +48,3 @@ export const useOrganizationList = ({ page } : { page: number } ) =>
 export const useOrganizationCount = () =>
   useSDKFunction(ChainAPI.organizationCount);
 
-export const useElectionInfo = ({ electionId } : { electionId: string}) =>
-  useSDKFunction(ElectionAPI.info, electionId);

@@ -4,7 +4,7 @@ import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 
 import { UseAlertMessageProvider } from '@hooks/message-alert'
 import { UseLoadingAlertProvider } from '@hooks/loading-alert'
-import { UseProcessWrapperProvider } from "@hooks/use-process-wrapper";
+import { UseElectionInfoProvider } from '@hooks/use-election'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -29,11 +29,11 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
         >
           <UseBlockStatusProvider>
             <UseProcessProvider>
-              <UseProcessWrapperProvider>
+              <UseElectionInfoProvider>
                 <UseEntityProvider>
                   {children}
                 </UseEntityProvider>
-              </UseProcessWrapperProvider>
+              </UseElectionInfoProvider>
             </UseProcessProvider>
           </UseBlockStatusProvider>
         </UsePoolProvider>

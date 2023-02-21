@@ -3,12 +3,12 @@ import ProcessDetailPage from '@components/pages/processes/details'
 import { Else, If, Then } from 'react-if'
 import { useUrlHash } from 'use-url-hash'
 import { useTranslation } from 'react-i18next'
-import { useElectionInfo } from '@hooks/use-voconi-sdk'
+import { useElectionInfo } from '@hooks/use-election'
 
 const ProcessesDetailPage = () => {
   const { i18n } = useTranslation()
   const electionId = useUrlHash().slice(1)
-  const { data: electionInfo, loading } =  useElectionInfo({ electionId })
+  const { electionInfo, loading } =  useElectionInfo( electionId )
 
   return (
     <If condition={loading}>
