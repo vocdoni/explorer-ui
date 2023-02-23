@@ -19,9 +19,9 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm test
+        run: npm run test
 
-      - name: Build 
+      - name: Build
         run: npm run build
 
   docker-release:
@@ -90,7 +90,7 @@ jobs:
                 DISCOVERY_POOL_SIZE=1
                 ETH_NETWORK_ID=goerli
               tags: |
-                ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}  
+                ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
           }}
       - name: Push to ghcr.io (static build)
         uses: docker/build-push-action@v4
