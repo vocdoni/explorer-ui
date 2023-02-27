@@ -38,6 +38,7 @@
             "hash": "Hash"
         },
         "validator": {
+            "name": "Name",
             "Pubkey": "Pubkey",
             "voting_power": "Voting power"
         }
@@ -120,6 +121,7 @@
             "envelope_details": "Envelope details",
             "envelope_not_found": "Envelope not found",
             "envelope_weight": "Envelope weight",
+            "overwrite_count": "Overwrite count",
             "transaction_hash": "Transaction hash",
             "verifier_code": "Verifier code",
             "vote_has_been_registered_correctly": "Vote has been registered correctly"
@@ -129,7 +131,6 @@
         }
     },
     "error": {
-        "could_not_fetch_organizations_count": "Could not fetch organizations count",
         "could_not_fetch_processes_count": "Could not fetch processes count",
         "could_not_fetch_the_details": "Could not fetch the details",
         "invalid_choice_error": "",

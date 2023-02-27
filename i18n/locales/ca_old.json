@@ -155,7 +155,8 @@
         }
     },
     "error": {
-        "could_not_fetch_entities_count": ""
+        "could_not_fetch_entities_count": "",
+        "could_not_fetch_organizations_count": ""
     },
     "errors": {
         "the_list_of_entities_cannot_be_loaded": ""

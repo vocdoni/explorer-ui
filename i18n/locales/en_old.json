@@ -273,5 +273,8 @@
     },
     "home": {
         "explore_the_vochain": "Explore the Vochain"
+    },
+    "error": {
+        "could_not_fetch_organizations_count": "Could not fetch organizations count"
     }
 }
