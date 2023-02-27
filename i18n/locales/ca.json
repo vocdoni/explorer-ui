@@ -38,6 +38,7 @@
             "hash": ""
         },
         "validator": {
+            "name": "",
             "Pubkey": "",
             "voting_power": ""
         }
@@ -120,6 +121,7 @@
             "envelope_details": "",
             "envelope_not_found": "",
             "envelope_weight": "",
+            "overwrite_count": "",
             "transaction_hash": "",
             "verifier_code": "",
             "vote_has_been_registered_correctly": ""
@@ -129,7 +131,6 @@
         }
     },
     "error": {
-        "could_not_fetch_organizations_count": "",
         "could_not_fetch_processes_count": "",
         "could_not_fetch_the_details": "",
         "invalid_choice_error": "",

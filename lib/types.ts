@@ -156,7 +156,8 @@ export declare type EnvelopeAll = {
   nonce: string,
   signature: string,
   vote_package: string,
-  weight: string
+  weight: string,
+  overwriteCount: number
 }
 
 export type EnvelopeMeta = {

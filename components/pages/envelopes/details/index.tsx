@@ -97,13 +97,14 @@ export const EnvelopeDetails = ({ envelope }: { envelope: EnvelopeAll }) => {
                 )}
               </BadgeColumn>
             </Typography>
+            {
+              envelope.overwriteCount > 0 && (<Typography variant={TypographyVariant.Small}>
+                {i18n.t('envelopes.details.overwrite_count')}: {envelope.overwriteCount}
+              </Typography>)
+            }
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.envelope_weight')}: {envelope.weight}
             </Typography>
-            {/* <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.envelope_height')}: {envelope.height}
-            </Typography> */}
-
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.commited_in_block')}:
               {noLinks ? (
