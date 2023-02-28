@@ -89,13 +89,11 @@ export const Header = ({ children }: IHeaderProps) => {
     <>
       <HeaderContainer>
         <ListContainer>
-          <Link href={HOME_PATH} passHref>
-            <HomeLink>
-              <img src={
-                headerUrl
-              } alt="Vocdoni" />
-            </HomeLink>
-          </Link>
+          <HomeLink target="_self" href={HOME_PATH} passHref>
+            <img src={
+              headerUrl
+            } alt="Vocdoni" />
+          </HomeLink>
 
           <MenuItemsContainer>
             <Unless condition={isMobile}>
@@ -214,7 +212,7 @@ const ListItem = styled.div`
   }
 `
 
-const HomeLink = styled.div`
+const HomeLink = styled(Link)`
   cursor: pointer;
 
   & > img {
@@ -286,7 +284,7 @@ interface ILinkItemProps {
 
 const LinkItem = ({ url, external, onClick, children }: ILinkItemProps) => (
   <ListItem>
-    <Link href={url} passHref>
+    <Link  onClick={onClick} href={url} passHref>
       {children}
     </Link>
   </ListItem>
