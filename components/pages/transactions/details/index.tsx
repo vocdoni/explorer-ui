@@ -169,7 +169,7 @@ export const TransactionDetails = ({
             <p>
               {i18n.t('transactions.details.belongs_to_process')}:{' '}
               <Link href={getProcessDetailsPath(belongsToProcess)}>
-                <a>0x{belongsToProcess}</a>
+                0x{belongsToProcess}
               </Link>
             </p>
           )}
@@ -177,7 +177,7 @@ export const TransactionDetails = ({
             <p>
               {i18n.t('transactions.details.belong_to_organization')}:
               <EntityLink entityId={belongsToEntity}>
-                <a>0x{belongsToEntity}</a>
+                0x{belongsToEntity}
               </EntityLink>
             </p>
           )}
