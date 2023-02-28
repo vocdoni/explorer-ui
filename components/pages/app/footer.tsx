@@ -10,9 +10,7 @@ export const Footer = () => {
 
   return <Container>
     <LogoSection>
-      <Link href={HOME_PATH} passHref>
-        <HomeLink target='_self'><img src="/images/logo-classic.svg" alt="Vocdoni" /></HomeLink>
-      </Link>
+      <HomeLink href={HOME_PATH} passHref target='_self'><img src="/images/logo-classic.svg" alt="Vocdoni" /></HomeLink>
 
     </LogoSection>
 
@@ -20,16 +18,12 @@ export const Footer = () => {
     <LinksSection color={theme.lightText}>
       {links.map(({ url, name, external }, i) => (
         <NavItem key={i}>
-          <Link href={url} passHref>
-            <ClickableText target={external ? '_blank' : '_self'}>
-              {name}
-            </ClickableText>
-          </Link>
+          <FooterLink href={url} passHref target={external ? '_blank' : '_self'}>
+            {name}
+          </FooterLink>
         </NavItem>
       ))}
-      <Link href='https://aragon.org/' passHref>
-        <AragonLink target='_blank'><img src="/images/powered-aragon.svg" alt="Aragon" /></AragonLink>
-      </Link>
+        <AragonLink href='https://aragon.org/' passHref target='_blank'><img src="/images/powered-aragon.svg" alt="Aragon" /></AragonLink>
     </LinksSection>
 
   </Container>
@@ -91,14 +85,14 @@ const LinksSection = styled.div`
   }
 `
 
-const ClickableText = styled.a`
+const FooterLink = styled(Link)`
   line-height: 30px;
   font-weight: 500;
-font-size: 14px;
+  font-size: 14px;
   color: ${({ theme }) => theme.text};
 `
 
-const HomeLink = styled.a`
+const HomeLink = styled(Link)`
   cursor: pointer;
 
   & > img {
@@ -107,7 +101,7 @@ const HomeLink = styled.a`
   }
 `
 
-const AragonLink = styled.a`
+const AragonLink = styled(Link)`
   cursor: pointer;
   margin-right: 70px;
 

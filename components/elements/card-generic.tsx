@@ -41,9 +41,7 @@ export const GenericCardWrapper = ({
       {link ? (
         <LinkCardContainer>
           <Link href={link ?? ''} passHref>
-            <a href={link ?? ''}>{
-              <Skeleton isLink={true} />
-            }</a>
+            <Skeleton isLink={true} />
           </Link>
         </LinkCardContainer>
       ) : (

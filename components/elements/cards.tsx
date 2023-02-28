@@ -81,9 +81,7 @@ export const StatusCard = ({
             {props.rightText ? (
               props.href ? (
                 <Link href={props.href}>
-                  <a>
-                    <RightLink>{props.rightText}</RightLink>
-                  </a>
+                  <RightLink>{props.rightText}</RightLink>
                 </Link>
               ) : (
                 <RightLink>{props.rightText}</RightLink>

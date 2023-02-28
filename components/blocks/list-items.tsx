@@ -47,13 +47,13 @@ export const GenericListItemWithBadge = ({
           {badge}
         </TopDiv>
 
-        {title 
-          ? <VoteListItemTitle> 
+        {title
+          ? <VoteListItemTitle>
             <BreakWord>
               {title}
             </BreakWord>
           </VoteListItemTitle> : null}
-        {dateText 
+        {dateText
           ? <ItemDate>
               <BreakWordAll>
                 {dateText}
@@ -71,9 +71,7 @@ export const GenericListItemWithBadge = ({
       {link ? (
         <LinkCardContainer>
           <Link href={link ?? ''} passHref>
-            <a href={link ?? ''}>
               {childrenData()}
-            </a>
           </Link>
         </LinkCardContainer>
       ) : (
