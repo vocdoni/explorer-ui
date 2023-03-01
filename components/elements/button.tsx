@@ -1,13 +1,11 @@
 import React, { ReactNode } from 'react'
-import Spinner, {
-  SpinnerProps,
-} from 'react-rainbow-components/components/Spinner'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { hexToRgbA } from '../../lib/util'
 import { theme } from '../../theme'
 import { colors } from 'theme/colors'
 import { FakedButton } from './styled-divs'
+import { Spinner } from '@chakra-ui/react'
 
 // Div button with a <button> inside added to be accessible throught tab navigation
 export const NavButton = ({ ...props }: ButtonProps) => {
@@ -72,12 +70,10 @@ export const Button = ({
   children,
 }: ButtonProps) => {
   let component: JSX.Element
-  const getButtonText = (
-    spinnerVariant: SpinnerProps['variant'] = 'brand'
-  ): ReactNode =>
+  const getButtonText = (): ReactNode =>
     spinner ? (
       <SpinnerContainer>
-        <Spinner size="xx-small" type="arc" variant={spinnerVariant} />
+        <Spinner size="xs" />
       </SpinnerContainer>
     ) : (
       children
@@ -120,7 +116,7 @@ export const Button = ({
       >
         {icon ? (
           <ButtonContent color={theme.white} justify={justify}>
-            {icon}&nbsp;{getButtonText('inverse')}
+            {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
           <ButtonContent
@@ -128,7 +124,7 @@ export const Button = ({
             verticalAlign={verticalAlign}
             justify={justify}
           >
-            {getButtonText('inverse')}
+            {getButtonText()}
           </ButtonContent>
         )}
       </PositiveButton>
@@ -144,7 +140,7 @@ export const Button = ({
       >
         {icon ? (
           <ButtonContent color={theme.white} justify={justify}>
-            {icon}&nbsp;{getButtonText('inverse')}
+            {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
           <ButtonContent
@@ -152,7 +148,7 @@ export const Button = ({
             verticalAlign={verticalAlign}
             justify={justify}
           >
-            {getButtonText('inverse')}
+            {getButtonText()}
           </ButtonContent>
         )}
       </NegativeButton>
@@ -170,7 +166,7 @@ export const Button = ({
       >
         {icon ? (
           <ButtonContent color={color} justify={justify}>
-            {icon}&nbsp;{getButtonText('inverse')}
+            {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
           <ButtonContent
@@ -178,7 +174,7 @@ export const Button = ({
             verticalAlign={verticalAlign}
             justify={justify}
           >
-            {getButtonText('inverse')}
+            {getButtonText()}
           </ButtonContent>
         )}
       </DefaultButton>
@@ -188,9 +184,7 @@ export const Button = ({
   if (href) {
     return (
       <Link href={href}>
-        <MyAnchor target={target || LinkTarget.Self} href={href}>
           {component}
-        </MyAnchor>
       </Link>
     )
   }
@@ -363,10 +357,6 @@ const ButtonContent = styled.div<{
       : props.color
       ? 'color: ' + props.color + ';'
       : ''}
-`
-
-const MyAnchor = styled.a`
-  color: unset;
 `
 
 const SquareButtonIconContainer = styled.div`

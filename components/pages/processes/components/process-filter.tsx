@@ -13,12 +13,11 @@ import {
 import { Checkbox } from '@components/elements/checkbox'
 import { IFilterProcesses } from '../list/process-list'
 import { DivWithMarginChildren } from '@components/elements/styled-divs'
-import { ButtonOption } from 'react-rainbow-components'
 import { FilterForm } from '@components/pages/app/page-templates/filter-form'
-import { ButtonGroupPicker } from 'react-rainbow-components'
 import { isInValidEntityId } from '@lib/util'
 import { DELAY_BOUNCE_TIME } from '@const/filters'
 import { TopDiv } from '@components/pages/app/page-templates/list-page'
+import { IRadioOpts, RadioGroup } from '@components/elements/radio'
 
 export const ProcessFilter = ({
                                 onEnableFilter,
@@ -28,21 +27,6 @@ export const ProcessFilter = ({
   title: ReactNode
 }) => {
   const [tempFilter, setTempFilter] = useState<IFilterProcesses>({})
-
-  const voteStatusSelectId = 'vote_status_select_id_1'
-  // Map vote status select options
-  const voteStatusOpts = Object.keys(VochainProcessStatus)
-    .filter((value) => isNaN(Number(value)) === false)
-    .map((key) => {
-      // return { value: key, label: VochainProcessStatus[key] }
-      return (
-        <ButtonOption
-          key={key}
-          name={key}
-          label={VochainProcessStatus[key]}
-        ></ButtonOption>
-      )
-    })
 
   const _onEnableFilter = () => {
     onEnableFilter(tempFilter)
@@ -145,13 +129,30 @@ const ProcessStatusSelector = ({
 }) => {
   const { i18n } = useTranslation()
 
+  const opts: IRadioOpts[] = [
+    {
+      label: i18n.t('processes.filter.status_selector.all'),
+      key: 'ALL',
+    },
+    {
+      label: i18n.t('processes.filter.status_selector.active'),
+      key: 'RESULTS',
+    },
+    {
+      label: i18n.t('processes.filter.status_selector.paused'),
+      key: 'PAUSED',
+    },
+    {
+      label: i18n.t('processes.filter.status_selector.ended'),
+      key: 'ENDED',
+    },
+  ]
+
   return (
     <ButtonGroupContainer>
-      <ButtonGroupPicker
-        id="button-group-picker-component-1"
-        value={
-          tempFilter.status ? VochainProcessStatus[tempFilter.status] : 'ALL'
-        }
+      <RadioGroup
+        name={"process-filter"}
+        defaultValue={'ALL'}
         onChange={(value) => {
           if (value === 'ALL') tempFilter.status = null
           else {
@@ -161,34 +162,14 @@ const ProcessStatusSelector = ({
           }
           setTempFilter(Object.assign({}, tempFilter))
         }}
-        name="filter"
-        size="medium"
-        // bottomHelpText="Select one option"
-      >
-        <ButtonOption
-          label={i18n.t('processes.filter.status_selector.all')}
-          name="ALL"
-        />
-        <ButtonOption
-          label={i18n.t('processes.filter.status_selector.ended')}
-          name="RESULTS"
-        />
-        <ButtonOption
-          label={i18n.t('processes.filter.status_selector.paused')}
-          name="PAUSED"
-        />
-        <ButtonOption
-          label={i18n.t('processes.filter.status_selector.ended')}
-          name="ENDED"
-        />
-      </ButtonGroupPicker>
+        options={opts}
+      ></RadioGroup>
     </ButtonGroupContainer>
   )
 }
 
 const CheckBoxContainer = styled(FlexContainer)`
   align-items: center;
-  padding-bottom: 10px;
   margin-right: 20px;
 `
 
@@ -209,15 +190,11 @@ const FilterContainer = styled(ColumnDiv)`
 `
 
 const ButtonGroupContainer = styled.div`
-  background-color: white;
+  background-color: transparent;
   margin: 0 0 0 0;
   width: 100%;
 
   label {
-    flex-grow: 1;
-  }
-
-  fieldset > div {
     flex-grow: 1;
     flex: none;
     order: 0;
@@ -226,18 +203,9 @@ const ButtonGroupContainer = styled.div`
     gap: 5px;
   }
 
-  label > span {
-    border-radius: 8px !important;
-    // border-color: transparent;
-    padding: 0 1rem;
-    font-weight: bold;
-  }
-
   @media ${({ theme }) => theme.screenMin.tablet} {
     label > span {
-      // margin: 0 7px;
-      padding: 0 1.5rem;
-
+      padding: 0 1.5rem !important;
     }
   }
 `

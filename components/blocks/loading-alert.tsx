@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Spinner from 'react-svg-spinner'
 import { useLoadingAlert } from '../../hooks/loading-alert'
+import { Spinner } from '@chakra-ui/react'
 
 export const LoadingAlert = () => {
   const { message } = useLoadingAlert()
