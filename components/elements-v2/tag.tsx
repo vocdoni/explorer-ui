@@ -1,7 +1,6 @@
 import { colorsV2 } from '@theme/colors-v2'
 import { theme } from '@theme/global'
 import { ReactNode } from 'react'
-import { colors } from 'react-select/src/theme'
 import styled from 'styled-components'
 import { Col, Row } from './grid'
 import { Text } from '.'

@@ -3,7 +3,6 @@ import { useBlockStatus } from '@vocdoni/react-hooks'
 import { ProcessSummary, VotingApi } from 'dvote-js'
 import { localizedDateDiff } from '@lib/date'
 import { VoteStatus } from '@lib/util'
-import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { ItemDate } from '@components/elements/styled-divs'
 
@@ -38,7 +37,7 @@ export const ProcessTimeLeft = ({ status, summary } : {status: VoteStatus, summa
           blockStatus
         )
 
-        if (!moment(startDate).isAfter(moment.now()) && status === VoteStatus.Paused ) {
+        if (new Date(startDate) > new Date() && status === VoteStatus.Paused ) {
           setDate(i18n.t('dashboard.process_paused'))
           break
         }
