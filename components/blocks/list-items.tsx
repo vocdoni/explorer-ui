@@ -48,11 +48,11 @@ export const GenericListItemWithBadge = ({
         </TopDiv>
 
         {title
-          ? <VoteListItemTitle>
+          && <VoteListItemTitle>
             <BreakWord>
               {title}
             </BreakWord>
-          </VoteListItemTitle> : null}
+          </VoteListItemTitle> }
         {dateText
           ? <ItemDate>
               <BreakWordAll>
