@@ -14,7 +14,6 @@ import {
 } from '@vocdoni/react-hooks'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import DateTimePicker from 'react-rainbow-components/components/DateTimePicker'
 import {
   FlexAlignItem,
   FlexContainer,
@@ -33,6 +32,7 @@ import {
   FiChevronUp,
 } from 'react-icons/fi'
 import { useIsMobile } from '@hooks/use-window-size'
+import DateTimePicker from '@components/elements/date-picker'
 
 const BlocksPage = () => {
   const { i18n } = useTranslation()
@@ -109,23 +109,23 @@ const BlocksPage = () => {
               'converter.calculate_the_conversion_between_Vochain_blocks_and_dates'
             )}
           </MainDescription>
-          <p>
+          <div>
             <StrongAndText
               title={i18n.t('converter.current_enviorment') + ': '}
             >
               {capitalize(enviormentName(process.env.VOCDONI_ENVIRONMENT))}
             </StrongAndText>
-          </p>
-          <p>
+          </div>
+          <div>
             <StrongAndText title={i18n.t('converter.genesis_date') + ': '}>
               {localizedDateDiff(genesisDate)}
             </StrongAndText>
-          </p>
-          <p>
+          </div>
+          <div>
             <StrongAndText title={i18n.t('converter.block_height') + ': '}>
               {blockHeight}
             </StrongAndText>
-          </p>
+          </div>
         </Column>
         <ConversorWrapper>
           {/* <Column md={4} sm={6}> */}
@@ -136,9 +136,8 @@ const BlocksPage = () => {
                 id={'datetimeid'}
                 minDate={genesisDate}
                 value={targetDate ?? date ?? new Date()}
-                // value={targetDate}
                 onChange={(value) => setDateInput(value)}
-                hour24
+                required={true}
               />
             </CalendarContainer>
           </Column>

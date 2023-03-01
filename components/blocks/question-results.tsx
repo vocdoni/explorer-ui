@@ -5,10 +5,8 @@ import { Question } from "@lib/types"
 import { theme } from "@theme/global"
 import { MultiLanguage, SingleChoiceQuestionResults } from "dvote-js"
 import { useTranslation } from "react-i18next"
-import { ProgressBar, } from "react-rainbow-components"
 import styled from "styled-components"
 import { useState, useEffect } from "react"
-import { ProgressBarProps } from "react-rainbow-components/components/ProgressBar"
 import { useIsMobile } from "@hooks/use-window-size"
 import { useProcessWrapper } from "@hooks/use-process-wrapper"
 import { useUrlHash } from "use-url-hash"
@@ -16,14 +14,15 @@ import { BigNumber } from "ethers"
 import { colorsV2 } from "@theme/colors-v2"
 import { VoteStatus } from "@lib/util"
 import { BreakWord } from "@components/elements/styled-divs"
-
+import { Progress } from '@chakra-ui/react'
+import { ProgressProps } from '@chakra-ui/progress/dist/progress'
 
 export type QuestionsResultsProps = {
   question: Question
   results: SingleChoiceQuestionResults
   index: number
 }
-type StyledProgressBarProps = ProgressBarProps & { disabled: boolean }
+type StyledProgressBarProps = ProgressProps & { disabled: boolean }
 type StyledCardProps = {
   isMobile: boolean
 }
@@ -59,7 +58,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         return 1
       })
     }
-    
+
     setSortedChoices(sortedChoices)
     // Check if is one response that is winning
     if (props.results !== undefined  && sortedChoices.length > 1) {
@@ -144,7 +143,8 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         <Col xs={12} md={6}>
                           <StyledProgressBar
                             value={getBarPercent(choice.votes, votesWeight)}
-                            size={isMobile ? 'medium' : 'large'} style={{ background: colorsV2.neutral[100] }}
+                            size={isMobile ? 'sm' : 'md'}
+                            style={{ background: colorsV2.neutral[100] }}
                             disabled={choice.votes.eq(0)}
                           />
                         </Col>
@@ -164,7 +164,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                                 size="sm"
                                 color="dark-gray"
                                 weight="regular"
-                              > 
+                              >
                                 <BreakWord>
                                   {i18n.t('vote.vote_count', { count: choice.votes.toString() as any })}
                                 </BreakWord>
@@ -176,7 +176,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                       // NO RESULTS YET
                       : <Col xs={12} md={6} justify="end">
                           <Text size={isMobile ? 'sm' : 'xl'} color="dark-gray" align="right">
-                          { status !== VoteStatus.Ended && !liveResults ? 
+                          { status !== VoteStatus.Ended && !liveResults ?
                              i18n.t('vote.no_results_live') : i18n.t('vote.loading_results')}
                           </Text>
                         </Col>
@@ -231,7 +231,7 @@ const Card = styled.div.withConfig(styledConfig)<StyledCardProps>`
   background: ${theme.background};
   padding: ${getPadding};
 `
-const StyledProgressBar = styled(ProgressBar) <StyledProgressBarProps>`
+const StyledProgressBar = styled(Progress) <StyledProgressBarProps>`
   background: #E4E7EB;
   & > span{
     background: ${getBarColor};
