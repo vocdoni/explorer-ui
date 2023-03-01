@@ -20,13 +20,26 @@
     "downlevelIteration": true,
     "baseUrl": "./",
     "paths": {
-      "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@const/*": ["const/*"] ,
-      "@lib/*": ["lib/*"],
-      "@theme/*": ["theme/*"],
-      "@i18n": ["i18n/index.ts"]
+      "@components/*": [
+        "components/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@const/*": [
+        "const/*"
+      ],
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@theme/*": [
+        "theme/*"
+      ],
+      "@i18n": [
+        "i18n/index.ts"
+      ]
     },
+    "incremental": true
   },
   "exclude": [
     "node_modules"
