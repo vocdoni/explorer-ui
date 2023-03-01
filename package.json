@@ -10,7 +10,7 @@
     "export": "next build && next export -o build",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet .",
     "i18n-extract": "i18next",
-    "test": "jest test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
