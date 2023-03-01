@@ -1,10 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import styled, { DefaultTheme, StyledComponentProps } from 'styled-components'
-import {
-  default as ReactSelect,
-  Props as SelectProps,
-  OptionTypeBase,
-} from 'react-select'
 import { useTranslation } from 'react-i18next'
 import { FiSearch } from 'react-icons/fi'
 
@@ -161,11 +156,4 @@ const selectStyles = {
   indicatorSeparator: (provided) => ({
     display: 'none',
   }),
-}
-
-export type Select = typeof Select
-
-// Select type
-export const Select = (props: SelectProps<OptionTypeBase>): ReactElement => {
-  return <ReactSelect styles={selectStyles} {...props}></ReactSelect>
 }
