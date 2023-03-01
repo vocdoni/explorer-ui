@@ -5,6 +5,8 @@ import { EthNetworkID, VocdoniEnvironment } from 'dvote-js'
 import { UseAlertMessageProvider } from '@hooks/message-alert'
 import { UseLoadingAlertProvider } from '@hooks/loading-alert'
 import { UseProcessWrapperProvider } from "@hooks/use-process-wrapper";
+import { ChakraProvider } from '@chakra-ui/provider'
+import chakraDefaultTheme from '@theme/chakra'
 
 interface IDefaultProvidersProps {
   children: ReactNode
@@ -31,7 +33,9 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
             <UseProcessProvider>
               <UseProcessWrapperProvider>
                 <UseEntityProvider>
-                  {children}
+                  <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
+                    {children}
+                  </ChakraProvider>
                 </UseEntityProvider>
               </UseProcessWrapperProvider>
             </UseProcessProvider>
