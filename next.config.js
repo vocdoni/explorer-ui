@@ -12,6 +12,7 @@ module.exports = {
       stream: false,
       path: false,
       os: false,
+      readline: false,
     };
     return config
   }

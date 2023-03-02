@@ -19,6 +19,10 @@ type NextAppProps = AppInitialProps & {
   router: Router
 }
 
+type ChildrenProps = {
+  children?: React.ReactNode
+};
+
 const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const appTitle = process.env.APP_TITLE
   const appDescr = process.env.APP_DESCRIPTION
@@ -26,11 +30,12 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const commitSHA = process.env.COMMIT_SHA
 
   // If the current page component defined a custom layout, use it
-  const Layout: FC = Component["Layout"] ? Component["Layout"] : DefaultLayout
-  const Providers: FC = Component["Providers"] ? Component["Providers"] : DefaultProviders
+  const Layout: FC<ChildrenProps> = Component["Layout"] ? Component["Layout"] : DefaultLayout
+  const Providers: FC<ChildrenProps>  = Component["Providers"] ? Component["Providers"] : DefaultProviders
   if (Component["Providers"]) {
     console.log('these no has default providers')
   }
+
   return (
     <ThemeProvider theme={theme}>
       <Providers>
