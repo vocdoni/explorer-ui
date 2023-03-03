@@ -28,7 +28,7 @@ jobs:
     runs-on: self-hosted
     needs:
       - node-tests-and-build
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stage' || startsWith(github.ref, 'refs/heads/release') || github.ref == 'refs/heads/wip/mockup'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stg' || startsWith(github.ref, 'refs/heads/release') || github.ref == 'refs/heads/wip/mockup'
     steps:
       - uses: AutoModality/action-clean@v1.1.0
       - name: Check out the repo
@@ -59,10 +59,26 @@ jobs:
             push: true
             build-args: |
               COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+              VOCDONI_ENVIRONMENT=dev
               DISCOVERY_POOL_SIZE=1
               ETH_NETWORK_ID=goerli
             tags: |
               ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
+          }}
+           { % elif ( startsWith(github.ref, 'refs/heads/stg') ) % }
+          {{
+          with:
+            context: .
+              file: ./Dockerfile
+              platforms: linux/amd64
+              push: true
+              build-args: |
+                COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+                VOCDONI_ENVIRONMENT=stg
+                DISCOVERY_POOL_SIZE=1
+                ETH_NETWORK_ID=goerli
+              tags: |
+                ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.var.outputs.branch }}
           }}
           { % elif ( startsWith(github.ref, 'refs/heads/release') ) % }
           {{
@@ -73,6 +89,7 @@ jobs:
               push: true
               build-args: |
                 COMMIT_SHA=${{ steps.var.outputs.sha_short }}
+                VOCDONI_ENVIRONMENT=prod
                 DISCOVERY_POOL_SIZE=1
                 ETH_NETWORK_ID=xdai
               tags: |
@@ -94,7 +111,7 @@ jobs:
           }}
       - name: Push to ghcr.io (static build)
         uses: docker/build-push-action@v4
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stage' || startsWith(github.ref, 'refs/heads/release')
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stg' || startsWith(github.ref, 'refs/heads/release')
         with:
           context: .
           file: ./Dockerfile.static
