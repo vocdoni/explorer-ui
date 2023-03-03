@@ -79,8 +79,8 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
             <Typography variant={TypographyVariant.Small}>
               {i18n.t('envelopes.details.encryption_keys_used')}:
               <BadgeColumn>
-                {envelope.encryptionKeyIndexes?.length > 0 ? (
-                  envelope.encryptionKeyIndexes.map((n) => {
+                {envelope.encryptionKeys?.length > 0 ? (
+                  envelope.encryptionKeys.map((n) => {
                     return (
                       <EncryptionKeysIndexesBadge
                         key={n}

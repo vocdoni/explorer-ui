@@ -50,7 +50,7 @@ export const useVoteInfo = ({ voteId } : { voteId: string}) =>
   useSDKFunction(VoteAPI.info, voteId);
 
 export const useElectionVotesList = ({ electionId, page } : { electionId: string, page?: number}) =>
-  useSDKFunction(ElectionAPI.electionVotesList, electionId, page);
+  useSDKFunction(ElectionAPI.votesList, electionId, page);
 
 export const useElectionVotesCount = ({ electionId } : { electionId: string }) =>
-  useSDKFunction(ElectionAPI.electionVotesCount, electionId);
+  useSDKFunction(ElectionAPI.votesCount, electionId);
