@@ -15,7 +15,13 @@ switch (VOCDONI_ENVIRONMENT) {
   case 'dev':
     plaza = `https://dev.vocdoni.app`
     break
+  case 'stg':
+    plaza = `https://stg.vocdoni.app`
+    break
   case 'prod':
+    plaza = `https://vocdoni.app`
+    break
+  default:
     plaza = `https://vocdoni.app`
 }
 

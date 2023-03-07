@@ -25,8 +25,8 @@ To deploy using [Docker Compose](https://docs.docker.com/compose) follow the ins
 
 Configure the `.env` file with the following variables:
 
--   `VOCDONI_UI_TAG` Docker tag of the image (main, stage, release)
--   `VOCDONI_ENVIRONMENT` Enviromnent type (dev, stage, prod)
+-   `VOCDONI_UI_TAG` Docker tag of the image (master, stg, release)
+-   `VOCDONI_ENVIRONMENT` Enviromnent type (dev, stg, prod)
 -   `BOOTNODES_URL` URL to fetch the JSON containing nodes information (gateways, etc.)
 -   `ETH_NETWORK_ID` Ethereum nework ID (xdai, goerli...)
 -   `DOMAIN` Domain name to be served. Used by Traefik to fetch SSL certificates from Let's Encrypt
