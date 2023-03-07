@@ -86,7 +86,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/release')
         with:
           context: .
-            file: ./Dockerfile
+            file: ./Dockerfile.static
             platforms: linux/amd64
             push: true
             build-args: |
