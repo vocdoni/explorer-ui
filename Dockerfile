@@ -24,7 +24,7 @@ ADD package-lock.json /app
 RUN npm install --legacy-peer-deps
 
 ADD . /app
-RUN npm run export
+RUN yarn export
 
 FROM node:16
 

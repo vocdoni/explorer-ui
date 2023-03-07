@@ -20,7 +20,7 @@ ENV VERIFY_SINGLE_PAGE=${VERIFY_SINGLE_PAGE}
 
 ADD . /app
 WORKDIR /app
-RUN npm install --legacy-peer-deps && npm run export
+RUN yarn && yarn export
 
 ## Static web server
 FROM nginx:1.19
