@@ -114,6 +114,7 @@ jobs:
             VOCDONI_ENVIRONMENT=stg
             DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=goerli
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.stg.json
           tags: |
             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
