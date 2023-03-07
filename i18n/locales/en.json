@@ -260,7 +260,8 @@
             "status_selector": {
                 "all": "All",
                 "ended": "Ended",
-                "paused": "Paused"
+                "paused": "Paused",
+                "active": "Active"
             }
         },
         "list": {
