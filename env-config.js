@@ -21,6 +21,8 @@ switch (VOCDONI_ENVIRONMENT) {
 
 if (VOCDONI_ENVIRONMENT !== 'prod') {
   bootnodes = bootnodes.replace('.json', `.${VOCDONI_ENVIRONMENT}.json`)
+} else {
+  bootnodes = bootnodes.replace('.json', `.azeno.json`)
 }
 
 module.exports = {
