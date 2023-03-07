@@ -67,23 +67,6 @@ jobs:
               ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
               ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
           }}
-           { % elif ( startsWith(github.ref, 'refs/heads/stg') ) % }
-          {{
-          with:
-            context: .
-              file: ./Dockerfile
-              platforms: linux/amd64
-              push: true
-              build-args: |
-                COMMIT_SHA=${{ steps.vars.outputs.GIT_HASH_SHORT }}
-                VOCDONI_ENVIRONMENT=stg
-                DISCOVERY_POOL_SIZE=1
-                ETH_NETWORK_ID=goerli
-              tags: |
-                ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
-                ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
-                ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
-          }}
           { % elif ( startsWith(github.ref, 'refs/heads/release') ) % }
           {{
           with:
@@ -117,9 +100,28 @@ jobs:
                 ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
                 ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
           }}
+
+      - name: Push to ghcr.io (dynamic build)
+        uses: docker/build-push-action@v4
+        if: github.ref == 'refs/heads/stg'
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          build-args: |
+            COMMIT_SHA=${{ steps.vars.outputs.GIT_HASH_SHORT }}
+            VOCDONI_ENVIRONMENT=stg
+            DISCOVERY_POOL_SIZE=1
+            ETH_NETWORK_ID=goerli
+            BOOTNODES_URL=https://raw.githubusercontent.com/vocdoni/bootnodes/main/content/gateways.stg.json
+          tags: |
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
       - name: Push to ghcr.io (static build)
         uses: docker/build-push-action@v4
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/stg' || startsWith(github.ref, 'refs/heads/release')
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release')
         with:
           context: .
           file: ./Dockerfile.static
