@@ -172,7 +172,7 @@ const ProcessStatusSelector = ({
           name="ALL"
         />
         <ButtonOption
-          label={i18n.t('processes.filter.status_selector.ended')}
+          label={i18n.t('processes.filter.status_selector.active')}
           name="RESULTS"
         />
         <ButtonOption
