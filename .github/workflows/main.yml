@@ -61,9 +61,10 @@ jobs:
             DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=goerli
           tags: |
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:latest
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static-${{ steps.vars.outputs.DATE_IN_SECS }}
       - name: Push to ghcr.io (stg, static)
         uses: docker/build-push-action@v4
         if: github.ref == 'refs/heads/stg'
@@ -78,9 +79,9 @@ jobs:
             DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=goerli
           tags: |
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static-${{ steps.vars.outputs.DATE_IN_SECS }}
       - name: Push to ghcr.io (prod, static)
         uses: docker/build-push-action@v4
         if: startsWith(github.ref, 'refs/heads/release')
@@ -95,6 +96,6 @@ jobs:
             DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=xdai
           tags: |
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
-            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-${{ steps.vars.outputs.DATE_IN_SECS }}
+            ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static-${{ steps.vars.outputs.DATE_IN_SECS }}
