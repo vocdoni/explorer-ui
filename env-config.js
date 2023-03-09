@@ -11,18 +11,20 @@ const isTrueEnv = (env) => env === 'true' || env === true
 
 const VERIFY_SINGLE_PAGE = isTrueEnv(process.env.VERIFY_SINGLE_PAGE) || false
 
+let plaza, apiUrl;
 switch (VOCDONI_ENVIRONMENT) {
-  case 'dev':
-    plaza = `https://dev.vocdoni.app`
-    break
   case 'stg':
     plaza = `https://stg.vocdoni.app`
+    apiUrl = `https://gw1.stg.vocdoni.net/v2`
     break
   case 'prod':
     plaza = `https://vocdoni.app`
+    apiUrl = `https://gw1.stg.vocdoni.net/v2`
     break
   default:
-    plaza = `https://vocdoni.app`
+    plaza = `https://dev.vocdoni.app`
+    apiUrl = `https://api-dev.vocdoni.net/v2`
+    break
 }
 
 if (VOCDONI_ENVIRONMENT !== 'prod') {
@@ -52,6 +54,7 @@ module.exports = {
   DISCOVERY_TIMEOUT: process.env.DISCOVERY_TIMEOUT || 3000,// in milliseconds
   DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 1,
   PLAZA_URL: process.env.PLAZA_URL || plaza,
+  API_URL: process.env.API_URL || apiUrl,
 
   // HELPSCOUT
   HELPSCOUT_PROJECT_ID: '', // TODO:

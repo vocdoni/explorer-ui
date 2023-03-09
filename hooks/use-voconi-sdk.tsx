@@ -10,13 +10,14 @@ function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, ...
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
+  const apiUrl = process.env.API_URL
 
   // Use useMemo to memoize the arguments and recompute only when they change
   const memoizedArgs = useMemo(() => args, args);
 
   useEffect(() => {
     setLoading(true);
-    promiseFn("https://api-dev.vocdoni.net/v2" , ...args)
+    promiseFn(apiUrl, ...args)
       .then(response => {
         setData(response);
         setLoading(false);
