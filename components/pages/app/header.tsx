@@ -32,8 +32,20 @@ export const Header = ({ children }: IHeaderProps) => {
   const isMobile = useIsMobile()
   const [openMobileMenu, setOpenMobileMenu] = useState(false)
   const { i18n } = useTranslation()
+  const env = process.env.VOCDONI_ENVIRONMENT
 
-  const isProduction = process.env.VOCDONI_ENVIRONMENT === 'prod'
+  let headerUrl;
+  switch (env) {
+    case "prod":
+      headerUrl = "/images/logo-header.png"
+      break;
+    case "stg":
+      headerUrl = "/images/logo-header-stg.png"
+      break;
+    default:
+      headerUrl = "/images/logo-header-dev.png"
+      break;
+  }
 
   const LINKS: HeaderLink[] = [
     {
@@ -80,7 +92,7 @@ export const Header = ({ children }: IHeaderProps) => {
           <Link href={HOME_PATH} passHref>
             <HomeLink target="_self">
               <img src={
-                isProduction ? '/images/logo-header.png' : '/images/logo-header-dev.png'
+                headerUrl
               } alt="Vocdoni" />
             </HomeLink>
           </Link>
