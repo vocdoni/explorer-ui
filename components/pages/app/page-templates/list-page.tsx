@@ -1,19 +1,15 @@
-import { Skeleton } from '@components/blocks/skeleton'
-import { Card } from '@components/elements/cards'
-import {
-  FlexAlignItem,
-  FlexContainer,
-  FlexJustifyContent,
-} from '@components/elements/flex'
-import { Column, ColumnDiv } from '@components/elements/grid'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { colors } from '@theme/colors'
-import { ReactNode } from 'react'
-import styled from 'styled-components'
+import { Skeleton } from '@components/blocks/skeleton';
+import { Card } from '@components/elements/cards';
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
+import { Column, ColumnDiv } from '@components/elements/grid';
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import { colors } from '@theme/colors';
+import { ReactNode } from 'react';
+import styled from 'styled-components';
 
 interface IListPageTemplateProps {
-  title: string
-  subtitle: string
+  title: string;
+  subtitle: string;
 }
 
 /**
@@ -25,45 +21,35 @@ interface IListPageTemplateProps {
 export const ListPage = ({ title, subtitle }: IListPageTemplateProps) => {
   return (
     <div>
-      <Typography
-        variant={TypographyVariant.H4}
-        color={colors.text}
-        margin="0px auto auto"
-      >
+      <Typography variant={TypographyVariant.H4} color={colors.text} margin="0px auto auto">
         <strong>{title}</strong>
       </Typography>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         {subtitle}
       </Typography>
     </div>
-  )
-}
+  );
+};
 
-export const InlineTitleChildrenContainer = ({
-  title,
-  children,
-}: {
-  title: ReactNode
-  children: ReactNode
-}) => {
+export const InlineTitleChildrenContainer = ({ title, children }: { title: ReactNode; children?: ReactNode }) => {
   return (
     <TopDiv>
-        {title}
+      {title}
       {children}
     </TopDiv>
-  )
-}
+  );
+};
 
 export const TopDiv = styled(ColumnDiv)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 20px 10px 0 10px ;
+  margin: 20px 10px 0 10px;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     flex-direction: row;
   }
-`
+`;
 
 export const renderSkeleton = (skeletonItems) => {
   return (
@@ -76,5 +62,5 @@ export const renderSkeleton = (skeletonItems) => {
           </Card>
         ))}
     </Column>
-  )
-}
+  );
+};
