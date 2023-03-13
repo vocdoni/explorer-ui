@@ -111,7 +111,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
                 '#' + envelope.blockHeight
               ) : (
                 <BlockLink blockHeight={envelope.blockHeight}>
-                  <a>#{envelope.blockHeight}</a>
+                  #{envelope.blockHeight}
                 </BlockLink>
               )}
             </Typography>
@@ -122,7 +122,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
                 '0x'+ envelope.electionID
               ) : (
                 <ProcessLink processId={envelope.electionID}>
-                  <a>0x{envelope.electionID}</a>
+                  0x{envelope.electionID}
                 </ProcessLink>
               )}
             </Typography>
@@ -136,7 +136,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
                   blockHeight={envelope.blockHeight.toString()}
                   index={envelope.transactionIndex.toString()}
                 >
-                  <a>0x{envelope.txHash}</a>
+                  0x{envelope.txHash}
                 </TransactionLink>
               )}
             </Typography>

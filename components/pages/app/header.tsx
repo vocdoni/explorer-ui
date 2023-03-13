@@ -90,7 +90,7 @@ export const Header = ({ children }: IHeaderProps) => {
       <HeaderContainer>
         <ListContainer>
           <Link href={HOME_PATH} passHref>
-            <HomeLink target="_self">
+            <HomeLink>
               <img src={
                 headerUrl
               } alt="Vocdoni" />
@@ -214,7 +214,7 @@ const ListItem = styled.div`
   }
 `
 
-const HomeLink = styled.a`
+const HomeLink = styled.div`
   cursor: pointer;
 
   & > img {
@@ -287,9 +287,7 @@ interface ILinkItemProps {
 const LinkItem = ({ url, external, onClick, children }: ILinkItemProps) => (
   <ListItem>
     <Link href={url} passHref>
-      <a onClick={onClick} target={external ? '_blank' : '_self'}>
-        {children}
-      </a>
+      {children}
     </Link>
   </ListItem>
 )
@@ -306,14 +304,14 @@ const ButtonLink = styled.div`
 const CTAButton = ({ url, children, external }: ILinkItemProps) => {
   return (
     <Button small positive>
-      <Link href={url} passHref>
-        <CTAStyle target={external ? '_blank' : '_self'}>{children}</CTAStyle>
-      </Link>
+      <CTA href={url} passHref>
+        {children}
+      </CTA>
     </Button>
   )
 }
 
-const CTAStyle = styled.a`
+const CTA = styled(Link)`
   color: inherit;
   font-family: 'Manrope';
   font-style: normal;

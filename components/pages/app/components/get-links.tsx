@@ -98,7 +98,7 @@ export const BlockLink = ({
   children: ReactNode
 }) => {
   return (
-    <a
+    <Link
       href={
         getPath(BLOCKS_DETAILS, {
           blockHeight: blockHeight.toString(),
@@ -106,7 +106,7 @@ export const BlockLink = ({
       }
     >
       {children}
-    </a>
+    </Link>
   )
 }
 
