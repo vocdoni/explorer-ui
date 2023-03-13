@@ -55,7 +55,8 @@ export const Paginator = ({
 
   const InnerButtonsDesktop = () => (
     <>
-      <NumberButton page={1}></NumberButton>
+      {totalPageCount > 1 && <NumberButton page={1}></NumberButton>}
+
 
       {currentPage > 3 && <NonActiveButton>...</NonActiveButton>}
 
@@ -105,9 +106,9 @@ export const Paginator = ({
         <NumberButton page={1} />
       )}
 
-      <NonActiveButton>...</NonActiveButton>
+      {totalPageCount > 1 && <NonActiveButton>...</NonActiveButton>}
 
-      {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
+      {totalPageCount > 1 && !disableGoLastBtn && <NumberButton page={totalPageCount} />}
 
       <Button
         small
