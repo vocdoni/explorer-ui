@@ -33,9 +33,9 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
         </p>
         <p>
           {i18n.t('components.block_card.last_block_hash')}:
-          <a href={`#/${(blockData?.height - 1).toString()}`}>
+          <Link href={`#/${(blockData?.height - 1).toString()}`}>
             <code> 0x{blockData?.lastBlockHash}</code>
-          </a>
+          </Link>
         </p>
         <p>
         {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.proposerAddress)}
