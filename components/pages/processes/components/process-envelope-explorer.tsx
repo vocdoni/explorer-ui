@@ -48,7 +48,7 @@ export const EnvelopeExplorer = ({
           }
         >
           <Then>
-            {envelopeRange?.map((envelope, idx) => (
+            {envelopeRange?.votes.map((envelope, idx) => (
               <EnvelopeCard
                 envelope={envelope}
                 idx={(votePage * ENVELOPES_PER_PAGE) + idx + 1}
