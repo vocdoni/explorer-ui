@@ -6,6 +6,7 @@ import { BlockInfo } from '@lib/types'
 import { TransactionListForBlock } from './transaction-list-for-block'
 import { useTranslation } from 'react-i18next'
 import { ensure0x } from 'dvote-js'
+import Link from 'next/link'
 
 export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
   const { i18n } = useTranslation()
