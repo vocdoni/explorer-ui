@@ -1,1 +1,1 @@
-export const DELAY_BOUNCE_TIME = 800
+export const DELAY_BOUNCE_TIME = 800;

@@ -1,15 +1,15 @@
-import { Margins, Screens } from "./types"
+import { Margins, Screens } from './types';
 
 export const sizes = {
   mobileS: 320, // XS
   mobileM: 375,
   mobileL: 440, // SM
-  tablet: 768,  // MD
+  tablet: 768, // MD
   tabletL: 900,
   laptop: 1024, // LG
   laptopL: 1440, // XL
   desktop: 1920,
-}
+};
 
 export const screenMin: Screens = {
   mobileS: `(min-width: ${sizes.mobileS}px)`,
@@ -20,7 +20,7 @@ export const screenMin: Screens = {
   laptop: `(min-width: ${sizes.laptop}px)`,
   laptopL: `(min-width: ${sizes.laptopL}px)`,
   desktop: `(min-width: ${sizes.desktop}px)`,
-}
+};
 
 export const screenMax: Screens = {
   mobileS: `(max-width: ${sizes.mobileS}px)`,
@@ -31,7 +31,7 @@ export const screenMax: Screens = {
   laptop: `(max-width: ${sizes.laptop}px)`,
   laptopL: `(max-width: ${sizes.laptopL}px)`,
   desktop: `(max-width: ${sizes.desktop}px)`,
-}
+};
 
 export const margins: Margins = {
   desktop: {
@@ -42,4 +42,4 @@ export const margins: Margins = {
     horizontal: '15px',
     vertical: '',
   },
-}
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-import i18n from '../../i18n'
+import i18n from '../../i18n';
 
 interface ILoaderProps {
-  visible: boolean
+  visible: boolean;
 }
 
 export const Loader = ({ visible }: ILoaderProps) => (
@@ -17,7 +17,7 @@ export const Loader = ({ visible }: ILoaderProps) => (
       <TextContainer>{i18n.t('dashboard.loading')}</TextContainer>
     </LoaderContainer>
   </AppLoader>
-)
+);
 
 const LogoContainer = styled.div`
   width: 100px;
@@ -26,7 +26,7 @@ const LogoContainer = styled.div`
   & > img {
     width: 100%;
   }
-`
+`;
 
 const TextContainer = styled.p`
   text-align: center;
@@ -48,16 +48,14 @@ const TextContainer = styled.p`
       text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
     }
     60% {
-      text-shadow: 0.25em 0 0 ${({ theme }) => theme.text},
-        0.5em 0 0 rgba(0, 0, 0, 0);
+      text-shadow: 0.25em 0 0 ${({ theme }) => theme.text}, 0.5em 0 0 rgba(0, 0, 0, 0);
     }
     80%,
     100% {
-      text-shadow: 0.25em 0 0 ${({ theme }) => theme.text},
-        0.5em 0 0 ${({ theme }) => theme.text};
+      text-shadow: 0.25em 0 0 ${({ theme }) => theme.text}, 0.5em 0 0 ${({ theme }) => theme.text};
     }
   }
-`
+`;
 
 const LoaderContainer = styled.div`
   max-width: 300px;
@@ -67,7 +65,7 @@ const LoaderContainer = styled.div`
   border-radius: 20px;
   background-color: ${({ theme }) => theme.white};
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.35);
-`
+`;
 
 const AppLoader = styled.div<{ visible?: boolean }>`
   position: fixed;
@@ -83,4 +81,4 @@ const AppLoader = styled.div<{ visible?: boolean }>`
   transition: all 0.4s 1s;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
   opacity: ${({ visible }) => (visible ? 1 : 0)};
-`
+`;

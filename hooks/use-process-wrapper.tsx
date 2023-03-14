@@ -1,103 +1,119 @@
-import { usePool, useProcess, useBlockHeight, useDateAtBlock, UseProcessContext, CacheRegisterPrefix } from '@vocdoni/react-hooks'
-import { ProcessDetails, ProcessResultsSingleChoice, VotingApi, ProcessStatus, VochainProcessStatus, IProcessStatus, ProcessState, Voting, CensusOffChainApi, ProcessCensusOrigin, IProcessCensusOrigin, VochainCensusOrigin } from 'dvote-js'
-import { Wallet } from '@ethersproject/wallet'
+import {
+  usePool,
+  useProcess,
+  useBlockHeight,
+  useDateAtBlock,
+  UseProcessContext,
+  CacheRegisterPrefix,
+} from '@vocdoni/react-hooks';
+import {
+  ProcessDetails,
+  ProcessResultsSingleChoice,
+  VotingApi,
+  ProcessStatus,
+  VochainProcessStatus,
+  IProcessStatus,
+  ProcessState,
+  Voting,
+  ProcessCensusOrigin,
+  VochainCensusOrigin,
+} from 'dvote-js';
+import { Wallet } from '@ethersproject/wallet';
 
-import { createContext, ReactNode, useContext } from 'react'
-import { useEffect, useState } from 'react'
+import { createContext, ReactNode, useContext } from 'react';
+import { useEffect, useState } from 'react';
 
-import i18n from '../i18n'
+import i18n from '../i18n';
 
-import { DateDiffType, localizedStrDateDiff } from '../lib/date'
-import { IProcessResults, VotingType } from '@lib/types'
-import { Question } from '@lib/types'
-import { isInValidProcessId, VoteStatus } from '@lib/util'
-import { MetadataFields } from '@components/blocks/metadata'
-import { BigNumber } from 'ethers'
+import { DateDiffType, localizedStrDateDiff } from '../lib/date';
+import { IProcessResults, VotingType } from '@lib/types';
+import { Question } from '@lib/types';
+import { isInValidProcessId, VoteStatus } from '@lib/util';
+import { MetadataFields } from '@components/blocks/metadata';
+import { BigNumber } from 'ethers';
 
 export interface ProcessWrapperContext {
-  loadingInfo: boolean,
-  loadingInfoError: string,
-  processInfo: ProcessDetails,
-  censusSize: number
-  hasStarted: boolean,
-  hasEnded: boolean,
-  remainingTime: string,
-  startDate: Date,
-  endDate: Date,
-  status: VoteStatus
-  statusText: string,
-  processId: string,
-  results: IProcessResults,
-  votingType: VotingType,
-  votesWeight: BigNumber,
-  liveResults: boolean,
-  description: string
-  liveStreamUrl: string
-  discussionUrl: string
-  attachmentUrl: string
-  questions: Question[]
-  title: string
-  isAnonymous: boolean
-  participationRate: string
+  loadingInfo: boolean;
+  loadingInfoError: string;
+  processInfo: ProcessDetails;
+  censusSize: number;
+  hasStarted: boolean;
+  hasEnded: boolean;
+  remainingTime: string;
+  startDate: Date;
+  endDate: Date;
+  status: VoteStatus;
+  statusText: string;
+  processId: string;
+  results: IProcessResults;
+  votingType: VotingType;
+  votesWeight: BigNumber;
+  liveResults: boolean;
+  description: string;
+  liveStreamUrl: string;
+  discussionUrl: string;
+  attachmentUrl: string;
+  questions: Question[];
+  title: string;
+  isAnonymous: boolean;
+  participationRate: string;
   methods: {
     // refreshProcessInfo: (processId: string) => Promise<ProcessDetails>
-    refreshResults: () => Promise<any>
-    setProcessId: (processId: string) => void
-    waitUntilStatusUpdated: (processId: string, status: IProcessStatus) => Promise<ProcessState>
-    cancelProcess: (processId: string, wallet: Wallet) => Promise<void>
-    pauseProcess: (processId: string, wallet: Wallet) => Promise<void>
-  }
+    refreshResults: () => Promise<any>;
+    setProcessId: (processId: string) => void;
+    waitUntilStatusUpdated: (processId: string, status: IProcessStatus) => Promise<ProcessState>;
+    cancelProcess: (processId: string, wallet: Wallet) => Promise<void>;
+    pauseProcess: (processId: string, wallet: Wallet) => Promise<void>;
+  };
 }
-const UseProcessWrapperContext = createContext<ProcessWrapperContext>({ censusSize: 0, processId: '', methods: {} } as any)
-
+const UseProcessWrapperContext = createContext<ProcessWrapperContext>({
+  censusSize: 0,
+  processId: '',
+  methods: {},
+} as any);
 
 export const useProcessWrapper = (processId: string) => {
-  const ctx = useContext(UseProcessWrapperContext)
+  const ctx = useContext(UseProcessWrapperContext);
 
   if (ctx === null) {
-    throw new Error('useProcessWrapper() can only be used on the descendants of <UseProcesWrapperProvider />,')
+    throw new Error('useProcessWrapper() can only be used on the descendants of <UseProcesWrapperProvider />,');
   }
   useEffect(() => {
-    if (!processId) return
-    else if (ctx.processId == processId) return
+    if (!processId) return;
+    else if (ctx.processId == processId) return;
 
-    ctx.methods.setProcessId(processId)
-  }, [processId])
+    ctx.methods.setProcessId(processId);
+  }, [processId]);
 
-  return ctx
-}
+  return ctx;
+};
 export const UseProcessWrapperProvider = ({ children }: { children: ReactNode }) => {
-  const [processId, setProcessId] = useState("")
-  const invalidProcessId = isInValidProcessId(processId)
-  const processContext = useContext(UseProcessContext)
-  const [censusSize, setCensusSize] = useState<number>()
-  const [participationRate, setParticipationRate] = useState<string>()
-  const { poolPromise } = usePool()
-  const { blockHeight } = useBlockHeight()
+  const [processId, setProcessId] = useState('');
+  const invalidProcessId = isInValidProcessId(processId);
+  const processContext = useContext(UseProcessContext);
+  const [censusSize] = useState<number>();
+  const [participationRate, setParticipationRate] = useState<string>();
+  const { poolPromise } = usePool();
+  const { blockHeight } = useBlockHeight();
 
-  const {
-    loading: loadingInfo,
-    error: loadingInfoError,
-    process: processInfo,
-    refresh,
-  } = useProcess(processId)
+  const { loading: loadingInfo, error: loadingInfoError, process: processInfo, refresh } = useProcess(processId);
 
-  const [results, setResults] = useState<IProcessResults>(null)
-  const [statusText, setStatusText] = useState('')
-  const [status, setStatus] = useState<VoteStatus>()
+  const [results, setResults] = useState<IProcessResults>(null);
+  const [statusText, setStatusText] = useState('');
+  const [status, setStatus] = useState<VoteStatus>();
 
-  const startBlock = processInfo?.state?.startBlock || 0
-  const endBlock = processInfo?.state?.endBlock || 0
-  const { date: startDate, loading: dateLoading, error: dateError } = useDateAtBlock(startBlock)
-  const { date: endDate } = useDateAtBlock(endBlock)
+  const startBlock = processInfo?.state?.startBlock || 0;
+  const endBlock = processInfo?.state?.endBlock || 0;
+  const { date: startDate } = useDateAtBlock(startBlock);
+  const { date: endDate } = useDateAtBlock(endBlock);
 
   // Effects
 
   useEffect(() => {
-    if (invalidProcessId) return
-    refreshResults()
-    refresh(processId)
-  }, [processId])
+    if (invalidProcessId) return;
+    refreshResults();
+    refresh(processId);
+  }, [processId]);
 
   // Not used on the explorer
   // useEffect(() => {
@@ -110,75 +126,74 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
     // we have the total weight of the votes but we dont have
     // total voting power of the census so it cannot be computed
     // properly
-    setParticipationRate(((results?.totalVotes || 0) / (censusSize || 1) * 100).toFixed(2))
-  }, [censusSize, results])
+    setParticipationRate((((results?.totalVotes || 0) / (censusSize || 1)) * 100).toFixed(2));
+  }, [censusSize, results]);
 
   useEffect(() => {
-    if (invalidProcessId) return
-    else if (blockHeight % 3 !== 0) return
+    if (invalidProcessId) return;
+    else if (blockHeight % 3 !== 0) return;
 
-    refreshResults()
-    refresh(processId)
-  }, [blockHeight])
+    refreshResults();
+    refresh(processId);
+  }, [blockHeight]);
 
   // STATUS UseEffect
   useEffect(() => {
     switch (processInfo?.state?.status) {
       case VochainProcessStatus.READY:
         if (hasEnded) {
-          setStatusText(i18n.t("status.the_vote_has_ended"))
-          setStatus(VoteStatus.Ended)
+          setStatusText(i18n.t('status.the_vote_has_ended'));
+          setStatus(VoteStatus.Ended);
+        } else if (hasStarted) {
+          setStatusText(i18n.t('status.the_vote_is_open_for_voting'));
+          setStatus(VoteStatus.Active);
+        } else if (!hasStarted) {
+          setStatusText(i18n.t('status.the_vote_will_start_soon'));
+          setStatus(VoteStatus.Upcoming);
         }
-        else if (hasStarted) {
-          setStatusText(i18n.t("status.the_vote_is_open_for_voting"))
-          setStatus(VoteStatus.Active)
-        }
-        else if (!hasStarted) {
-          setStatusText(i18n.t("status.the_vote_will_start_soon"))
-          setStatus(VoteStatus.Upcoming)
-        }
-        break
+        break;
       case VochainProcessStatus.PAUSED:
-        setStatusText(i18n.t("status.the_vote_is_paused"))
-        setStatus(VoteStatus.Paused)
-        break
+        setStatusText(i18n.t('status.the_vote_is_paused'));
+        setStatus(VoteStatus.Paused);
+        break;
       case VochainProcessStatus.CANCELED:
-        setStatusText(i18n.t("status.the_vote_is_canceled"))
-        setStatus(VoteStatus.Canceled)
-        break
+        setStatusText(i18n.t('status.the_vote_is_canceled'));
+        setStatus(VoteStatus.Canceled);
+        break;
       case VochainProcessStatus.ENDED:
-        setStatus(VoteStatus.Ended)
+        setStatus(VoteStatus.Ended);
       // eslint-disable-next-line no-fallthrough
       case VochainProcessStatus.RESULTS:
-        setStatusText(i18n.t("status.the_vote_has_ended"))
-        setStatus(VoteStatus.Ended)
-        break
+        setStatusText(i18n.t('status.the_vote_has_ended'));
+        setStatus(VoteStatus.Ended);
+        break;
     }
-  }, [processInfo?.state])
+  }, [processInfo?.state]);
 
   const waitUntilStatusUpdated = (processId: string, status: IProcessStatus): Promise<ProcessState> => {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve, reject) => {
-      let attempts = 10
+      let attempts = 10;
 
       const checkStatusAndResolve = async (): Promise<void> => {
-        const process: ProcessState = await processContext.refreshProcessState(processId)
-        --attempts
+        const process: ProcessState = await processContext.refreshProcessState(processId);
+        --attempts;
         if (attempts <= 0) {
-          reject('Max attempts reached')
-          return
+          reject('Max attempts reached');
+          return;
         }
 
         if (process.status !== status) {
-          setTimeout(checkStatusAndResolve, 10000)
-          return
+          setTimeout(checkStatusAndResolve, 10000);
+          return;
         }
 
-        resolve(process)
-      }
+        resolve(process);
+      };
 
-      checkStatusAndResolve()
-    })
-  }
+      checkStatusAndResolve();
+    });
+  };
 
   // Not used on the explorer
   // const updateCensusSize = async () => {
@@ -195,94 +210,94 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
   // }
 
   const updateProcessStatus = async (processToUpdate: string, status: IProcessStatus, wallet: Wallet) => {
-    const pool = await poolPromise
+    const pool = await poolPromise;
 
-
-    await VotingApi.setStatus(
-      processToUpdate,
-      status,
-      wallet.connect(pool.provider),
-      pool
-    )
-  }
+    await VotingApi.setStatus(processToUpdate, status, wallet.connect(pool.provider), pool);
+  };
 
   const cancelProcess = async (processId: string, wallet: Wallet): Promise<void> => {
-    await updateProcessStatus(processId, ProcessStatus.CANCELED, wallet)
+    await updateProcessStatus(processId, ProcessStatus.CANCELED, wallet);
 
-    await waitUntilStatusUpdated(processId, VochainProcessStatus.CANCELED)
+    await waitUntilStatusUpdated(processId, VochainProcessStatus.CANCELED);
 
-    processContext.invalidateRegister(CacheRegisterPrefix.Summary, processId)
-    refresh(processId)
-  }
+    processContext.invalidateRegister(CacheRegisterPrefix.Summary, processId);
+    refresh(processId);
+  };
 
   const pauseProcess = async (processId: string, wallet: Wallet): Promise<void> => {
-    await updateProcessStatus(processId, ProcessStatus.ENDED, wallet)
+    await updateProcessStatus(processId, ProcessStatus.ENDED, wallet);
 
-    await waitUntilStatusUpdated(processId, VochainProcessStatus.ENDED)
+    await waitUntilStatusUpdated(processId, VochainProcessStatus.ENDED);
 
-    processContext.invalidateRegister(CacheRegisterPrefix.Summary, processId)
-    refresh(processId)
-  }
+    processContext.invalidateRegister(CacheRegisterPrefix.Summary, processId);
+    refresh(processId);
+  };
   // Loaders
 
   // const countVotesWeight = (results: ProcessResultsSingleChoice): number => {
   //   return results.questions.reduce((prev, curr) => prev + curr.voteResults.reduce((p, c) => p + c.votes.toNumber(), 0), 0) / results.questions.length
   // }
   const countVotesWeight = (results: ProcessResultsSingleChoice): BigNumber => {
-    const weightSum = results.questions.reduce((prev, curr) => prev.add(curr.voteResults.reduce((p, c) => c.votes.add(p), BigNumber.from(0))), BigNumber.from(0))
-    return weightSum.div(results.questions.length)
-  }
+    const weightSum = results.questions.reduce(
+      (prev, curr) => prev.add(curr.voteResults.reduce((p, c) => c.votes.add(p), BigNumber.from(0))),
+      BigNumber.from(0)
+    );
+    return weightSum.div(results.questions.length);
+  };
 
   const refreshResults = () => {
-
-    if (!processId || invalidProcessId) return Promise.resolve()
+    if (!processId || invalidProcessId) return Promise.resolve();
 
     poolPromise
-      .then((pool) => Promise.all([
-        VotingApi.getResults(processId, pool),
-        VotingApi.getProcessMetadata(processId, pool),
-      ]))
+      .then((pool) =>
+        Promise.all([VotingApi.getResults(processId, pool), VotingApi.getProcessMetadata(processId, pool)])
+      )
       .then(([results, metadata]) => Voting.digestSingleChoiceResults(results, metadata))
       .then((results) => {
         const parsedResults: IProcessResults = {
           ...results,
           totalWeightedVotes: countVotesWeight(results),
-        }
+        };
 
-        setResults(parsedResults)
+        setResults(parsedResults);
       })
-      .catch((err) => console.log(err))
-    }  
+      .catch((err) => console.log(err));
+  };
 
   const isWeighted = (votingType: VochainCensusOrigin): boolean => {
-   return votingType == ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
-    votingType == ProcessCensusOrigin.ERC20 ||
-    votingType == ProcessCensusOrigin.ERC721 ||
-    votingType == ProcessCensusOrigin.ERC1155 ||
-    votingType == ProcessCensusOrigin.ERC777 ||
-    votingType == ProcessCensusOrigin.MINI_ME}
+    return (
+      votingType == ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
+      votingType == ProcessCensusOrigin.ERC20 ||
+      votingType == ProcessCensusOrigin.ERC721 ||
+      votingType == ProcessCensusOrigin.ERC1155 ||
+      votingType == ProcessCensusOrigin.ERC777 ||
+      votingType == ProcessCensusOrigin.MINI_ME
+    );
+  };
 
   // Callbacks
-  const hasStarted = startDate && startDate.getTime() <= Date.now()
-  const hasEnded = endDate && endDate.getTime() < Date.now()
-  const liveResults = !processInfo?.state?.envelopeType?.encryptedVotes
-  const votingType: VotingType = processInfo?.state?.censusOrigin as any
-  const isAnonymous = processInfo?.state?.envelopeType?.anonymous
-  const description = processInfo?.metadata?.description.default
-  const liveStreamUrl = processInfo?.metadata?.media.streamUri
-  const discussionUrl = processInfo?.metadata?.meta?.[MetadataFields.DiscussionLink]
-  const attachmentUrl = processInfo?.metadata?.meta?.[MetadataFields.AttachmentLink]
-  const questions = processInfo?.metadata?.questions
+  const hasStarted = startDate && startDate.getTime() <= Date.now();
+  const hasEnded = endDate && endDate.getTime() < Date.now();
+  const liveResults = !processInfo?.state?.envelopeType?.encryptedVotes;
+  const votingType: VotingType = processInfo?.state?.censusOrigin as any;
+  const isAnonymous = processInfo?.state?.envelopeType?.anonymous;
+  const description = processInfo?.metadata?.description.default;
+  const liveStreamUrl = processInfo?.metadata?.media.streamUri;
+  const discussionUrl = processInfo?.metadata?.meta?.[MetadataFields.DiscussionLink];
+  const attachmentUrl = processInfo?.metadata?.meta?.[MetadataFields.AttachmentLink];
+  const questions = processInfo?.metadata?.questions;
   const votesWeight = isWeighted(processInfo?.state?.censusOrigin)
     ? results?.totalWeightedVotes
-    : results?.totalVotes ? BigNumber.from(results?.totalVotes) : undefined
-  const title = processInfo?.metadata?.title.default
-  const remainingTime = (startBlock && startDate)
-    ? hasStarted
-      ? localizedStrDateDiff(DateDiffType.End, endDate)
-      : localizedStrDateDiff(DateDiffType.Start, startDate)
-    : ''
-
+    : results?.totalVotes
+    ? BigNumber.from(results?.totalVotes)
+    : undefined;
+  const title = processInfo?.metadata?.title.default;
+  const remainingTime =
+    startBlock && startDate
+      ? hasStarted
+        ? localizedStrDateDiff(DateDiffType.End, endDate)
+        : localizedStrDateDiff(DateDiffType.Start, startDate)
+      : '';
 
   // RETURN VALUES
   const value: ProcessWrapperContext = {
@@ -316,12 +331,8 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       setProcessId,
       waitUntilStatusUpdated,
       cancelProcess,
-      pauseProcess
-    }
-  }
-  return (
-    <UseProcessWrapperContext.Provider value={value}>
-      {children}
-    </UseProcessWrapperContext.Provider>
-  )
-}
+      pauseProcess,
+    },
+  };
+  return <UseProcessWrapperContext.Provider value={value}>{children}</UseProcessWrapperContext.Provider>;
+};

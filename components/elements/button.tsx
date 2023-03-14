@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import styled from 'styled-components'
-import { hexToRgbA } from '../../lib/util'
-import { theme } from '../../theme'
-import { colors } from 'theme/colors'
-import { FakedButton } from './styled-divs'
-import { Spinner } from '@chakra-ui/react'
+import React, { ReactNode } from 'react';
+import Link from 'next/link';
+import styled from 'styled-components';
+import { hexToRgbA } from '../../lib/util';
+import { theme } from '../../theme';
+import { colors } from 'theme/colors';
+import { FakedButton } from './styled-divs';
+import { Spinner } from '@chakra-ui/react';
 
 // Div button with a <button> inside added to be accessible throught tab navigation
 export const NavButton = ({ ...props }: ButtonProps) => {
@@ -13,8 +13,8 @@ export const NavButton = ({ ...props }: ButtonProps) => {
     <Button {...props}>
       <FakedButton>{props.children}</FakedButton>
     </Button>
-  )
-}
+  );
+};
 
 export enum ButtonColor {
   Positive = 'positive',
@@ -27,27 +27,27 @@ export enum LinkTarget {
 }
 
 type ButtonProps = {
-  positive?: boolean
-  negative?: boolean
-  disabled?: boolean
-  large?: boolean
-  small?: boolean
-  verticalAlign?: boolean
+  positive?: boolean;
+  negative?: boolean;
+  disabled?: boolean;
+  large?: boolean;
+  small?: boolean;
+  verticalAlign?: boolean;
   /** Draws a gray border only in default buttons */
-  border?: boolean
-  wide?: boolean
-  width?: number
-  justify?: JustifyContent
+  border?: boolean;
+  wide?: boolean;
+  width?: number;
+  justify?: JustifyContent;
   /** Text color to use (either a HEX color or "accent1" "accent2") */
-  color?: ButtonColor | string
-  borderColor?: ButtonColor | string
-  icon?: React.ReactNode
-  children?: React.ReactNode
-  href?: string
-  target?: LinkTarget
-  spinner?: boolean
-  onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-}
+  color?: ButtonColor | string;
+  borderColor?: ButtonColor | string;
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
+  href?: string;
+  target?: LinkTarget;
+  spinner?: boolean;
+  onClick?: (ev: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+};
 
 export const Button = ({
   disabled,
@@ -55,7 +55,6 @@ export const Button = ({
   negative,
   color,
   href,
-  target,
   onClick,
   width,
   icon,
@@ -69,7 +68,7 @@ export const Button = ({
   spinner,
   children,
 }: ButtonProps) => {
-  let component: JSX.Element
+  let component: JSX.Element;
   const getButtonText = (): ReactNode =>
     spinner ? (
       <SpinnerContainer>
@@ -77,7 +76,7 @@ export const Button = ({
       </SpinnerContainer>
     ) : (
       children
-    )
+    );
 
   if (disabled) {
     return (
@@ -93,16 +92,12 @@ export const Button = ({
             {icon}&nbsp; {getButtonText()}
           </ButtonContent>
         ) : (
-          <ButtonContent
-            color={theme.darkLightFg}
-            verticalAlign={verticalAlign}
-            justify={justify}
-          >
+          <ButtonContent color={theme.darkLightFg} verticalAlign={verticalAlign} justify={justify}>
             {getButtonText()}
           </ButtonContent>
         )}
       </DisabledButton>
-    )
+    );
   }
 
   if (positive) {
@@ -119,16 +114,12 @@ export const Button = ({
             {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
-          <ButtonContent
-            color={theme.white}
-            verticalAlign={verticalAlign}
-            justify={justify}
-          >
+          <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>
             {getButtonText()}
           </ButtonContent>
         )}
       </PositiveButton>
-    )
+    );
   } else if (negative) {
     component = (
       <NegativeButton
@@ -143,16 +134,12 @@ export const Button = ({
             {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
-          <ButtonContent
-            color={theme.white}
-            verticalAlign={verticalAlign}
-            justify={justify}
-          >
+          <ButtonContent color={theme.white} verticalAlign={verticalAlign} justify={justify}>
             {getButtonText()}
           </ButtonContent>
         )}
       </NegativeButton>
-    )
+    );
   } else {
     component = (
       <DefaultButton
@@ -169,67 +156,40 @@ export const Button = ({
             {icon}&nbsp;{getButtonText()}
           </ButtonContent>
         ) : (
-          <ButtonContent
-            color={color}
-            verticalAlign={verticalAlign}
-            justify={justify}
-          >
+          <ButtonContent color={color} verticalAlign={verticalAlign} justify={justify}>
             {getButtonText()}
           </ButtonContent>
         )}
       </DefaultButton>
-    )
+    );
   }
 
   if (href) {
-    return (
-      <Link href={href}>
-          {component}
-      </Link>
-    )
+    return <Link href={href}>{component}</Link>;
   }
-  return component
-}
+  return component;
+};
 
-export const SquareButton = ({
-  icon,
-  children,
-  width,
-  disabled,
-  onClick,
-}: ButtonProps) => (
-  <Button
-    onClick={onClick}
-    disabled={disabled}
-    width={width}
-    border
-    verticalAlign
-  >
+export const SquareButton = ({ icon, children, width, disabled, onClick }: ButtonProps) => (
+  <Button onClick={onClick} disabled={disabled} width={width} border verticalAlign>
     <SquareButtonIconContainer>{icon}</SquareButtonIconContainer>
     {children}
   </Button>
-)
+);
 
 const BaseButton = styled.div<{
-  wide?: boolean
-  large?: boolean
-  small?: boolean
-  width?: number
-  border?: boolean
-  borderColor?: ButtonColor | string
+  wide?: boolean;
+  large?: boolean;
+  small?: boolean;
+  width?: number;
+  border?: boolean;
+  borderColor?: ButtonColor | string;
 }>`
   ${(props) => (props.wide ? '' : 'display: inline-block;')}
-  ${(props) =>
-    props.width != undefined ? 'width: ' + props.width + 'px;' : ''}
-${(props) =>
-    props.large
-      ? 'padding: 13px 25px;'
-      : props.small
-      ? 'padding: 8px 15px;'
-      : 'padding: 11px 20px;'}
+  ${(props) => (props.width != undefined ? 'width: ' + props.width + 'px;' : '')}
+${(props) => (props.large ? 'padding: 13px 25px;' : props.small ? 'padding: 8px 15px;' : 'padding: 11px 20px;')}
 
-${(props) =>
-    props.large ? 'font-size: 125%;' : props.small ? 'font-size: 85%;' : ''}
+${(props) => (props.large ? 'font-size: 125%;' : props.small ? 'font-size: 85%;' : '')}
 
     background: ${(props) => props.theme.lightBg};
   box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
@@ -241,20 +201,16 @@ ${(props) =>
   @media ${({ theme }) => theme.screenMax.mobileL} {
     white-space: normal;
   }
-`
+`;
 
 const DisabledButton = styled(BaseButton)`
   cursor: no-drop;
-`
+`;
 
 export const DefaultButton = styled(BaseButton)`
   cursor: pointer;
   ${({ border, borderColor, theme }) =>
-    border
-      ? 'border: 2px solid ' +
-        (borderColor ? borderColor : theme.lightBorder) +
-        ';'
-      : ''}
+    border ? 'border: 2px solid ' + (borderColor ? borderColor : theme.lightBorder) + ';' : ''}
   background: ${(props) => props.theme.white};
 
   // Compensate 2px border (if applicable)
@@ -277,12 +233,12 @@ export const DefaultButton = styled(BaseButton)`
   &:active {
     background-color: ${(props) => props.theme.lightBg2};
   }
-`
+`;
 
 const SpinnerContainer = styled.div`
   position: relative;
   height: 16px;
-`
+`;
 const PositiveButton = styled(BaseButton)`
   cursor: pointer;
 
@@ -306,7 +262,7 @@ const PositiveButton = styled(BaseButton)`
       ${(props) => hexToRgbA(props.theme.accent1, 0.8)} 93.83%
     );
   }
-`
+`;
 
 const NegativeButton = styled(BaseButton)`
   cursor: pointer;
@@ -331,7 +287,7 @@ const NegativeButton = styled(BaseButton)`
       ${(props) => hexToRgbA(props.theme.accent2, 0.8)} 93.83%
     );
   }
-`
+`;
 
 export enum JustifyContent {
   Left = 'left',
@@ -340,14 +296,13 @@ export enum JustifyContent {
 }
 
 const ButtonContent = styled.div<{
-  color?: ButtonProps['color']
-  justify?: JustifyContent
-  verticalAlign?: boolean
+  color?: ButtonProps['color'];
+  justify?: JustifyContent;
+  verticalAlign?: boolean;
 }>`
   display: flex;
   flex-direction: ${({ verticalAlign }) => (verticalAlign ? 'column' : 'row')};
-  justify-content: ${({ justify }) =>
-    justify ? justify : JustifyContent.Center};
+  justify-content: ${({ justify }) => (justify ? justify : JustifyContent.Center)};
   align-items: center;
   ${(props) =>
     props.color == 'positive'
@@ -357,7 +312,7 @@ const ButtonContent = styled.div<{
       : props.color
       ? 'color: ' + props.color + ';'
       : ''}
-`
+`;
 
 const SquareButtonIconContainer = styled.div`
   height: 66px;
@@ -367,22 +322,22 @@ const SquareButtonIconContainer = styled.div`
   & > img {
     width: 100%;
   }
-`
+`;
 
 export const LargeButtonText = styled.p`
   color: ${colors.blueText};
   font-size: 18px;
   font-weight: 500;
   margin: 0 20px;
-`
+`;
 
 export const HomePageButton = styled.button`
-  left: calc(50% - 160px/2);
+  left: calc(50% - 160px / 2);
   top: 20px;
   padding: 12px 24px;
 
   /* SECONDARY */
-  background: #46C4C2;
+  background: #46c4c2;
   box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
   border-radius: 8px;
   color: white;
@@ -403,8 +358,9 @@ export const HomePageButton = styled.button`
     line-height: 150%;
   }
 
-  &:hover, &:active {
-    background: #0D4752;
+  &:hover,
+  &:active {
+    background: #0d4752;
     box-shadow: 0px 3px 3px rgba(180, 193, 228, 0.25);
   }
-`
+`;

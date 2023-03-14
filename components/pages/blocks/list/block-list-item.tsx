@@ -1,21 +1,11 @@
-import { BlockCard } from '@components/blocks/card/block-card'
-import { StatusCard } from '@components/elements/cards'
-import { BlockInfo } from '@lib/types'
-import React from 'react'
-import styled from 'styled-components'
+import { BlockCard } from '@components/blocks/card/block-card';
+import { BlockInfo } from '@lib/types';
+import React from 'react';
 
 interface IDashboardBlockItemProps {
-  blockData: BlockInfo
+  blockData: BlockInfo;
 }
 
-export const DashboardBlockItem = ({
-  blockData,
-}: IDashboardBlockItemProps) => {
-  return (
-    <BlockCard blockData={blockData} />
-  )
-}
-
-const VoteItemWrapper = styled.div`
-  margin-bottom: 10px;
-`
+export const DashboardBlockItem = ({ blockData }: IDashboardBlockItemProps) => {
+  return <BlockCard blockData={blockData} />;
+};

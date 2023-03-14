@@ -1,7 +1,7 @@
-import i18n from "@i18n";
+import i18n from '@i18n';
 
-export class InvalidTitleError extends Error  {
+export class InvalidTitleError extends Error {
   constructor(length: number) {
-    super(i18n.t('error.invalid_title', {length}))
+    super(i18n.t('error.invalid_title', { length }));
   }
 }

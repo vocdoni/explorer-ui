@@ -1,10 +1,7 @@
-import { DashboardShowProcesses } from '@components/pages/processes/list'
-
+import { DashboardShowProcesses } from '@components/pages/processes/list';
 
 const ProcessesPage = () => {
-  return (
-    <DashboardShowProcesses></DashboardShowProcesses>
-  )
- }
+  return <DashboardShowProcesses></DashboardShowProcesses>;
+};
 
-export default ProcessesPage
+export default ProcessesPage;

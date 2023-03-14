@@ -1,11 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
 interface IEmptyProvidersProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-export const EmptyProviders = ({ children }: IEmptyProvidersProps) => (
-  <>
-    {children}
-  </>
-)
+export const EmptyProviders = ({ children }: IEmptyProvidersProps) => <>{children}</>;

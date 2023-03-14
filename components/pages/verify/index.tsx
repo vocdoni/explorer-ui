@@ -1,23 +1,14 @@
-import { Col, Row } from '@components/elements-v2'
-import { Button } from '@components/elements/button'
-import {
-  FlexAlignItem,
-  FlexContainer,
-  FlexJustifyContent,
-
-} from '@components/elements/flex'
-import { Column, Grid } from '@components/elements/grid'
-import { Input } from '@components/elements/inputs'
-import { DivWithMarginChildren } from '@components/elements/styled-divs'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import i18n from '@i18n'
-import { colors } from '@theme/colors'
-import Link from 'next/link'
-import { ReactNode } from 'react'
-import styled from 'styled-components'
-import {
-  TopDiv,
-} from '../app/page-templates/list-page'
+import { Col, Row } from '@components/elements-v2';
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
+import { Column, Grid } from '@components/elements/grid';
+import { Input } from '@components/elements/inputs';
+import { DivWithMarginChildren } from '@components/elements/styled-divs';
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import i18n from '@i18n';
+import { colors } from '@theme/colors';
+import { ReactNode } from 'react';
+import styled from 'styled-components';
+import { TopDiv } from '../app/page-templates/list-page';
 
 const VerifyPage = ({
   button,
@@ -25,42 +16,36 @@ const VerifyPage = ({
   minified = false,
   onSubmit,
 }: {
-  button: ReactNode
-  setVoteId: (voteId: string) => void
-  minified?: boolean
-  onSubmit?: () => void
+  button: ReactNode;
+  setVoteId: (voteId: string) => void;
+  minified?: boolean;
+  onSubmit?: () => void;
 }) => {
-
   const voteIdInput = (
     <Input
       wide
       placeholder={i18n.t('verify.add_vote_id')}
       onChange={(ev) => {
-        setVoteId(ev.target.value)
+        setVoteId(ev.target.value);
       }}
     />
-  )
+  );
 
-  const logo = <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
+  const logo = <img src="/images/add-vote.svg" alt="Vocdoni Logo" />;
 
-  const title = (<Typography
-    variant={TypographyVariant.H4}
-    color={colors.blueText}
-    margin="20px 0 20px 0 "
-  >
-    {i18n.t('verify.verify_your_vote')}
-  </Typography>)
+  const title = (
+    <Typography variant={TypographyVariant.H4} color={colors.blueText} margin="20px 0 20px 0 ">
+      {i18n.t('verify.verify_your_vote')}
+    </Typography>
+  );
 
   const minifiedLayout = () => {
     return (
       <>
-        <FlexContainer
-          alignItem={FlexAlignItem.Start}
-          justify={FlexJustifyContent.Start}
-        >
-        <VoteImageContainerMinified>
-          <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
-        </VoteImageContainerMinified>
+        <FlexContainer alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start}>
+          <VoteImageContainerMinified>
+            <img src="/images/add-vote.svg" alt="Vocdoni Logo" />
+          </VoteImageContainerMinified>
           {title}
         </FlexContainer>
         <TopDiv>
@@ -74,43 +59,40 @@ const VerifyPage = ({
           </LeftMargin>
         </TopDiv>
       </>
-    )
-  }
+    );
+  };
 
   const normalLayout = () => {
     return (
       <>
-        <VoteImageContainer>
-          {logo}
-        </VoteImageContainer>
+        <VoteImageContainer>{logo}</VoteImageContainer>
         {title}
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {i18n.t(
-            'verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote'
-          )}
+          {i18n.t('verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote')}
         </Typography>
         <Col align="center">
           <Row align="center">{voteIdInput}</Row>
         </Col>
-        <FlexContainer
-          alignItem={FlexAlignItem.Center}
-          justify={FlexJustifyContent.Center}
-        >
+        <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
           <ButtonContainer>{button}</ButtonContainer>
         </FlexContainer>
       </>
-    )
-  }
+    );
+  };
 
-  return <form
-  onSubmit={(ev) => {
-    ev.preventDefault()
-    if(onSubmit) onSubmit()
-  }}
-  >{minified ? minifiedLayout() : normalLayout()}</form>
-}
+  return (
+    <form
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        if (onSubmit) onSubmit();
+      }}
+    >
+      {minified ? minifiedLayout() : normalLayout()}
+    </form>
+  );
+};
 
-export default VerifyPage
+export default VerifyPage;
 
 const VoteImageContainer = styled.div`
   width: 100px;
@@ -119,7 +101,7 @@ const VoteImageContainer = styled.div`
   & > img {
     width: 100%;
   }
-`
+`;
 
 const VoteImageContainerMinified = styled.div`
   width: 30px;
@@ -130,16 +112,16 @@ const VoteImageContainerMinified = styled.div`
   & > img {
     width: 100%;
   }
-`
+`;
 
 const ButtonContainer = styled.div`
   margin-top: 10px;
-`
+`;
 
 const InlineInput = styled.span`
   width: 100%;
-`
+`;
 
 const LeftMargin = styled.span`
   margin-left: 40px;
-`
+`;

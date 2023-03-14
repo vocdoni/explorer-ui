@@ -1,101 +1,85 @@
-import { Card } from '@components/elements/cards'
-import {
-  BlockLink,
-  EnvelopeLink,
-  TransactionLink,
-} from '@components/pages/app/components/get-links'
-import { useTranslation } from 'react-i18next'
-import React, { ReactNode } from 'react'
-import { IconContext } from 'react-icons'
-import { BiEnvelope } from 'react-icons/bi'
-import styled from 'styled-components'
-import { SkeletonOnlyBones } from '@components/blocks/skeleton'
-import { IElectionVote } from '@vocdoni/sdk'
-
+import { Card } from '@components/elements/cards';
+import { BlockLink, EnvelopeLink, TransactionLink } from '@components/pages/app/components/get-links';
+import { useTranslation } from 'react-i18next';
+import React, { ReactNode } from 'react';
+import { IconContext } from 'react-icons';
+import { BiEnvelope } from 'react-icons/bi';
+import styled from 'styled-components';
+import { SkeletonOnlyBones } from '@components/blocks/skeleton';
+import { IElectionVote } from '@vocdoni/sdk';
 
 export const renderCardSkeleton = (skeletonItems) => {
-    return (
-      <>
-        {Array(skeletonItems)
-          .fill(0)
-          .map((value, index: number) => (
-            <EnvelopeCardSkeleton key={index}>
-              <SkeletonOnlyBones />
-            </EnvelopeCardSkeleton>
-          ))}
-      </>
-    )
-  }
+  return (
+    <>
+      {Array(skeletonItems)
+        .fill(0)
+        .map((value, index: number) => (
+          <EnvelopeCardSkeleton key={index}>
+            <SkeletonOnlyBones />
+          </EnvelopeCardSkeleton>
+        ))}
+    </>
+  );
+};
 
-  const EnvelopeCardSkeleton = ({ children }: { children: ReactNode }) => (
-    <Card md={6} lg={3} xl={3}>
-      {children}
-    </Card>
-  )
+const EnvelopeCardSkeleton = ({ children }: { children: ReactNode }) => (
+  <Card md={6} lg={3} xl={3}>
+    {children}
+  </Card>
+);
 
-  export const EnvelopeCard = ({
-    envelope,
-    idx,
-  }: {
-    envelope: IElectionVote
-    idx: number
-  }) => {
-    const { i18n } = useTranslation()
+export const EnvelopeCard = ({ envelope, idx }: { envelope: IElectionVote; idx: number }) => {
+  const { i18n } = useTranslation();
 
-    return (
-      <EnvelopeCardSkeleton>
-        <TopDiv>
-          <strong>
-            {i18n.t('processes.envelope_explorer.envelope_n', {
-              number: idx, // Is not showing tx index, instead show index of map itself
-            })}
-          </strong>
-          <RightIcon>
-            <IconContext.Provider
-              value={{
-                color: 'gray',
-                size: '1.5em',
-                style: { paddingLeft: '10px', cursor: 'pointer' },
-              }}
-            >
-              <div>
-                <BiEnvelope />
-              </div>
-            </IconContext.Provider>
-          </RightIcon>
-        </TopDiv>
-        <p>
-          <BlockLink blockHeight={envelope.blockHeight}>
-            {i18n.t('processes.envelope_explorer.block', {
-              block: envelope.blockHeight || 0,
-            })}
-          </BlockLink>
-        </p>
-        <p>
-          <TransactionLink
-            blockHeight={envelope.blockHeight.toString()}
-            index={envelope.transactionIndex.toString()}
+  return (
+    <EnvelopeCardSkeleton>
+      <TopDiv>
+        <strong>
+          {i18n.t('processes.envelope_explorer.envelope_n', {
+            number: idx, // Is not showing tx index, instead show index of map itself
+          })}
+        </strong>
+        <RightIcon>
+          <IconContext.Provider
+            value={{
+              color: 'gray',
+              size: '1.5em',
+              style: { paddingLeft: '10px', cursor: 'pointer' },
+            }}
           >
-            {i18n.t('processes.envelope_explorer.tx_number', {
-              txNumber: envelope.transactionIndex || 0,
-            })}
-          </TransactionLink>
-        </p>
-        <p>
-          <EnvelopeLink nullifier={envelope.voteID}>
-            {i18n.t('processes.envelope_explorer.details')}
-          </EnvelopeLink>
-        </p>
-      </EnvelopeCardSkeleton>
-    )
-  }
+            <div>
+              <BiEnvelope />
+            </div>
+          </IconContext.Provider>
+        </RightIcon>
+      </TopDiv>
+      <p>
+        <BlockLink blockHeight={envelope.blockHeight}>
+          {i18n.t('processes.envelope_explorer.block', {
+            block: envelope.blockHeight || 0,
+          })}
+        </BlockLink>
+      </p>
+      <p>
+        <TransactionLink blockHeight={envelope.blockHeight.toString()} index={envelope.transactionIndex.toString()}>
+          {i18n.t('processes.envelope_explorer.tx_number', {
+            txNumber: envelope.transactionIndex || 0,
+          })}
+        </TransactionLink>
+      </p>
+      <p>
+        <EnvelopeLink nullifier={envelope.voteID}>{i18n.t('processes.envelope_explorer.details')}</EnvelopeLink>
+      </p>
+    </EnvelopeCardSkeleton>
+  );
+};
 
-  const TopDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 10px 0;
-  `
-  const RightIcon = styled.div`
-    line-height: 20px;
-  `
+const TopDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+`;
+const RightIcon = styled.div`
+  line-height: 20px;
+`;

@@ -1,6 +1,5 @@
-import { Paginator, PaginatorProps } from './paginator'
-import { usePaginatorRouter } from '@hooks/use-pagination-router'
-
+import { Paginator, PaginatorProps } from './paginator';
+import { usePaginatorRouter } from '@hooks/use-pagination-router';
 
 export const PaginatorRouterParams = ({
   totalCount,
@@ -9,15 +8,15 @@ export const PaginatorRouterParams = ({
   onPageChange,
   disableGoLastBtn = false,
 }: PaginatorProps) => {
+  usePaginatorRouter({ onPageChange, currentPage });
 
-  usePaginatorRouter({onPageChange, currentPage})
-
-  return <Paginator
-    totalCount={totalCount}
-    pageSize={pageSize}
-    currentPage={currentPage}
-    onPageChange={onPageChange}
-    disableGoLastBtn={disableGoLastBtn}
-  ></Paginator>
-
-}
+  return (
+    <Paginator
+      totalCount={totalCount}
+      pageSize={pageSize}
+      currentPage={currentPage}
+      onPageChange={onPageChange}
+      disableGoLastBtn={disableGoLastBtn}
+    ></Paginator>
+  );
+};

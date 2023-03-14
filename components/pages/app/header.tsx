@@ -1,9 +1,9 @@
-import React, { MouseEvent, ReactNode, useState } from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
-import { Unless } from 'react-if'
+import React, { MouseEvent, ReactNode, useState } from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
+import { Unless } from 'react-if';
 
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 import {
   HOME_PATH,
@@ -15,35 +15,35 @@ import {
   STATS_PATH,
   TOOLS_PATH,
   VERIFY,
-} from '@const/routes'
+} from '@const/routes';
 
-import { MenuIcon } from '@components/blocks/menu-icon'
-import { useIsMobile } from '@hooks/use-window-size'
+import { MenuIcon } from '@components/blocks/menu-icon';
+import { useIsMobile } from '@hooks/use-window-size';
 
-import { sizes } from '../../../theme/sizes'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { Button } from '@components/elements/button'
+import { sizes } from '../../../theme/sizes';
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import { Button } from '@components/elements/button';
 
 interface IHeaderProps {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export const Header = ({ children }: IHeaderProps) => {
-  const isMobile = useIsMobile()
-  const [openMobileMenu, setOpenMobileMenu] = useState(false)
-  const { i18n } = useTranslation()
-  const env = process.env.VOCDONI_ENVIRONMENT
+  const isMobile = useIsMobile();
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
+  const { i18n } = useTranslation();
+  const env = process.env.VOCDONI_ENVIRONMENT;
 
   let headerUrl;
   switch (env) {
-    case "prod":
-      headerUrl = "/images/logo-header.png"
+    case 'prod':
+      headerUrl = '/images/logo-header.png';
       break;
-    case "stg":
-      headerUrl = "/images/logo-header-stg.png"
+    case 'stg':
+      headerUrl = '/images/logo-header-stg.png';
       break;
     default:
-      headerUrl = "/images/logo-header-dev.png"
+      headerUrl = '/images/logo-header-dev.png';
       break;
   }
 
@@ -76,23 +76,21 @@ export const Header = ({ children }: IHeaderProps) => {
       name: i18n.t('links.tools'),
       url: TOOLS_PATH,
     },
-  ]
+  ];
 
   const RIGHT_LINKS: HeaderLink[] = [
     {
       name: i18n.t('links.verify_vote'),
       url: VERIFY,
     },
-  ]
+  ];
 
   return (
     <>
       <HeaderContainer>
         <ListContainer>
           <HomeLink target="_self" href={HOME_PATH} passHref>
-            <img src={
-              headerUrl
-            } alt="Vocdoni" />
+            <img src={headerUrl} alt="Vocdoni" />
           </HomeLink>
 
           <MenuItemsContainer>
@@ -110,23 +108,14 @@ export const Header = ({ children }: IHeaderProps) => {
           {[...LINKS, ...RIGHT_LINKS].map((link) => (
             <MenuItem key={link.name}>
               <LinkItem {...link} onClick={() => setOpenMobileMenu(false)}>
-                <Typography variant={TypographyVariant.Subtitle1}>
-                  {link.name}
-                </Typography>
+                <Typography variant={TypographyVariant.Subtitle1}>{link.name}</Typography>
               </LinkItem>
             </MenuItem>
           ))}
-          <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>
-            {children}
-          </MobileMenuActionsContainer>
+          <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>{children}</MobileMenuActionsContainer>
         </MobileMenuContainer>
 
-        {isMobile && (
-          <MenuIcon
-            menuState={openMobileMenu}
-            onClickMenu={setOpenMobileMenu}
-          />
-        )}
+        {isMobile && <MenuIcon menuState={openMobileMenu} onClickMenu={setOpenMobileMenu} />}
 
         {!isMobile && (
           <RightContainer>
@@ -140,8 +129,8 @@ export const Header = ({ children }: IHeaderProps) => {
         )}
       </HeaderContainer>
     </>
-  )
-}
+  );
+};
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -161,12 +150,12 @@ const HeaderContainer = styled.div`
 
   font-size: 16px;
 
-  background-color: #FFF;
+  background-color: #fff;
 
   & a {
     font-size: 16px;
   }
-`
+`;
 
 const ListContainer = styled.div`
   padding: 0 20px;
@@ -180,7 +169,7 @@ const ListContainer = styled.div`
   @media ${({ theme }) => theme.screenMin.tablet} {
     padding: 0 ${({ theme }) => theme.margins.desktop.horizontal};
   }
-`
+`;
 
 const RightContainer = styled.div`
   padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
@@ -192,13 +181,13 @@ const RightContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     display: none;
   }
-`
+`;
 
 const MenuItemsContainer = styled.div`
   margin-left: 20px;
   display: flex;
   justify-content: center;
-`
+`;
 
 const ListItem = styled.div`
   margin: 0 16px;
@@ -210,7 +199,7 @@ const ListItem = styled.div`
   a:hover {
     text-decoration: underline;
   }
-`
+`;
 
 const HomeLink = styled(Link)`
   cursor: pointer;
@@ -220,7 +209,7 @@ const HomeLink = styled(Link)`
     max-height: 45px;
     max-width: 200px;
   }
-`
+`;
 const MobileMenuActionsContainer = styled.div`
   position: absolute;
   bottom: 0;
@@ -231,7 +220,7 @@ const MobileMenuActionsContainer = styled.div`
   & > a {
     width: 100%;
   }
-`
+`;
 const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
   display: none;
   background: linear-gradient(180deg, #f0ffde 20.98%, #e0ffff 73.1%);
@@ -256,58 +245,42 @@ const MobileMenuContainer = styled.div<{ showMenu: boolean }>`
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
   }
-`
+`;
 
 const MenuItem = styled.div`
   color: ${({ theme }) => theme.blueText};
-`
-
-const Section = styled.div`
-  display: flex;
-  margin-top: 30px;
-  justify-content: center;
-  color: ${({ color }) => color};
-`
+`;
 
 interface HeaderLink {
-  name: string
-  url: string
-  external?: boolean
+  name: string;
+  url: string;
+  external?: boolean;
 }
 
 interface ILinkItemProps {
-  url: string
-  children: ReactNode
-  external?: boolean
-  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void
+  url: string;
+  children: ReactNode;
+  external?: boolean;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-const LinkItem = ({ url, external, onClick, children }: ILinkItemProps) => (
+const LinkItem = ({ url, onClick, children }: ILinkItemProps) => (
   <ListItem>
-    <Link  onClick={onClick} href={url} passHref>
+    <Link onClick={onClick} href={url} passHref>
       {children}
     </Link>
   </ListItem>
-)
+);
 
-const ButtonLink = styled.div`
-  & > a {
-    color: ${({ theme }) => theme.text};
-  }
-  & > a:hover {
-    text-decoration: underline;
-  }
-`
-
-const CTAButton = ({ url, children, external }: ILinkItemProps) => {
+const CTAButton = ({ url, children }: ILinkItemProps) => {
   return (
     <Button small positive>
       <CTA href={url} passHref>
         {children}
       </CTA>
     </Button>
-  )
-}
+  );
+};
 
 const CTA = styled(Link)`
   color: inherit;
@@ -316,4 +289,4 @@ const CTA = styled(Link)`
   font-weight: 700;
   font-size: 12.8px;
   line-height: 150%;
-`
+`;

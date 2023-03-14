@@ -1,6 +1,5 @@
 import { Skeleton } from '@components/blocks/skeleton';
 import { Card } from '@components/elements/cards';
-import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { Column, ColumnDiv } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';

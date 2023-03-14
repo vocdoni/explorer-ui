@@ -1,118 +1,93 @@
-import { Card, PageCard } from '@components/elements/cards'
-import { Column, Grid } from '@components/elements/grid'
-import { IInputProps, Input } from '@components/elements/inputs'
-import {
-  MainDescription,
-  SectionTitle,
-  StrongAndText,
-} from '@components/elements/text'
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import {
-  useBlockAtDate,
-  useBlockHeight,
-  useDateAtBlock,
-} from '@vocdoni/react-hooks'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import styled from 'styled-components'
-import {
-  FlexAlignItem,
-  FlexContainer,
-  FlexDirection,
-  FlexJustifyContent,
-} from '@components/elements/flex'
-import { useTranslation } from 'react-i18next'
-import { useStats } from '@hooks/use-stats'
-import { localizedDateDiff } from '@lib/date'
-import { capitalize } from '@lib/util'
+import { Card, PageCard } from '@components/elements/cards';
+import { Column, Grid } from '@components/elements/grid';
+import { IInputProps, Input } from '@components/elements/inputs';
+import { MainDescription, SectionTitle, StrongAndText } from '@components/elements/text';
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import { useBlockAtDate, useBlockHeight, useDateAtBlock } from '@vocdoni/react-hooks';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { FlexAlignItem, FlexContainer, FlexDirection, FlexJustifyContent } from '@components/elements/flex';
+import { useTranslation } from 'react-i18next';
+import { useStats } from '@hooks/use-stats';
+import { localizedDateDiff } from '@lib/date';
+import { capitalize } from '@lib/util';
 
-import {
-  FiChevronDown,
-  FiChevronLeft,
-  FiChevronRight,
-  FiChevronUp,
-} from 'react-icons/fi'
-import { useIsMobile } from '@hooks/use-window-size'
-import DateTimePicker from '@components/elements/date-picker'
+import { FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronUp } from 'react-icons/fi';
+import { useIsMobile } from '@hooks/use-window-size';
+import DateTimePicker from '@components/elements/date-picker';
 
 const BlocksPage = () => {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
 
-  const { blockHeight } = useBlockHeight()
+  const { blockHeight } = useBlockHeight();
 
-  const [blockInput, setBlockInput] = useState<number>()
-  const [dateInput, setDateInput] = useState<Date>(new Date())
+  const [blockInput, setBlockInput] = useState<number>();
+  const [dateInput, setDateInput] = useState<Date>(new Date());
 
-  const [targetBlock, setTargetBlock] = useState<number>()
-  const [targetDate, setTargetDate] = useState<Date>()
+  const [targetBlock, setTargetBlock] = useState<number>();
+  const [targetDate, setTargetDate] = useState<Date>();
 
-  const { date, loading, error } = useDateAtBlock(targetBlock)
-  const { blockHeight: estimatedBlockNumber } = useBlockAtDate(targetDate)
+  const { date, loading } = useDateAtBlock(targetBlock);
+  const { blockHeight: estimatedBlockNumber } = useBlockAtDate(targetDate);
 
-  const [genesisDate, setGenesisDate] = useState<Date>()
-  const { loading: loadingStats, stats } = useStats({})
+  const [genesisDate, setGenesisDate] = useState<Date>();
+  const { stats } = useStats({});
 
-  const isMobile = useIsMobile()
-
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (blockInput !== targetBlock) {
-      setTargetDate(null)
-      setTargetBlock(blockInput)
+      setTargetDate(null);
+      setTargetBlock(blockInput);
     }
-  }, [blockInput])
+  }, [blockInput]);
 
   useEffect(() => {
     if (dateInput !== targetDate) {
-      setTargetBlock(null)
-      setTargetDate(dateInput)
+      setTargetBlock(null);
+      setTargetDate(dateInput);
     }
-  }, [dateInput])
+  }, [dateInput]);
 
   useEffect(() => {
-    if (stats) setGenesisDate(new Date(stats.genesis_time_stamp))
-  }, [stats])
+    if (stats) setGenesisDate(new Date(stats.genesis_time_stamp));
+  }, [stats]);
 
   const enviormentName = (env) => {
     switch (env) {
       case 'prod':
-        return 'production'
+        return 'production';
       case 'dev':
-        return 'development'
+        return 'development';
       default:
-        return env
+        return env;
     }
-  }
+  };
 
   const ChevronPhone = () => (
     <ChevronPhoneWrapper>
       <FiChevronUp />
       <FiChevronDown />
     </ChevronPhoneWrapper>
-  )
+  );
 
   const Chevron = () => (
     <>
       <FiChevronLeft />
       <FiChevronRight />
     </>
-  )
+  );
 
   return (
     <PageCard>
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.H1}>
-            {i18n.t('converter.date_block_estimation')}
-          </Typography>
+          <Typography variant={TypographyVariant.H1}>{i18n.t('converter.date_block_estimation')}</Typography>
           <MainDescription>
-            {i18n.t(
-              'converter.calculate_the_conversion_between_Vochain_blocks_and_dates'
-            )}
+            {i18n.t('converter.calculate_the_conversion_between_Vochain_blocks_and_dates')}
           </MainDescription>
           <div>
-            <StrongAndText
-              title={i18n.t('converter.current_enviorment') + ': '}
-            >
+            <StrongAndText title={i18n.t('converter.current_enviorment') + ': '}>
               {capitalize(enviormentName(process.env.VOCDONI_ENVIRONMENT))}
             </StrongAndText>
           </div>
@@ -122,9 +97,7 @@ const BlocksPage = () => {
             </StrongAndText>
           </div>
           <div>
-            <StrongAndText title={i18n.t('converter.block_height') + ': '}>
-              {blockHeight}
-            </StrongAndText>
+            <StrongAndText title={i18n.t('converter.block_height') + ': '}>{blockHeight}</StrongAndText>
           </div>
         </Column>
         <ConversorWrapper>
@@ -150,10 +123,7 @@ const BlocksPage = () => {
               <InputTitle></InputTitle>
               <MiddleCardContainer>
                 <Card>
-                  <FlexContainer height={'25px'}
-                    justify={FlexJustifyContent.Center}
-                    alignItem={FlexAlignItem.Center}
-                  >
+                  <FlexContainer height={'25px'} justify={FlexJustifyContent.Center} alignItem={FlexAlignItem.Center}>
                     {isMobile ? <ChevronPhone /> : <Chevron />}
                   </FlexContainer>
                 </Card>
@@ -167,11 +137,11 @@ const BlocksPage = () => {
                 placeholder={i18n.t('converter.search_by_block_height')}
                 value={targetBlock ?? estimatedBlockNumber ?? ''}
                 onChange={(ev) => {
-                  setBlockInput(+ev.target.value)
+                  setBlockInput(+ev.target.value);
                 }}
                 onKeyPress={(event) => {
                   if (!/[0-9]/.test(event.key)) {
-                    event.preventDefault()
+                    event.preventDefault();
                   }
                 }}
               />
@@ -181,15 +151,13 @@ const BlocksPage = () => {
       </Grid>
 
       <LoadingContainer>
-        {loading ? (
-          <MainDescription>{i18n.t('converter.loading_info')}</MainDescription>
-        ) : null}
+        {loading ? <MainDescription>{i18n.t('converter.loading_info')}</MainDescription> : null}
       </LoadingContainer>
     </PageCard>
-  )
-}
+  );
+};
 
-export default BlocksPage
+export default BlocksPage;
 
 const ColumnBottomAligned = styled(Column)`
    {
@@ -197,11 +165,11 @@ const ColumnBottomAligned = styled(Column)`
     flex-direction: column;
     display: flex;
   }
-`
+`;
 
 const LoadingContainer = styled.div`
   height: 20px;
-`
+`;
 
 const CalendarContainer = styled.div<IInputProps>`
   display: flex;
@@ -218,11 +186,9 @@ const CalendarContainer = styled.div<IInputProps>`
     padding: ${({ type }) => (type == 'color' ? '0px' : '11px')};
     margin-top: 8px;
     color: ${({ error, theme }) => (error ? '#FF2929' : theme.blueText)};
-    border: 2px solid ${({ theme, error }) => (error ? '#FF2929' : '#EFF1F7;')};
+    border: 2px solid ${({ error }) => (error ? '#FF2929' : '#EFF1F7;')};
     box-shadow: ${({ error }) =>
-      error
-        ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'
-        : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
+      error ? 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)' : 'inset 0px 2px 3px rgba(180, 193, 228, 0.35)'};
     box-sizing: border-box;
     border-radius: 8px;
     outline-width: 0;
@@ -236,19 +202,19 @@ const CalendarContainer = styled.div<IInputProps>`
       font-size: 16px;
     }
   }
-`
+`;
 const InputTitle = styled(SectionTitle)`
   font-size: 20px;
   font-weight: 400;
   color: ${({ theme }) => theme.blueText};
-`
+`;
 // const MiddleCardContainer = styled(SectionText)``
-const MiddleCardContainer = styled.div``
+const MiddleCardContainer = styled.div``;
 
 const ChevronPhoneWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const ConversorWrapper = styled.div`
   display: flex;
@@ -264,7 +230,5 @@ const ConversorWrapper = styled.div`
   @media ${({ theme }) => theme.screenMax.mobileL} {
     flex-direction: column;
     padding: 20px 10px;
-
   }
-
-`
+`;

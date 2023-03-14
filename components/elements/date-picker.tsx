@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 interface IDateTimePickerProps {
-  id?: string
+  id?: string;
   value?: Date;
   minDate?: Date;
   onChange: (newDate: Date) => void;
-  required?: boolean
+  required?: boolean;
 }
 
 const DateTimePicker = ({
-                          id = "date-time-id",
-                          value = new Date(),
-                          minDate,
-                          onChange,
-                          required = false
-                        } : IDateTimePickerProps) => {
-
+  id = 'date-time-id',
+  value = new Date(),
+  minDate,
+  onChange,
+  required = false,
+}: IDateTimePickerProps) => {
   const [date, setDate] = useState(value);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +25,7 @@ const DateTimePicker = ({
 
   useEffect(() => {
     setDate(value);
-  }, [value])
+  }, [value]);
 
   return (
     <input
@@ -38,6 +37,6 @@ const DateTimePicker = ({
       required={required}
     />
   );
-}
+};
 
 export default DateTimePicker;

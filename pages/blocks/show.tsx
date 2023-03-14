@@ -1,19 +1,19 @@
-import { Loader } from '@components/blocks/loader'
-import { BlockView } from '@components/pages/blocks/details'
-import { useBlock } from '@hooks/use-blocks'
-import { Else, If, Then } from 'react-if'
-import { useUrlHash } from 'use-url-hash'
-import { useTranslation } from 'react-i18next'
+import { Loader } from '@components/blocks/loader';
+import { BlockView } from '@components/pages/blocks/details';
+import { useBlock } from '@hooks/use-blocks';
+import { Else, If, Then } from 'react-if';
+import { useUrlHash } from 'use-url-hash';
+import { useTranslation } from 'react-i18next';
 
 const BlockDetailPage = () => {
-  const { i18n } = useTranslation()
-  const blockHeight: number = +useUrlHash().slice(1)
-  const { block, loading } = useBlock({ blockHeight: blockHeight })
+  const { i18n } = useTranslation();
+  const blockHeight: number = +useUrlHash().slice(1);
+  const { block, loading } = useBlock({ blockHeight: blockHeight });
 
   return (
     <If condition={block && !loading}>
       <Then>
-        <BlockView blockData={block} ></BlockView>
+        <BlockView blockData={block}></BlockView>
       </Then>
       <Else>
         <If condition={block === null && !loading}>
@@ -26,7 +26,7 @@ const BlockDetailPage = () => {
         </If>
       </Else>
     </If>
-  )
-}
+  );
+};
 
-export default BlockDetailPage
+export default BlockDetailPage;

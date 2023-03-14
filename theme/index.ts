@@ -1,26 +1,26 @@
-import { DefaultTheme } from 'styled-components'
+import { DefaultTheme } from 'styled-components';
 
-import { margins, screenMin, screenMax } from './sizes'
-import { colors } from './colors'
+import { margins, screenMin, screenMax } from './sizes';
+import { colors } from './colors';
 
-export * from './global'
+export * from './global';
 
 interface IOverrideTheme {
-  accent1: string
-  accent1B: string
-  accent2: string
-  accent2B: string
-  textAccent1: string
-  textAccent1B: string
+  accent1: string;
+  accent1B: string;
+  accent2: string;
+  accent2B: string;
+  textAccent1: string;
+  textAccent1B: string;
 }
 
 export const overrideTheme = (customTheme: IOverrideTheme): DefaultTheme => {
-  const overriddenTheme = {}
+  const overriddenTheme = {};
 
-  for (let propertyKey in customTheme) {
-    const value = customTheme[propertyKey]
+  for (const propertyKey in customTheme) {
+    const value = customTheme[propertyKey];
     if (value) {
-      overriddenTheme[propertyKey] = value
+      overriddenTheme[propertyKey] = value;
     }
   }
 
@@ -30,5 +30,5 @@ export const overrideTheme = (customTheme: IOverrideTheme): DefaultTheme => {
     screenMin,
     screenMax,
     margins,
-  }
-}
+  };
+};

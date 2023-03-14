@@ -1,15 +1,15 @@
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 interface IRedirectProps {
-  to: string
+  to: string;
 }
 
 export const Redirect = ({ to }: IRedirectProps) => {
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     router.replace(to);
-  }, [to])
+  }, [to]);
 
-  return <></>
-}
+  return <></>;
+};

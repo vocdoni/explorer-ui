@@ -1,15 +1,15 @@
-import styled from 'styled-components'
-import { useAlertMessage } from '../../hooks/message-alert'
+import styled from 'styled-components';
+import { useAlertMessage } from '../../hooks/message-alert';
 
 export const MessageAlert = () => {
-  const { message } = useAlertMessage()
+  const { message } = useAlertMessage();
 
   return (
     <AlertContainer visible={!!message?.length}>
       <TextContainer>{message || ''}</TextContainer>
     </AlertContainer>
-  )
-}
+  );
+};
 
 const AlertContainer = styled.div<{ visible: boolean }>`
   position: fixed;
@@ -31,9 +31,9 @@ const AlertContainer = styled.div<{ visible: boolean }>`
   box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
 
   transition: opacity 0.1s ease-out;
-`
+`;
 
 const TextContainer = styled.p`
-margin: 0;
-max-width: 100%;
-`
+  margin: 0;
+  max-width: 100%;
+`;

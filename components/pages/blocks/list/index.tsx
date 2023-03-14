@@ -1,13 +1,13 @@
-import { ListPage } from '@components/pages/app/page-templates/list-page'
-import { useBlockHeight } from '@vocdoni/react-hooks'
-import { DashboardBlockList } from './block-list'
-import { useTranslation } from 'react-i18next'
+import { ListPage } from '@components/pages/app/page-templates/list-page';
+import { useBlockHeight } from '@vocdoni/react-hooks';
+import { DashboardBlockList } from './block-list';
+import { useTranslation } from 'react-i18next';
 
 export const DashboardShowBlocks = () => {
-  const { blockHeight } = useBlockHeight()
-  const { i18n } = useTranslation()
+  const { blockHeight } = useBlockHeight();
+  const { i18n } = useTranslation();
 
-  const page_size = 10
+  const page_size = 10;
 
   return (
     <DashboardBlockList
@@ -16,15 +16,9 @@ export const DashboardShowBlocks = () => {
       title={
         <ListPage
           title={i18n.t('blocks.list.blocks')}
-          subtitle={
-            blockHeight != null
-              ? i18n.t('blocks.list.count') +
-                ': ' +
-                blockHeight?.toString()
-              : ''
-          }
+          subtitle={blockHeight != null ? i18n.t('blocks.list.count') + ': ' + blockHeight?.toString() : ''}
         />
       }
     ></DashboardBlockList>
-  )
-}
+  );
+};

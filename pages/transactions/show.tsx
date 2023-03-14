@@ -1,36 +1,37 @@
-import { Loader } from '@components/blocks/loader'
-import { useTx } from '@hooks/use-transactions'
-import { Else, If, Then } from 'react-if'
-import { useUrlHash } from 'use-url-hash'
-import { TransactionDetails } from '@components/pages/transactions/details'
-import { useTranslation } from 'react-i18next'
-import { useTxByHash } from '@hooks/use-voconi-sdk'
+import { Loader } from '@components/blocks/loader';
+import { useTx } from '@hooks/use-transactions';
+import { Else, If, Then } from 'react-if';
+import { useUrlHash } from 'use-url-hash';
+import { TransactionDetails } from '@components/pages/transactions/details';
+import { useTranslation } from 'react-i18next';
+import { useTxByHash } from '@hooks/use-voconi-sdk';
 
-const TransactionByHeightAndIndex = ({blockHeight, txIndex, loading: l = false, error = false} : {
-  blockHeight: number
-  txIndex: number
-  loading?: boolean
-  error?: boolean
+const TransactionByHeightAndIndex = ({
+  blockHeight,
+  txIndex,
+  loading: l = false,
+  error = false,
+}: {
+  blockHeight: number;
+  txIndex: number;
+  loading?: boolean;
+  error?: boolean;
 }) => {
-  const { tx, loading: txLoading } = useTx({ blockHeight: blockHeight, txIndex: txIndex })
-  const { i18n } = useTranslation()
-  const loading = l || txLoading
+  const { tx, loading: txLoading } = useTx({ blockHeight: blockHeight, txIndex: txIndex });
+  const { i18n } = useTranslation();
+  const loading = l || txLoading;
 
   return (
     <>
-      <If condition={loading || tx === undefined && !error}>
+      <If condition={loading || (tx === undefined && !error)}>
         <Then>
           <Loader visible />
         </Then>
       </If>
       <Else>
-        <If condition={tx != null && !error }>
+        <If condition={tx != null && !error}>
           <Then>
-            <TransactionDetails
-              txIndex={txIndex}
-              blockHeight={blockHeight}
-              transactionData={tx}
-            />
+            <TransactionDetails txIndex={txIndex} blockHeight={blockHeight} transactionData={tx} />
           </Then>
           <Else>
             <h1>{i18n.t('transactions.details.transaction_not_found')}</h1>
@@ -38,10 +39,10 @@ const TransactionByHeightAndIndex = ({blockHeight, txIndex, loading: l = false, 
         </If>
       </Else>
     </>
-  )
-}
+  );
+};
 
-const TransactionByHash = ({ txHash } : { txHash: string }) => {
+const TransactionByHash = ({ txHash }: { txHash: string }) => {
   const { data: tx, loading, error } = useTxByHash({ txHash: txHash });
   return (
     <TransactionByHeightAndIndex
@@ -50,14 +51,13 @@ const TransactionByHash = ({ txHash } : { txHash: string }) => {
       loading={loading}
       error={error !== null}
     />
-  )
-}
-
+  );
+};
 
 const TransactionDetailPage = () => {
-  const urlhash = useUrlHash().slice(1).split('/')
-  const blockHeightOrTxHash: string = urlhash[0]
-  const txIndex: string = urlhash[1]
+  const urlhash = useUrlHash().slice(1).split('/');
+  const blockHeightOrTxHash: string = urlhash[0];
+  const txIndex: string = urlhash[1];
 
   return (
     <>
@@ -70,7 +70,7 @@ const TransactionDetailPage = () => {
         </Else>
       </If>
     </>
-  )
-}
+  );
+};
 
-export default TransactionDetailPage
+export default TransactionDetailPage;

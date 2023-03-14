@@ -1,9 +1,9 @@
-import styled from 'styled-components'
-import { useLoadingAlert } from '../../hooks/loading-alert'
-import { Spinner } from '@chakra-ui/react'
+import styled from 'styled-components';
+import { useLoadingAlert } from '../../hooks/loading-alert';
+import { Spinner } from '@chakra-ui/react';
 
 export const LoadingAlert = () => {
-  const { message } = useLoadingAlert()
+  const { message } = useLoadingAlert();
 
   return (
     <LoadingAlertContainer visible={message?.length > 0}>
@@ -12,8 +12,8 @@ export const LoadingAlert = () => {
         <Spinner />
       </div>
     </LoadingAlertContainer>
-  )
-}
+  );
+};
 
 const LoadingAlertContainer = styled.div<{ visible: boolean }>`
   position: fixed;
@@ -61,4 +61,4 @@ const LoadingAlertContainer = styled.div<{ visible: boolean }>`
   & > div:last-child {
     padding-top: 4px;
   }
-`
+`;

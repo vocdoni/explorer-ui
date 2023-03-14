@@ -1,8 +1,8 @@
-import React from 'react'
-import { DashboardShowBlocks } from '@components/pages/blocks/list'
+import React from 'react';
+import { DashboardShowBlocks } from '@components/pages/blocks/list';
 
 const BlocksPage = () => {
-  return <DashboardShowBlocks></DashboardShowBlocks>
-}
+  return <DashboardShowBlocks></DashboardShowBlocks>;
+};
 
-export default BlocksPage
+export default BlocksPage;

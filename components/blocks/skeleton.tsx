@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Column, Grid } from '../elements/grid'
+import React from 'react';
+import styled from 'styled-components';
+import { Column, Grid } from '../elements/grid';
 
 export const Skeleton = () => (
   <>
@@ -16,7 +16,7 @@ export const Skeleton = () => (
       </Column>
     </Grid>
   </>
-)
+);
 
 export const SkeletonOnlyBones = () => (
   <>
@@ -28,15 +28,14 @@ export const SkeletonOnlyBones = () => (
       </Column>
     </Grid>
   </>
-)
-
+);
 
 const SkeletonBone = styled.div`
   position: relative;
   height: 30px;
   width: 100%;
   overflow: hidden;
-  background-color: ${({theme}) => theme.darkLightFg};
+  background-color: ${({ theme }) => theme.darkLightFg};
   margin-bottom: 6px;
   border-radius: 4px;
   opacity: 0.15;
@@ -44,7 +43,7 @@ const SkeletonBone = styled.div`
   &:last-of-type {
     margin-bottom: 0;
   }
-  
+
   &:before {
     position: absolute;
     top: 0;
@@ -69,10 +68,10 @@ const SkeletonBone = styled.div`
       transform: translateX(100%);
     }
   }
-`
+`;
 
 const SkeletonImageContainer = styled(SkeletonBone)`
   height: 100px;
   border-radius: 4px;
   margin-bottom: 6px;
-`
+`;

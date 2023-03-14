@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import copy from 'copy-to-clipboard'
-import { useTranslation } from 'react-i18next'
-import { IoCopy } from 'react-icons/io5'
-import { IconContext } from 'react-icons'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import copy from 'copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
+import { IoCopy } from 'react-icons/io5';
+import { IconContext } from 'react-icons';
+import styled from 'styled-components';
 
 export const CopyButton = ({
   toCopy,
@@ -13,24 +13,24 @@ export const CopyButton = ({
   color,
   copyMessage,
 }: {
-  toCopy: string
-  text: string
-  size?: string
-  style?: React.CSSProperties
-  color?: string
-  copyMessage?: string
+  toCopy: string;
+  text: string;
+  size?: string;
+  style?: React.CSSProperties;
+  color?: string;
+  copyMessage?: string;
 }) => {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
 
-  const { setCopiedMessage, message } = useCopiedMessage()
+  const { setCopiedMessage, message } = useCopiedMessage();
   const handleCopy = (e) => {
     e.cancelBubble = true;
     e.stopPropagation();
     e.preventDefault();
     e.target.focus();
-    copy(toCopy)
-    setCopiedMessage(copyMessage ?? i18n.t('copy.the_link_has_been_copied_to_the_clipboard'))
-  }
+    copy(toCopy);
+    setCopiedMessage(copyMessage ?? i18n.t('copy.the_link_has_been_copied_to_the_clipboard'));
+  };
 
   return (
     <>
@@ -44,73 +44,67 @@ export const CopyButton = ({
         >
           <TextAndIcon>
             {text}
-              <AlertWrapper>
-                <IoCopy />
-                <CopiedAlert message={message}/>
-              </AlertWrapper>
+            <AlertWrapper>
+              <IoCopy />
+              <CopiedAlert message={message} />
+            </AlertWrapper>
           </TextAndIcon>
         </IconContext.Provider>
       </div>
     </>
-  )
-}
+  );
+};
 
-export const ReducedTextAndCopy= ({
+export const ReducedTextAndCopy = ({
   text,
   toCopy,
-  copyMessage
+  copyMessage,
 }: {
-  text: string
-  toCopy: string
-  copyMessage?: string
+  text: string;
+  toCopy: string;
+  copyMessage?: string;
 }) => {
   const entityTxt =
-  text.length < 13
-      ? text
-      : text.substring(0, 5) +
-        '...' +
-        text.substring(text.length - 4, text.length)
-  return <CopyButton toCopy={toCopy} text={entityTxt} copyMessage={copyMessage}/>
-}
-
+    text.length < 13 ? text : text.substring(0, 5) + '...' + text.substring(text.length - 4, text.length);
+  return <CopyButton toCopy={toCopy} text={entityTxt} copyMessage={copyMessage} />;
+};
 
 function useCopiedMessage() {
-  const [message, setMessage] = useState('')
-  const [timeout, setTimeoutTracker] = useState(null)
+  const [message, setMessage] = useState('');
+  const [timeout, setTimeoutTracker] = useState(null);
 
   const setCopiedMessage = (msg: string, seconds = 4) => {
-    if (timeout) clearTimeout(timeout)
+    if (timeout) clearTimeout(timeout);
 
-    setMessage(msg)
+    setMessage(msg);
     const newTo = setTimeout(() => {
-      clearAlert()
-      setTimeoutTracker(null)
-    }, 1000 * seconds)
-    setTimeoutTracker(newTo)
-  }
-  const clearAlert = () => setMessage('')
+      clearAlert();
+      setTimeoutTracker(null);
+    }, 1000 * seconds);
+    setTimeoutTracker(newTo);
+  };
+  const clearAlert = () => setMessage('');
 
-  return { message, setCopiedMessage, clearAlert }
+  return { message, setCopiedMessage, clearAlert };
 }
 
-const CopiedAlert = ({ message } : { message: string }) => {
+const CopiedAlert = ({ message }: { message: string }) => {
   return (
     <AlertContainer visible={!!message?.length}>
       <TextContainer>{message || 'The link has been copiet to the clipboard'}</TextContainer>
     </AlertContainer>
-  )
-}
-
+  );
+};
 
 const TextAndIcon = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-`
+`;
 
 const AlertWrapper = styled.div`
   position: relative;
-`
+`;
 
 const AlertContainer = styled.div<{ visible: boolean }>`
   position: absolute;
@@ -128,10 +122,9 @@ const AlertContainer = styled.div<{ visible: boolean }>`
   box-shadow: 0px 6px 6px rgba(180, 193, 228, 0.35);
   transition: opacity 0.1s ease-out;
   width: max-content;
-`
+`;
 
 const TextContainer = styled.p`
-margin: 0;
-max-width: 100%;
-`
-
+  margin: 0;
+  max-width: 100%;
+`;

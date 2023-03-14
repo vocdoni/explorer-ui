@@ -1,49 +1,34 @@
-import { Paginator } from '@components/blocks/paginator'
-import { Column } from '@components/elements/grid'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
-import { useJumpToPaginatedList, JumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to'
-import { useTxListById } from '@hooks/use-transactions'
-import { TxById } from '@lib/types'
-import React, { ReactNode, useEffect, useState } from 'react'
-import {
-  IFilterTransactions,
-  TransactionsFilter,
-} from '../components/transactions-filter'
-import { DashboardTransactionItem } from './transaction-list-item'
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
+import { useJumpToPaginatedList, JumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
+import { useTxListById } from '@hooks/use-transactions';
+import { TxById } from '@lib/types';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { IFilterTransactions, TransactionsFilter } from '../components/transactions-filter';
+import { DashboardTransactionItem } from './transaction-list-item';
 
 interface IDashboardTransactionsListProps {
-  pageSize?: number
-  transactionHeight: number
-  skeletonItems?: number
-  title: ReactNode
+  pageSize?: number;
+  transactionHeight: number;
+  skeletonItems?: number;
+  title: ReactNode;
 }
 
-export const DashboardTransactionsList = ({
-  pageSize,
-  transactionHeight,
-  skeletonItems = 4,
-  title,
-}: IDashboardTransactionsListProps) => {
+export const DashboardTransactionsList = ({ pageSize, transactionHeight, title }: IDashboardTransactionsListProps) => {
   // Render item on the list from it summary
   const renderTransactionItem = (transaction: TxById) => {
-    return (
-      <DashboardTransactionItem
-        key={transaction?.id}
-        transactionData={transaction}
-      ></DashboardTransactionItem>
-    )
-  }
+    return <DashboardTransactionItem key={transaction?.id} transactionData={transaction}></DashboardTransactionItem>;
+  };
 
-  const [filter, setFilter] = useState<IFilterTransactions>({})
-  const [jumpTo, setJumpTo] = useState<number>()
+  const [filter, setFilter] = useState<IFilterTransactions>({});
+  const [jumpTo, setJumpTo] = useState<number>();
   // Current from offset calling the backend
-  const [dataPagination, setDataPagination] = useState<number>()
+  const [dataPagination, setDataPagination] = useState<number>();
 
   const { transactions, loading: loadingTransactions } = useTxListById({
     from: dataPagination,
     listSize: pageSize,
     reverse: true,
-  })
+  });
 
   const {
     loading,
@@ -56,11 +41,11 @@ export const DashboardTransactionsList = ({
     jumpTo: jumpTo,
     setDataPagination: setDataPagination,
     dataPagination: dataPagination,
-  })
+  });
 
   useEffect(() => {
-    setJumpTo(filter.from)
-  }, [filter])
+    setJumpTo(filter.from);
+  }, [filter]);
 
   return (
     <>
@@ -77,5 +62,5 @@ export const DashboardTransactionsList = ({
         pageSize={pageSize}
       />
     </>
-  )
-}
+  );
+};

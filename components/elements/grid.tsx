@@ -1,33 +1,21 @@
-import styled from "styled-components"
-import { sizes } from "../../theme/sizes"
+import styled from 'styled-components';
 
 export type ColumnProps = {
   /** [XL] Number of grid columns to use (1 to 12) */
-  xl?: number
+  xl?: number;
   /** [LG] Number of grid columns to use (1 to 12) */
-  lg?: number
+  lg?: number;
   /** [MD] Number of grid columns to use (1 to 12) */
-  md?: number
+  md?: number;
   /** [SM] Number of grid columns to use (1 to 12) */
-  sm?: number
+  sm?: number;
   /** [XS] Number of grid columns to use (1 to 12) */
-  span?: number
-  children?: React.ReactNode
-}
+  span?: number;
+  children?: React.ReactNode;
+};
 
-export const GRID_COLUMNS = 12
-export const GRID_GUTTER = 20
-
-const breakpoints = {
-  xs: sizes.mobileS, // XS
-  // --: 375,
-  sm: sizes.mobileL, // SM
-  md: sizes.tablet,  // MD
-  // --: 900,
-  lg: sizes.laptop, // LG
-  xl: sizes.laptopL, // XL
-  // --: 1920,
-}
+export const GRID_COLUMNS = 12;
+export const GRID_GUTTER = 20;
 
 // GRID
 
@@ -37,42 +25,42 @@ export const Grid = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-`
+`;
 
 export const ListCardContainer = styled(Grid)`
   margin: 0;
-`
+`;
 
 // COLUMN
 
 export const Column = (props: ColumnProps) => {
-  return <ColumnDiv {...props} />
-}
+  return <ColumnDiv {...props} />;
+};
 
 export const BadgeColumn = styled(Column)`
   display: flex;
   flex-direction: row;
   gap: 10px;
-`
+`;
 
 export const ColumnDiv = styled.div<ColumnProps>`
   margin: ${GRID_GUTTER / 2}px;
   box-sizing: border-box;
-  width: calc(${props => resolveResponsiveSpan(props).xs * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+  width: calc(${(props) => (resolveResponsiveSpan(props).xs * 100) / GRID_COLUMNS}% - ${GRID_GUTTER}px);
 
   @media ${({ theme }) => theme.screenMin.mobileL} {
-    width: calc(${props => resolveResponsiveSpan(props).sm * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${(props) => (resolveResponsiveSpan(props).sm * 100) / GRID_COLUMNS}% - ${GRID_GUTTER}px);
   }
   @media ${({ theme }) => theme.screenMin.tablet} {
-    width: calc(${props => resolveResponsiveSpan(props).md * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${(props) => (resolveResponsiveSpan(props).md * 100) / GRID_COLUMNS}% - ${GRID_GUTTER}px);
   }
   @media ${({ theme }) => theme.screenMin.laptop} {
-    width: calc(${props => resolveResponsiveSpan(props).lg * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${(props) => (resolveResponsiveSpan(props).lg * 100) / GRID_COLUMNS}% - ${GRID_GUTTER}px);
   }
   @media ${({ theme }) => theme.screenMin.laptopL} {
-    width: calc(${props => resolveResponsiveSpan(props).xl * 100 / GRID_COLUMNS}% - ${GRID_GUTTER}px);
+    width: calc(${(props) => (resolveResponsiveSpan(props).xl * 100) / GRID_COLUMNS}% - ${GRID_GUTTER}px);
   }
-`
+`;
 
 // HELPERS
 
@@ -83,12 +71,12 @@ function resolveResponsiveSpan(props: ColumnProps) {
     md: handleSpan(props.md || props.sm || props.span || GRID_COLUMNS),
     lg: handleSpan(props.lg || props.md || props.sm || props.span || GRID_COLUMNS),
     xl: handleSpan(props.xl || props.lg || props.md || props.sm || props.span || GRID_COLUMNS),
-  }
+  };
 }
 
 function handleSpan(value: number) {
-  if (value < 1) return 1
-  else if (value > GRID_COLUMNS) return GRID_COLUMNS
+  if (value < 1) return 1;
+  else if (value > GRID_COLUMNS) return GRID_COLUMNS;
 
-  return Math.round(value)
+  return Math.round(value);
 }
