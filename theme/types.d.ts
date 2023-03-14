@@ -1,33 +1,30 @@
 export type Color = string;
 
-
 export interface ColorsV2 {
-  support: SupportColors
-  neutral: ColorV2
+  support: SupportColors;
+  neutral: ColorV2;
 }
 
 export interface ColorV2 {
-  0?: string
-  100: string
-  50?: string
-  200: string
-  300: string
-  400: string
-  500: string
-  600: string
-  700: string
-  800: string
-  900: string
+  0?: string;
+  100: string;
+  50?: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
 }
 
 export interface SupportColors {
-  info: ColorV2
-  success: ColorV2
-  warning: ColorV2
-  critical: ColorV2
+  info: ColorV2;
+  success: ColorV2;
+  warning: ColorV2;
+  critical: ColorV2;
 }
-
-
 
 export interface Colors {
   text: Color;
@@ -110,7 +107,7 @@ export interface Margins {
   };
 }
 
-declare module "styled-components" {
+declare module 'styled-components' {
   export interface DefaultTheme extends Colors {
     // Screens for media queries
     screenMin: Screens;

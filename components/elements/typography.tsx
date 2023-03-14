@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
-import styled, { DefaultTheme, StyledComponent } from 'styled-components'
-import { colors } from 'theme/colors'
+import React, { ReactNode } from 'react';
+import styled, { DefaultTheme, StyledComponent } from 'styled-components';
+import { colors } from 'theme/colors';
 
 export enum TypographyVariant {
   HeroBanner = 'hero-banner',
@@ -27,34 +27,26 @@ export enum TextAlign {
 }
 
 interface ITypographyProps {
-  variant?: TypographyVariant
-  align?: TextAlign
-  margin?: string
-  color?: string
-  children: ReactNode
+  variant?: TypographyVariant;
+  align?: TextAlign;
+  margin?: string;
+  color?: string;
+  children: ReactNode;
 }
 
-export const Typography = ({
-  variant,
-  color,
-  margin,
-  align,
-  children,
-}: ITypographyProps) => {
-  const TypographyElement = typographyMap.get(
-    variant || TypographyVariant.Body1
-  )
+export const Typography = ({ variant, color, margin, align, children }: ITypographyProps) => {
+  const TypographyElement = typographyMap.get(variant || TypographyVariant.Body1);
 
   return (
     <TypographyElement color={color} margin={margin} align={align}>
       {children}
     </TypographyElement>
-  )
-}
+  );
+};
 interface ITypographyCommon {
-  color?: string
-  align?: TextAlign
-  margin?: string
+  color?: string;
+  align?: TextAlign;
+  margin?: string;
 }
 
 export const HeroBanner = styled.h1<ITypographyCommon>`
@@ -65,7 +57,7 @@ export const HeroBanner = styled.h1<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 
 export const H1 = styled.h1<ITypographyCommon>`
   font-size: 32px;
@@ -75,7 +67,7 @@ export const H1 = styled.h1<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 export const H2 = styled.h2<ITypographyCommon>`
   font-size: 44px;
   font-weight: 400;
@@ -83,7 +75,7 @@ export const H2 = styled.h2<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 
 export const H3 = styled.h3<ITypographyCommon>`
   font-size: 26px;
@@ -92,7 +84,7 @@ export const H3 = styled.h3<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 
 export const H4 = styled.h4<ITypographyCommon>`
   font-size: 22px;
@@ -101,7 +93,7 @@ export const H4 = styled.h4<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 
 export const H5 = styled.h5<ITypographyCommon>`
   font-size: 16px;
@@ -110,40 +102,36 @@ export const H5 = styled.h5<ITypographyCommon>`
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   color: ${({ color, theme }) => (color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 
 export const BaseParagraphTypography = styled.p<ITypographyCommon>`
   font-weight: 400;
   line-height: 1.2em;
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
-  color: ${({ color, theme }) =>
-    colors[color] ? colors[color] : color ? color : theme.blueText};
+  color: ${({ color, theme }) => (colors[color] ? colors[color] : color ? color : theme.blueText)};
   ${({ margin }) => (margin ? `margin: ${margin};` : '')}
-`
+`;
 export const Body1 = styled(BaseParagraphTypography)`
   font-size: 20px;
-`
+`;
 
 export const Body2 = styled(BaseParagraphTypography)`
   font-size: 18px;
-`
+`;
 
 export const Subtitle1 = styled(BaseParagraphTypography)`
   font-size: 26px;
-`
+`;
 
 export const ExtraSmall = styled(BaseParagraphTypography)`
   font-size: 12px;
-`
+`;
 
 export const Small = styled(BaseParagraphTypography)`
   font-size: 16px;
-`
+`;
 
-const typographyMap = new Map<
-  TypographyVariant,
-  StyledComponent<'h1' | 'p', DefaultTheme, ITypographyCommon>
->([
+const typographyMap = new Map<TypographyVariant, StyledComponent<'h1' | 'p', DefaultTheme, ITypographyCommon>>([
   [TypographyVariant.HeroBanner, HeroBanner],
   [TypographyVariant.H1, H1],
   [TypographyVariant.H2, H2],
@@ -155,5 +143,4 @@ const typographyMap = new Map<
   [TypographyVariant.Body2, Body2],
   [TypographyVariant.Small, Small],
   [TypographyVariant.ExtraSmall, ExtraSmall],
-])
-
+]);

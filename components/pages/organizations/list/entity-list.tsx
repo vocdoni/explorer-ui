@@ -1,41 +1,39 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useState } from 'react';
 
-import { EntitiesFilter, IFilterEntity } from '../components/entities-filter'
-import { useEntityList } from '@hooks/use-entities'
-import { DashboardEntityListItem } from './entity-list-item'
-import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page'
-import { FilteredPaginatedList, useFilteredPaginatedList } from '@components/pages/app/page-templates/list-page-filtered'
+import { EntitiesFilter, IFilterEntity } from '../components/entities-filter';
+import { useEntityList } from '@hooks/use-entities';
+import { DashboardEntityListItem } from './entity-list-item';
+import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
+import {
+  FilteredPaginatedList,
+  useFilteredPaginatedList,
+} from '@components/pages/app/page-templates/list-page-filtered';
 
 interface IDashboardProcessListProps {
-  loading?: boolean
-  pageSize?: number
-  totalCount?: number
-  title: ReactNode
+  loading?: boolean;
+  pageSize?: number;
+  totalCount?: number;
+  title: ReactNode;
 }
 
-export const DashboardEntityList = ({
-  pageSize = 8,
-  totalCount,
-  title,
-}: IDashboardProcessListProps) => {
+export const DashboardEntityList = ({ pageSize = 8, totalCount, title }: IDashboardProcessListProps) => {
   // Render item on the list from it summary
   const renderProcessItem = (identity: string) => {
     return (
       <div key={identity}>
         <DashboardEntityListItem entityId={identity} />
       </div>
-    )
-  }
-  const [filter, setFilter] = useState<IFilterEntity>({})
-  const [dataPagination, setDataPagination] = useState(0)
+    );
+  };
+  const [filter, setFilter] = useState<IFilterEntity>({});
+  const [dataPagination, setDataPagination] = useState(0);
 
   const { entitiesList, loading } = useEntityList({
     from: dataPagination,
     searchTerm: filter?.searchTerm,
     listSize: pageSize,
-    reverse: true
-  })
-
+    reverse: true,
+  });
 
   // View logic
   const {
@@ -46,15 +44,13 @@ export const DashboardEntityList = ({
     filter,
     setFilter,
     setDataPagination,
-    lastElement: totalCount + 1
-  })
+    lastElement: totalCount + 1,
+  });
 
   return (
     <>
       <InlineTitleChildrenContainer title={title}>
-        <EntitiesFilter
-          onEnableFilter={enableFilter}
-        ></EntitiesFilter>
+        <EntitiesFilter onEnableFilter={enableFilter}></EntitiesFilter>
       </InlineTitleChildrenContainer>
 
       <FilteredPaginatedList
@@ -70,5 +66,5 @@ export const DashboardEntityList = ({
         setCurrentPage={setCurrentPage}
       />
     </>
-  )
-}
+  );
+};

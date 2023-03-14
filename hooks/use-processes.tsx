@@ -1,20 +1,20 @@
-import { useCallback, useEffect, useState } from 'react'
-import { usePool, useProcesses } from '@vocdoni/react-hooks'
-import { useAlertMessage } from './message-alert'
-import i18n from '../i18n'
-import { utils } from 'ethers'
-import { VochainProcessStatus, VotingApi } from 'dvote-js'
-import { getProcessList } from '@lib/api'
+import { useCallback, useEffect, useState } from 'react';
+import { usePool, useProcesses } from '@vocdoni/react-hooks';
+import { useAlertMessage } from './message-alert';
+import i18n from '../i18n';
+import { utils } from 'ethers';
+import { VochainProcessStatus, VotingApi } from 'dvote-js';
+import { getProcessList } from '@lib/api';
 
 export interface useProcessListProps {
-  entityId?: string // Deprecated, use search terms instead
-  namespace?: number
-  status?: VochainProcessStatus
-  withResults?: boolean
-  from?: number
-  searchTerm?: string
-  listSize?: number
-  reverse?: boolean
+  entityId?: string; // Deprecated, use search terms instead
+  namespace?: number;
+  status?: VochainProcessStatus;
+  withResults?: boolean;
+  from?: number;
+  searchTerm?: string;
+  listSize?: number;
+  reverse?: boolean;
 }
 
 export const useProcessesList = ({
@@ -25,51 +25,49 @@ export const useProcessesList = ({
   from,
   searchTerm,
   listSize,
-  reverse = false
+  reverse = false,
 }: useProcessListProps) => {
-  const [processIds, setProcessIds] = useState<string[]>()
-  const [loadingProcessList, setLoadingProcessList] = useState(true)
-  const { setAlertMessage } = useAlertMessage()
-  const { poolPromise } = usePool()
+  const [processIds, setProcessIds] = useState<string[]>();
+  const [loadingProcessList, setLoadingProcessList] = useState(true);
+  const { setAlertMessage } = useAlertMessage();
+  const { poolPromise } = usePool();
 
   // Loaders
   const updateProcessIds = () => {
     const f = from < 0 ? 0 : from;
 
-    setLoadingProcessList(true)
+    setLoadingProcessList(true);
 
     poolPromise
       .then((pool) =>
         VotingApi.getProcessList(
-          { entityId, namespace, status , withResults, from: f, searchTerm, listSize} as any,
+          { entityId, namespace, status, withResults, from: f, searchTerm, listSize } as any,
           pool
         )
       )
       .then((ids) => {
-        setProcessIds(reverse ? ids.reverse() : ids )
-        setLoadingProcessList(false)
+        setProcessIds(reverse ? ids.reverse() : ids);
+        setLoadingProcessList(false);
       })
       .catch((err) => {
-        setLoadingProcessList(false)
-        console.error(err)
-        setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'))
-      })
-  }
-
+        setLoadingProcessList(false);
+        console.error(err);
+        setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'));
+      });
+  };
 
   useEffect(() => {
-    if (from || from === 0) updateProcessIds()
-  }, [entityId, namespace, status, withResults, from, searchTerm])
-
+    if (from || from === 0) updateProcessIds();
+  }, [entityId, namespace, status, withResults, from, searchTerm]);
 
   return {
     processIds,
     loadingProcessList,
-  }
-}
+  };
+};
 
 interface IgetProcessCountProps {
-  entityId?: string
+  entityId?: string;
 }
 
 /**
@@ -79,71 +77,67 @@ interface IgetProcessCountProps {
  *
  * */
 export const useProcessCount = ({ entityId = '' }: IgetProcessCountProps) => {
-  const { poolPromise } = usePool()
-  const { setAlertMessage } = useAlertMessage()
-  const [processCount, setProcessCount] = useState(0)
+  const { poolPromise } = usePool();
+  const { setAlertMessage } = useAlertMessage();
+  const [processCount, setProcessCount] = useState(0);
 
-  const getProcessCountReq = useCallback (() => {
+  const getProcessCountReq = useCallback(() => {
     poolPromise
       .then((pool) => {
         return pool.sendRequest({
           method: 'getProcessCount',
-          entityId: entityId
-        })
+          entityId: entityId,
+        });
       })
       .then((response) => {
-        if (!response['ok'])
-          throw new Error('Error retrieving getProcessCount')
-        setProcessCount(response['size'])
+        if (!response['ok']) throw new Error('Error retrieving getProcessCount');
+        setProcessCount(response['size']);
       })
       .catch((err) => {
-        console.error(err)
-        setAlertMessage(i18n.t('error.could_not_fetch_processes_count'))
-      })
-  }, [entityId, poolPromise, setAlertMessage])
+        console.error(err);
+        setAlertMessage(i18n.t('error.could_not_fetch_processes_count'));
+      });
+  }, [entityId, poolPromise, setAlertMessage]);
 
   useEffect(() => {
-    getProcessCountReq()
-  }, [entityId, getProcessCountReq])
+    getProcessCountReq();
+  }, [entityId, getProcessCountReq]);
 
   return {
     processCount,
-  }
-}
+  };
+};
 
 export const useProcessesFromAccount = (entityId: string) => {
-  if (entityId) entityId = utils.getAddress(entityId)
+  if (entityId) entityId = utils.getAddress(entityId);
 
-  const [processIds, setProcessIds] = useState([] as string[])
-  const [loadingProcessList, setLoadingProcessList] = useState(true)
-  const { setAlertMessage } = useAlertMessage()
-  const { processes, error, loading: loadingProcessesDetails } = useProcesses(
-    processIds || []
-  )
-  const { poolPromise } = usePool()
+  const [processIds, setProcessIds] = useState([] as string[]);
+  const [loadingProcessList, setLoadingProcessList] = useState(true);
+  const { setAlertMessage } = useAlertMessage();
+  const { processes, error, loading: loadingProcessesDetails } = useProcesses(processIds || []);
+  const { poolPromise } = usePool();
 
   // Loaders
   const updateProcessIds = useCallback(() => {
-    if (!entityId) return
-    setLoadingProcessList(true)
+    if (!entityId) return;
+    setLoadingProcessList(true);
 
     poolPromise
       .then((pool) => getProcessList(entityId, pool))
       .then((ids) => {
-        setLoadingProcessList(false)
-        setProcessIds(ids)
+        setLoadingProcessList(false);
+        setProcessIds(ids);
       })
       .catch((err) => {
-        setLoadingProcessList(false)
-        console.error(err)
-        setAlertMessage(i18n.t("errors.the_list_of_votes_cannot_be_loaded"))
-      })
-  }, [entityId, poolPromise])
-
+        setLoadingProcessList(false);
+        console.error(err);
+        setAlertMessage(i18n.t('errors.the_list_of_votes_cannot_be_loaded'));
+      });
+  }, [entityId, poolPromise]);
 
   useEffect(() => {
-    updateProcessIds()
-  }, [entityId, updateProcessIds])
+    updateProcessIds();
+  }, [entityId, updateProcessIds]);
 
   return {
     processIds,
@@ -151,5 +145,5 @@ export const useProcessesFromAccount = (entityId: string) => {
     loadingProcessList,
     loadingProcessesDetails,
     error,
-  }
-}
+  };
+};

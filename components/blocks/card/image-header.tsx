@@ -1,48 +1,37 @@
-import React, { ReactNode } from 'react'
-import styled from 'styled-components'
+import React, { ReactNode } from 'react';
+import styled from 'styled-components';
 
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
-import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
-import { PageCardHeader } from '@components/elements/cards'
-import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote'
-import { Grid, Column } from '@components/elements/grid'
+import { SectionText, SectionTitle, TextAlign } from '@components/elements/text';
+import { PageCardHeader } from '@components/elements/cards';
+import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote';
+import { Grid, Column } from '@components/elements/grid';
 
-import { Image } from '../../elements/image'
-import { BreakWord } from '@components/elements/styled-divs'
+import { Image } from '../../elements/image';
+import { BreakWord } from '@components/elements/styled-divs';
 
 interface ICardImageHeader {
-  title: string
-  subtitle?: ReactNode
-  entityImage?: string
-  processImage?: string
+  title: string;
+  subtitle?: ReactNode;
+  entityImage?: string;
+  processImage?: string;
 }
 
-export const CardImageHeader = ({
-  title,
-  subtitle,
-  entityImage,
-  processImage,
-}: ICardImageHeader) => {
-  const { i18n } = useTranslation()
-  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE
-  const entityImageSrc = entityImage || ''
+export const CardImageHeader = ({ title, subtitle, entityImage, processImage }: ICardImageHeader) => {
+  const { i18n } = useTranslation();
+  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE;
+  const entityImageSrc = entityImage || '';
 
   return (
     <CardImageHeaderContainer>
       <PageCardHeader>
-        <Image
-          src={headerImageSrc}
-          alt={i18n.t('components.cardimage.vote_process_image_alt')}
-        />
+        <Image src={headerImageSrc} alt={i18n.t('components.cardimage.vote_process_image_alt')} />
       </PageCardHeader>
 
       {entityImageSrc.length > 0 && (
         <EntityLogoWrapper>
-          <Image
-            src={entityImageSrc}
-            alt={i18n.t('components.cardimage.organization_logo_alt')}
-          />
+          <Image src={entityImageSrc} alt={i18n.t('components.cardimage.organization_logo_alt')} />
         </EntityLogoWrapper>
       )}
 
@@ -50,20 +39,17 @@ export const CardImageHeader = ({
         <Column>
           <SectionTitle align={TextAlign.Center}>{title}</SectionTitle>
           {subtitle && (
-
             <SectionText align={TextAlign.Center} color="accent1">
-              <BreakWord>
-                {subtitle}
-              </BreakWord>
+              <BreakWord>{subtitle}</BreakWord>
             </SectionText>
           )}
         </Column>
       </Grid>
     </CardImageHeaderContainer>
-  )
-}
+  );
+};
 
-const CardImageHeaderContainer = styled.div``
+const CardImageHeaderContainer = styled.div``;
 
 const EntityLogoWrapper = styled.div`
   overflow: hidden;
@@ -78,4 +64,4 @@ const EntityLogoWrapper = styled.div`
     max-height: 100%;
     max-width: 100%;
   }
-`
+`;

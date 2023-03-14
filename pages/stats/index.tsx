@@ -1,16 +1,12 @@
-import StatsPage from '@components/pages/stats'
-import { Loader } from '@components/blocks/loader'
-import { ViewContext, ViewStrategy } from '@lib/strategy'
-import { useStats } from '@hooks/use-stats'
-import { useBlocks } from '@hooks/use-blocks'
-import { Else, If, Then } from 'react-if'
-import { useTranslation } from 'react-i18next'
-import { HeroBanner } from '@components/pages/home/components/hero-banner'
-import styled from 'styled-components'
+import StatsPage from '@components/pages/stats';
+import { Loader } from '@components/blocks/loader';
+import { useStats } from '@hooks/use-stats';
+import { Else, If, Then } from 'react-if';
+import { HeroBanner } from '@components/pages/home/components/hero-banner';
+import styled from 'styled-components';
 
 const StatsPageIndex = () => {
-  const { loading: loadingStats, stats } = useStats({})
-  const { i18n } = useTranslation()
+  const { loading: loadingStats, stats } = useStats({});
 
   return (
     <If condition={loadingStats && stats === undefined}>
@@ -31,8 +27,8 @@ const StatsPageIndex = () => {
         </>
       </Else>
     </If>
-  )
-}
+  );
+};
 
 const BannerContainer = styled.div`
   margin-top: -110px;
@@ -44,6 +40,6 @@ const BannerContainer = styled.div`
   @media ${({ theme }) => theme.screenMax.tablet} {
     height: auto;
   }
-`
+`;
 
-export default StatsPageIndex
+export default StatsPageIndex;

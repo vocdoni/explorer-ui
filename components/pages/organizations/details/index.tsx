@@ -1,33 +1,26 @@
-import { EntityMetadata } from 'dvote-js'
-import { SummaryProcess } from '@vocdoni/react-hooks'
+import { EntityMetadata } from 'dvote-js';
+import { SummaryProcess } from '@vocdoni/react-hooks';
 
-import { getVoteStatus } from '@lib/util'
-
-import { Typography, TypographyVariant } from '@components/elements/typography'
-import { Grid, Column } from '@components/elements/grid'
-import { PageCard } from '@components/elements/cards'
-import { CardImageHeader } from '@components/blocks/card/image-header'
-import { useTranslation } from 'react-i18next'
-import { ProcessCard } from '@components/blocks/card/process-card'
-import { getProcessDetailsPath } from '@components/pages/app/components/get-links'
-import { BreakWord } from '@components/elements/styled-divs'
-import { CopyButton } from '@components/blocks/copy-button'
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import { Grid, Column } from '@components/elements/grid';
+import { PageCard } from '@components/elements/cards';
+import { CardImageHeader } from '@components/blocks/card/image-header';
+import { useTranslation } from 'react-i18next';
+import { ProcessCard } from '@components/blocks/card/process-card';
+import { getProcessDetailsPath } from '@components/pages/app/components/get-links';
+import { BreakWord } from '@components/elements/styled-divs';
+import { CopyButton } from '@components/blocks/copy-button';
 
 interface IEntityViewProps {
-  address: string
-  metadata: EntityMetadata
-  processes: SummaryProcess[]
-  blockHeight: number
+  address: string;
+  metadata: EntityMetadata;
+  processes: SummaryProcess[];
+  blockHeight: number;
 }
-export const EntityView = ({
-  address,
-  metadata,
-  processes,
-  blockHeight,
-}: IEntityViewProps) => {
-  const correctedAddress = address.startsWith('0x') ? address : '0x' + address
-  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${correctedAddress}`
-  const { i18n } = useTranslation()
+export const EntityView = ({ address, metadata, processes }: IEntityViewProps) => {
+  const correctedAddress = address.startsWith('0x') ? address : '0x' + address;
+  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${correctedAddress}`;
+  const { i18n } = useTranslation();
 
   return (
     <PageCard>
@@ -44,9 +37,7 @@ export const EntityView = ({
             <Typography variant={TypographyVariant.Body1}>
               {i18n.t('organizations.details.organization_description')}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>
-              {metadata?.description.default}
-            </Typography>
+            <Typography variant={TypographyVariant.Small}>{metadata?.description.default}</Typography>
           </Column>
         </Grid>
       )}
@@ -73,8 +64,6 @@ export const EntityView = ({
             {i18n.t('organizations.details.organization_processes')}{' '}
           </Typography>
           {processes.map((process, index) => {
-            const processStatus = getVoteStatus(process.summary, blockHeight)
-
             return (
               <ProcessCard
                 key={index}
@@ -83,7 +72,7 @@ export const EntityView = ({
                 link={getProcessDetailsPath(process.id)}
                 hideEntity={true}
               />
-            )
+            );
           })}
           {processes.length <= 0 && (
             <Typography variant={TypographyVariant.Small}>
@@ -93,5 +82,5 @@ export const EntityView = ({
         </Column>
       </Grid>
     </PageCard>
-  )
-}
+  );
+};

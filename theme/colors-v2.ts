@@ -1,4 +1,4 @@
-import { ColorsV2 } from "./types";
+import { ColorsV2 } from './types';
 
 export const colorsV2: ColorsV2 = {
   support: {
@@ -45,7 +45,7 @@ export const colorsV2: ColorsV2 = {
       700: '#B31B35',
       800: '#901132',
       900: '#770A30',
-    }
+    },
   },
   neutral: {
     0: '#FFFFFF',
@@ -59,5 +59,5 @@ export const colorsV2: ColorsV2 = {
     700: '#3E4C59',
     800: '#323F4B',
     900: '#1F2933',
-  }
-}
+  },
+};

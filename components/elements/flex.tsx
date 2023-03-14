@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export enum FlexJustifyContent {
   Center = 'center',
@@ -6,7 +6,7 @@ export enum FlexJustifyContent {
   End = 'flex-end',
   SpaceBetween = 'space-between',
   SpaceAround = 'space-around',
-  SpaceEvenly = 'space-evenly'
+  SpaceEvenly = 'space-evenly',
 }
 
 export enum FlexAlignItem {
@@ -14,40 +14,38 @@ export enum FlexAlignItem {
   End = 'flex-end',
   Center = 'center',
   Stretch = 'stretch',
-  Baseline = 'baseline'
+  Baseline = 'baseline',
 }
 
 export enum FlexDirection {
   Row = 'row',
-  Column = 'column'
+  Column = 'column',
 }
 
 export enum FlexWrap {
   Wrap = 'wrap',
-  Nowrap = 'nowrap'
+  Nowrap = 'nowrap',
 }
 
 export type FlexContainerProps = {
-  justify?: FlexJustifyContent,
-  alignItem?: FlexAlignItem,
-  direction?: FlexDirection,
-  minHeight?: string,
-  height?: string,
-  wrap?: FlexWrap,
-}
+  justify?: FlexJustifyContent;
+  alignItem?: FlexAlignItem;
+  direction?: FlexDirection;
+  minHeight?: string;
+  height?: string;
+  wrap?: FlexWrap;
+};
 
 export const FlexContainer = styled.div<FlexContainerProps>`
   display: flex;
-  flex-wrap: ${({wrap}) => wrap? wrap: FlexWrap.Nowrap};
-  flex-direction: ${({direction}) => direction? direction: FlexDirection.Row};
-  justify-content: ${({justify}) => justify? justify: FlexJustifyContent.Start};
-  align-items: ${({alignItem}) => alignItem? alignItem: FlexAlignItem.Start};
-  min-height: ${({minHeight}) => minHeight? minHeight: 'auto'};
-  height: ${({height}) => height? height: 'auto'};
-`
-
+  flex-wrap: ${({ wrap }) => (wrap ? wrap : FlexWrap.Nowrap)};
+  flex-direction: ${({ direction }) => (direction ? direction : FlexDirection.Row)};
+  justify-content: ${({ justify }) => (justify ? justify : FlexJustifyContent.Start)};
+  align-items: ${({ alignItem }) => (alignItem ? alignItem : FlexAlignItem.Start)};
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+  height: ${({ height }) => (height ? height : 'auto')};
+`;
 
 export const InlineFlex = styled.div`
   display: inline-flex;
-`
-
+`;

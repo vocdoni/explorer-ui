@@ -1,16 +1,16 @@
-import { Loader } from '@components/blocks/loader'
-import { EnvelopeDetails } from '@components/pages/envelopes/details'
-import { Else, If, Then } from 'react-if'
-import { useUrlHash } from 'use-url-hash'
-import { useTranslation } from 'react-i18next'
-import { useVoteInfo } from '@hooks/use-voconi-sdk'
+import { Loader } from '@components/blocks/loader';
+import { EnvelopeDetails } from '@components/pages/envelopes/details';
+import { Else, If, Then } from 'react-if';
+import { useUrlHash } from 'use-url-hash';
+import { useTranslation } from 'react-i18next';
+import { useVoteInfo } from '@hooks/use-voconi-sdk';
 
 const EnvelopeDetailPage = () => {
-  const { i18n } = useTranslation()
-  const voteId: string = useUrlHash().slice(1)
+  const { i18n } = useTranslation();
+  const voteId: string = useUrlHash().slice(1);
   const { loading, data: envelope } = useVoteInfo({
     voteId,
-  })
+  });
 
   return (
     <If condition={envelope && !loading}>
@@ -28,8 +28,7 @@ const EnvelopeDetailPage = () => {
         </If>
       </Else>
     </If>
-  )
+  );
+};
 
-}
-
-export default EnvelopeDetailPage
+export default EnvelopeDetailPage;

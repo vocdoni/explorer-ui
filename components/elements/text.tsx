@@ -1,18 +1,18 @@
-import { ReactNode } from 'react'
-import styled from 'styled-components'
-import { colors } from '../../theme/colors'
-import { Colors } from '../../theme/types'
+import { ReactNode } from 'react';
+import styled from 'styled-components';
+import { colors } from '../../theme/colors';
+import { Colors } from '../../theme/types';
 
 // MAIN
 
 export const MainTitle = styled.h1`
   margin-top: 0;
   margin-bottom: 10px;
-`
+`;
 
 export const MainDescription = styled.span`
   color: ${({ theme }) => theme.text};
-`
+`;
 
 export enum TextAlign {
   Center = 'center',
@@ -42,15 +42,15 @@ const fontsSize = {
     [TextSize.Regular]: '16px',
     [TextSize.Big]: '20px',
   },
-}
+};
 
 // SECTION
 
 export const SectionTitle = styled.h2<{
-  align?: TextAlign
-  topMargin?: boolean
-  bottomMargin?: boolean
-  color?: Colors | string
+  align?: TextAlign;
+  topMargin?: boolean;
+  bottomMargin?: boolean;
+  color?: Colors | string;
 }>`
   font-weight: 500;
   font-size: 30px;
@@ -59,48 +59,37 @@ export const SectionTitle = styled.h2<{
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
   ${({ topMargin }) => (topMargin ? '' : 'margin-top: 0;')}
   ${({ bottomMargin }) => (bottomMargin ? '' : 'margin-bottom: 0;')}
-`
+`;
 
 export const SectionText = styled.p<{
-  align?: TextAlign
-  size?: TextSize
-  color?: Colors | string
+  align?: TextAlign;
+  size?: TextSize;
+  color?: Colors | string;
 }>`
   font-weight: 400;
   line-height: 1.3em;
   margin: 0 0 0.5em;
-  color: ${({ theme, color }) =>
-    theme[color] ? theme[color] : color ? color : colors.text};
+  color: ${({ theme, color }) => (theme[color] ? theme[color] : color ? color : colors.text)};
   font-size: ${({ size }) =>
-    size
-      ? fontsSize[DeviceSize.Desktop][size]
-      : fontsSize[DeviceSize.Desktop][TextSize.Regular]};
+    size ? fontsSize[DeviceSize.Desktop][size] : fontsSize[DeviceSize.Desktop][TextSize.Regular]};
   text-align: ${({ align }) => (align ? align : TextAlign.Left)};
 
   @media ${({ theme }) => theme.screenMax.mobileL} {
     font-size: ${({ size }) =>
-      size
-        ? fontsSize[DeviceSize.Mobile][size]
-        : fontsSize[DeviceSize.Mobile][TextSize.Regular]};
+      size ? fontsSize[DeviceSize.Mobile][size] : fontsSize[DeviceSize.Mobile][TextSize.Regular]};
   }
-`
+`;
 
 export const SectionDescription = styled.span`
   color: ${({ theme }) => theme.textAccent1};
-`
+`;
 
-export const StrongAndText = ({
-  title,
-  children,
-}: {
-  title: string | ReactNode
-  children: string | ReactNode
-}) => (
+export const StrongAndText = ({ title, children }: { title: string | ReactNode; children: string | ReactNode }) => (
   <StrongAndTextWrapper>
     <div className="title">{title}</div>
     <div>{children}</div>
   </StrongAndTextWrapper>
-)
+);
 
 const StrongAndTextWrapper = styled.div`
   color: ${(props) => props.theme.lightText};
@@ -113,4 +102,4 @@ const StrongAndTextWrapper = styled.div`
     color: ${(props) => props.theme.text};
     font-weight: bold;
   }
-`
+`;

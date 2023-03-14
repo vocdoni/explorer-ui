@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next'
-import { Switch, Case, Default } from 'react-if'
-import { ActiveBadge, UpcomingBadge, EndedBadge } from '@components/elements/text-badge'
-import { VochainCensusOrigin } from 'dvote-js'
+import { useTranslation } from 'react-i18next';
+import { Switch, Case, Default } from 'react-if';
+import { ActiveBadge, EndedBadge } from '@components/elements/text-badge';
+import { VochainCensusOrigin } from 'dvote-js';
 
 interface CensusOriginBadgeProps {
-  censusOrigin: VochainCensusOrigin
+  censusOrigin: VochainCensusOrigin;
 }
 
 export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation();
   return (
     <Switch>
       <Case
@@ -53,10 +53,8 @@ export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
         <ActiveBadge>{i18n.t('processes.OFF_CHAIN_TREE_WEIGHTED')}</ActiveBadge>
       </Case> */}
       <Default>
-        <EndedBadge>
-          {i18n.t('processes.census_origin_badge.CENSUS_UNKNOWN')}
-        </EndedBadge>
+        <EndedBadge>{i18n.t('processes.census_origin_badge.CENSUS_UNKNOWN')}</EndedBadge>
       </Default>
     </Switch>
-  )
-}
+  );
+};

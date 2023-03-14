@@ -1,41 +1,41 @@
 interface IRouterProps {
-  [key: string]: string
+  [key: string]: string;
 }
 
 export default class RouterService {
-  public readonly baseUrl: string
-  private static _instance: RouterService
+  public readonly baseUrl: string;
+  private static _instance: RouterService;
 
   constructor(baseUrl?: string) {
-    this.baseUrl = baseUrl || typeof location !== 'undefined'? `${location.protocol}//${location.host}`: ''
+    this.baseUrl = baseUrl || typeof location !== 'undefined' ? `${location.protocol}//${location.host}` : '';
   }
 
   static get instance(): RouterService {
     if (!RouterService._instance) {
-      RouterService._instance = new RouterService()
+      RouterService._instance = new RouterService();
     }
 
-    return RouterService._instance
+    return RouterService._instance;
   }
 
   public get(path: string, args: IRouterProps): string {
-    return this._generateUrl(this.baseUrl, path, args)
+    return this._generateUrl(this.baseUrl, path, args);
   }
 
   private _generateUrl(url, path, args): string {
-    let baseUrl = `${url}${path}?`
+    let baseUrl = `${url}${path}?`;
 
     for (const key in args) {
       // eslint-disable-next-line no-prototype-builtins
       if (args.hasOwnProperty(key)) {
         if (baseUrl.indexOf(`{${key}}`) !== -1) {
-          baseUrl = baseUrl.replace(`{${key}}`, args[key])
+          baseUrl = baseUrl.replace(`{${key}}`, args[key]);
         } else {
-          baseUrl = baseUrl + `${key}=${args[key]}&`
+          baseUrl = baseUrl + `${key}=${args[key]}&`;
         }
       }
     }
 
-    return baseUrl.slice(0, -1)
+    return baseUrl.slice(0, -1);
   }
 }

@@ -1,12 +1,11 @@
-import { useTranslation } from 'react-i18next'
-import { fetchMethod, getTxListById } from '@lib/api'
-import { GetTx, GetTxByHash, TxById, TxForBlock } from '@lib/types'
-import { usePool } from '@vocdoni/react-hooks'
-import { Tx } from 'dvote-js'
-import { useEffect, useState } from 'react'
-import { useAlertMessage } from './message-alert'
-import { useStats } from './use-stats'
-import { Reader } from 'protobufjs'
+import { useTranslation } from 'react-i18next';
+import { fetchMethod, getTxListById } from '@lib/api';
+import { GetTx, TxById, TxForBlock } from '@lib/types';
+import { usePool } from '@vocdoni/react-hooks';
+import { Tx } from 'dvote-js';
+import { useEffect, useState } from 'react';
+import { useAlertMessage } from './message-alert';
+import { useStats } from './use-stats';
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -14,20 +13,20 @@ export const useTxForBlock = ({
   listSize,
   fromId,
 }: {
-  blockHeight: number
-  listSize?: number
-  fromId?: number
+  blockHeight: number;
+  listSize?: number;
+  fromId?: number;
 }) => {
-  const { i18n } = useTranslation()
-  const { setAlertMessage } = useAlertMessage()
-  const { poolPromise } = usePool()
-  const [loading, setLoading] = useState(false)
-  const [transactions, setTransactions] = useState<TxForBlock[]>([])
+  const { i18n } = useTranslation();
+  const { setAlertMessage } = useAlertMessage();
+  const { poolPromise } = usePool();
+  const [loading, setLoading] = useState(false);
+  const [transactions, setTransactions] = useState<TxForBlock[]>([]);
 
   const loadTransactions = () => {
-    if (loading || !poolPromise) return
+    if (loading || !poolPromise) return;
 
-    setLoading(true)
+    setLoading(true);
 
     poolPromise
       .then((pool) => {
@@ -39,50 +38,43 @@ export const useTxForBlock = ({
             listSize: listSize,
             fromId: fromId,
           },
-        })
+        });
       })
       .then((response) => {
-        const transactions = (response.response.txList as TxForBlock[]) || null
-        setTransactions(transactions)
-        setLoading(false)
+        const transactions = (response.response.txList as TxForBlock[]) || null;
+        setTransactions(transactions);
+        setLoading(false);
       })
       .catch((err) => {
-        console.error(err)
-        setLoading(false)
-        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      })
-  }
+        console.error(err);
+        setLoading(false);
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
+      });
+  };
 
   useEffect(() => {
-    if (blockHeight) loadTransactions()
-  }, [blockHeight, listSize, fromId])
+    if (blockHeight) loadTransactions();
+  }, [blockHeight, listSize, fromId]);
 
   return {
     transactions,
     loading,
-  }
-}
-
+  };
+};
 
 /** Get single transaction by blockHeight and  txIndex*/
-export const useTx = ({
-  blockHeight,
-  txIndex,
-}: {
-  blockHeight: number
-  txIndex: number
-}) => {
-  const { i18n } = useTranslation()
+export const useTx = ({ blockHeight, txIndex }: { blockHeight: number; txIndex: number }) => {
+  const { i18n } = useTranslation();
 
-  const { setAlertMessage } = useAlertMessage()
-  const { poolPromise } = usePool()
-  const [loading, setLoading] = useState(false)
-  const [tx, setTx] = useState<GetTx>()
+  const { setAlertMessage } = useAlertMessage();
+  const { poolPromise } = usePool();
+  const [loading, setLoading] = useState(false);
+  const [tx, setTx] = useState<GetTx>();
 
   const loadTransactions = () => {
-    if (loading || !poolPromise) return
+    if (loading || !poolPromise) return;
 
-    setLoading(true)
+    setLoading(true);
 
     poolPromise
       .then((pool) => {
@@ -93,53 +85,52 @@ export const useTx = ({
             height: blockHeight,
             txIndex: txIndex,
           },
-        })
+        });
       })
       .then((response) => {
-        const transaction = (response.response.tx as GetTx) || null
-        transaction["payload"] = JSON.parse(response['response']['payload']) as Tx
-        setTx(transaction)
+        const transaction = (response.response.tx as GetTx) || null;
+        transaction['payload'] = JSON.parse(response['response']['payload']) as Tx;
+        setTx(transaction);
       })
       .catch((err) => {
-        console.error(err)
-        setTx(null)
-        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      }).finally(() => setLoading(false))
-  }
+        console.error(err);
+        setTx(null);
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
+      })
+      .finally(() => setLoading(false));
+  };
 
   useEffect(() => {
-    if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex) ) loadTransactions()
-  }, [blockHeight, txIndex])
+    if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex)) loadTransactions();
+  }, [blockHeight, txIndex]);
 
   return {
     tx,
     loading,
-  }
-}
-
+  };
+};
 
 /**
  *
  * @returns transaction count from stats
  */
 export const useTransactionCount = () => {
-  const [transactionCount, setTransactionCount] = useState<number>()
-  const { stats, loading } = useStats({})
-  const { i18n } = useTranslation()
+  const [transactionCount, setTransactionCount] = useState<number>();
+  const { stats, loading } = useStats({});
 
   const getHeightFromStats = () => {
-    setTransactionCount(stats.transaction_count)
-  }
+    setTransactionCount(stats.transaction_count);
+  };
 
   useEffect(() => {
-    if (!loading && stats) getHeightFromStats()
-  }, [stats, loading])
+    if (!loading && stats) getHeightFromStats();
+  }, [stats, loading]);
 
   return {
     transactionCount,
     loading,
-  }
-}
+  };
+};
 
 /** Get transaction ordered by height */
 export const useTxListById = ({
@@ -147,53 +138,52 @@ export const useTxListById = ({
   listSize,
   reverse = false, // Reverse the array to get first the last block height retrieved
 }: {
-  from: number
-  listSize: number
-  reverse?: boolean
+  from: number;
+  listSize: number;
+  reverse?: boolean;
 }) => {
-  const { i18n } = useTranslation()
-  const { setAlertMessage } = useAlertMessage()
-  const { poolPromise } = usePool()
-  const [loading, setLoading] = useState(false)
-  const [transactions, setTransactions] = useState<TxById[]>()
+  const { i18n } = useTranslation();
+  const { setAlertMessage } = useAlertMessage();
+  const { poolPromise } = usePool();
+  const [loading, setLoading] = useState(false);
+  const [transactions, setTransactions] = useState<TxById[]>();
 
   const loadTransactions = () => {
-    if (loading || !poolPromise) return
+    if (loading || !poolPromise) return;
 
-    setLoading(true)
+    setLoading(true);
 
     poolPromise
       .then((pool) => {
         // todo: this method is not exposed yet
-        return getTxListById(from, listSize, pool)
+        return getTxListById(from, listSize, pool);
       })
       .then((response) => {
         const txList = response
           .filter((res) => res['response']['ok'])
           .map((res) => {
-            const transaction = res['response']['tx']
-            transaction["payload"] = JSON.parse(res['response']['payload']) as Tx
-            return transaction
-          })
-        const transactions = (txList as TxById[]) || null
+            const transaction = res['response']['tx'];
+            transaction['payload'] = JSON.parse(res['response']['payload']) as Tx;
+            return transaction;
+          });
+        const transactions = (txList as TxById[]) || null;
 
-        setTransactions(reverse ? transactions.reverse() : transactions)
-        setLoading(false)
+        setTransactions(reverse ? transactions.reverse() : transactions);
+        setLoading(false);
       })
       .catch((err) => {
-        console.error(err)
-        setLoading(false)
-        setAlertMessage(i18n.t('error.could_not_fetch_the_details'))
-      })
-  }
+        console.error(err);
+        setLoading(false);
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
+      });
+  };
 
   useEffect(() => {
-    if (from || from === 0) loadTransactions()
-  }, [from, listSize])
+    if (from || from === 0) loadTransactions();
+  }, [from, listSize]);
 
   return {
     transactions,
     loading,
-  }
-}
-
+  };
+};

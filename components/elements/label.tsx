@@ -1,5 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Label = styled.label<{color?: string}>`
-  color: ${({ theme, color}) => color? color: theme.text };
-`
+export const Label = styled.label<{ color?: string }>`
+  color: ${({ theme, color }) => (color ? color : theme.text)};
+`;

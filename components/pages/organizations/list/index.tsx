@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next'
-import { ListPage } from '@components/pages/app/page-templates/list-page'
-import { DashboardEntityList } from './entity-list'
-import { useOrganizationCount } from '@hooks/use-voconi-sdk'
+import { useTranslation } from 'react-i18next';
+import { ListPage } from '@components/pages/app/page-templates/list-page';
+import { DashboardEntityList } from './entity-list';
+import { useOrganizationCount } from '@hooks/use-voconi-sdk';
 
 export const DashboardShowEntities = () => {
-  const { i18n } = useTranslation()
-  const { data: entitiesCount } = useOrganizationCount()
-  const count = entitiesCount?.count ?? 0
+  const { i18n } = useTranslation();
+  const { data: entitiesCount } = useOrganizationCount();
+  const count = entitiesCount?.count ?? 0;
 
-  const page_size = 10
+  const page_size = 10;
 
   return (
     <DashboardEntityList
@@ -21,5 +21,5 @@ export const DashboardShowEntities = () => {
         />
       }
     />
-  )
-}
+  );
+};
