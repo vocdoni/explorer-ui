@@ -10,7 +10,7 @@ import { getTransactionLink } from '@components/pages/app/components/get-links';
 import { renderSkeleton } from '@components/pages/app/page-templates/list-page';
 
 export const TransactionListForBlock = ({
-  pageSize,
+  pageSize = 4,
   totalCount,
   blockHeight,
   skeletonItems = 4,
@@ -65,17 +65,16 @@ export const TransactionListForBlock = ({
       ) : transactions != null && transactions.length ? (
         <>
           <Column md={8} sm={12}>
-            <Paginator
-              totalCount={totalCount}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={(page) => setCurrentPage(page)}
-              disableGoLastBtn
-            ></Paginator>
+            {totalCount > pageSize && (
+              <Paginator
+                totalCount={totalCount}
+                pageSize={pageSize}
+                currentPage={currentPage}
+                onPageChange={(page) => setCurrentPage(page)}
+              ></Paginator>
+            )}
           </Column>
-          {/* <Column md={8} sm={12}> */}
           <Grid>{transactions.map(renderProcessItem)}</Grid>
-          {/* </Column> */}
         </>
       ) : (
         <h1>{i18n.t('transactions.no_transactions_found')}</h1>
