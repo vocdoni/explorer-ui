@@ -56,7 +56,7 @@ export const Paginator = ({
     <>
       {totalPageCount > 1 && <NumberButton page={1}></NumberButton>}
 
-      {currentPage > 3 && <NonActiveButton>...</NonActiveButton>}
+      {currentPage > 3 && <ThreePoints />}
 
       {currentPage === totalPageCount && totalPageCount > 3 && <NumberButton page={currentPage - 2} />}
 
@@ -68,7 +68,7 @@ export const Paginator = ({
 
       {currentPage === 1 && totalPageCount > 3 && <NumberButton page={currentPage + 2} />}
 
-      {currentPage < totalPageCount - 2 && <NonActiveButton>...</NonActiveButton>}
+      {currentPage < totalPageCount - 2 && <ThreePoints />}
 
       {!disableGoLastBtn && <NumberButton page={totalPageCount} />}
 
@@ -86,7 +86,7 @@ export const Paginator = ({
     <>
       {currentPage !== totalPageCount ? <NumberButton page={currentPage} /> : <NumberButton page={1} />}
 
-      {totalPageCount > 1 && <NonActiveButton>...</NonActiveButton>}
+      {totalPageCount > 1 && <ThreePoints />}
 
       {totalPageCount > 1 && !disableGoLastBtn && <NumberButton page={totalPageCount} />}
 
@@ -130,3 +130,15 @@ const NonActiveButton = styled(DefaultButton)`
   background: transparent;
   box-shadow: none;
 `;
+
+const ThreePoints = () => (
+  <NonActiveButton
+    style={{
+      cursor: 'default',
+      pointerEvents: 'none',
+      textOverflow: 'ellipsis',
+    }}
+  >
+    ...
+  </NonActiveButton>
+);
