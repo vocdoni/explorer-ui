@@ -17,7 +17,7 @@ export const useEntityList = ({
   const { setAlertMessage } = useAlertMessage();
   const { poolPromise } = usePool();
   const [entitiesList, setEntitiesList] = useState<string[]>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getEntityIDs = () => {
     const f = from < 0 ? 0 : from;

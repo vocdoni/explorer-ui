@@ -31,6 +31,8 @@ import { Question } from '@lib/types';
 import { isInValidProcessId, VoteStatus } from '@lib/util';
 import { MetadataFields } from '@components/blocks/metadata';
 import { BigNumber } from 'ethers';
+import { RawResults } from '@vocdoni/voting/src/types';
+import { ProcessMetadata, SingleChoiceQuestionResults } from '@vocdoni/data-models';
 
 export interface ProcessWrapperContext {
   loadingInfo: boolean;
@@ -252,7 +254,17 @@ export const UseProcessWrapperProvider = ({ children }: { children: ReactNode })
       .then((pool) =>
         Promise.all([VotingApi.getResults(processId, pool), VotingApi.getProcessMetadata(processId, pool)])
       )
-      .then(([results, metadata]) => Voting.digestSingleChoiceResults(results, metadata))
+      .then(([results, metadata]) => {
+        if (results.results.length === 0) {
+          metadata.questions.forEach((q, i) => {
+            q.choices.forEach((c, x) => {
+              results.results[i] = [];
+              results.results[i][x] = '0';
+            });
+          });
+        }
+        return Voting.digestSingleChoiceResults(results, metadata);
+      })
       .then((results) => {
         const parsedResults: IProcessResults = {
           ...results,
