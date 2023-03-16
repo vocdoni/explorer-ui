@@ -34,7 +34,7 @@ export const CopyButton = ({
 
   return (
     <>
-      <div onClick={handleCopy}>
+      <div onClick={handleCopy} style={{ width: 'fit-content' }}>
         <IconContext.Provider
           value={{
             color: color ?? 'inherit',
@@ -108,8 +108,8 @@ const AlertWrapper = styled.div`
 
 const AlertContainer = styled.div<{ visible: boolean }>`
   position: absolute;
-  top: -35px;
-  left: 25px;
+  top: -45px;
+  right: 25px;
   z-index: 5010;
   font-size: 12px;
   background-color: ${({ theme }) => theme.lightBg};
