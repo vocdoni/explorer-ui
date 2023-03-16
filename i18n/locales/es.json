@@ -56,7 +56,8 @@
     },
     "copy": {
         "hash_copied_to_the_clipboard": "",
-        "the_link_has_been_copied_to_the_clipboard": ""
+        "the_link_has_been_copied_to_the_clipboard": "",
+        "copied_to_the_clipboard": ""
     },
     "dashboard": {
         "loading": "",

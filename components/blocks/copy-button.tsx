@@ -29,7 +29,7 @@ export const CopyButton = ({
     e.preventDefault();
     e.target.focus();
     copy(toCopy);
-    setCopiedMessage(copyMessage ?? i18n.t('copy.the_link_has_been_copied_to_the_clipboard'));
+    setCopiedMessage(copyMessage ?? i18n.t('copy.copied_to_the_clipboard'));
   };
 
   return (

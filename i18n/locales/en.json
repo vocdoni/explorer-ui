@@ -56,7 +56,8 @@
     },
     "copy": {
         "hash_copied_to_the_clipboard": "Hash copied to the clipboard",
-        "the_link_has_been_copied_to_the_clipboard": "The link has been copied to the clipboard"
+        "the_link_has_been_copied_to_the_clipboard": "The link has been copied to the clipboard",
+        "copied_to_the_clipboard":  "Copied to the clipboard"
     },
     "dashboard": {
         "loading": "Loading",
