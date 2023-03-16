@@ -1,5 +1,6 @@
-import { ChainAPI, ElectionAPI, VoteAPI } from '@vocdoni/sdk';
 import { useEffect, useMemo, useState } from 'react';
+import { useClientContext } from '@vocdoni/react-components';
+import { ExtendedSDKClient } from '@lib/client';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -28,18 +29,34 @@ function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, ...
   return { data, error, loading };
 }
 
-export const useTxByHash = ({ txHash }: { txHash: string }) => useSDKFunction(ChainAPI.txInfo, txHash);
+export const useTxByHash = ({ txHash }: { txHash: string }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.txInfo, txHash);
+};
 
 // export const useOrganizationList = ({ page }: { page: number }) => useSDKFunction(ChainAPI.organizationList, page);
 
-export const useOrganizationCount = () => useSDKFunction(ChainAPI.organizationCount);
+export const useOrganizationCount = () => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.organizationCount);
+};
 
-export const useValidators = () => useSDKFunction(ChainAPI.validatorsList);
+export const useValidators = () => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.validatorsList);
+};
 
-export const useVoteInfo = ({ voteId }: { voteId: string }) => useSDKFunction(VoteAPI.info, voteId);
+export const useVoteInfo = ({ voteId }: { voteId: string }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.voteInfo, voteId);
+};
 
-export const useElectionVotesList = ({ electionId, page }: { electionId: string; page?: number }) =>
-  useSDKFunction(ElectionAPI.votesList, electionId, page);
+export const useElectionVotesList = ({ electionId, page }: { electionId: string; page?: number }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.electionVotesList, electionId, page);
+};
 
-export const useElectionVotesCount = ({ electionId }: { electionId: string }) =>
-  useSDKFunction(ElectionAPI.votesCount, electionId);
+export const useElectionVotesCount = ({ electionId }: { electionId: string }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.electionVotesCount, electionId);
+};
