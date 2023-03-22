@@ -4,24 +4,25 @@ import { ExtendedSDKClient } from '@lib/client';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
-function useSDKFunction<T, U>(promiseFn: (string, params?: U) => Promise<T>, ...args: any[]) {
+function useSDKFunction<T, U>(promiseFn: (params?: U) => Promise<T>, ...args: any[]) {
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
-  const apiUrl = process.env.API_URL;
 
   // Use useMemo to memoize the arguments and recompute only when they change
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const memoizedArgs = useMemo(() => args, args);
 
   useEffect(() => {
     setLoading(true);
-    promiseFn(apiUrl, ...args)
+    promiseFn(...args)
       .then((response) => {
         setData(response);
-        setLoading(false);
       })
       .catch((err) => {
         setError(err);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, [promiseFn, memoizedArgs]);
