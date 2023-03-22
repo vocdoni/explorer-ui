@@ -1,372 +1,373 @@
 {
-    "blocks": {
-        "badge": {
-            "n_transactions": ""
-        },
-        "details": {
-            "block_details": "",
-            "block_not_found": ""
-        },
-        "filter": {
-            "search": ""
-        },
-        "list": {
-            "blocks": "",
-            "count": ""
-        },
-        "transactions": ""
+  "blocks": {
+    "badge": {
+      "n_transactions": "{{ transactions }} transacciones"
     },
-    "components": {
-        "block_card": {
-            "hash": "",
-            "last_block_hash": "",
-            "proposer": ""
-        },
-        "cardimage": {
-            "organization_logo_alt": "",
-            "vote_process_image_alt": ""
-        },
-        "filters": {
-            "apply_filters": "",
-            "clear_filters": ""
-        },
-        "organization_card_medium": {
-            "host_explore": "",
-            "host_organization": ""
-        },
-        "transaction_card": {
-            "hash": ""
-        },
-        "validator": {
-            "name": "",
-            "Pubkey": "",
-            "voting_power": ""
-        }
+    "details": {
+      "block_details": "Detalles del bloque",
+      "block_not_found": "Bloque no encontrado"
     },
-    "converter": {
-        "block_height": "",
-        "calculate_the_conversion_between_Vochain_blocks_and_dates": "",
-        "current_enviorment": "",
-        "date_block_estimation": "",
-        "genesis_date": "",
-        "loading_info": "",
-        "search_by_block_height": "",
-        "set_block": "",
-        "set_date": ""
+    "filter": {
+      "search": "buscar"
     },
-    "copy": {
-        "hash_copied_to_the_clipboard": "",
-        "the_link_has_been_copied_to_the_clipboard": "",
-        "copied_to_the_clipboard": ""
+    "list": {
+      "blocks": "Bloques",
+      "count": "Total"
     },
-    "dashboard": {
-        "loading": "",
-        "process_ended": "",
-        "process_paused": ""
+    "transactions": "Transacciones"
+  },
+  "components": {
+    "block_card": {
+      "hash": "Hash",
+      "last_block_hash": "Hash del bloque anterior",
+      "proposer": "Propositor"
     },
-    "dates": {
-        "a_minute_ago": "",
-        "an_hour_ago": "",
-        "ended_a_minute_ago": "",
-        "ended_an_hour_ago": "",
-        "ended_n_days_ago": "",
-        "ended_n_hours_ago": "",
-        "ended_n_minutes_ago": "",
-        "ended_n_seconds_ago": "",
-        "ended_right_now": "",
-        "ended_yesterday": "",
-        "ending_in_n_days": "",
-        "ending_in_n_hours": "",
-        "ending_in_n_minutes": "",
-        "ending_in_n_seconds": "",
-        "ending_in_one_hour": "",
-        "ending_in_one_minute": "",
-        "ending_right_now": "",
-        "ending_tomorrow": "",
-        "in_n_days": "",
-        "in_n_hours": "",
-        "in_n_minutes": "",
-        "in_n_seconds": "",
-        "in_one_hour": "",
-        "in_one_minute": "",
-        "n_days_ago": "",
-        "n_hours_ago": "",
-        "n_minutes_ago": "",
-        "n_seconds_ago": "",
-        "right_now": "",
-        "started_a_minute_ago": "",
-        "started_an_hour_ago": "",
-        "started_n_days_ago": "",
-        "started_n_hours_ago": "",
-        "started_n_minutes_ago": "",
-        "started_n_seconds_ago": "",
-        "started_right_now": "",
-        "started_yesterday": "",
-        "starting_in_n_days": "",
-        "starting_in_n_hours": "",
-        "starting_in_n_minutes": "",
-        "starting_in_n_seconds": "",
-        "starting_in_one_hour": "",
-        "starting_in_one_minute": "",
-        "starting_right_now": "",
-        "starting_tomorrow": "",
-        "tomorrow": "",
-        "yesterday": ""
+    "cardimage": {
+      "organization_logo_alt": "Logotipo de la organización",
+      "vote_process_image_alt": "Imagen del proceso de votación"
     },
-    "envelopes": {
-        "details": {
-            "belongs_to_process": "",
-            "commited_in_block": "",
-            "emitted": "",
-            "encryption_keys_used": "",
-            "envelope_details": "",
-            "envelope_not_found": "",
-            "envelope_weight": "",
-            "overwrite_count": "",
-            "transaction_hash": "",
-            "verifier_code": "",
-            "vote_has_been_registered_correctly": ""
-        },
-        "encryption_keys": {
-            "none": ""
-        }
+    "filters": {
+      "apply_filters": "Aplicar",
+      "clear_filters": "Borrar"
     },
-    "error": {
-        "could_not_fetch_processes_count": "",
-        "could_not_fetch_the_details": "",
-        "invalid_choice_error": "",
-        "invalid_description": "",
-        "invalid_question_error": "",
-        "invalid_title": ""
+    "organization_card_medium": {
+      "host_explore": "Explorar",
+      "host_organization": "Organización"
     },
-    "errors": {
-        "general_error": "",
-        "page_not_found": "",
-        "the_list_of_organizations_cannot_be_loaded": "",
-        "the_list_of_votes_cannot_be_loaded": ""
+    "transaction_card": {
+      "hash": "Hash"
     },
-    "featured": {
-        "a_cutting_edge_voting_protocol": "",
-        "a_fully_anonymous_voting_system_ensuring_data_availability": "",
-        "anonymous_image_alt": "",
-        "censorship_image_alt": "",
-        "edge_protocol_image_alt": "",
-        "inexpensive_image_alt": "",
-        "know_more": "",
-        "leveraging_on_decentalized_technologies": "",
-        "open_source_image_alt": "",
-        "scalable_image_alt": "",
-        "verifiable_image_alt": ""
-    },
-    "home": {
-        "average_block_time": "",
-        "n_organizations": "",
-        "n_processes": "",
-        "n_seconds": "",
-        "n_votes": "",
-        "the_most_flexible_and_secure_voting_protocol": "",
-        "total_organizations": "",
-        "total_processes": "",
-        "total_votes": "",
-        "vocdoni_explorer": ""
-    },
-    "input": {
-        "hide": "",
-        "show": ""
-    },
-    "links": {
-        "about": "",
-        "blocks": "",
-        "blog": "",
-        "docs": "",
-        "help": "",
-        "organizations": "",
-        "privacy_policy": "",
-        "processes": "",
-        "stats": "",
-        "support": "",
-        "tools": "",
-        "transactions": "",
-        "validators": "",
-        "verify_vote": ""
-    },
-    "organization": {
-        "home": {
-            "view_profile": ""
-        }
-    },
-    "organizations": {
-        "count": "",
-        "details": {
-            "no_processes_yet": "",
-            "organization_address": "",
-            "organization_description": "",
-            "organization_processes": ""
-        },
-        "filter": {
-            "search": ""
-        },
-        "list": {
-            "organizations_list_title": "",
-            "processes": ""
-        },
-        "upcoming_processes_badge": {
-            "processes": ""
-        }
-    },
-    "paginated_template": {
-        "no_elements_found": ""
-    },
-    "processes": {
-        "census_origin_badge": {
-            "CENSUS_UNKNOWN": "",
-            "ERC1155": "",
-            "ERC20": "",
-            "ERC721": "",
-            "ERC777": "",
-            "MINI_ME": "",
-            "OFF_CHAIN": "",
-            "UNRECOGNIZED": ""
-        },
-        "details": {
-            "created_on": "",
-            "detailed_data": "",
-            "election_encryption_keys": "",
-            "id": "",
-            "process_details": "",
-            "process_not_found": "",
-            "processes_additional_information": "",
-            "published": "",
-            "revealed": "",
-            "see_raw_envelopment_content": "",
-            "show_description": "",
-            "show_envelopes": "",
-            "show_questions": "",
-            "total_questions": "",
-            "vote_recount": "",
-            "published_keys": ""
-        },
-        "envelope_explorer": {
-            "block": "",
-            "details": "",
-            "envelope_n": "",
-            "total_votes": "",
-            "tx_number": ""
-        },
-        "envelope_type_badge": {
-            "encrypted_votes": "",
-            "not_encrypted_votes": ""
-        },
-        "filter": {
-            "search": "",
-            "show_only_processes_with_results": "",
-            "status_selector": {
-                "all": "",
-                "ended": "",
-                "paused": ""
-            }
-        },
-        "list": {
-            "count": "",
-            "processes": ""
-        },
-        "process_mode_badge": {
-            "autostart": "",
-            "notAutostart": ""
-        }
-    },
-    "stats": {
-        "bloc_height": "",
-        "blockchain_info": "",
-        "genesis_block_date": "",
-        "getting_block_info": "",
-        "in_sync": "",
-        "latest_block": "",
-        "network_id": "",
-        "nr_of_validators": "",
-        "sync_status": "",
-        "syncing": "",
-        "view_all_blocks": "",
-        "latest_block_date": ""
-    },
-    "status": {
-        "the_vote_has_ended": "",
-        "the_vote_is_canceled": "",
-        "the_vote_is_open_for_voting": "",
-        "the_vote_is_paused": "",
-        "the_vote_will_start_soon": ""
-    },
-    "transaction": {
-        "card": {
-            "index_n": ""
-        }
-    },
-    "transactions": {
-        "badge": {
-            "admin": "",
-            "collect_faucet": "",
-            "mint_tokens": "",
-            "new_process": "",
-            "register_key": "",
-            "send_tokens": "",
-            "set_account_delegate_tx": "",
-            "set_account_info": "",
-            "set_key_keeper": "",
-            "set_process": "",
-            "set_transaction_costs": "",
-            "unknown": "",
-            "vote": ""
-        },
-        "count": "",
-        "created_on": "",
-        "details": {
-            "belong_to_organization": "",
-            "belongs_to_process": "",
-            "raw_contents": "",
-            "transaction_details": "",
-            "transaction_not_found": "",
-            "vote_package": ""
-        },
-        "filter": {
-            "search": ""
-        },
-        "no_transactions_found": "",
-        "on_block_n": "",
-        "transaction_index": "",
-        "transactions": ""
-    },
-    "validators_list": {
-        "count": "",
-        "validators": "",
-        "validators_count": ""
-    },
-    "validators": {
-        "badge": {
-            "voting_power": ""
-        },
-        "no_validators_found": ""
-    },
-    "verify": {
-        "add_vote_id": "",
-        "enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote": "",
-        "verify": "",
-        "verify_your_vote": ""
-    },
-    "vote": {
-        "badge": {
-            "active_vote": "",
-            "anonymous": "",
-            "ended_vote": "",
-            "paused_vote_or_canceled": "",
-            "upcoming_vote": ""
-        },
-        "loading_results": "",
-        "no_questions_yet": "",
-        "no_results_live": "",
-        "no_results_title": "",
-        "results_question": "",
-        "total_votes_submited": "",
-        "vote_count": "",
-        "vote_count_plural": ""
+    "validator": {
+      "name": "Nombre",
+      "Pubkey": "Clave pública",
+      "voting_power": "Fuerza de voto"
     }
+  },
+  "converter": {
+    "block_height": "Total bloques",
+    "calculate_the_conversion_between_Vochain_blocks_and_dates": "Calcula la conversión entre los bloques en la Vochain y fechas",
+    "current_enviorment": "Entorno ",
+    "date_block_estimation": "Estimación de bloques por fecha",
+    "genesis_date": "Fecha de génesis",
+    "loading_info": "Cargando...",
+    "search_by_block_height": "Buscar por número de bloque",
+    "set_block": "Seleccionar bloque",
+    "set_date": "Seleccionar fecha"
+  },
+  "copy": {
+    "hash_copied_to_the_clipboard": "Hash copiado al portapapeles",
+    "the_link_has_been_copied_to_the_clipboard": "El enlace ha sido copiado al portapapeles",
+    "copied_to_the_clipboard":  "Copiado al portapapeles"
+  },
+  "dashboard": {
+    "loading": "Cargando",
+    "process_ended": "Proceso finalizado",
+    "process_paused": "Proceso pausado"
+  },
+  "dates": {
+    "a_minute_ago": "Hace un minuto",
+    "an_hour_ago": "Hace una hora",
+    "ended_a_minute_ago": "Terminó hace un minuto",
+    "ended_an_hour_ago": "Terminó hace una hora",
+    "ended_n_days_ago": "Terminó hace {{num}} días",
+    "ended_n_hours_ago": "Terminó hace {{num}} horas",
+    "ended_n_minutes_ago": "Terminó hace {{num}} minutos",
+    "ended_n_seconds_ago": "Terminó hace {{num}} segundos",
+    "ended_right_now": "Terminó justo ahora",
+    "ended_yesterday": "Terminó ayer",
+    "ending_in_n_days": "Termina en {{num}} días",
+    "ending_in_n_hours": "Termina en {{num}} horas",
+    "ending_in_n_minutes": "Termina en {{num}} minutos",
+    "ending_in_n_seconds": "Termina en {{num}} segundos",
+    "ending_in_one_hour": "Termina en una hora",
+    "ending_in_one_minute": "Termina en un minuto",
+    "ending_right_now": "Termina justo ahora",
+    "ending_tomorrow": "Termina mañana",
+    "in_n_days": "En {{num}} días",
+    "in_n_hours": "En {{num}} horas",
+    "in_n_minutes": "en {{num}} minutos",
+    "in_n_seconds": "en {{num}} segundos",
+    "in_one_hour": "En una hora",
+    "in_one_minute": "En un minuto",
+    "n_days_ago": "hace {{num}} días",
+    "n_hours_ago": "hace {{num}} horas",
+    "n_minutes_ago": "hace {{num}} minutos",
+    "n_seconds_ago": "hace {{num}} segundos",
+    "right_now": "Ahora mismo",
+    "started_a_minute_ago": "Empezó hace un minuto",
+    "started_an_hour_ago": "Empezó hace una hora",
+    "started_n_days_ago": "Empezó hace {{num}} días",
+    "started_n_hours_ago": "Empezó hace {{num}} horas",
+    "started_n_minutes_ago": "Empezó hace {{num}} minutos",
+    "started_n_seconds_ago": "Empezó hace {{num}} segundos",
+    "started_right_now": "Empezó justo ahora",
+    "started_yesterday": "Empezó ayer",
+    "starting_in_n_days": "Comienza en {{num}} días",
+    "starting_in_n_hours": "Comienza en {{num}} horas",
+    "starting_in_n_minutes": "Comienza en {{num}} minutos",
+    "starting_in_n_seconds": "Comienza en {{num}} segundos",
+    "starting_in_one_hour": "Comienza en una hora",
+    "starting_in_one_minute": "Comienza en un minuto",
+    "starting_right_now": "Comienza justo ahora",
+    "starting_tomorrow": "Comienza mañana",
+    "tomorrow": "mañana",
+    "yesterday": "ayer"
+  },
+  "envelopes": {
+    "details": {
+      "belongs_to_process": "Pertenece al proceso",
+      "commited_in_block": "Comprometido en bloque",
+      "emitted": "Emitido",
+      "encryption_keys_used": "Claves de cifrado utilizadas",
+      "envelope_details": "Detalles del voto",
+      "envelope_not_found": "Voto no encontrado",
+      "envelope_weight": "Peso del voto",
+      "overwrite_count": "Contador de sobrescritura",
+      "transaction_hash": "Hash de transacción",
+      "verifier_code": "Código del verificador",
+      "vote_has_been_registered_correctly": "El voto ha sido registrado correctamente"
+    },
+    "encryption_keys": {
+      "none": "Ninguna"
+    }
+  },
+  "error": {
+    "could_not_fetch_processes_count": "No se puede obtener el número de procesos",
+    "could_not_fetch_the_details": "No se pueden obtener los detalles",
+    "invalid_choice_error": "",
+    "invalid_description": "",
+    "invalid_question_error": "",
+    "invalid_title": ""
+  },
+  "errors": {
+    "general_error": "Error general",
+    "page_not_found": "Página no encontrada",
+    "the_list_of_organizations_cannot_be_loaded": "No se puede cargar la lista de organizaciones.",
+    "the_list_of_votes_cannot_be_loaded": "No se puede cargar la lista de votos"
+  },
+  "featured": {
+    "a_cutting_edge_voting_protocol": "Un protocolo de votación de vanguardia",
+    "a_fully_anonymous_voting_system_ensuring_data_availability": "Un sistema de votación completamente anónimo que garantiza la disponibilidad de datos",
+    "anonymous_image_alt": "Imagen anónima",
+    "censorship_image_alt": "Imagen resistente a la censura",
+    "edge_protocol_image_alt": "Imagen de protocolo de vanguardia",
+    "inexpensive_image_alt": "Imagen económica",
+    "know_more": "Saber más",
+    "leveraging_on_decentalized_technologies": "Aprovechando las tecnologías descentralizadas",
+    "open_source_image_alt": "Imagen de código abierto",
+    "scalable_image_alt": "Imagen escalable",
+    "verifiable_image_alt": "Imagen verificable"
+  },
+  "home": {
+    "average_block_time": "Tiempo promedio de bloque",
+    "n_organizations": "{{ organizations }} organizaciones",
+    "n_processes": "{{ processes }} procesos",
+    "n_seconds": "{{ seconds }} segundos",
+    "n_votes": "{{ votes }} votos",
+    "the_most_flexible_and_secure_voting_protocol": "El protocolo de votación más flexible y seguro para organizar cualquier tipo de proceso de votación: elección única, múltiple, ponderada, votación cuadrática y mucho más.",
+    "total_organizations": "Total de organizaciones",
+    "total_processes": "Total de procesos",
+    "total_votes": "Total de votos",
+    "vocdoni_explorer": "Explorador de Vocdoni"
+  },
+  "input": {
+    "hide": "Ocultar",
+    "show": "Mostrar"
+  },
+  "links": {
+    "about": "Acerca de",
+    "blocks": "Bloques",
+    "blog": "Blog",
+    "docs": "Documentación",
+    "help": "Ayuda",
+    "organizations": "Organizaciones",
+    "privacy_policy": "Política de privacidad",
+    "processes": "Procesos",
+    "stats": "Estadísticas",
+    "support": "Soporte",
+    "tools": "Herramientas",
+    "transactions": "Transacciones",
+    "validators": "Validadores",
+    "verify_vote": "Verificar Voto"
+  },
+  "organization": {
+    "home": {
+      "view_profile": "Ver el perfil"
+    }
+  },
+  "organizations": {
+    "count": "Total",
+    "details": {
+      "no_processes_yet": "Aún no hay procesos",
+      "organization_address": "Dirección de la organización",
+      "organization_description": "Descripción de la organización",
+      "organization_processes": "Procesos de la organización"
+    },
+    "filter": {
+      "search": "Buscar"
+    },
+    "list": {
+      "organizations_list_title": "Lista de organizaciones",
+      "processes": "Procesos"
+    },
+    "upcoming_processes_badge": {
+      "processes": "No se encontraron elementos"
+    }
+  },
+  "paginated_template": {
+    "no_elements_found": ""
+  },
+  "processes": {
+    "census_origin_badge": {
+      "CENSUS_UNKNOWN": "Unknown census",
+      "ERC1155": "ERC1155",
+      "ERC20": "ERC20",
+      "ERC721": "ERC721",
+      "ERC777": "ERC777",
+      "MINI_ME": "Mini me",
+      "OFF_CHAIN": "Off Chain",
+      "UNRECOGNIZED": "Unrecognized"
+    },
+    "details": {
+      "created_on": "Creado el",
+      "detailed_data": "Detalles",
+      "election_encryption_keys": "Claves de cifrado de la elección",
+      "id": "Id",
+      "process_details": "Detalles del proceso",
+      "process_not_found": "Proceso no encontrado",
+      "processes_additional_information": "Información adicional del proceso",
+      "published": "Publicado",
+      "revealed": "Revelado",
+      "see_raw_envelopment_content": "Ver contenido de sobre sin procesar",
+      "show_description": "Mostrar descripción",
+      "show_envelopes": "Mostrar votos",
+      "show_questions": "Mostrar preguntas",
+      "total_questions": "Total de preguntas",
+      "vote_recount": "Recuento de votos",
+      "published_keys": "Claves publicadas"
+    },
+    "envelope_explorer": {
+      "block": "Bloque: {{block}}",
+      "details": "Detalles",
+      "envelope_n": "Voto nº {{number}}",
+      "total_votes": "Total de votos: {{totalVotes}}",
+      "tx_number": "Transacción: {{txNumber}}"
+    },
+    "envelope_type_badge": {
+      "encrypted_votes": "Votos cifrados",
+      "not_encrypted_votes": "Votos no cifrados"
+    },
+    "filter": {
+      "search": "Buscar",
+      "show_only_processes_with_results": "Mostrar solo procesos con resultados",
+      "status_selector": {
+        "all": "Todos",
+        "ended": "Finalizados",
+        "paused": "Pausados",
+        "active": "Activos"
+      }
+    },
+    "list": {
+      "count": "Número",
+      "processes": "Procesos"
+    },
+    "process_mode_badge": {
+      "autostart": "Inicio automático",
+      "notAutostart": "Sin inicio automático"
+    }
+  },
+  "stats": {
+    "bloc_height": "Altura del bloque",
+    "blockchain_info": "Información de la cadena de bloques",
+    "genesis_block_date": "Fecha del bloque génesis",
+    "getting_block_info": "Obteniendo información del bloque",
+    "in_sync": "Sincronizado",
+    "latest_block": "Últimos bloques",
+    "network_id": "ID de red",
+    "nr_of_validators": "Nº de validadores",
+    "sync_status": "Estado de sincronización",
+    "syncing": "Sincronizando",
+    "view_all_blocks": "Ver todos los bloques",
+    "latest_block_date": "Fecha del último bloque"
+  },
+  "status": {
+    "the_vote_has_ended": "La votación ha terminado",
+    "the_vote_is_canceled": "La votación está cancelada",
+    "the_vote_is_open_for_voting": "La votación está abierta para votar",
+    "the_vote_is_paused": "La votación está en pausa",
+    "the_vote_will_start_soon": "La votación comenzará pronto"
+  },
+  "transaction": {
+    "card": {
+      "index_n": "#{{ index }}"
+    }
+  },
+  "transactions": {
+    "badge": {
+      "admin": "Administrador",
+      "collect_faucet": "Recolectar grifo",
+      "mint_tokens": "Crear tokens",
+      "new_process": "Nuevo proceso",
+      "register_key": "Registrar clave",
+      "send_tokens": "Enviar tokens",
+      "set_account_delegate_tx": "Establecer transacción de delegado de cuenta",
+      "set_account_info": "Establecer información de cuenta",
+      "set_key_keeper": "Establecer guardián de clave",
+      "set_process": "Establecer proceso",
+      "set_transaction_costs": "Establecer costos de transacción",
+      "unknown": "Desconocido",
+      "vote": "Votar"
+    },
+    "count": "Cantidad",
+    "created_on": "Creado el",
+    "details": {
+      "belong_to_organization": "Pertenece a la organización",
+      "belongs_to_process": "Pertenece al proceso",
+      "raw_contents": "Contenido sin procesar",
+      "transaction_details": "Detalles de la transacción",
+      "transaction_not_found": "Transacción no encontrada",
+      "vote_package": "Paquete de voto"
+    },
+    "filter": {
+      "search": "Buscar"
+    },
+    "no_transactions_found": "Nº de transacciones encontradas",
+    "on_block_n": "En el bloque {{ blockHeight }}",
+    "transaction_index": "Índice de transacción",
+    "transactions": "Transacciones"
+  },
+  "validators_list": {
+    "count": "Número",
+    "validators": "Validadores",
+    "validators_count": "Número de validadores: {{validatorsCount}}"
+  },
+  "validators": {
+    "badge": {
+      "voting_power": "Poder de voto"
+    },
+    "no_validators_found": "No se han encontrado validadores"
+  },
+  "verify": {
+    "add_vote_id": "Introducir Id del voto",
+    "enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote": "Ingrese el comprobante de votación que recibió después de votar para verificar su voto",
+    "verify": "Verificar",
+    "verify_your_vote": "Verifica tu voto"
+  },
+  "vote": {
+    "badge": {
+      "active_vote": "Votación activa",
+      "anonymous": "Anónimo",
+      "ended_vote": "Finalizada",
+      "paused_vote_or_canceled": "Pausada/Cancelada",
+      "upcoming_vote": "Próxima"
+    },
+    "loading_results": "Cargando resultados",
+    "no_questions_yet": "No hay preguntas aún",
+    "no_results_live": "No hay resultados en vivo",
+    "no_results_title": "Sin resultados",
+    "results_question": "Pregunta",
+    "total_votes_submited": "Total de votos enviados",
+    "vote_count": "{{count}} votos",
+    "vote_count_plural": "Votos"
+  }
 }
