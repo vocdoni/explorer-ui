@@ -23,6 +23,8 @@ import { useIsMobile } from '@hooks/use-window-size';
 import { sizes } from '../../../theme/sizes';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { Button } from '@components/elements/button';
+import LanguageSelector from '@components/blocks/language-selector';
+import { colors } from '@theme/colors';
 
 interface IHeaderProps {
   children?: ReactNode;
@@ -112,6 +114,7 @@ export const Header = ({ children }: IHeaderProps) => {
               </LinkItem>
             </MenuItem>
           ))}
+          <LanguageSelector bg={'white'} size={'lg'} color={colors.blueText} />
           <MobileMenuActionsContainer onClick={() => setOpenMobileMenu(false)}>{children}</MobileMenuActionsContainer>
         </MobileMenuContainer>
 
@@ -119,6 +122,7 @@ export const Header = ({ children }: IHeaderProps) => {
 
         {!isMobile && (
           <RightContainer>
+            <LanguageSelector />
             {RIGHT_LINKS.map((link, i) => (
               <CTAButton key={i} url={link.url}>
                 {link.name}
@@ -173,6 +177,8 @@ const ListContainer = styled.div`
 
 const RightContainer = styled.div`
   padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
+  display: flex;
+  gap: 8px;
 
   @media ${({ theme }) => theme.screenMin.tablet} {
     padding: 0 ${({ theme }) => theme.margins.mobile.horizontal};
