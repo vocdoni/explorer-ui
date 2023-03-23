@@ -116,7 +116,7 @@
   "envelopes": {
     "details": {
       "belongs_to_process": "Pertenece al proceso",
-      "commited_in_block": "Comprometido en bloque",
+      "commited_in_block": "Registrado en bloque",
       "emitted": "Emitido",
       "encryption_keys_used": "Claves de cifrado utilizadas",
       "envelope_details": "Detalles del voto",
@@ -183,7 +183,7 @@
     "organizations": "Organizaciones",
     "privacy_policy": "Política de privacidad",
     "processes": "Procesos",
-    "stats": "Estadísticas",
+    "stats": "Estado",
     "support": "Soporte",
     "tools": "Herramientas",
     "transactions": "Transacciones",
@@ -277,7 +277,7 @@
     }
   },
   "stats": {
-    "bloc_height": "Altura del bloque",
+    "bloc_height": "Número de bloque",
     "blockchain_info": "Información de la cadena de bloques",
     "genesis_block_date": "Fecha del bloque génesis",
     "getting_block_info": "Obteniendo información del bloque",
