@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { HiLanguage } from 'react-icons/hi2';
-import * as CSS from 'csstype';
 
 type LanguageOption = {
   code: string;
@@ -11,6 +10,7 @@ type LanguageOption = {
 
 const languages: LanguageOption[] = [
   { code: 'en', name: 'English' },
+  { code: 'ca', name: 'Català' },
   { code: 'es', name: 'Español' },
 ];
 
