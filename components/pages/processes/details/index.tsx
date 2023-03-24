@@ -1,11 +1,10 @@
 import React from 'react';
-import { useEntity, useBlockStatus } from '@vocdoni/react-hooks';
+import { useEntity } from '@vocdoni/react-hooks';
 
 import { BadgeColumn, Grid } from '@components/elements/grid';
 import { PageCard, StatusCard } from '@components/elements/cards';
 import { CardImageHeader } from '@components/blocks/card/image-header';
-import { VoteStatus, getVoteStatus } from '@lib/util';
-import { BlockStatus, VotingApi, ProcessDetails, EntityMetadata, ProcessResultsSingleChoice } from 'dvote-js';
+import { EntityMetadata } from 'dvote-js';
 import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
@@ -21,32 +20,27 @@ import { EnvelopeExplorer } from '../components/process-envelope-explorer';
 import { ResultsCard } from '../components/results-card';
 import { EncryptionKeys } from '../components/process_keys';
 import { CopyButton } from '@components/blocks/copy-button';
+import { ElectionStatus } from '@vocdoni/sdk';
+import useExtendedElection from '@hooks/use-extended-election';
 
-interface ProcessesDetailPageProps {
-  processId: string;
-  processInfo: ProcessDetails;
-  results: ProcessResultsSingleChoice;
-}
+const ProcessesDetailPage = () => {
+  const { election, electionRaw } = useExtendedElection();
+  const dateDiffStr = resolveLocalizedDateDiff(election.startDate, election.endDate, election.status);
+  const id = election.id;
+  const organizationId = election.organizationId;
 
-const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetailPageProps) => {
   const { i18n } = useTranslation();
-  const { metadata } = useEntity(processInfo?.state?.entityId);
+  const { metadata } = useEntity(election.organizationId);
   const entityMetadata = metadata as EntityMetadata;
-
-  const { blockStatus } = useBlockStatus();
-  const blockHeight = blockStatus?.blockNumber;
-  const voteStatus: VoteStatus = getVoteStatus(processInfo?.state, blockHeight);
-
-  const dateDiffStr = resolveDate(processInfo, voteStatus, blockHeight, blockStatus);
 
   return (
     <PageCard>
       <CardImageHeader
-        title={processInfo?.metadata?.title?.default}
-        processImage={processInfo?.metadata?.media?.header}
+        title={election.title.default}
+        processImage={election.header}
         subtitle={
           <>
-            <CopyButton toCopy={processId} text={i18n.t('processes.details.id') + ': 0x' + processId} />
+            <CopyButton toCopy={id} text={i18n.t('processes.details.id') + ': ' + id} />
           </>
         }
         entityImage={entityMetadata?.media?.avatar}
@@ -61,35 +55,35 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
       </Typography>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         <span>{i18n.t('processes.details.created_on')} </span>
-        <span>{localizedDateDiff(new Date(processInfo?.state?.creationTime))}</span>
+        <span>{localizedDateDiff(election.startDate)}</span>
       </Typography>
 
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
-          <ProcessStatusBadge status={voteStatus} />
-          <CensusOriginBadge censusOrigin={processInfo?.state?.censusOrigin} />
-          <ProcessModeBadge autostart={processInfo?.state?.processMode.autoStart} />
-          <EnvelopeTypeBadge encryptedVotes={processInfo?.state?.envelopeType.encryptedVotes} />
-          {processInfo.state.envelopeType.anonymous && <AnonVoteBadge />}
+          <ProcessStatusBadge status={election.status} />
+          <CensusOriginBadge censusOrigin={electionRaw.census.censusOrigin} />
+          <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
+          <EnvelopeTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
+          {electionRaw.voteMode.anonymous && <AnonVoteBadge />}
         </BadgeColumn>
       </Grid>
 
       {/* Three cards grid with various info */}
       <Grid>
-        <EntityCardMedium md={6} icon={entityMetadata?.media?.avatar} entityId={processInfo?.state?.entityId}>
-          {entityMetadata?.name?.default ? entityMetadata?.name?.default : processInfo?.state?.entityId}
+        <EntityCardMedium md={6} icon={entityMetadata?.media?.avatar} entityId={organizationId}>
+          {entityMetadata?.name?.default ? entityMetadata?.name?.default : organizationId}
         </EntityCardMedium>
         <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
-          <h2>{results?.totalVotes || 0}</h2>
+          <h2>{election.voteCount || 0}</h2>
         </StatusCard>
         <StatusCard md={3} title={i18n.t('processes.details.total_questions')}>
-          <h2>{processInfo?.metadata?.questions?.length}</h2>
+          <h2>{election.questions.length}</h2>
         </StatusCard>
       </Grid>
 
       {/* If encrypted votes show reveal keys status */}
-      {processInfo?.state?.envelopeType.encryptedVotes && <EncryptionKeys processId={processId} />}
+      {electionRaw.voteMode.encryptedVotes && <EncryptionKeys processId={id} />}
 
       {/* Technical details */}
       <Typography variant={TypographyVariant.H3} color={colors.blueText}>
@@ -102,7 +96,7 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
       {/* Tabs */}
       <Tabs>
         <Tab label={i18n.t('processes.details.show_description')}>
-          <SectionText color={colors.lightText}>{processInfo?.metadata?.description?.default}</SectionText>
+          <SectionText color={colors.lightText}>{election.description.default}</SectionText>
         </Tab>
         <Tab label={i18n.t('processes.details.show_questions')}>
           <Grid>
@@ -110,30 +104,25 @@ const ProcessesDetailPage = ({ processId, processInfo, results }: ProcessesDetai
           </Grid>
         </Tab>
         <Tab label={i18n.t('processes.details.show_envelopes')}>
-          <EnvelopeExplorer electionId={processId} />
+          <EnvelopeExplorer electionId={id} />
         </Tab>
       </Tabs>
     </PageCard>
   );
 };
 
-function resolveDate(
-  processInfo: ProcessDetails,
-  voteStatus: VoteStatus,
-  blockHeight: number,
-  blockStatus: BlockStatus
-) {
+// todo: move this somewhere
+function resolveLocalizedDateDiff(initDate: Date, endDate: Date, voteStatus: ElectionStatus) {
+  ElectionStatus;
   if (
-    processInfo?.state?.startBlock &&
-    (voteStatus == VoteStatus.Active || voteStatus == VoteStatus.Paused || voteStatus == VoteStatus.Ended)
+    initDate &&
+    (voteStatus == ElectionStatus.ONGOING || voteStatus == ElectionStatus.PAUSED || voteStatus == ElectionStatus.ENDED)
   ) {
-    if (processInfo?.state?.startBlock > blockHeight) {
-      const date = VotingApi.estimateDateAtBlockSync(processInfo?.state?.startBlock, blockStatus);
-      return localizedStartEndDateDiff(DateDiffType.Start, date);
+    const now = new Date();
+    if (initDate > now) {
+      return localizedStartEndDateDiff(DateDiffType.Start, initDate);
     } else {
-      // starting in the past
-      const date = VotingApi.estimateDateAtBlockSync(processInfo?.state?.endBlock, blockStatus);
-      return localizedStartEndDateDiff(DateDiffType.End, date);
+      return localizedStartEndDateDiff(DateDiffType.End, endDate);
     }
   }
 }

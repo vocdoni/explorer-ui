@@ -4,7 +4,6 @@ import { EthNetworkID, VocdoniEnvironment } from 'dvote-js';
 
 import { UseAlertMessageProvider } from '@hooks/message-alert';
 import { UseLoadingAlertProvider } from '@hooks/loading-alert';
-import { UseProcessWrapperProvider } from '@hooks/use-process-wrapper';
 import { ChakraProvider } from '@chakra-ui/provider';
 import chakraDefaultTheme from '@theme/chakra';
 import { ExtendedSDKClient } from '@lib/client';
@@ -38,13 +37,11 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
         >
           <UseBlockStatusProvider>
             <UseProcessProvider>
-              <UseProcessWrapperProvider>
-                <UseEntityProvider>
-                  <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
-                    <ClientProvider client={sdkClient}>{children}</ClientProvider>
-                  </ChakraProvider>
-                </UseEntityProvider>
-              </UseProcessWrapperProvider>
+              <UseEntityProvider>
+                <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
+                  <ClientProvider client={sdkClient}>{children}</ClientProvider>
+                </ChakraProvider>
+              </UseEntityProvider>
             </UseProcessProvider>
           </UseBlockStatusProvider>
         </UsePoolProvider>
