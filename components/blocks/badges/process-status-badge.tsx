@@ -3,28 +3,29 @@ import { BaseStatusBadge } from '@components/elements/card-badge';
 import { VoteStatus } from '@lib/util';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { ElectionStatus } from '@vocdoni/sdk';
 
-export const ProcessStatusBadge = ({ status }: { status: VoteStatus }) => {
+export const ProcessStatusBadge = ({ status }: { status: ElectionStatus }) => {
   const { i18n } = useTranslation();
 
   switch (status) {
-    case VoteStatus.Active:
-      return <ActiveVoteBadge>{i18n.t('vote.badge.active_vote')}</ActiveVoteBadge>;
+    case ElectionStatus.ONGOING:
+      return <OngoingVoteBadge>{i18n.t('vote.badge.ongoing_vote')}</OngoingVoteBadge>;
 
-    case VoteStatus.Upcoming:
+    case ElectionStatus.UPCOMING:
       return <UpcomingVoteBadge>{i18n.t('vote.badge.upcoming_vote')}</UpcomingVoteBadge>;
 
-    case VoteStatus.Ended:
+    case ElectionStatus.ENDED:
       return <EndedVoteBadge>{i18n.t('vote.badge.ended_vote')}</EndedVoteBadge>;
 
-    case VoteStatus.Paused || VoteStatus.Canceled:
+    case ElectionStatus.PAUSED || ElectionStatus.CANCELED:
       return <PausedVoteBadge>{i18n.t('vote.badge.paused_vote_or_canceled')}</PausedVoteBadge>;
     default:
       return <></>;
   }
 };
 
-const ActiveVoteBadge = styled(BaseStatusBadge)`
+const OngoingVoteBadge = styled(BaseStatusBadge)`
   color: #74af07;
   background: #f3fccc;
 `;

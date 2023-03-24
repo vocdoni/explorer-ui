@@ -8,14 +8,14 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useIsMobile } from '@hooks/use-window-size';
-import { useProcessWrapper } from '@hooks/use-process-wrapper';
 import { useUrlHash } from 'use-url-hash';
 import { BigNumber } from 'ethers';
 import { colorsV2 } from '@theme/colors-v2';
-import { VoteStatus } from '@lib/util';
 import { BreakWord } from '@components/elements/styled-divs';
 import { Progress } from '@chakra-ui/react';
 import { ProgressProps } from '@chakra-ui/progress/dist/progress';
+import useExtendedElection from '@hooks/use-extended-election';
+import { ElectionStatus } from '@vocdoni/sdk';
 
 export type QuestionsResultsProps = {
   question: Question;
@@ -33,11 +33,14 @@ type ChoiceResult = {
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation();
   const processId = useUrlHash().slice(1);
-  const { votesWeight, liveResults, status } = useProcessWrapper(processId);
   const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
   const [hasWinner, setHasWinner] = useState<boolean>(false);
   const isMobile = useIsMobile();
   const [showResults, setSetShowResults] = useState(false);
+
+  // const { votesWeight, liveResults, status } = useProcessWrapper(processId);
+  const { votesWeight, liveResults, election } = useExtendedElection();
+  const status = election.status;
 
   useEffect(() => {
     let sortedChoices: ChoiceResult[];
@@ -68,8 +71,8 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
         setHasWinner(true);
       }
     }
-    setSetShowResults((status === VoteStatus.Ended || liveResults) && props.results !== undefined);
-  }, [votesWeight, props.results, props.question.choices, status, liveResults]);
+    setSetShowResults((status === ElectionStatus.ENDED || liveResults) && props.results !== undefined);
+  }, [props.results, props.question.choices, election]);
 
   return (
     <Card isMobile={isMobile}>
@@ -156,7 +159,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     // NO RESULTS YET
                     <Col xs={12} md={6} justify="end">
                       <Text size={isMobile ? 'sm' : 'xl'} color="dark-gray" align="right">
-                        {status !== VoteStatus.Ended && !liveResults
+                        {status !== ElectionStatus.ENDED && !liveResults
                           ? i18n.t('vote.no_results_live')
                           : i18n.t('vote.loading_results')}
                       </Text>
