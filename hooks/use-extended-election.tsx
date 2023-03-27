@@ -1,7 +1,7 @@
 import { useElection } from '@vocdoni/react-components';
 import { ElectionRaw } from '@lib/types';
 import { BigNumber } from 'ethers';
-import { ProcessCensusOrigin, ProcessResultsSingleChoice, VochainCensusOrigin } from 'dvote-js';
+import { ProcessCensusOrigin, VochainCensusOrigin } from 'dvote-js';
 
 const useExtendedElection = () => {
   const { election } = useElection();
@@ -32,8 +32,11 @@ const useExtendedElection = () => {
     : election.voteCount
     ? BigNumber.from(election.voteCount)
     : undefined;
+  const results: BigNumber[][] = election.results?.map((innerArray) =>
+    innerArray.map((value) => BigNumber.from(value))
+  );
 
-  return { election, electionRaw, liveResults, votesWeight };
+  return { election, electionRaw, liveResults, votesWeight, results };
 };
 
 export default useExtendedElection;

@@ -1,50 +1,48 @@
 import { Col, Row } from '@components/elements-v2/grid';
 import { Spacer } from '@components/elements-v2/spacer';
 import { Text } from '@components/elements-v2/text';
-import { Question } from '@lib/types';
 import { theme } from '@theme/global';
-import { MultiLanguage, SingleChoiceQuestionResults } from 'dvote-js';
+import { MultiLanguage } from 'dvote-js';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useIsMobile } from '@hooks/use-window-size';
-import { useUrlHash } from 'use-url-hash';
 import { BigNumber } from 'ethers';
 import { colorsV2 } from '@theme/colors-v2';
 import { BreakWord } from '@components/elements/styled-divs';
 import { Progress } from '@chakra-ui/react';
 import { ProgressProps } from '@chakra-ui/progress/dist/progress';
 import useExtendedElection from '@hooks/use-extended-election';
-import { ElectionStatus } from '@vocdoni/sdk';
+import { ElectionStatus, IQuestion } from '@vocdoni/sdk';
 
 export type QuestionsResultsProps = {
-  question: Question;
-  results: SingleChoiceQuestionResults;
+  question: IQuestion;
+  results: Array<BigNumber>;
   index: number;
 };
 type StyledProgressBarProps = ProgressProps & { disabled: boolean };
 type StyledCardProps = {
   isMobile: boolean;
 };
+
 type ChoiceResult = {
   title: MultiLanguage<string>;
   votes: BigNumber;
 };
+
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation();
-  const processId = useUrlHash().slice(1);
   const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
   const [hasWinner, setHasWinner] = useState<boolean>(false);
   const isMobile = useIsMobile();
   const [showResults, setSetShowResults] = useState(false);
 
-  // const { votesWeight, liveResults, status } = useProcessWrapper(processId);
   const { votesWeight, liveResults, election } = useExtendedElection();
   const status = election.status;
 
   useEffect(() => {
     let sortedChoices: ChoiceResult[];
-    if (props.results === undefined) {
+    if (!props.results.length) {
       // If not results yet, show the questions without results
       sortedChoices = props.question.choices.map((a) => {
         return {
@@ -54,24 +52,35 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
       });
     } else {
       // sort all the responses by number of votes higher to lower
-      sortedChoices = props.results.voteResults.sort((a, b) => {
-        const diff = b.votes.sub(a.votes);
-        if (b.votes.eq(a.votes)) return 0;
-        else if (diff.lt(0)) return -1;
-        return 1;
-      });
+      sortedChoices = props.question.choices
+        .map((a, i) => {
+          return {
+            title: a.title,
+            votes: props.results[i],
+          };
+        })
+        .sort((a, b) => {
+          const diff = b.votes.sub(a.votes);
+          if (b.votes.eq(a.votes)) return 0;
+          else if (diff.lt(0)) return -1;
+          return 1;
+        });
     }
 
     setSortedChoices(sortedChoices);
+
     // Check if is one response that is winning
-    if (props.results !== undefined && sortedChoices.length > 1) {
-      if (sortedChoices[0].votes.eq(sortedChoices[1].votes)) {
+    if (props.results !== undefined && props.results.length > 0 && sortedChoices.length > 1) {
+      if (sortedChoices[0]?.votes.eq(sortedChoices[1]?.votes)) {
         setHasWinner(false);
       } else {
         setHasWinner(true);
       }
     }
-    setSetShowResults((status === ElectionStatus.ENDED || liveResults) && props.results !== undefined);
+    setSetShowResults(
+      (status === ElectionStatus.ENDED || status === ElectionStatus.RESULTS || liveResults) &&
+        props.results !== undefined
+    );
   }, [props.results, props.question.choices, election]);
 
   return (
