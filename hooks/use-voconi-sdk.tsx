@@ -25,7 +25,7 @@ function useSDKFunction<T, U>(promiseFn: (params?: U) => Promise<T>, ...args: an
       .finally(() => {
         setLoading(false);
       });
-  }, [promiseFn, memoizedArgs]);
+  }, [promiseFn, memoizedArgs, args]);
 
   return { data, error, loading };
 }
