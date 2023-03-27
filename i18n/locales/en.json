@@ -226,6 +226,7 @@
             "ERC777": "ERC777",
             "MINI_ME": "Mini me",
             "OFF_CHAIN": "Off Chain",
+            "OFF_CHAIN_TREE_WEIGHTED": "Off Chain Weighted",
             "UNRECOGNIZED": "Unrecognized"
         },
         "details": {
@@ -355,7 +356,8 @@
     },
     "vote": {
         "badge": {
-            "active_vote": "Active vote",
+          "active_vote": "Active vote",
+          "ongoing_vote": "Ongoing",
             "anonymous": "Anonymous",
             "ended_vote": "Ended",
             "paused_vote_or_canceled": "Paused/Canceled",
