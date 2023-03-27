@@ -22,6 +22,7 @@ import { EncryptionKeys } from '../components/process_keys';
 import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
+import { VochainCensusOrigin } from '@vocdoni/data-models';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -62,7 +63,7 @@ const ProcessesDetailPage = () => {
       <Grid>
         <BadgeColumn>
           <ProcessStatusBadge status={election.status} />
-          <CensusOriginBadge censusOrigin={electionRaw.census.censusOrigin} />
+          <CensusOriginBadge censusOrigin={VochainCensusOrigin[electionRaw.census.censusOrigin]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
           <EnvelopeTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
           {electionRaw.voteMode.anonymous && <AnonVoteBadge />}

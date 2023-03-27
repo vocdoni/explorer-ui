@@ -1,14 +1,13 @@
 import {
   EntityMetadata,
   ProcessSummary,
-  MultiLanguage,
   ProcessMetadata,
   Tx,
   ProcessCensusOrigin,
   ProcessResultsSingleChoice,
 } from 'dvote-js';
 import { BigNumber } from 'ethers';
-import { CensusOrigin, ProcessStatus } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain';
+import { ProcessStatus } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain';
 
 export enum VotingType {
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
@@ -46,17 +45,6 @@ export type Account = {
 };
 
 // Shared types
-
-export type Question = {
-  title: MultiLanguage<string>;
-  description?: MultiLanguage<string>;
-  choices: Choice[];
-};
-
-export type Choice = {
-  title: MultiLanguage<string>;
-  value: number;
-};
 
 export interface IProcessesSummary {
   id: string;
@@ -156,7 +144,7 @@ export interface ElectionRaw {
   finalResults: boolean;
   result: string[][];
   census: {
-    censusOrigin: CensusOrigin;
+    censusOrigin: string;
     censusRoot: string;
     postRegisterCensusRoot: string;
     censusURL: string;
