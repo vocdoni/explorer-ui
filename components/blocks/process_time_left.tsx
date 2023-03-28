@@ -5,40 +5,39 @@ import { localizedDateDiff } from '@lib/date';
 import { VoteStatus } from '@lib/util';
 import { useTranslation } from 'react-i18next';
 import { ItemDate } from '@components/elements/styled-divs';
+import { ElectionStatus } from '@vocdoni/sdk';
 
-export const ProcessTimeLeft = ({ status, summary }: { status: VoteStatus; summary?: ProcessSummary }) => {
+export const ProcessTimeLeft = ({ status, summary }: { status: ElectionStatus; summary?: ProcessSummary }) => {
   const { i18n } = useTranslation();
 
-  const [date, setDate] = useState<string>('');
   const { blockStatus } = useBlockStatus();
 
-  useEffect(() => {
-    let startDate;
-    switch (status) {
-      case VoteStatus.Active: {
-        const endDate = VotingApi.estimateDateAtBlockSync(summary?.endBlock, blockStatus);
-        const timeLeft = localizedDateDiff(endDate);
-        setDate(timeLeft);
+  let startDate;
+  let date: string;
+  switch (status) {
+    case ElectionStatus.ONGOING: {
+      const endDate = VotingApi.estimateDateAtBlockSync(summary?.endBlock, blockStatus);
+      const timeLeft = localizedDateDiff(endDate);
+      date = timeLeft;
+      break;
+    }
+
+    case ElectionStatus.ENDED:
+      date = i18n.t('dashboard.process_ended');
+      break;
+
+    case ElectionStatus.PAUSED:
+    case ElectionStatus.UPCOMING:
+      startDate = VotingApi.estimateDateAtBlockSync(summary?.startBlock, blockStatus);
+
+      if (new Date(startDate) > new Date() && status === ElectionStatus.PAUSED) {
+        date = i18n.t('dashboard.process_paused');
         break;
       }
 
-      case VoteStatus.Ended:
-        setDate(i18n.t('dashboard.process_ended'));
-        break;
-
-      case VoteStatus.Paused:
-      case VoteStatus.Upcoming:
-        startDate = VotingApi.estimateDateAtBlockSync(summary?.startBlock, blockStatus);
-
-        if (new Date(startDate) > new Date() && status === VoteStatus.Paused) {
-          setDate(i18n.t('dashboard.process_paused'));
-          break;
-        }
-
-        setDate(localizedDateDiff(startDate));
-        break;
-    }
-  }, [blockStatus, i18n, status, summary?.endBlock, summary?.startBlock]);
+      date = localizedDateDiff(startDate);
+      break;
+  }
 
   return <ItemDate>{date}</ItemDate>;
 };
