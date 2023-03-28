@@ -7,7 +7,7 @@ import {
   ProcessResultsSingleChoice,
 } from 'dvote-js';
 import { BigNumber } from 'ethers';
-import { ProcessStatus } from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain';
+import { Vochain } from '@vocdoni/proto';
 
 export enum VotingType {
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
@@ -137,7 +137,7 @@ export type TxById = {
 export interface ElectionRaw {
   electionId: string;
   type: string;
-  status: ProcessStatus;
+  status: Vochain.ProcessStatus;
   startDate: string;
   endDate: string;
   voteCount: number;

@@ -1,19 +1,19 @@
 import { useElection } from '@vocdoni/react-components';
 import { ElectionRaw } from '@lib/types';
 import { BigNumber } from 'ethers';
-import { ProcessCensusOrigin, VochainCensusOrigin } from 'dvote-js';
+import { Vochain } from '@vocdoni/proto';
 
 const useExtendedElection = () => {
   const { election } = useElection();
 
-  const isWeighted = (votingType: VochainCensusOrigin): boolean => {
+  const isWeighted = (votingType: Vochain.CensusOrigin): boolean => {
     return (
-      votingType == ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
-      votingType == ProcessCensusOrigin.ERC20 ||
-      votingType == ProcessCensusOrigin.ERC721 ||
-      votingType == ProcessCensusOrigin.ERC1155 ||
-      votingType == ProcessCensusOrigin.ERC777 ||
-      votingType == ProcessCensusOrigin.MINI_ME
+      votingType == Vochain.CensusOrigin.OFF_CHAIN_TREE_WEIGHTED ||
+      votingType == Vochain.CensusOrigin.ERC20 ||
+      votingType == Vochain.CensusOrigin.ERC721 ||
+      votingType == Vochain.CensusOrigin.ERC1155 ||
+      votingType == Vochain.CensusOrigin.ERC777 ||
+      votingType == Vochain.CensusOrigin.MINI_ME
     );
   };
 
@@ -27,7 +27,7 @@ const useExtendedElection = () => {
 
   const electionRaw = election.raw as ElectionRaw;
   const liveResults = !electionRaw.voteMode.encryptedVotes;
-  const votesWeight = isWeighted(electionRaw.census.censusOrigin)
+  const votesWeight = isWeighted(Vochain.CensusOrigin[electionRaw.census.censusOrigin])
     ? countVotesWeight(election.results)
     : election.voteCount
     ? BigNumber.from(election.voteCount)
