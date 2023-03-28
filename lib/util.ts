@@ -1,4 +1,5 @@
-import { VochainProcessStatus as ProcessStatus } from 'dvote-js';
+import { ProcessSummary, VochainProcessStatus as ProcessStatus } from 'dvote-js';
+import { ElectionStatus } from '@vocdoni/sdk';
 
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
@@ -68,8 +69,8 @@ export enum VoteStatus {
   Upcoming,
 }
 
-export const getVoteStatus = (state, currentBlock?): VoteStatus => {
-  if (state === undefined || currentBlock === undefined) return VoteStatus.Unknown;
+export const getVoteStatus = (state: ProcessSummary, currentBlock?): ElectionStatus => {
+  if (state === undefined || currentBlock === undefined) return ElectionStatus.PROCESS_UNKNOWN;
 
   const processStatus = state.status;
   const startBlock = state.startBlock;
@@ -77,26 +78,29 @@ export const getVoteStatus = (state, currentBlock?): VoteStatus => {
 
   switch (processStatus) {
     case ProcessStatus.READY:
-      if (startBlock == undefined || currentBlock == undefined) return VoteStatus.Unknown;
-      if (startBlock > currentBlock) return VoteStatus.Upcoming;
-      if (currentBlock > endBlock) return VoteStatus.Ended;
+      if (startBlock == undefined || currentBlock == undefined) return ElectionStatus.PROCESS_UNKNOWN;
+      if (startBlock > currentBlock) return ElectionStatus.UPCOMING;
+      if (currentBlock > endBlock) return ElectionStatus.ENDED;
 
-      return VoteStatus.Active;
+      return ElectionStatus.ONGOING;
+    // todo(kon): this is how the sdk solve this, meanwhile the RPC return startDate always undefined, so lets continue using this way.
+    // This function will be deprecated when migrating all to the SDK
+    // return state.startDate <= new Date() ? ElectionStatus.ONGOING : ElectionStatus.UPCOMING;
 
     case ProcessStatus.ENDED:
-      return VoteStatus.Ended;
+      return ElectionStatus.ENDED;
 
     case ProcessStatus.PAUSED:
-      return VoteStatus.Paused;
+      return ElectionStatus.PAUSED;
 
     case ProcessStatus.CANCELED:
-      return VoteStatus.Canceled;
+      return ElectionStatus.CANCELED;
 
     case ProcessStatus.RESULTS:
-      return VoteStatus.Ended;
+      return ElectionStatus.ENDED;
 
     default:
-      return VoteStatus.Unknown;
+      return ElectionStatus.PROCESS_UNKNOWN;
   }
 };
 

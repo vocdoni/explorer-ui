@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SummaryProcess, useBlockHeight, useEntity } from '@vocdoni/react-hooks';
-import { EntityMetadata, ProcessSummary } from 'dvote-js';
-import { getVoteStatus } from '@lib/util';
+import { EntityMetadata, ProcessStatus, ProcessSummary } from 'dvote-js';
 import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge';
 import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic';
 import { ReducedEntityNameWithIcon } from './entity-card';
 import { ensure0x } from '@vocdoni/common';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
+import { ElectionStatus } from '@vocdoni/sdk';
+import { getVoteStatus } from '@lib/util';
 
 type ProcessCardProps = GenericCardWrapperProps & {
   process: SummaryProcess;
@@ -55,12 +56,13 @@ export const ProcessCard = ({ process, entityId, link }: ProcessCardProps) => {
 
 const StatusBadgeAndTimeLeft = ({ summary }: { summary?: ProcessSummary }) => {
   const { blockHeight } = useBlockHeight();
+  // todo(kon): use the sdk to do this. Actually it gets the election summary using the old RPC, mixing types.
   const status = getVoteStatus(summary, blockHeight);
   return (
     <>
       <ProcessStatusBadge status={status} />
       {summary.envelopeType.anonymous && <AnonVoteBadge />}
-      <ProcessTimeLeft status={status} />
+      <ProcessTimeLeft status={status} summary={summary} />
     </>
   );
 };

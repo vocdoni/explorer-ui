@@ -1,6 +1,5 @@
 import React from 'react';
 import { BaseStatusBadge } from '@components/elements/card-badge';
-import { VoteStatus } from '@lib/util';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { ElectionStatus } from '@vocdoni/sdk';
