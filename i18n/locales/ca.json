@@ -226,13 +226,14 @@
       "ERC777": "ERC777",
       "MINI_ME": "Mini me",
       "OFF_CHAIN": "Off Chain",
+      "OFF_CHAIN_TREE_WEIGHTED": "Off Chain Weighted",
       "UNRECOGNIZED": "Unrecognized"
     },
     "details": {
       "created_on": "Creat el",
       "detailed_data": "Detalls",
       "election_encryption_keys": "Claus de xifrat de l'elecció",
-      "id": "Id",
+      "id": "Id: {{id}}",
       "process_details": "Detalls del procés",
       "process_not_found": "Procés no trobat",
       "processes_additional_information": "Informació addicional del procés",
@@ -356,6 +357,7 @@
   "vote": {
     "badge": {
       "active_vote": "Votació activa",
+      "ongoing_vote": "En curs",
       "anonymous": "Anònim",
       "ended_vote": "Finalitzada",
       "paused_vote_or_canceled": "En pausa / Cancel·lada",

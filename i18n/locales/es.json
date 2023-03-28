@@ -226,13 +226,14 @@
       "ERC777": "ERC777",
       "MINI_ME": "Mini me",
       "OFF_CHAIN": "Off Chain",
+      "OFF_CHAIN_TREE_WEIGHTED": "Off Chain Weighted",
       "UNRECOGNIZED": "Unrecognized"
     },
     "details": {
       "created_on": "Creado el",
       "detailed_data": "Detalles",
       "election_encryption_keys": "Claves de cifrado de la elección",
-      "id": "Id",
+      "id": "Id: {{id}}",
       "process_details": "Detalles del proceso",
       "process_not_found": "Proceso no encontrado",
       "processes_additional_information": "Información adicional del proceso",
@@ -356,6 +357,7 @@
   "vote": {
     "badge": {
       "active_vote": "Votación activa",
+      "ongoing_vote": "En curso",
       "anonymous": "Anónimo",
       "ended_vote": "Finalizada",
       "paused_vote_or_canceled": "Pausada/Cancelada",
