@@ -32,56 +32,49 @@ type ChoiceResult = {
 
 export const QuestionResults = (props: QuestionsResultsProps) => {
   const { i18n } = useTranslation();
-  const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
-  const [hasWinner, setHasWinner] = useState<boolean>(false);
+  // const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
+  // const [hasWinner, setHasWinner] = useState<boolean>(false);
   const isMobile = useIsMobile();
-  const [showResults, setSetShowResults] = useState(false);
+  // const [showResults, setSetShowResults] = useState(false);
 
   const { votesWeight, liveResults, election } = useExtendedElection();
   const status = election.status;
 
-  useEffect(() => {
-    let sortedChoices: ChoiceResult[];
-    if (!props.results.length) {
-      // If not results yet, show the questions without results
-      sortedChoices = props.question.choices.map((a) => {
+  let sortedChoices: ChoiceResult[];
+  if (!props.results.length) {
+    // If not results yet, show the questions without results
+    sortedChoices = props.question.choices.map((a) => {
+      return {
+        title: a.title,
+        votes: undefined,
+      };
+    });
+  } else {
+    // sort all the responses by number of votes higher to lower
+    sortedChoices = props.question.choices
+      .map((a, i) => {
         return {
           title: a.title,
-          votes: undefined,
+          votes: props.results[i],
         };
+      })
+      .sort((a, b) => {
+        const diff = b.votes.sub(a.votes);
+        if (b.votes.eq(a.votes)) return 0;
+        else if (diff.lt(0)) return -1;
+        return 1;
       });
-    } else {
-      // sort all the responses by number of votes higher to lower
-      sortedChoices = props.question.choices
-        .map((a, i) => {
-          return {
-            title: a.title,
-            votes: props.results[i],
-          };
-        })
-        .sort((a, b) => {
-          const diff = b.votes.sub(a.votes);
-          if (b.votes.eq(a.votes)) return 0;
-          else if (diff.lt(0)) return -1;
-          return 1;
-        });
-    }
+  }
 
-    setSortedChoices(sortedChoices);
+  let hasWinner = false;
+  // Check if is one response that is winning
+  if (props.results.length > 0 && sortedChoices.length > 1) {
+    hasWinner = !sortedChoices[0]?.votes.eq(sortedChoices[1]?.votes);
+  }
 
-    // Check if is one response that is winning
-    if (props.results !== undefined && props.results.length > 0 && sortedChoices.length > 1) {
-      if (sortedChoices[0]?.votes.eq(sortedChoices[1]?.votes)) {
-        setHasWinner(false);
-      } else {
-        setHasWinner(true);
-      }
-    }
-    setSetShowResults(
-      (status === ElectionStatus.ENDED || status === ElectionStatus.RESULTS || liveResults) &&
-        props.results !== undefined
-    );
-  }, [props.results, props.question.choices, election]);
+  const showResults =
+    (status === ElectionStatus.ENDED || status === ElectionStatus.RESULTS || liveResults) &&
+    props.results !== undefined;
 
   return (
     <Card isMobile={isMobile}>
