@@ -233,7 +233,7 @@
             "created_on": "Created ",
             "detailed_data": "Detailed data",
             "election_encryption_keys": "Election encryption keys",
-            "id": "Id",
+            "id": "Id: {{id}}",
             "process_details": "Process details",
             "process_not_found": "Process not found",
             "processes_additional_information": "Process additional information",
