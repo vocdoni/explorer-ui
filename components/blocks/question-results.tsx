@@ -5,7 +5,6 @@ import { theme } from '@theme/global';
 import { MultiLanguage } from 'dvote-js';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import { useIsMobile } from '@hooks/use-window-size';
 import { BigNumber } from 'ethers';
 import { colorsV2 } from '@theme/colors-v2';
