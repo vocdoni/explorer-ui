@@ -358,10 +358,10 @@
         "badge": {
           "active_vote": "Active vote",
           "ongoing_vote": "Ongoing",
-            "anonymous": "Anonymous",
-            "ended_vote": "Ended",
-            "paused_vote_or_canceled": "Paused/Canceled",
-            "upcoming_vote": "Upcoming"
+          "anonymous": "Anonymous",
+          "ended_vote": "Ended",
+          "paused_vote_or_canceled": "Paused/Canceled",
+          "upcoming_vote": "Upcoming"
         },
         "loading_results": "Loading results",
         "no_questions_yet": "No questions yet",
