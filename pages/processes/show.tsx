@@ -16,11 +16,13 @@ const ProcessesDetailPage = () => {
       </Then>
       <Else>
         <If condition={!!election && !loading}>
-          <ProcessDetailPage />
+          <Then>
+            <ProcessDetailPage />
+          </Then>
+          <Else>
+            <h1>{i18n.t('processes.details.process_not_found')}</h1>
+          </Else>
         </If>
-        <Else>
-          <h1>{i18n.t('processes.details.process_not_found')}</h1>
-        </Else>
       </Else>
     </If>
   );
