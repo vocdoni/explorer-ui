@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useBlockStatus } from '@vocdoni/react-hooks';
 import { ProcessSummary, VotingApi } from 'dvote-js';
 import { localizedDateDiff } from '@lib/date';
-import { VoteStatus } from '@lib/util';
 import { useTranslation } from 'react-i18next';
 import { ItemDate } from '@components/elements/styled-divs';
 import { ElectionStatus } from '@vocdoni/sdk';
@@ -17,8 +16,7 @@ export const ProcessTimeLeft = ({ status, summary }: { status: ElectionStatus; s
   switch (status) {
     case ElectionStatus.ONGOING: {
       const endDate = VotingApi.estimateDateAtBlockSync(summary?.endBlock, blockStatus);
-      const timeLeft = localizedDateDiff(endDate);
-      date = timeLeft;
+      date = localizedDateDiff(endDate);
       break;
     }
 

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SummaryProcess, useBlockHeight, useEntity } from '@vocdoni/react-hooks';
-import { EntityMetadata, ProcessStatus, ProcessSummary } from 'dvote-js';
+import { EntityMetadata, ProcessSummary } from 'dvote-js';
 import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge';
 import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic';
 import { ReducedEntityNameWithIcon } from './entity-card';
 import { ensure0x } from '@vocdoni/common';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
-import { ElectionStatus } from '@vocdoni/sdk';
 import { getVoteStatus } from '@lib/util';
 
 type ProcessCardProps = GenericCardWrapperProps & {
