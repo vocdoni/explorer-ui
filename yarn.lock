@@ -2631,6 +2631,14 @@
     long "^5.2.1"
     protobufjs "^7.1.2"
 
+"@vocdoni/proto@^1.14.4":
+  version "1.14.4"
+  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.14.4.tgz#435bbad01920883e32fa5449280cc12aed8c1e3e"
+  integrity sha512-mB4eGPP0gyK9Bjk82PdC2zjmGYzapMPmzhXiiZ9R5ynoRN5f8AiTwEOkqyqroyzAx0A5g9cnW3L5ZYZryShlQQ==
+  dependencies:
+    long "^5.2.1"
+    protobufjs "^7.1.2"
+
 "@vocdoni/react-components@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@vocdoni/react-components/-/react-components-0.0.9.tgz#0130f7a8640560ab015d6975c138b6c5110e0ac3"
