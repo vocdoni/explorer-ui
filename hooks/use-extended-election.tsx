@@ -18,11 +18,13 @@ const useExtendedElection = () => {
   };
 
   const countVotesWeight = (results: Array<string>[]): BigNumber => {
-    const weightSum = results.reduce(
-      (prev, curr) => prev.add(curr.reduce((p, c) => BigNumber.from(c).add(p), BigNumber.from(0))),
-      BigNumber.from(0)
-    );
-    return weightSum.div(results.length);
+    if (results) {
+      const weightSum = results.reduce(
+        (prev, curr) => prev.add(curr.reduce((p, c) => BigNumber.from(c).add(p), BigNumber.from(0))),
+        BigNumber.from(0)
+      );
+      return weightSum.div(results.length);
+    }
   };
 
   const electionRaw = election.raw as ElectionRaw;
