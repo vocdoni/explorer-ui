@@ -60,7 +60,7 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
     lastElement: totalProcessCount + 1,
   });
 
-  const isUsingFilter = () =>
+  const isUsingFilter =
     filter?.entityId?.length > 0 || filter?.searchTerm?.length > 0 || filter?.withResults || filter?.status != null;
 
   return (
@@ -71,7 +71,7 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
         elementsList={processIds === undefined || !processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
-          isUsingFilter() ? null : totalProcessCount
+          isUsingFilter ? null : totalProcessCount
         }
         renderElementFunction={renderProcessItem}
         pageSize={pageSize}
