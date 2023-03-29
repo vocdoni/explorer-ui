@@ -11,11 +11,11 @@ function useSDKFunction<T, U>(promiseFn: (params?: U) => Promise<T>, ...args: an
 
   // Use useMemo to memoize the arguments and recompute only when they change
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedArgs = useMemo(() => args, args);
+  const memorizedArgs = useMemo(() => args, args);
 
   useEffect(() => {
     setLoading(true);
-    promiseFn(...args)
+    promiseFn(...memorizedArgs)
       .then((response) => {
         setData(response);
       })
@@ -25,7 +25,7 @@ function useSDKFunction<T, U>(promiseFn: (params?: U) => Promise<T>, ...args: an
       .finally(() => {
         setLoading(false);
       });
-  }, [promiseFn, memoizedArgs, args]);
+  }, [promiseFn, memorizedArgs]);
 
   return { data, error, loading };
 }
