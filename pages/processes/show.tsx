@@ -15,7 +15,7 @@ const ProcessesDetailPage = () => {
         <Loader visible />
       </Then>
       <Else>
-        <If condition={!!election && !loading}>
+        <If condition={election !== undefined && !loading}>
           <Then>
             <ProcessDetailPage />
           </Then>
