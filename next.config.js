@@ -1,10 +1,10 @@
-const env = require('./env-config.js')
+const env = require('./env-config.js');
 
 module.exports = {
   // Generate /dashboard/ instead of /dashboard.html
   trailingSlash: true,
   env,
-  webpack: (config, ) => {
+  webpack: (config) => {
     // Fixes npm packages that depend on `fs` module
     config.resolve.fallback = {
       fs: false,
@@ -14,6 +14,10 @@ module.exports = {
       os: false,
       readline: false,
     };
-    return config
-  }
-}
+    return config;
+  },
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true,
+  },
+};
