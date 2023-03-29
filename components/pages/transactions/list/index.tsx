@@ -6,6 +6,7 @@ import { useTransactionCount } from '@hooks/use-transactions';
 export const DashboardShowTransactions = () => {
   const { i18n } = useTranslation();
   const { transactionCount } = useTransactionCount();
+  const count = transactionCount === undefined ? '0' : transactionCount.toString();
   const page_size = 10;
 
   return (
@@ -13,10 +14,7 @@ export const DashboardShowTransactions = () => {
       transactionHeight={transactionCount}
       pageSize={page_size}
       title={
-        <ListPage
-          title={i18n.t('transactions.transactions')}
-          subtitle={i18n.t('transactions.count') + ': ' + transactionCount}
-        />
+        <ListPage title={i18n.t('transactions.transactions')} subtitle={i18n.t('transactions.count') + ': ' + count} />
       }
     ></DashboardTransactionsList>
   );
