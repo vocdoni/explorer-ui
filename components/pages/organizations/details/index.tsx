@@ -48,7 +48,7 @@ export const EntityView = ({ address, metadata, processes }: IEntityViewProps) =
           </Typography>
           <Typography variant={TypographyVariant.Small}>
             <BreakWord>
-              <CopyButton toCopy={address} text={correctedAddress} />
+              <CopyButton toCopy={correctedAddress} text={correctedAddress} />
               <a href={plazaUrl} target="blank">
                 ({i18n.t('organization.home.view_profile')})
               </a>
