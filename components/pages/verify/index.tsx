@@ -2,31 +2,31 @@ import { Col, Row } from '@components/elements-v2';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { Column, Grid } from '@components/elements/grid';
 import { Input } from '@components/elements/inputs';
-import { DivWithMarginChildren } from '@components/elements/styled-divs';
+import { DivWithMarginChildren, FakedButton } from '@components/elements/styled-divs';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import i18n from '@i18n';
 import { colors } from '@theme/colors';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TopDiv } from '../app/page-templates/list-page';
+import { Button } from '@components/elements/button';
+import { useUrlHash } from 'use-url-hash';
 
-const VerifyPage = ({
-  button,
-  setVoteId,
-  minified = false,
-  onSubmit,
-}: {
-  button: ReactNode;
-  setVoteId: (voteId: string) => void;
-  minified?: boolean;
-  onSubmit?: () => void;
-}) => {
+const VerifyPage = ({ minified = false, onSubmit }: { minified?: boolean; onSubmit?: (etVoteId: string) => void }) => {
+  const [etVoteId, setEtVoteId] = useState(''); // Handle edit text state
+
+  const _onSubmit = (ev) => {
+    ev.preventDefault();
+    if (onSubmit) onSubmit(etVoteId);
+  };
+
   const voteIdInput = (
     <Input
       wide
       placeholder={i18n.t('verify.add_vote_id')}
+      value={etVoteId}
       onChange={(ev) => {
-        setVoteId(ev.target.value);
+        setEtVoteId(ev.target.value);
       }}
     />
   );
@@ -37,6 +37,12 @@ const VerifyPage = ({
     <Typography variant={TypographyVariant.H4} color={colors.blueText} margin="20px 0 20px 0 ">
       {i18n.t('verify.verify_your_vote')}
     </Typography>
+  );
+
+  const VerifyButton = () => (
+    <Button positive small onClick={_onSubmit}>
+      <FakedButton>{i18n.t('verify.verify')}</FakedButton>
+    </Button>
   );
 
   const minifiedLayout = () => {
@@ -53,7 +59,9 @@ const VerifyPage = ({
           <LeftMargin>
             <Grid>
               <Column>
-                <DivWithMarginChildren>{button}</DivWithMarginChildren>
+                <DivWithMarginChildren>
+                  <VerifyButton />
+                </DivWithMarginChildren>
               </Column>
             </Grid>
           </LeftMargin>
@@ -74,22 +82,15 @@ const VerifyPage = ({
           <Row align="center">{voteIdInput}</Row>
         </Col>
         <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
-          <ButtonContainer>{button}</ButtonContainer>
+          <ButtonContainer>
+            <VerifyButton />
+          </ButtonContainer>
         </FlexContainer>
       </>
     );
   };
 
-  return (
-    <form
-      onSubmit={(ev) => {
-        ev.preventDefault();
-        if (onSubmit) onSubmit();
-      }}
-    >
-      {minified ? minifiedLayout() : normalLayout()}
-    </form>
-  );
+  return <form onSubmit={_onSubmit}>{minified ? minifiedLayout() : normalLayout()}</form>;
 };
 
 export default VerifyPage;
