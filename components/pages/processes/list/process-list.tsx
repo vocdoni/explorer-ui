@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks';
 
 import { useProcessesList } from '@hooks/use-processes';
@@ -63,11 +63,21 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
   const isUsingFilter =
     filter?.entityId?.length > 0 || filter?.searchTerm?.length > 0 || filter?.withResults || filter?.status != null;
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (loadingProcessList || loadingProcessesDetails || (processIds && processes.length === 0)) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [loadingProcessList, processIds, loadingProcessesDetails, processes]);
+
   return (
     <>
       <ProcessFilter onEnableFilter={enableFilter} title={title}></ProcessFilter>
       <FilteredPaginatedList
-        loading={loadingProcessList || loadingProcessesDetails}
+        loading={loading}
         elementsList={processIds === undefined || !processIds.length ? [] : processes}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
