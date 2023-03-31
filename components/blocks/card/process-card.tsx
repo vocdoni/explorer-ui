@@ -60,7 +60,7 @@ const StatusBadgeAndTimeLeft = ({ summary }: { summary?: ProcessSummary }) => {
   return (
     <>
       <ProcessStatusBadge status={status} />
-      {summary.envelopeType.anonymous && <AnonVoteBadge />}
+      {summary?.envelopeType.anonymous && <AnonVoteBadge />}
       <ProcessTimeLeft status={status} summary={summary} />
     </>
   );
