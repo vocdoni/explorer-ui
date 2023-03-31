@@ -15,6 +15,8 @@ function useSDKFunction<T, U>(promiseFn: (params?: U) => Promise<T>, ...args: an
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
+    setData(null);
     promiseFn(...memorizedArgs)
       .then((response) => {
         setData(response);
