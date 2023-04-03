@@ -10,7 +10,7 @@ export const CopyButton = ({
   text,
   size,
   style,
-  color,
+  color = 'inherit',
   copyMessage,
 }: {
   toCopy: string;
@@ -37,12 +37,12 @@ export const CopyButton = ({
       <div onClick={handleCopy} style={{ width: 'fit-content' }}>
         <IconContext.Provider
           value={{
-            color: color ?? 'inherit',
+            color: color,
             size: size ?? '1em',
             style: style ?? { paddingLeft: '10px', cursor: 'pointer' },
           }}
         >
-          <TextAndIcon>
+          <TextAndIcon color={color}>
             {text}
             <AlertWrapper>
               <IoCopy />
@@ -96,10 +96,11 @@ const CopiedAlert = ({ message }: { message: string }) => {
   );
 };
 
-const TextAndIcon = styled.div`
+const TextAndIcon = styled.div<{ color: string }>`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  color: ${({ color }) => color};
 `;
 
 const AlertWrapper = styled.div`

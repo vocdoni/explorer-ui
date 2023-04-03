@@ -31,6 +31,7 @@ export interface Colors {
   lightText: Color;
   lighterText: Color;
   blueText: Color;
+  link: Color;
 
   /** Background color of the body */
   background: Color;

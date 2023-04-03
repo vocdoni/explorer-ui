@@ -81,7 +81,7 @@ p {
 }
 
 a {
-  color: ${(props) => props.theme.accent1};
+  color: ${(props) => props.theme.link};
   text-decoration: none;
   @media ${({ theme }) => theme.screenMax.tablet} {
     font-size: 12px;
