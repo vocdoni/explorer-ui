@@ -1,6 +1,5 @@
-import { ActiveBadge } from '@components/elements/text-badge';
 import { useTranslation } from 'react-i18next';
-import { UpcomingVoteBadge } from '@components/blocks/badges/process-status-badge';
+import { BaseStatusBadge } from '@components/elements/card-badge';
 
 interface EnvelopeTypeBadgeProps {
   encryptedVotes: boolean;
@@ -12,9 +11,9 @@ export const EnvelopeTypeBadge = ({ encryptedVotes }: EnvelopeTypeBadgeProps) =>
   return (
     <>
       {encryptedVotes ? (
-        <ActiveBadge>{i18n.t('processes.envelope_type_badge.encrypted_votes')}</ActiveBadge>
+        <BaseStatusBadge>{i18n.t('processes.envelope_type_badge.encrypted_votes')}</BaseStatusBadge>
       ) : (
-        <UpcomingVoteBadge>{i18n.t('processes.envelope_type_badge.not_encrypted_votes')}</UpcomingVoteBadge>
+        <BaseStatusBadge>{i18n.t('processes.envelope_type_badge.not_encrypted_votes')}</BaseStatusBadge>
       )}
     </>
   );
