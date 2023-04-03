@@ -42,7 +42,7 @@ const ProcessesDetailPage = () => {
         processImage={election.header}
         subtitle={
           <>
-            <CopyButton toCopy={id} text={i18n.t('processes.details.id', { id: id })} />
+            <CopyButton toCopy={id} text={i18n.t('processes.details.id', { id: id })} color={colors.link} />
           </>
         }
         entityImage={entityMetadata?.media?.avatar}

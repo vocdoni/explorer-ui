@@ -5,6 +5,7 @@ export const colors: Colors = {
   lightText: '#7A859F',
   lighterText: '#999',
   blueText: '#0D4752',
+  link: '#237274',
 
   background: '#F6F9FC',
 
