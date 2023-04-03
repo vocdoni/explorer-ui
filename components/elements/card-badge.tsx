@@ -13,6 +13,6 @@ export const BaseStatusBadge = styled.span`
   font-size: 12px;
   line-height: 150%;
 
-  // color: #74AF07;
-  // background: #F3FCCC;
+  color: #fff;
+  background: rgb(35, 114, 116);
 `;
