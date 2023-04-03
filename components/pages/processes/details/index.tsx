@@ -14,7 +14,6 @@ import { EnvelopeTypeBadge } from '../components/envelope-type-badge';
 import { CensusOriginBadge } from '../components/process-censusorigin-badge';
 import { ProcessModeBadge } from '../components/process-processmode-badge';
 import { AnonVoteBadge, ProcessStatusBadge } from '@components/blocks/badges/process-status-badge';
-import { SectionText } from '@components/elements/text';
 import { Tabs, Tab } from '@components/blocks/tabs';
 import { EnvelopeExplorer } from '../components/process-envelope-explorer';
 import { ResultsCard } from '../components/results-card';
@@ -23,6 +22,7 @@ import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
+import { Markdown } from '@vocdoni/react-components';
 import styled from 'styled-components';
 
 const ProcessesDetailPage = () => {
@@ -100,7 +100,7 @@ const ProcessesDetailPage = () => {
       {/* Tabs */}
       <Tabs>
         <Tab label={i18n.t('processes.details.show_description')}>
-          <SectionText color={colors.lightText}>{election.description.default}</SectionText>
+          <Markdown>{election.description.default}</Markdown>
         </Tab>
         <Tab label={i18n.t('processes.details.show_questions')}>
           <Grid>
