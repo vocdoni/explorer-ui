@@ -57,31 +57,34 @@ export const Card = ({ span, sm, md, lg, xl, border, ...props }: CardProps) => (
   </Column>
 );
 
-export const StatusCard = ({ span, sm, md, lg, xl, skeleton, ...props }: StatusCardProps) => (
-  <Column {...{ span, sm, md, lg, xl }}>
-    <CardDiv>
-      {skeleton ? (
-        <Skeleton />
-      ) : (
-        <>
-          <TopDiv>
-            <StatusCardTitle>{props.title}</StatusCardTitle>
-            {props.rightText ? (
-              props.href ? (
-                <Link href={props.href}>
-                  <RightLink>{props.rightText}</RightLink>
-                </Link>
-              ) : (
-                <RightLink>{props.rightText}</RightLink>
-              )
-            ) : null}
-          </TopDiv>
-          {props.children}
-        </>
-      )}
-    </CardDiv>
-  </Column>
-);
+export const StatusCard = ({ span, sm, md, lg, xl, skeleton, ...props }: StatusCardProps) => {
+  const children = props.children;
+
+  const Body = () => (
+    <>
+      <TopDiv>
+        <StatusCardTitle>{props.title}</StatusCardTitle>
+        {props.rightText ? <RightLink>{props.rightText}</RightLink> : null}
+      </TopDiv>
+      {children}
+    </>
+  );
+  return (
+    <Column {...{ span, sm, md, lg, xl }}>
+      <CardDiv>
+        {skeleton ? (
+          <Skeleton />
+        ) : props.href ? (
+          <Link href={props.href}>
+            <Body />
+          </Link>
+        ) : (
+          <Body />
+        )}
+      </CardDiv>
+    </Column>
+  );
+};
 
 // Styles
 
