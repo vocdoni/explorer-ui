@@ -17,6 +17,9 @@ export const ProcessStatusBadge = ({ status }: { status: ElectionStatus }) => {
     case ElectionStatus.ENDED:
       return <EndedVoteBadge>{i18n.t('vote.badge.ended_vote')}</EndedVoteBadge>;
 
+    case ElectionStatus.RESULTS:
+      return <EndedVoteBadge>{i18n.t('vote.badge.results')}</EndedVoteBadge>;
+
     case ElectionStatus.PAUSED || ElectionStatus.CANCELED:
       return <PausedVoteBadge>{i18n.t('vote.badge.paused_vote_or_canceled')}</PausedVoteBadge>;
     default:

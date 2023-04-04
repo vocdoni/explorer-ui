@@ -363,7 +363,8 @@
       "anonymous": "Anònim",
       "ended_vote": "Finalitzada",
       "paused_vote_or_canceled": "En pausa / Cancel·lada",
-      "upcoming_vote": "Propera"
+      "upcoming_vote": "Propera",
+      "results": "Amb resultats"
     },
     "loading_results": "Carregant resultats",
     "no_questions_yet": "Encara no hi ha preguntes",
