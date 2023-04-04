@@ -100,6 +100,7 @@ const InputIconContainer = styled.div`
 `;
 const InputSearchContainer = styled(InputContainer)`
   margin-bottom: 0;
+  width: 300px;
   & > input {
     box-sizing: border-box;
     padding-left: 1.9rem;

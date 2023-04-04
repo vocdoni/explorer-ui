@@ -35,7 +35,7 @@ export const EntitiesFilter = ({ onEnableFilter }: { onEnableFilter: { (tempFilt
         <DivWithMarginChildren>
           <InputSearch
             wide
-            placeholder={i18n.t('organizations.filter.search')}
+            placeholder={i18n.t('organizations.filter.search_by_org_address')}
             value={searchTermIT}
             onChange={(ev) => {
               if (ev.target.value.length === 0) {

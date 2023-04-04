@@ -8,7 +8,9 @@
       "block_not_found": "Bloque no encontrado"
     },
     "filter": {
-      "search": "buscar"
+      "search": "buscar",
+      "search_by_processId_or_organization": "Buscar por proceso u organización",
+      "search_by_org_address": "Buscar por id de organización"
     },
     "list": {
       "blocks": "Bloques",
