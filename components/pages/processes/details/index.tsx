@@ -23,6 +23,7 @@ import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
+import styled from 'styled-components';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -48,9 +49,12 @@ const ProcessesDetailPage = () => {
       />
 
       {/* Created on and ends on */}
-      <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-        {i18n.t('processes.details.process_details')}
-      </Typography>
+      <FlexRowWrapper>
+        <Typography variant={TypographyVariant.H3} color={colors.blueText}>
+          {i18n.t('processes.details.process_details')}
+        </Typography>
+        <ProcessStatusBadge status={election.status} />
+      </FlexRowWrapper>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         {dateDiffStr}
       </Typography>
@@ -62,7 +66,6 @@ const ProcessesDetailPage = () => {
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
-          <ProcessStatusBadge status={election.status} />
           <CensusOriginBadge censusOrigin={Vochain.CensusOrigin[electionRaw.census.censusOrigin]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
           <EnvelopeTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
@@ -127,5 +130,12 @@ function resolveLocalizedDateDiff(initDate: Date, endDate: Date, voteStatus: Ele
     }
   }
 }
+
+const FlexRowWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export default ProcessesDetailPage;
