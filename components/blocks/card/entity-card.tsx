@@ -7,7 +7,7 @@ import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/el
 import { ImageContainer } from '@components/elements/images';
 import { Image } from '@components/elements/image';
 import { StatusCard } from '@components/elements/cards';
-import { EntityLink, getOrganizationPath } from '@components/pages/app/components/get-links';
+import { getOrganizationPath } from '@components/pages/app/components/get-links';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
@@ -48,7 +48,6 @@ export const EntityCardMedium = ({ icon, entityId, md, children }: EntityCardMed
     <StatusCard
       title={i18n.t('components.organization_card_medium.host_organization')}
       href={getOrganizationPath(entityId)}
-      rightText={i18n.t('components.organization_card_medium.host_explore')}
       md={md}
     >
       <FlexContainer alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start}>
@@ -57,9 +56,7 @@ export const EntityCardMedium = ({ icon, entityId, md, children }: EntityCardMed
             <Image src={icon || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         </CenterLogo>
-        <EntityNameBig>
-          <EntityLink entityId={entityId}>{children}</EntityLink>
-        </EntityNameBig>
+        <EntityNameBig>{children}</EntityNameBig>
       </FlexContainer>
     </StatusCard>
   );
