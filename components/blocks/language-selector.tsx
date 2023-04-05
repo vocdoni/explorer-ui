@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { HiLanguage } from 'react-icons/hi2';
 
 type LanguageOption = {
@@ -16,6 +16,14 @@ const languages: LanguageOption[] = [
 
 const LanguageSelector = ({ bg = 'transparent', size, color }: { bg?: string; size?: string; color?: string }) => {
   const { i18n } = useTranslation();
+
+  useEffect(() => {
+    const usrLang =
+      typeof window !== 'undefined' && typeof window.navigator.language !== 'undefined'
+        ? window.navigator.language.substr(0, 2).toLowerCase()
+        : process.env.LANG;
+    i18n.changeLanguage(usrLang);
+  }, []);
 
   const handleLanguageChange = useCallback(
     (languageCode: string) => {
