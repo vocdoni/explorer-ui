@@ -68,7 +68,7 @@ export const EntityView = ({ address, metadata, processes }: IEntityViewProps) =
               <ProcessCard
                 key={index}
                 process={process}
-                entityId={process.id}
+                entityId={process.summary.entityId}
                 link={getProcessDetailsPath(process.id)}
                 hideEntity={true}
               />
