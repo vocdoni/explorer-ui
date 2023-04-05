@@ -10,13 +10,12 @@ const OrganizationsDetailPage = () => {
   const entityId = useUrlHash().slice(1);
 
   const { metadata, loading } = useEntity(ensure0x(entityId));
-  const { blockHeight } = useBlockHeight();
   const { processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount(entityId);
 
   return (
     <If condition={!loading && !loadingProcessList && !loadingProcessesDetails}>
       <Then>
-        <EntityView address={entityId} metadata={metadata} processes={processes} blockHeight={blockHeight} />
+        <EntityView address={entityId} metadata={metadata} processes={processes} />
       </Then>
       <Else>
         <Loader visible />
