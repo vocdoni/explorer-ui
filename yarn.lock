@@ -2552,7 +2552,7 @@
     snarkjs "^0.4.10"
     universal-parse-url "^1.0.2"
 
-"@vocdoni/client@^1.16.0", "@vocdoni/client@^1.16.1", "@vocdoni/client@^1.16.6":
+"@vocdoni/client@^1.16.0", "@vocdoni/client@^1.16.5", "@vocdoni/client@^1.16.6":
   version "1.16.8"
   resolved "https://registry.yarnpkg.com/@vocdoni/client/-/client-1.16.8.tgz#eea877c9fe31fc6e815345a9bd13612474bb7868"
   integrity sha512-qhdgbkfbXl0hVoLQTalk2zf+0PHyTbYvmljx4T2MBDf1LUHPF9dFEZypkNu3DOZDXCagtcrXj8PxmhPcFOoGjA==
@@ -2623,10 +2623,10 @@
     "@ethersproject/keccak256" "^5.5.0"
     circomlib "^0.5.2"
 
-"@vocdoni/proto@1.14.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.14.0.tgz#3e6266495b0293436bb5930b175d7894ec08a8c1"
-  integrity sha512-sUyrIL6N20N+SCeOg9tI462UG2BDr2qGe8I3uFuzcJZa/yDXYFMnzEZGMw5fKwCmPAfYqTKs704ONHuOceuo9A==
+"@vocdoni/proto@1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.14.1.tgz#19891e5fa84b5ec65058f47652a7af0fe5f99b05"
+  integrity sha512-Fojio2im4JC8YN6x31mA94Z4d7HKK65mzIZLn8bW2+cHS3fS+SEkE8HHF+Q8IuGG+1vY1KIEDj6v+CT8qAlVKw==
   dependencies:
     long "^5.2.1"
     protobufjs "^7.1.2"
@@ -2644,19 +2644,19 @@
   resolved "https://registry.yarnpkg.com/@vocdoni/react-components/-/react-components-0.0.9.tgz#0130f7a8640560ab015d6975c138b6c5110e0ac3"
   integrity sha512-j5JXcvFcubKUJ+P60r+PCNf23a7zT04mvF5D7pFKvk78VLVgK2INyw4TPooHeuhtOLR3gWfbyINAV1HxHL7Lrw==
 
-"@vocdoni/react-hooks@0.14.1":
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/react-hooks/-/react-hooks-0.14.1.tgz#a3885a4ce237ab994f221e954f734ddbc57f2c4b"
-  integrity sha512-oJAWcYh7zonae5MxiaDIOOcqWiYGP9yjZc8bKTvv/p6IG19uJiBFMm2sSEXGauhY1YryBFVMFIFZHrnT9fyDmw==
+"@vocdoni/react-hooks@0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@vocdoni/react-hooks/-/react-hooks-0.15.0.tgz#fe8486d4d6dd9c7684fb506c15eec384a7f2b925"
+  integrity sha512-v2dkczzwm5568Nb+zvxK+qJrDM5+abEXSD72i1P+roz+R3ubPCDgca3/DhbLxo6X+Ign59ZWpdsjMePn5u03qQ==
   dependencies:
-    "@vocdoni/client" "^1.16.1"
+    "@vocdoni/client" "^1.16.5"
     "@vocdoni/common" "^1.15.1"
-    "@vocdoni/voting" "^1.16.0"
+    "@vocdoni/voting" "^1.16.3"
 
-"@vocdoni/sdk@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.0.6.tgz#027341bd433c31775eed7243ef592fe1f362ab01"
-  integrity sha512-5QoBcPDB9IrG83qznr31v+JZxUTNF+1QTZe1NBriNJPexTrTt8CffVacdQDE6a0R77BADMG4pwBQElxrlb5xWw==
+"@vocdoni/sdk@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.0.7.tgz#cb4e6bdad784f0213d4af96688b298b2667bc23a"
+  integrity sha512-sYoTvRNNXkO6GDi578hRzdXXh9FhloH7BcpDc/i/KEYrUZdtb37TJsolQ6D6XOUPdsD6sRMmMID+eLM3FaJEVA==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
@@ -2666,7 +2666,7 @@
     "@ethersproject/signing-key" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
     "@size-limit/file" "^8.2.4"
-    "@vocdoni/proto" "1.14.0"
+    "@vocdoni/proto" "1.14.1"
     axios "0.27.2"
     blakejs "^1.2.1"
     blindsecp256k1 "^0.0.9"
@@ -2700,7 +2700,7 @@
     ethers "^5.4.1"
     merkle-patricia-tree "^4.2.1"
 
-"@vocdoni/voting@^1.16.0", "@vocdoni/voting@^1.16.1":
+"@vocdoni/voting@^1.16.1", "@vocdoni/voting@^1.16.3":
   version "1.16.4"
   resolved "https://registry.yarnpkg.com/@vocdoni/voting/-/voting-1.16.4.tgz#16d57ed775f455a7d1df46402a01df6ab04462d2"
   integrity sha512-C7CF+x//G+bKAz+hXfNl6mBN/z0ZKZ96zBX4jv9ehDHrOOF9bkcHIWcrtSNl6BK834hr0tNqC/txlWzFz/QX7w==
