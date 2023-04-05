@@ -15,7 +15,6 @@ interface IEntityViewProps {
   address: string;
   metadata: EntityMetadata;
   processes: SummaryProcess[];
-  blockHeight: number;
 }
 export const EntityView = ({ address, metadata, processes }: IEntityViewProps) => {
   const correctedAddress = address.startsWith('0x') ? address : '0x' + address;
