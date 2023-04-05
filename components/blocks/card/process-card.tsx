@@ -19,7 +19,7 @@ type ProcessCardProps = GenericCardWrapperProps & {
 export const ProcessCard = ({ process, entityId, link }: ProcessCardProps) => {
   const { metadata } = useEntity(ensure0x(entityId));
   const entityMetadata = metadata as EntityMetadata;
-  const entityLogo = metadata?.media.header;
+  const entityLogo = metadata?.media.avatar;
 
   const t = process?.metadata?.title?.default;
   const title = t && t.length > 0 ? t : process?.id;

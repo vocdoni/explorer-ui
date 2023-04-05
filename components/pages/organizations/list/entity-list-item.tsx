@@ -22,7 +22,7 @@ export const DashboardEntityListItem = ({ entityId }: IDashboardEntityItemProps)
     <EntityCard
       processCount={processCount}
       entityId={entityId}
-      entityLogo={metadata?.media.header}
+      entityLogo={metadata?.media.avatar}
       link={entityDetailLink}
       entityName={entityName}
     />
