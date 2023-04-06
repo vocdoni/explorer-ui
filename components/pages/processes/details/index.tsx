@@ -14,7 +14,6 @@ import { EnvelopeTypeBadge } from '../components/envelope-type-badge';
 import { CensusOriginBadge } from '../components/process-censusorigin-badge';
 import { ProcessModeBadge } from '../components/process-processmode-badge';
 import { AnonVoteBadge, ProcessStatusBadge } from '@components/blocks/badges/process-status-badge';
-import { Tabs, Tab } from '@components/blocks/tabs';
 import { EnvelopeExplorer } from '../components/process-envelope-explorer';
 import { ResultsCard } from '../components/results-card';
 import { EncryptionKeys } from '../components/process_keys';
@@ -24,6 +23,7 @@ import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
 import { Markdown } from '@vocdoni/react-components';
 import styled from 'styled-components';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -98,18 +98,25 @@ const ProcessesDetailPage = () => {
       </Typography>
 
       {/* Tabs */}
-      <Tabs>
-        <Tab label={i18n.t('processes.details.show_description')}>
-          <Markdown>{election.description.default}</Markdown>
-        </Tab>
-        <Tab label={i18n.t('processes.details.show_questions')}>
-          <Grid>
-            <ResultsCard />
-          </Grid>
-        </Tab>
-        <Tab label={i18n.t('processes.details.show_envelopes')}>
-          <EnvelopeExplorer electionId={id} />
-        </Tab>
+      <Tabs variant="vocdoni">
+        <TabList>
+          <Tab>{i18n.t('processes.details.show_description')}</Tab>
+          <Tab>{i18n.t('processes.details.show_questions')}</Tab>
+          <Tab>{i18n.t('processes.details.show_envelopes')}</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Markdown>{election.description.default}</Markdown>
+          </TabPanel>
+          <TabPanel>
+            <Grid>
+              <ResultsCard />
+            </Grid>
+          </TabPanel>
+          <TabPanel>
+            <EnvelopeExplorer electionId={id} />
+          </TabPanel>
+        </TabPanels>
       </Tabs>
     </PageCard>
   );
