@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useState } from 'react';
 import { VochainProcessStatus } from 'dvote-js';
 import { useTranslation } from 'react-i18next';
 import { Column, ColumnDiv, Grid } from '@components/elements/grid';
@@ -24,16 +24,16 @@ export const ProcessFilter = ({
 }) => {
   const [tempFilter, setTempFilter] = useState<IFilterProcesses>({});
 
-  const _onEnableFilter = () => {
+  const _onEnableFilter = useCallback(() => {
     onEnableFilter(tempFilter);
-  };
+  }, [onEnableFilter, tempFilter]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       _onEnableFilter();
     }, DELAY_BOUNCE_TIME);
     return () => clearTimeout(delayDebounceFn);
-  }, [tempFilter]);
+  }, [_onEnableFilter, tempFilter]);
 
   return (
     <FilterContainer>
@@ -141,7 +141,7 @@ const ProcessStatusSelector = ({
         onChange={(value) => {
           if (value === 'ALL') tempFilter.status = null;
           else {
-            tempFilter.status = VochainProcessStatus[value as string] as any as VochainProcessStatus;
+            tempFilter.status = VochainProcessStatus[value as string] as unknown as VochainProcessStatus;
           }
           setTempFilter(Object.assign({}, tempFilter));
         }}
