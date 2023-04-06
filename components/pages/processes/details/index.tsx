@@ -35,6 +35,8 @@ const ProcessesDetailPage = () => {
   const { metadata } = useEntity(election.organizationId);
   const entityMetadata = metadata as EntityMetadata;
 
+  const defaultTab = election.status === ElectionStatus.ENDED || election.status === ElectionStatus.ONGOING ? 1 : 0;
+
   return (
     <PageCard>
       <CardImageHeader
@@ -98,7 +100,7 @@ const ProcessesDetailPage = () => {
       </Typography>
 
       {/* Tabs */}
-      <Tabs variant="vocdoni">
+      <Tabs variant="vocdoni" defaultIndex={defaultTab}>
         <TabList>
           <Tab>{i18n.t('processes.details.show_description')}</Tab>
           <Tab>{i18n.t('processes.details.show_questions')}</Tab>
