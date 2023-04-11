@@ -9,7 +9,7 @@ const vocdoniTabs = definePartsStyle(() => {
   return {
     tab: {
       cursor: 'pointer',
-      border: `2px solid ${theme.lightBorder}`,
+      border: `none`,
       background: `linear-gradient(
         106.26deg,
           ${hexToRgbA(theme.accent1B)} 5.73%,
@@ -19,7 +19,7 @@ const vocdoniTabs = definePartsStyle(() => {
       padding: '8px 15px',
       fontSize: '90%',
       fontFamily: '"Manrope", "Roboto", Arial, Helvetica, sans-serif !important;',
-      fontWeight: '600',
+      fontWeight: '500',
       boxShadow: '0px 6px 6px rgba(180, 193, 228, 0.35)',
       borderRadius: '8px',
       boxSizing: 'border-box',
@@ -42,7 +42,7 @@ const vocdoniTabs = definePartsStyle(() => {
       },
     },
     tablist: {
-      gap: '4px',
+      gap: '8px',
     },
     tabpanel: {
       marginTop: '20px',
