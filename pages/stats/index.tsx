@@ -1,12 +1,13 @@
 import StatsPage from '@components/pages/stats';
 import { Loader } from '@components/blocks/loader';
-import { useStats } from '@hooks/use-stats';
 import { Else, If, Then } from 'react-if';
 import { HeroBanner } from '@components/pages/home/components/hero-banner';
 import styled from 'styled-components';
+import { useChainInfo } from '@hooks/use-voconi-sdk';
+import { StatsHeroBanner } from '@components/pages/stats/components/stats-hero-banner';
 
 const StatsPageIndex = () => {
-  const { loading: loadingStats, stats } = useStats({});
+  const { loading: loadingStats, data: stats } = useChainInfo();
 
   return (
     <If condition={loadingStats && stats === undefined}>
@@ -16,12 +17,7 @@ const StatsPageIndex = () => {
       <Else>
         <>
           <BannerContainer>
-            <HeroBanner
-              processes={stats?.process_count}
-              organizations={stats?.entity_count}
-              averageBlockTime={(stats?.block_time[0] || 0) / 1000}
-              envelopes={stats?.envelope_count}
-            />
+            <StatsHeroBanner stats={stats} />
           </BannerContainer>
           <StatsPage stats={stats} />
         </>
