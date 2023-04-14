@@ -6,7 +6,7 @@ type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
 function useSDKFunction<T, U>({
   promiseFn,
-  args,
+  args = [],
   interval,
 }: {
   promiseFn: (params?: U) => Promise<T>;
@@ -79,4 +79,9 @@ export const useElectionVotesList = ({ electionId, page }: { electionId: string;
 export const useElectionVotesCount = ({ electionId }: { electionId: string }) => {
   const { client } = useClientContext<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.electionVotesCount, args: [electionId] });
+};
+
+export const useChainInfo = () => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.chainInfo, interval: 15 * 1000 });
 };
