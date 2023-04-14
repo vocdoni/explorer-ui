@@ -1,25 +1,21 @@
 import { Loader } from '@components/blocks/loader';
 import { BannerContainer, HeroBanner } from '@components/pages/home/components/hero-banner';
 import StatsPage from '@components/pages/stats';
-import { useStats } from '@hooks/use-stats';
 import { Else, If, Then } from 'react-if';
 import FeaturedContent from './index/featured';
+import { useChainInfo } from '@hooks/use-voconi-sdk';
+import { StatsHeroBanner } from '@components/pages/stats/components/stats-hero-banner';
 
 // MAIN COMPONENT
 const IndexPage = () => {
-  const { stats } = useStats({});
+  const { data: stats } = useChainInfo();
 
   return (
     <If condition={stats !== undefined}>
       <Then>
         <>
           <BannerContainer>
-            <HeroBanner
-              processes={stats?.process_count}
-              organizations={stats?.entity_count}
-              averageBlockTime={(stats?.block_time[0] || 0) / 1000}
-              envelopes={stats?.envelope_count}
-            />
+            <StatsHeroBanner stats={stats} />
           </BannerContainer>
           <StatsPage stats={stats} />
           <FeaturedContent />

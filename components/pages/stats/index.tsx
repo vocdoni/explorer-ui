@@ -7,7 +7,6 @@ import { Card } from '@components/elements/cards';
 
 import { localizedDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
-import { Stats } from '@lib/types';
 import { Section, BlockContainer } from '@components/elements/styled-divs';
 import { BlockCard } from '@components/blocks/card/block-card';
 import { useBlocks } from '@hooks/use-blocks';
@@ -16,15 +15,16 @@ import { MdSpeed } from 'react-icons/md';
 import { VscGraphLine } from 'react-icons/vsc';
 import { HomePageButton } from '@components/elements/button';
 import Link from 'next/link';
+import { IChainGetInfoResponse } from '@vocdoni/sdk';
 
 const BLOCK_LIST_SIZE = 4;
 
-const StatsPage = ({ stats }: { stats: Stats }) => {
+const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
   const { i18n } = useTranslation();
 
   let blockHeight: number;
-  if (stats && stats?.block_height !== blockHeight) {
-    blockHeight = stats.block_height - BLOCK_LIST_SIZE;
+  if (stats && stats?.height !== blockHeight) {
+    blockHeight = stats.height - BLOCK_LIST_SIZE;
   }
 
   const { recentBlocks } = useBlocks({
@@ -61,12 +61,12 @@ const StatsPage = ({ stats }: { stats: Stats }) => {
               <VerticallyCenter>
                 <CardTitle title={i18n.t('stats.blockchain_info')} icon={<MdSpeed />}></CardTitle>
                 <TitleSubtitleList>
-                  <TitleSubtitle title={i18n.t('stats.network_id')}>{capitalize(stats?.chain_id)}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.bloc_height')}>{stats?.block_height}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>{stats?.validator_count}</TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.network_id')}>{capitalize(stats?.chainId)}</TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.bloc_height')}>{stats?.height}</TitleSubtitle>
+                  <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>{stats?.validatorCount}</TitleSubtitle>
                   <TitleSubtitle title={i18n.t('stats.sync_status')}>{syncing}</TitleSubtitle>
                   <TitleSubtitle title={i18n.t('stats.genesis_block_date')}>
-                    {localizedDateDiff(new Date(stats?.genesis_time_stamp))}
+                    {localizedDateDiff(new Date(stats?.genesisTime))}
                   </TitleSubtitle>
                 </TitleSubtitleList>
               </VerticallyCenter>
