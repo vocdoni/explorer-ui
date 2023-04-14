@@ -5,7 +5,7 @@ import { usePool } from '@vocdoni/react-hooks';
 import { Tx } from 'dvote-js';
 import { useEffect, useState } from 'react';
 import { useAlertMessage } from './message-alert';
-import { useStats } from './use-stats';
+import { useChainInfo } from '@hooks/use-voconi-sdk';
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -116,10 +116,10 @@ export const useTx = ({ blockHeight, txIndex }: { blockHeight: number; txIndex: 
  */
 export const useTransactionCount = () => {
   const [transactionCount, setTransactionCount] = useState<number>();
-  const { stats, loading } = useStats({});
+  const { data: stats, loading } = useChainInfo();
 
   const getHeightFromStats = () => {
-    setTransactionCount(stats.transaction_count);
+    setTransactionCount(stats.transactionCount);
   };
 
   useEffect(() => {
