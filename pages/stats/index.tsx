@@ -1,7 +1,6 @@
 import StatsPage from '@components/pages/stats';
 import { Loader } from '@components/blocks/loader';
 import { Else, If, Then } from 'react-if';
-import { HeroBanner } from '@components/pages/home/components/hero-banner';
 import styled from 'styled-components';
 import { useChainInfo } from '@hooks/use-voconi-sdk';
 import { StatsHeroBanner } from '@components/pages/stats/components/stats-hero-banner';

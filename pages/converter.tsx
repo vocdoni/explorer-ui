@@ -8,13 +8,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexDirection, FlexJustifyContent } from '@components/elements/flex';
 import { useTranslation } from 'react-i18next';
-import { useStats } from '@hooks/use-stats';
 import { localizedDateDiff } from '@lib/date';
 import { capitalize } from '@lib/util';
 
 import { FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronUp } from 'react-icons/fi';
 import { useIsMobile } from '@hooks/use-window-size';
 import DateTimePicker from '@components/elements/date-picker';
+import { useChainInfo } from '@hooks/use-voconi-sdk';
 
 const BlocksPage = () => {
   const { i18n } = useTranslation();
@@ -30,8 +30,8 @@ const BlocksPage = () => {
   const { date, loading } = useDateAtBlock(targetBlock);
   const { blockHeight: estimatedBlockNumber } = useBlockAtDate(targetDate);
 
-  const [genesisDate, setGenesisDate] = useState<Date>();
-  const { stats } = useStats({});
+  const { data: stats, loading: loadingStats } = useChainInfo();
+  const genesisDate = stats ? new Date(stats?.genesisTime) : null;
 
   const isMobile = useIsMobile();
 
@@ -48,10 +48,6 @@ const BlocksPage = () => {
       setTargetDate(dateInput);
     }
   }, [dateInput]);
-
-  useEffect(() => {
-    if (stats) setGenesisDate(new Date(stats.genesis_time_stamp));
-  }, [stats]);
 
   const enviormentName = (env) => {
     switch (env) {
@@ -93,7 +89,7 @@ const BlocksPage = () => {
           </div>
           <div>
             <StrongAndText title={i18n.t('converter.genesis_date') + ': '}>
-              {localizedDateDiff(genesisDate)}
+              {!loadingStats && localizedDateDiff(genesisDate)}
             </StrongAndText>
           </div>
           <div>
