@@ -1,15 +1,13 @@
 import { Loader } from '@components/blocks/loader';
 import { BlockView } from '@components/pages/blocks/details';
-import { useBlock } from '@hooks/use-blocks';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
-import { useBlockByHeight } from '@hooks/use-voconi-sdk';
+import { useBlockByHash, useBlockByHeight } from '@hooks/use-voconi-sdk';
+import { IChainBlockInfoResponse } from '@vocdoni/sdk';
 
-const BlockDetailPage = () => {
+const BlockOrLoadingView = ({ block, loading }: { block: IChainBlockInfoResponse; loading: boolean }) => {
   const { i18n } = useTranslation();
-  const blockHeight: number = +useUrlHash().slice(1);
-  const { data: block, loading } = useBlockByHeight({ height: blockHeight });
 
   return (
     <If condition={block && !loading}>
@@ -27,6 +25,32 @@ const BlockDetailPage = () => {
         </If>
       </Else>
     </If>
+  );
+};
+
+const BlockByHash = ({ hash }: { hash: string }) => {
+  const { data: block, loading } = useBlockByHash({ hash });
+  return <BlockOrLoadingView loading={loading} block={block} />;
+};
+
+const BlockByHeight = ({ height }: { height: number }) => {
+  const { data: block, loading } = useBlockByHeight({ height });
+  return <BlockOrLoadingView loading={loading} block={block} />;
+};
+
+const BlockDetailPage = () => {
+  const blockHeightOrHash = useUrlHash().slice(1);
+  return (
+    <>
+      <If condition={blockHeightOrHash.length === 64}>
+        <Then>
+          <BlockByHash hash={blockHeightOrHash} />
+        </Then>
+        <Else>
+          <BlockByHeight height={+blockHeightOrHash} />
+        </Else>
+      </If>
+    </>
   );
 };
 
