@@ -2,14 +2,16 @@ import { BlockCard } from '@components/blocks/card/block-card';
 import { PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { BlockInfo } from '@lib/types';
 import { TransactionListForBlock } from './transaction-list-for-block';
 import { useTranslation } from 'react-i18next';
 import { ensure0x } from 'dvote-js';
 import Link from 'next/link';
+import { IChainBlockInfoResponse } from '@vocdoni/sdk';
 
-export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
+export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse }) => {
   const { i18n } = useTranslation();
+  const txs = blockData?.data.txs;
+  const blockHeight = +blockData?.header.height; // todo: on new sdk version this is a number
   return (
     <PageCard>
       <Grid>
@@ -17,28 +19,30 @@ export const BlockView = ({ blockData }: { blockData: BlockInfo }) => {
           <Typography variant={TypographyVariant.Body1}>{i18n.t('blocks.details.block_details')}</Typography>
         </Column>
       </Grid>
-      <BlockCard blockData={blockData} />
-      {blockData?.numTxs > 0 ? (
-        <TransactionListForBlock
-          totalCount={blockData?.numTxs}
-          blockHeight={blockData?.height}
-        ></TransactionListForBlock>
+      <BlockCard
+        blockHeight={+blockData.header.height} // todo: on new sdk versions this will be a number
+        blockTime={blockData.header.time}
+        proposer={blockData.header.proposerAddress}
+      />
+      {txs?.length > 0 ? (
+        <TransactionListForBlock totalCount={txs.length} blockHeight={blockHeight}></TransactionListForBlock>
       ) : null}
       <>
         <p>
-          {i18n.t('blocks.transactions')} {blockData?.numTxs}
+          {i18n.t('blocks.transactions')} {txs.length}
         </p>
         <p>
-          {i18n.t('components.block_card.hash')}: <code>0x{blockData?.hash}</code>
+          {/*todo: appHash is not block hash*/}
+          {i18n.t('components.block_card.hash')}: <code>0x{blockData?.header.appHash}</code>
         </p>
         <p>
           {i18n.t('components.block_card.last_block_hash')}:
-          <Link href={`#/${(blockData?.height - 1).toString()}`}>
-            <code> 0x{blockData?.lastBlockHash}</code>
+          <Link href={`#/${(blockHeight - 1).toString()}`}>
+            <code> ensure0x({blockData?.lastCommit.blockId.hash})</code>
           </Link>
         </p>
         <p>
-          {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.proposerAddress)}
+          {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.header.proposerAddress)}
         </p>
       </>
     </PageCard>

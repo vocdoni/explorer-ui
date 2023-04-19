@@ -45,7 +45,13 @@ const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
                 <CardTitle title={i18n.t('stats.latest_block')} icon={<VscGraphLine />}></CardTitle>
                 {recentBlocks.length ? (
                   recentBlocks.map((item) => (
-                    <BlockCard key={item.height} blockData={item} style={{ border: '1px solid #E4E7EB' }} />
+                    <BlockCard
+                      key={item.height}
+                      style={{ border: '1px solid #E4E7EB' }}
+                      blockHeight={item.height}
+                      blockTime={item.timestamp}
+                      proposer={item.proposerAddress}
+                    />
                   ))
                 ) : (
                   <h3>{i18n.t('stats.getting_block_info')}</h3>

@@ -7,5 +7,7 @@ interface IDashboardBlockItemProps {
 }
 
 export const DashboardBlockItem = ({ blockData }: IDashboardBlockItemProps) => {
-  return <BlockCard blockData={blockData} />;
+  return (
+    <BlockCard blockHeight={blockData.height} blockTime={blockData.timestamp} proposer={blockData.proposerAddress} />
+  );
 };
