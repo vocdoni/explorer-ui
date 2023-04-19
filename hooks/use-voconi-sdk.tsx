@@ -165,3 +165,13 @@ export const useElectionList = ({
     ...rest,
   });
 };
+
+export const useBlockByHash = ({ hash }: { hash: string }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction(client.blockByHash, hash);
+};
+
+export const useBlockByHeight = ({ height }: { height: number }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction(client.blockByHeight, height);
+};

@@ -15,6 +15,8 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
     AccountAPI.electionsList(this.url, organizationId, page);
   validatorsList = () => ChainAPI.validatorsList(this.url);
   chainInfo = () => ChainAPI.info(this.url);
+  blockByHash = (hash: string) => ChainAPI.blockByHash(this.url, hash);
+  blockByHeight = (height: number) => ChainAPI.blockByHeight(this.url, height);
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
   electionVotesList = (electionId: string, page?: number) => ElectionAPI.votesList(this.url, electionId, page);
   electionVotesCount = (electionId: string) => ElectionAPI.votesCount(this.url, electionId);
