@@ -4,11 +4,12 @@ import { useBlock } from '@hooks/use-blocks';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
+import { useBlockByHeight } from '@hooks/use-voconi-sdk';
 
 const BlockDetailPage = () => {
   const { i18n } = useTranslation();
   const blockHeight: number = +useUrlHash().slice(1);
-  const { block, loading } = useBlock({ blockHeight: blockHeight });
+  const { data: block, loading } = useBlockByHeight({ height: blockHeight });
 
   return (
     <If condition={block && !loading}>
