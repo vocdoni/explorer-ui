@@ -137,3 +137,13 @@ export const useTxList = ({ page }: { page?: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.txList, args: [page] });
 };
+
+export const useBlockByHash = ({ hash }: { hash: string }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.blockByHash, hash);
+};
+
+export const useBlockByHeight = ({ height }: { height: number }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction(client.blockByHeight, height);
+};
