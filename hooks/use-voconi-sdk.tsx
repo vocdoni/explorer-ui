@@ -22,6 +22,8 @@ function useSDKFunction<T, U>({
   const memorizedArgs = useMemo(() => args, args);
 
   const doCall = useCallback(() => {
+    setLoading(true);
+    setError(null);
     promiseFn(...memorizedArgs)
       .then((response) => {
         setData(response);
@@ -35,8 +37,6 @@ function useSDKFunction<T, U>({
   }, [memorizedArgs, promiseFn]);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
     setData(null);
     if (interval) {
       const itv = setInterval(() => doCall(), interval);
