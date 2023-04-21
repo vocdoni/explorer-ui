@@ -5,7 +5,10 @@
         },
         "details": {
             "block_details": "Block details",
-            "block_not_found": "Block not found"
+            "block_not_found": "Block not found",
+            "last_block_hash": "Last block hash:",
+            "proposer": "Proposer: {{ proposer }}",
+            "hash": "Hash: {{ hash }}"
         },
         "filter": {
           "search": "search",
@@ -15,13 +18,11 @@
             "blocks": "Blocks",
             "count": "Count"
         },
-        "transactions": "Transactions"
+        "transactions": "Transactions: {{ transactions }}"
     },
     "components": {
         "block_card": {
-            "hash": "Hash",
-            "last_block_hash": "Last block hash",
-            "proposer": "Proposer"
+            "proposer": "Proposer:"
         },
         "cardimage": {
             "organization_logo_alt": "Organization logo",
