@@ -5,7 +5,10 @@
     },
     "details": {
       "block_details": "Detalles del bloque",
-      "block_not_found": "Bloque no encontrado"
+      "block_not_found": "Bloque no encontrado",
+      "last_block_hash": "Hash del bloque anterior:",
+      "proposer": "Propositor: {{ proposer }}",
+      "hash": "Hash: {{ hash }}"
     },
     "filter": {
       "search": "buscar",
@@ -15,13 +18,12 @@
       "blocks": "Bloques",
       "count": "Total"
     },
-    "transactions": "Transacciones"
+    "transactions": "Transacciones: {{ transactions }}"
   },
   "components": {
     "block_card": {
-      "hash": "Hash",
-      "last_block_hash": "Hash del bloque anterior",
-      "proposer": "Propositor"
+      "hash": "Hash: {{ hash }}",
+      "proposer": "Propositor:"
     },
     "cardimage": {
       "organization_logo_alt": "Logotipo de la organización",

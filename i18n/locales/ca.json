@@ -5,7 +5,10 @@
     },
     "details": {
       "block_details": "Detalls del bloc",
-      "block_not_found": "Bloc no trobat"
+      "block_not_found": "Bloc no trobat",
+      "last_block_hash": "Hash del bloc anterior:",
+      "proposer": "Propositor: {{ proposer }}",
+      "hash": "Hash: {{ hash }}"
     },
     "filter": {
       "search": "buscar"
@@ -14,13 +17,11 @@
       "blocks": "Blocs",
       "count": "Total"
     },
-    "transactions": "Transaccions"
+    "transactions": "Transaccions: {{ transactions }}"
   },
   "components": {
     "block_card": {
-      "hash": "Hash",
-      "last_block_hash": "Hash del bloc anterior",
-      "proposer": "Propositor"
+      "proposer": "Propositor:"
     },
     "cardimage": {
       "organization_logo_alt": "Logotip de l'organització",
