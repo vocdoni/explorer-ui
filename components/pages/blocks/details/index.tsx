@@ -28,22 +28,18 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
         <TransactionListForBlock totalCount={txs.length} blockHeight={blockHeight}></TransactionListForBlock>
       ) : null}
       <>
-        <p>
-          {i18n.t('blocks.transactions')} {txs.length}
-        </p>
+        <p>{i18n.t('blocks.transactions', { transactions: txs.length })}</p>
         <p>
           {/*todo: appHash is not block hash*/}
-          {i18n.t('components.block_card.hash')}: <code>0x{blockData?.header.appHash}</code>
+          {i18n.t('blocks.details.hash', { hash: `0x${blockData?.header.appHash}` })}
         </p>
         <p>
-          {i18n.t('components.block_card.last_block_hash')}:
+          {i18n.t('blocks.details.last_block_hash')}
           <Link href={`#/${(blockHeight - 1).toString()}`}>
-            <code> ensure0x({blockData?.lastCommit.blockId.hash})</code>
+            <code> {ensure0x(blockData?.lastCommit.blockId.hash)})</code>
           </Link>
         </p>
-        <p>
-          {i18n.t('components.block_card.proposer')} {ensure0x(blockData?.header.proposerAddress)}
-        </p>
+        <p>{i18n.t('blocks.details.proposer', { proposer: ensure0x(blockData?.header.proposerAddress) })}</p>
       </>
     </PageCard>
   );
