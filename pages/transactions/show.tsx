@@ -1,10 +1,9 @@
 import { Loader } from '@components/blocks/loader';
-import { useTx } from '@hooks/use-transactions';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { TransactionDetails } from '@components/pages/transactions/details';
 import { useTranslation } from 'react-i18next';
-import { useTxByHash } from '@hooks/use-voconi-sdk';
+import { useTxByBlock, useTxByHash } from '@hooks/use-voconi-sdk';
 
 const TransactionByHeightAndIndex = ({
   blockHeight,
@@ -17,7 +16,7 @@ const TransactionByHeightAndIndex = ({
   loading?: boolean;
   error?: boolean;
 }) => {
-  const { tx, loading: txLoading } = useTx({ blockHeight: blockHeight, txIndex: txIndex });
+  const { data: tx, loading: txLoading } = useTxByBlock({ blockHeight: blockHeight, txIndex: txIndex });
   const { i18n } = useTranslation();
   const loading = l || txLoading;
 
