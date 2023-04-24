@@ -61,6 +61,12 @@ export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts)
   return useSDKFunction({ promiseFn: client.txInfo, args: [txHash], ...rest });
 };
 
+export const useTxByBlock = ({ blockHeight, txIndex }: { blockHeight: number; txIndex: number }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  // @ts-ignore
+  return useSDKFunction({ promiseFn: client.txInfoByBlock, args: [blockHeight, txIndex] });
+};
+
 export const useOrganizationList = ({
   page,
   organizationId,
