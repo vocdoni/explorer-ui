@@ -5,6 +5,7 @@ import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
 import { useBlockByHash, useBlockByHeight } from '@hooks/use-voconi-sdk';
 import { IChainBlockInfoResponse } from '@vocdoni/sdk';
+import { ensure0x } from '@vocdoni/common';
 
 const BlockOrLoadingView = ({ block, loading }: { block: IChainBlockInfoResponse; loading: boolean }) => {
   const { i18n } = useTranslation();
@@ -42,7 +43,7 @@ const BlockDetailPage = () => {
   const blockHeightOrHash = useUrlHash().slice(1);
   return (
     <>
-      <If condition={blockHeightOrHash.length === 64}>
+      <If condition={ensure0x(blockHeightOrHash).length === 66}>
         <Then>
           <BlockByHash hash={blockHeightOrHash} />
         </Then>
