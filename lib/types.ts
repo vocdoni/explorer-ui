@@ -65,20 +65,6 @@ export type BlockInfo = {
   timestamp: string;
 };
 
-export type Stats = {
-  block_height: number;
-  block_time: [number, number, number, number, number];
-  block_time_stamp: number;
-  chain_id: string;
-  entity_count: number;
-  envelope_count: number;
-  genesis_time_stamp: string;
-  process_count: number;
-  syncing: boolean;
-  transaction_count: number;
-  validator_count: number;
-};
-
 // Transactions
 export enum TxType {
   vote = 'vote',
@@ -99,29 +85,6 @@ export type TxForBlock = {
   hash: string;
   index: number;
   type: TxType;
-};
-
-// Validators
-
-export type Validator = {
-  address: string;
-  power: number;
-  pubKey: string;
-};
-
-export type GetTx = {
-  hash: string;
-  signature: string;
-  tx: string | Tx;
-  payload: Tx;
-};
-
-export type GetTxByHash = {
-  transactionNumber: number;
-  transactionHash: string;
-  blockHeight: number;
-  transactionIndex: number;
-  transactionType: string;
 };
 
 export type TxById = {
