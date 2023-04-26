@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { fetchMethod, getTxListById } from '@lib/api';
-import { GetTx, TxById, TxForBlock } from '@lib/types';
+import { TxById, TxForBlock } from '@lib/types';
 import { usePool } from '@vocdoni/react-hooks';
 import { Tx } from 'dvote-js';
 import { useEffect, useState } from 'react';
 import { useAlertMessage } from './message-alert';
-import { useChainInfo } from '@hooks/use-voconi-sdk';
 
 /** Used to get list of transactions for specific block */
 export const useTxForBlock = ({
@@ -58,76 +57,6 @@ export const useTxForBlock = ({
 
   return {
     transactions,
-    loading,
-  };
-};
-
-/** Get single transaction by blockHeight and  txIndex*/
-export const useTx = ({ blockHeight, txIndex }: { blockHeight: number; txIndex: number }) => {
-  const { i18n } = useTranslation();
-
-  const { setAlertMessage } = useAlertMessage();
-  const { poolPromise } = usePool();
-  const [loading, setLoading] = useState(false);
-  const [tx, setTx] = useState<GetTx>();
-
-  const loadTransactions = () => {
-    if (loading || !poolPromise) return;
-
-    setLoading(true);
-
-    poolPromise
-      .then((pool) => {
-        //todo: this method is not exposed yet
-        return fetchMethod(pool, {
-          method: 'getTx',
-          params: {
-            height: blockHeight,
-            txIndex: txIndex,
-          },
-        });
-      })
-      .then((response) => {
-        const transaction = (response.response.tx as GetTx) || null;
-        transaction['payload'] = JSON.parse(response['response']['payload']) as Tx;
-        setTx(transaction);
-      })
-      .catch((err) => {
-        console.error(err);
-        setTx(null);
-        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
-      })
-      .finally(() => setLoading(false));
-  };
-
-  useEffect(() => {
-    if (blockHeight && txIndex != null && !isNaN(blockHeight) && !isNaN(txIndex)) loadTransactions();
-  }, [blockHeight, txIndex]);
-
-  return {
-    tx,
-    loading,
-  };
-};
-
-/**
- *
- * @returns transaction count from stats
- */
-export const useTransactionCount = () => {
-  const [transactionCount, setTransactionCount] = useState<number>();
-  const { data: stats, loading } = useChainInfo();
-
-  const getHeightFromStats = () => {
-    setTransactionCount(stats.transactionCount);
-  };
-
-  useEffect(() => {
-    if (!loading && stats) getHeightFromStats();
-  }, [stats, loading]);
-
-  return {
-    transactionCount,
     loading,
   };
 };

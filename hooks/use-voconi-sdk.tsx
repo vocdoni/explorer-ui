@@ -109,3 +109,25 @@ export const useChainInfo = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.chainInfo, interval: rest.interval ? rest.interval : 15 * 1000 });
 };
+
+/**
+ *
+ * @returns transaction count from stats
+ */
+export const useTransactionCount = () => {
+  const [transactionCount, setTransactionCount] = useState<number>();
+  const { data: stats, loading } = useChainInfo();
+
+  const getHeightFromStats = useCallback(() => {
+    setTransactionCount(stats.transactionCount);
+  }, [stats?.transactionCount]);
+
+  useEffect(() => {
+    if (!loading && stats) getHeightFromStats();
+  }, [stats, loading, getHeightFromStats]);
+
+  return {
+    transactionCount,
+    loading,
+  };
+};
