@@ -6,19 +6,14 @@ import { Typography, TypographyVariant } from '@components/elements/typography';
 import { BlockLink, EntityLink, getProcessDetailsPath } from '@components/pages/app/components/get-links';
 import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
-import { GetTx, TxType } from '@lib/types';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
-import {
-  AdminTx,
-  NewProcessTx,
-  SetProcessTx,
-  VoteEnvelope,
-} from '@vocdoni/data-models/dist/protobuf/build/ts/vochain/vochain';
+import { AdminTx, NewProcessTx, SetProcessTx, VoteEnvelope } from '@vocdoni/sdk';
 import { useDateAtBlock } from '@vocdoni/react-hooks';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { OverflowScroll } from '@components/elements/styled-divs';
+import { Tx } from '@vocdoni/sdk/src/api/chain/index';
+import { TxType } from '@lib/types';
 
 export const TransactionDetails = ({
   txIndex,
@@ -26,85 +21,83 @@ export const TransactionDetails = ({
   transactionData,
 }: {
   txIndex: number;
-  transactionData: GetTx;
+  transactionData: Tx;
   blockHeight: number;
 }) => {
   const { i18n } = useTranslation();
-  const [belongsToEntity, setBelongsToEntity] = useState('');
-  const [belongsToProcess, setBelongsToProcess] = useState('');
-  const [votePackage, setVotePackage] = useState('');
-  const [txType, setTxType] = useState<TxType>();
-  const [txRaw, setTxRaw] = useState<any>();
   const { date } = useDateAtBlock(blockHeight);
 
-  useEffect(() => {
-    const txPayload = transactionData.payload;
-    const ignoreKeys: string[] = [];
+  let belongsToEntity = '';
+  let belongsToProcess = '';
+  let votePackage = '';
+  const txType = Object.keys(transactionData)[0] as TxType;
 
-    // todo: for some reason, response payload converted transactions have some
-    // values into base64 string. This values, on the interface declaration are
-    // `Uint8Array`, but on JSON decoding are treated as 'strings'.
-    // So is a little bit tricky to know, if a payload value have to be
-    // converted to a b64 or not. Probably reflection could help with that. BTW
-    // is solved checking regex.
-    switch (Object.keys(txPayload)[0] as TxType) {
-      case 'vote': {
-        const tx = txPayload['vote'] as VoteEnvelope;
-        ignoreKeys.push('votePackage');
-        try {
-          txPayload['vote']['votePackage'] =
-            tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0
-              ? tx.votePackage
-              : atob(tx.votePackage as any as string);
-          setVotePackage(tx.votePackage as any as string);
-        } catch (e) {
-          console.error(e);
-        }
-        setBelongsToProcess(b64ToHex(tx.processId as any as string));
-        // For the moment, this is not needed. Let this here for future uses,
-        // maybe will be needed.
-        // switch(tx.proof.payload.$case){
-        //   case 'graviton':
-        //   break
-        //   case 'ethereumStorage':
-        //   break
-        //   case 'iden3':
-        //   break
-        //   default:
-        //     console.debug("Other proof type")
-        // }
-        break;
+  const ignoreKeys: string[] = [];
+
+  // todo: for some reason, response payload converted transactions have some
+  // values into base64 string. This values, on the interface declaration are
+  // `Uint8Array`, but on JSON decoding are treated as 'strings'.
+  // So is a little bit tricky to know, if a payload value have to be
+  // converted to a b64 or not. Probably reflection could help with that. BTW
+  // is solved checking regex.
+  switch (txType) {
+    case 'vote': {
+      const tx = transactionData['vote'] as VoteEnvelope;
+      ignoreKeys.push('votePackage');
+      try {
+        tx.votePackage =
+          tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0
+            ? tx.votePackage
+            : atob(tx.votePackage as any as string);
+        votePackage = tx.votePackage;
+      } catch (e) {
+        console.error(e);
       }
-      case 'newProcess': {
-        const tx = txPayload['newProcess'] as NewProcessTx;
-        if (tx.process?.processId) {
-          setBelongsToProcess(b64ToHex(tx.process?.processId as any as string));
-        }
-        setBelongsToEntity(b64ToHex(tx.process.entityId as any as string));
-        break;
-      }
-      case 'admin': {
-        const tx = txPayload['admin'] as AdminTx;
-        setBelongsToProcess(b64ToHex(tx.processId as any as string));
-        break;
-      }
-      case 'setProcess': {
-        const tx = txPayload['setProcess'] as SetProcessTx;
-        setBelongsToProcess(b64ToHex(tx.processId as any as string));
-        if (tx?.results?.entityId) {
-          setBelongsToEntity(b64ToHex(tx?.results?.entityId as any as string));
-        }
-        break;
-      }
-      default: {
-        //statements;
-        break;
-      }
+      belongsToProcess = b64ToHex(tx.processId as any as string);
+      // For the moment, this is not needed. Let this here for future uses,
+      // maybe will be needed.
+      // switch(tx.proof.payload.$case){
+      //   case 'graviton':
+      //   break
+      //   case 'ethereumStorage':
+      //   break
+      //   case 'iden3':
+      //   break
+      //   default:
+      //     console.debug("Other proof type")
+      // }
+      break;
     }
-    objectB64StringsToHex(txPayload, ignoreKeys);
-    setTxRaw(txPayload);
-    setTxType(TxType[Object.keys(txPayload)[0]]);
-  }, [transactionData]);
+    case 'newProcess': {
+      const tx = transactionData['newProcess'] as NewProcessTx;
+      if (tx.process?.processId) {
+        belongsToProcess = b64ToHex(tx.process?.processId as any as string);
+      }
+      belongsToEntity = b64ToHex(tx.process.entityId as any as string);
+      break;
+    }
+    case 'admin': {
+      const tx = transactionData['admin'] as AdminTx;
+      belongsToProcess = b64ToHex(tx.processId as any as string);
+      break;
+    }
+    case 'setProcess': {
+      const tx = transactionData['setProcess'] as SetProcessTx;
+      belongsToProcess = b64ToHex(tx.processId as any as string);
+
+      if (tx?.results?.entityId) {
+        belongsToEntity = b64ToHex(tx.results?.entityId as any as string);
+      }
+      break;
+    }
+    default: {
+      //statements;
+      break;
+    }
+  }
+
+  const rawTx = JSON.parse(JSON.stringify(transactionData));
+  objectB64StringsToHex(rawTx, ignoreKeys);
 
   return (
     <PageCard>
@@ -146,7 +139,8 @@ export const TransactionDetails = ({
             //       })
             //     : null
           }
-          title={'0x' + transactionData?.hash}
+          title={'todo hash'} // todo(kon): tx hash is not actually present on Tx object
+          // title={'0x' + transactionData?.hash}
         >
           <OverflowScroll>
             {belongsToProcess?.length > 0 && (
@@ -169,10 +163,10 @@ export const TransactionDetails = ({
           </OverflowScroll>
         </GenericListItemWithBadge>
 
-        {txRaw && (
+        {rawTx && (
           <Card>
             <h3>{i18n.t('transactions.details.raw_contents')}</h3>
-            <OverflowScroll>{JSON.stringify(txRaw, null, 2)}</OverflowScroll>
+            <OverflowScroll>{JSON.stringify(rawTx, null, 2)}</OverflowScroll>
           </Card>
         )}
       </>
