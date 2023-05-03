@@ -8,6 +8,7 @@ import {
 } from 'dvote-js';
 import { BigNumber } from 'ethers';
 import { Vochain } from '@vocdoni/proto';
+import { TransactionType } from '@vocdoni/sdk';
 
 export enum VotingType {
   Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
@@ -65,36 +66,10 @@ export type BlockInfo = {
   timestamp: string;
 };
 
-// Transactions
-export enum TxType {
-  vote = 'vote',
-  newProcess = 'newProcess',
-  admin = 'admin',
-  setProcess = 'setProcess',
-  registerKey = 'registerKey',
-  mintTokens = 'mintTokens',
-  sendTokens = 'sendTokens',
-  setTransactionCosts = 'setTransactionCosts',
-  setAccountInfo = 'setAccountInfo',
-  setAccountDelegateTx = 'setAccountDelegateTx',
-  collectFaucet = 'collectFaucet',
-  setKeykeeper = 'setKeykeeper',
-}
-
 export type TxForBlock = {
   hash: string;
   index: number;
-  type: TxType;
-};
-
-export type TxById = {
-  blockHeight: number;
-  hash: string;
-  id: number;
-  signature: string;
-  tx: string;
-  index: number;
-  payload: Tx;
+  type: TransactionType;
 };
 
 export interface ElectionRaw {
