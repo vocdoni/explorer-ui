@@ -26,7 +26,7 @@ export const JumpToPaginatedList = <Elements,>({
   loading,
   elementsList,
   totalElementsCount,
-  pageSize,
+  pageSize = 10,
   renderElementFunction,
   currentPage,
   setCurrentPage,
@@ -85,7 +85,7 @@ interface IUseInvertedPaginatedListProps {
 }
 
 export function useJumpToPaginatedList({
-  pageSize,
+  pageSize = 10,
   lastElement,
   loadingElements,
   jumpTo,

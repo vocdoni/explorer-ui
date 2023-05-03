@@ -7,12 +7,10 @@ export const DashboardShowTransactions = () => {
   const { i18n } = useTranslation();
   const { transactionCount } = useTransactionCount();
   const count = transactionCount === undefined ? '0' : transactionCount.toString();
-  const page_size = 10;
 
   return (
     <DashboardTransactionsList
       transactionHeight={transactionCount}
-      pageSize={page_size}
       title={
         <ListPage title={i18n.t('transactions.transactions')} subtitle={i18n.t('transactions.count') + ': ' + count} />
       }

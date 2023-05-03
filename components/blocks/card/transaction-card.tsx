@@ -1,33 +1,33 @@
 import { getPath } from '@components/pages/app/components/get-links';
 import { TRANSACTIONS_DETAILS } from '@const/routes';
 import { useTranslation } from 'react-i18next';
-import { TxById, TxType } from '@lib/types';
 import { TransactionTypeBadge } from '../badges/transaction-type-badge';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
 import { ensure0x } from '@vocdoni/common';
 import styled from 'styled-components';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
+import { IChainTxReference } from '@vocdoni/sdk';
 
 export const TransactionCard = ({
-  transactionData,
+  tx,
 }: GenericCardWrapperProps & {
-  transactionData: TxById;
+  tx: IChainTxReference;
 }) => {
   const { i18n } = useTranslation();
 
   const link = getPath(TRANSACTIONS_DETAILS, {
-    blockHeight: transactionData?.blockHeight?.toString(),
-    index: transactionData?.index?.toString() ?? '0',
+    blockHeight: tx?.blockHeight?.toString(),
+    index: tx?.transactionIndex?.toString() ?? '0',
   });
 
   const Top = () => (
     <>
-      <TransactionTypeBadge type={TxType[Object.keys(transactionData.payload)[0]]}></TransactionTypeBadge>
+      <TransactionTypeBadge type={tx.transactionType}></TransactionTypeBadge>
     </>
   );
 
   const Footer = () => {
-    const hash = ensure0x(transactionData?.hash);
+    const hash = ensure0x(tx?.transactionHash);
     return (
       <FooterWrapper>
         <div id="hash-text">
@@ -41,7 +41,7 @@ export const TransactionCard = ({
   return (
     <GenericCardWrapper link={link} top={<Top />} footer={<Footer />}>
       <>
-        <CardItemTitle>{'#' + transactionData?.id}</CardItemTitle>
+        <CardItemTitle>{'#' + tx?.transactionNumber}</CardItemTitle>
       </>
     </GenericCardWrapper>
   );
