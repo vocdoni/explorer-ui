@@ -7,6 +7,7 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
 
   txInfo = (txHash: string) => ChainAPI.txInfo(this.url, txHash);
   txInfoByBlock = (blockHeight: number, txIndex: number) => ChainAPI.txInfoByBlock(this.url, blockHeight, txIndex);
+  txList = (page?: number) => ChainAPI.txList(this.url, page);
   organizationList = (page?: number, organizationId?: string) =>
     ChainAPI.organizationList(this.url, page, organizationId);
   organizationCount = () => ChainAPI.organizationCount(this.url);
