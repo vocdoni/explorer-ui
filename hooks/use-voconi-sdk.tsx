@@ -131,3 +131,8 @@ export const useTransactionCount = () => {
     loading,
   };
 };
+
+export const useTxList = ({ page }: { page?: number }) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.txList, args: [page] });
+};
