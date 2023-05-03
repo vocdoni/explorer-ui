@@ -45,7 +45,7 @@ function useSDKFunction<T, U>({
 
   useEffect(() => {
     setData(null);
-    if (interval) {
+    if (interval && interval > 0) {
       const itv = setInterval(() => doCall(), interval);
       doCall();
       return () => clearInterval(itv);
@@ -63,6 +63,7 @@ export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts)
 
 export const useTxByBlock = ({ blockHeight, txIndex }: { blockHeight: number; txIndex: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return useSDKFunction({ promiseFn: client.txInfoByBlock, args: [blockHeight, txIndex] });
 };
@@ -133,6 +134,6 @@ export const useTransactionCount = () => {
 };
 
 export const useTxList = ({ page }: { page?: number }) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.txList, args: [page] });
 };
