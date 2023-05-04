@@ -8,12 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
-import { AdminTx, NewProcessTx, SetProcessTx, VoteEnvelope } from '@vocdoni/sdk';
+import { AdminTx, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
 import { useDateAtBlock } from '@vocdoni/react-hooks';
 import Link from 'next/link';
 import { OverflowScroll } from '@components/elements/styled-divs';
-import { Tx } from '@vocdoni/sdk/src/api/chain/index';
-import { TxType } from '@lib/types';
+import { Tx } from '@vocdoni/sdk';
 
 export const TransactionDetails = ({
   txIndex,
@@ -30,7 +29,7 @@ export const TransactionDetails = ({
   let belongsToEntity = '';
   let belongsToProcess = '';
   let votePackage = '';
-  const txType = Object.keys(transactionData)[0] as TxType;
+  const txType = Object.keys(transactionData)[0] as TransactionType;
 
   const ignoreKeys: string[] = [];
 
