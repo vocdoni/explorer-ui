@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Router from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Use a url query param to set paginator current page
@@ -14,8 +14,13 @@ export const usePaginatorRouter = ({
 }) => {
   const router = useRouter();
   const routerPage: number = +router.query.pg;
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false);
+      return;
+    }
     if (currentPage != routerPage) {
       Router.push({
         pathname: router.pathname,
@@ -26,5 +31,5 @@ export const usePaginatorRouter = ({
 
   useEffect(() => {
     if (routerPage && currentPage !== routerPage) onPageChange(routerPage);
-  }, [router.query.pg]);
+  }, [routerPage]);
 };
