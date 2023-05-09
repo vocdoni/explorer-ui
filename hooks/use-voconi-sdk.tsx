@@ -6,6 +6,10 @@ import i18n from '@i18n';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
+interface IHookOpts {
+  interval?: number;
+}
+
 function useSDKFunction<T, U>({
   promiseFn,
   args = [],
@@ -13,8 +17,7 @@ function useSDKFunction<T, U>({
 }: {
   promiseFn: (params?: U) => Promise<T>;
   args?: any[];
-  interval?: number;
-}) {
+} & IHookOpts) {
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
@@ -53,39 +56,43 @@ function useSDKFunction<T, U>({
   return { data, error, loading };
 }
 
-export const useTxByHash = ({ txHash }: { txHash: string }) => {
+export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.txInfo, args: [txHash] });
+  return useSDKFunction({ promiseFn: client.txInfo, args: [txHash], ...rest });
 };
 
 // export const useOrganizationList = ({ page }: { page: number }) => useSDKFunction(ChainAPI.organizationList, page);
 
-export const useOrganizationCount = () => {
+export const useOrganizationCount = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.organizationCount });
+  return useSDKFunction({ promiseFn: client.organizationCount, ...rest });
 };
 
-export const useValidators = () => {
+export const useValidators = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.validatorsList });
+  return useSDKFunction({ promiseFn: client.validatorsList, ...rest });
 };
 
-export const useVoteInfo = ({ voteId }: { voteId: string }) => {
+export const useVoteInfo = ({ voteId, ...rest }: { voteId: string } & IHookOpts) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.voteInfo, args: [voteId] });
+  return useSDKFunction({ promiseFn: client.voteInfo, args: [voteId], ...rest });
 };
 
-export const useElectionVotesList = ({ electionId, page }: { electionId: string; page?: number }) => {
+export const useElectionVotesList = ({
+  electionId,
+  page,
+  ...rest
+}: { electionId: string; page?: number } & IHookOpts) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.electionVotesList, args: [electionId, page] });
+  return useSDKFunction({ promiseFn: client.electionVotesList, args: [electionId, page], ...rest });
 };
 
-export const useElectionVotesCount = ({ electionId }: { electionId: string }) => {
+export const useElectionVotesCount = ({ electionId, ...rest }: { electionId: string } & IHookOpts) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.electionVotesCount, args: [electionId] });
+  return useSDKFunction({ promiseFn: client.electionVotesCount, args: [electionId], ...rest });
 };
 
-export const useChainInfo = () => {
+export const useChainInfo = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.chainInfo, interval: 15 * 1000 });
+  return useSDKFunction({ promiseFn: client.chainInfo, interval: rest.interval ? rest.interval : 15 * 1000 });
 };
