@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useClientContext } from '@vocdoni/react-components';
 import { ExtendedSDKClient } from '@lib/client';
+import { useAlertMessage } from './message-alert';
+import i18n from '@i18n';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -16,6 +18,7 @@ function useSDKFunction<T, U>({
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
+  const { setAlertMessage } = useAlertMessage();
 
   // Use useMemo to memoize the arguments and recompute only when they change
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,6 +33,7 @@ function useSDKFunction<T, U>({
       })
       .catch((err) => {
         setError(err);
+        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
       })
       .finally(() => {
         setLoading(false);
