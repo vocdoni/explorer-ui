@@ -6,6 +6,9 @@ import React, { ReactNode, useEffect, useState } from 'react';
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter';
 import { DashboardBlockItem } from './block-list-item';
+import { useBlockList } from '@hooks/use-voconi-sdk';
+import { IChainBlockInfoResponse } from '@vocdoni/sdk';
+import { BlockCard } from '@components/blocks/card/block-card';
 
 interface IDashboardBlockListProps {
   pageSize?: number;
@@ -15,8 +18,8 @@ interface IDashboardBlockListProps {
 
 export const DashboardBlockList = ({ pageSize, blockHeight, title }: IDashboardBlockListProps) => {
   // Render item on the list from it summary
-  const renderBlockItem = (block: BlockInfo) => {
-    return <DashboardBlockItem key={block.height} blockData={block} />;
+  const renderBlockItem = (block: IChainBlockInfoResponse) => {
+    return <BlockCard blockData={blockData} />;
   };
   // // Current paginator page
   const [filter, setFilter] = useState<IFilterBlocks>({});
@@ -25,12 +28,7 @@ export const DashboardBlockList = ({ pageSize, blockHeight, title }: IDashboardB
   // Current from offset calling the backend
   const [dataPagination, setDataPagination] = useState<number>();
 
-  const { recentBlocks: blockList, loading: loadingBlockList } = useBlocks({
-    from: dataPagination,
-    listSize: pageSize,
-    refreshTime: 0,
-    reverse: true,
-  });
+  const { data: blockList, loading: loadingBlockList } = useBlockList({ from: dataPagination });
 
   const {
     loading,
