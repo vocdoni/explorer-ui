@@ -37,22 +37,6 @@ export async function fetchMethod(
 
 // VOCDONI API wrappers
 
-/** Fetches the process parameters and metadata for the given entity */
-export async function getProcesses(entityId: string, pool: GatewayPool): Promise<ProcessDetails[]> {
-  try {
-    const list = await getProcessList(entityId, pool);
-    const allProcess = list.map((processId) => getProcessInfo(processId, pool));
-    const allProcessesInformation = await Promise.allSettled(allProcess);
-    const sanitizeProccesses = (p) => {
-      if (p.status === 'fulfilled') return p.value;
-    };
-    return allProcessesInformation.map(sanitizeProccesses);
-  } catch (err) {
-    if (err?.message?.includes('Key not found')) return [];
-    throw err;
-  }
-}
-
 export async function getProcessInfo(processId: string, pool: GatewayPool): Promise<ProcessDetails> {
   return VotingApi.getProcess(processId, pool);
 }
@@ -78,24 +62,4 @@ export async function getProcessList(entityId: string, pool: GatewayPool): Promi
     result = result.concat(processList.map((id) => '0x' + id));
     from += processList.length;
   }
-}
-
-/** Get n transactions by height */
-export async function getTxListById(id: number, listSize: number, pool: GatewayPool): Promise<string[]> {
-  const promises = [];
-  for (let i = 0; i < listSize; i++) {
-    // todo: this method is not exposed yet
-    promises.push(
-      fetchMethod(pool, {
-        method: 'getTxById',
-        params: {
-          id: id + i,
-        },
-      })
-    );
-  }
-  return Promise.all(promises).then((txById) => {
-    // flatten the array[][] into array[]
-    return txById.reduce((prev, cur) => prev.concat(cur), []).filter((obj) => obj['response']['ok']);
-  });
 }

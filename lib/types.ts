@@ -10,51 +10,6 @@ import { BigNumber } from 'ethers';
 import { Vochain } from '@vocdoni/proto';
 import { TransactionType } from '@vocdoni/sdk';
 
-export enum VotingType {
-  Normal = ProcessCensusOrigin.OFF_CHAIN_TREE,
-  Weighted = ProcessCensusOrigin.OFF_CHAIN_TREE_WEIGHTED,
-  Anonymous = 3,
-}
-
-export interface IProcessResults extends ProcessResultsSingleChoice {
-  totalWeightedVotes?: BigNumber;
-}
-
-// IndexDB types
-export enum AccountStatus {
-  Wallet,
-  Media,
-  BalanceRequested,
-  Balance,
-  Metadata,
-  Ready,
-}
-
-export type Account = {
-  name: string;
-  encryptedMnemonic: string;
-  hdPath?: string;
-  locale?: string;
-  address: string;
-  hasBackup?: boolean;
-  status?: AccountStatus;
-  pending?: {
-    creation: boolean;
-    metadata: EntityMetadata;
-    email: string;
-  };
-};
-
-// Shared types
-
-export interface IProcessesSummary {
-  id: string;
-  summary: ProcessSummary;
-  metadata?: ProcessMetadata;
-}
-
-export type Nullable<T> = T | null;
-
 // Stats types
 
 export type BlockInfo = {
