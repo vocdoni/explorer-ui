@@ -9,7 +9,7 @@ import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';
-import { EntityCardMedium } from '@components/blocks/card/entity-card';
+import { OrganizationCardMedium } from '@components/blocks/card/entity-card';
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge';
 import { CensusOriginBadge } from '../components/process-censusorigin-badge';
 import { ProcessModeBadge } from '../components/process-processmode-badge';
@@ -77,9 +77,9 @@ const ProcessesDetailPage = () => {
 
       {/* Three cards grid with various info */}
       <Grid>
-        <EntityCardMedium md={6} icon={entityMetadata?.media?.avatar} entityId={organizationId}>
+        <OrganizationCardMedium md={6} icon={entityMetadata?.media?.avatar} entityId={organizationId}>
           {entityMetadata?.name?.default ? entityMetadata?.name?.default : organizationId}
-        </EntityCardMedium>
+        </OrganizationCardMedium>
         <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
           <h2>{election.voteCount || 0}</h2>
         </StatusCard>

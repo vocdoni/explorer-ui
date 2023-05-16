@@ -12,7 +12,7 @@ import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
 
-export const ReducedEntityNameWithIcon = ({
+export const ReducedOrganizationNameWithIcon = ({
   icon,
   entityName,
   entityId,
@@ -25,16 +25,16 @@ export const ReducedEntityNameWithIcon = ({
 }) => {
   const w = iconWidth ?? '25px';
   return (
-    <EntityNameAndLogoWrapper>
+    <OrganizationNameAndLogoWrapper>
       <ImageContainer width={w} height={w}>
         <Image src={icon || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
       <ReducedTextAndCopy toCopy={entityId} text={entityName} />
-    </EntityNameAndLogoWrapper>
+    </OrganizationNameAndLogoWrapper>
   );
 };
 
-type EntityCardMediumProps = {
+type OrganizationCardMediumProps = {
   md: number;
   entityId: string;
   children: ReactNode;
@@ -42,7 +42,7 @@ type EntityCardMediumProps = {
 };
 
 // Wrap a entityId into a link to its entity page and an icon.
-export const EntityCardMedium = ({ icon, entityId, md, children }: EntityCardMediumProps) => {
+export const OrganizationCardMedium = ({ icon, entityId, md, children }: OrganizationCardMediumProps) => {
   const { i18n } = useTranslation();
   return (
     <StatusCard
@@ -56,13 +56,13 @@ export const EntityCardMedium = ({ icon, entityId, md, children }: EntityCardMed
             <Image src={icon || FALLBACK_ACCOUNT_ICON} />
           </ImageContainer>
         </CenterLogo>
-        <EntityNameBig>{children}</EntityNameBig>
+        <OrganizationNameBig>{children}</OrganizationNameBig>
       </FlexContainer>
     </StatusCard>
   );
 };
 
-export const EntityCard = ({
+export const OrganizationCard = ({
   entityId,
   entityLogo,
   entityName,
@@ -90,13 +90,13 @@ export const EntityCard = ({
       <BreakWord>
         <CardItemTitle>{entityName}</CardItemTitle>
       </BreakWord>
-      <EntityWrapper>
+      <OrganizationWrapper>
         <ReducedTextAndCopy
           toCopy={entityId}
           text={entityId}
           copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')}
         ></ReducedTextAndCopy>
-      </EntityWrapper>
+      </OrganizationWrapper>
       <CardItemSubTitle>
         <strong>{i18n.t('organizations.list.processes')}: </strong> {processCount}
       </CardItemSubTitle>
@@ -118,11 +118,11 @@ export const EntityCard = ({
   );
 };
 
-const EntityWrapper = styled.div`
+const OrganizationWrapper = styled.div`
   color: ${(props) => props.theme.textAccent1};
 `;
 
-const EntityNameBig = styled.h4`
+const OrganizationNameBig = styled.h4`
   display: inline-block;
   font-weight: bold;
   overflow: hidden;
@@ -136,7 +136,7 @@ const CenterLogo = styled.div`
   margin-right: 10px;
 `;
 
-const EntityNameAndLogoWrapper = styled.div`
+const OrganizationNameAndLogoWrapper = styled.div`
   display: flex;
   column-gap: 10px;
   justify-content: space-between;
