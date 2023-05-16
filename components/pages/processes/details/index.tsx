@@ -21,7 +21,7 @@ import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
-import { Markdown } from '@vocdoni/react-components';
+import { Markdown } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 

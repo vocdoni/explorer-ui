@@ -3,7 +3,7 @@ import ProcessDetailPage from '@components/pages/processes/details';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
-import { ElectionProvider, useElection } from '@vocdoni/react-components';
+import { ElectionProvider, useElection } from '@vocdoni/chakra-components';
 
 const ProcessesDetailPage = () => {
   const { loading, election } = useElection();

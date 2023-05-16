@@ -1,4 +1,4 @@
-import { useElection } from '@vocdoni/react-components';
+import { useElection } from '@vocdoni/chakra-components';
 import { ElectionRaw } from '@lib/types';
 import { BigNumber } from 'ethers';
 import { Vochain } from '@vocdoni/proto';
