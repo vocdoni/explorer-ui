@@ -61,7 +61,14 @@ export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts)
   return useSDKFunction({ promiseFn: client.txInfo, args: [txHash], ...rest });
 };
 
-// export const useOrganizationList = ({ page }: { page: number }) => useSDKFunction(ChainAPI.organizationList, page);
+export const useOrganizationList = ({
+  page,
+  organizationId,
+  ...rest
+}: { page: number; organizationId?: string } & IHookOpts) => {
+  const { client } = useClientContext<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.organizationList, args: [page, organizationId], ...rest });
+};
 
 export const useOrganizationCount = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClient<ExtendedSDKClient>();
