@@ -11,7 +11,7 @@ export interface IFilterEntity {
   searchTerm?: string;
 }
 
-export const EntitiesFilter = ({ onEnableFilter }: { onEnableFilter: { (tempFilter: IFilterEntity): void } }) => {
+export const OrganizationsFilter = ({ onEnableFilter }: { onEnableFilter: { (tempFilter: IFilterEntity): void } }) => {
   const { i18n } = useTranslation();
 
   const [searchTermIT, setSearchTermIT] = useState('');
