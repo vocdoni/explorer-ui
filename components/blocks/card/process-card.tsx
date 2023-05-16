@@ -4,7 +4,7 @@ import { SummaryProcess, useBlockHeight, useEntity } from '@vocdoni/react-hooks'
 import { EntityMetadata, ProcessSummary } from 'dvote-js';
 import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge';
 import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic';
-import { ReducedEntityNameWithIcon } from './entity-card';
+import { ReducedOrganizationNameWithIcon } from './entity-card';
 import { ensure0x } from '@vocdoni/common';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
 import { getVoteStatus } from '@lib/util';
@@ -32,13 +32,13 @@ export const ProcessCard = ({ process, entityId, link }: ProcessCardProps) => {
   );
 
   const Footer = () => (
-    <EntityWrapper>
-      <ReducedEntityNameWithIcon
+    <OrganizationWrapper>
+      <ReducedOrganizationNameWithIcon
         entityName={entityName}
         entityId={entityId}
         icon={entityLogo}
-      ></ReducedEntityNameWithIcon>
-    </EntityWrapper>
+      ></ReducedOrganizationNameWithIcon>
+    </OrganizationWrapper>
   );
 
   return (
@@ -66,7 +66,7 @@ const StatusBadgeAndTimeLeft = ({ summary }: { summary?: ProcessSummary }) => {
   );
 };
 
-const EntityWrapper = styled.div`
+const OrganizationWrapper = styled.div`
   color: ${(props) => props.theme.textAccent1};
 `;
 
