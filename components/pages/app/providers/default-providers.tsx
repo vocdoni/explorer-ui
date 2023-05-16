@@ -8,7 +8,7 @@ import { ChakraProvider } from '@chakra-ui/provider';
 import chakraDefaultTheme from '@theme/chakra';
 import { ExtendedSDKClient } from '@lib/client';
 import { EnvOptions } from '@vocdoni/sdk';
-import { ClientProvider } from '@vocdoni/react-components';
+import { ClientProvider } from '@vocdoni/chakra-components';
 
 interface IDefaultProvidersProps {
   children: ReactNode;

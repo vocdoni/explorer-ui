@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useClientContext } from '@vocdoni/react-components';
+import { useClient } from '@vocdoni/chakra-components';
 import { ExtendedSDKClient } from '@lib/client';
 import { useAlertMessage } from './message-alert';
 import i18n from '@i18n';
@@ -57,24 +57,24 @@ function useSDKFunction<T, U>({
 }
 
 export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.txInfo, args: [txHash], ...rest });
 };
 
 // export const useOrganizationList = ({ page }: { page: number }) => useSDKFunction(ChainAPI.organizationList, page);
 
 export const useOrganizationCount = ({ ...rest }: IHookOpts = {}) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.organizationCount, ...rest });
 };
 
 export const useValidators = ({ ...rest }: IHookOpts = {}) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.validatorsList, ...rest });
 };
 
 export const useVoteInfo = ({ voteId, ...rest }: { voteId: string } & IHookOpts) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.voteInfo, args: [voteId], ...rest });
 };
 
@@ -83,16 +83,16 @@ export const useElectionVotesList = ({
   page,
   ...rest
 }: { electionId: string; page?: number } & IHookOpts) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.electionVotesList, args: [electionId, page], ...rest });
 };
 
 export const useElectionVotesCount = ({ electionId, ...rest }: { electionId: string } & IHookOpts) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.electionVotesCount, args: [electionId], ...rest });
 };
 
 export const useChainInfo = ({ ...rest }: IHookOpts = {}) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.chainInfo, interval: rest.interval ? rest.interval : 15 * 1000 });
 };

@@ -2552,6 +2552,11 @@
     snarkjs "^0.4.10"
     universal-parse-url "^1.0.2"
 
+"@vocdoni/chakra-components@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.1.9.tgz#3ac1f999189b7933aee9045735b776333fa8a934"
+  integrity sha512-yajfdwo7a7PQ0bkbxbcAzEM0o8mY9QGL5iROQVGklxj59jr97f2JnzzCX2GsPk1eYAJl2Tce+H4jL5fZAdRPzA==
+
 "@vocdoni/client@^1.16.0", "@vocdoni/client@^1.16.5", "@vocdoni/client@^1.16.6":
   version "1.16.8"
   resolved "https://registry.yarnpkg.com/@vocdoni/client/-/client-1.16.8.tgz#eea877c9fe31fc6e815345a9bd13612474bb7868"
@@ -2638,11 +2643,6 @@
   dependencies:
     long "^5.2.1"
     protobufjs "^7.1.2"
-
-"@vocdoni/react-components@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@vocdoni/react-components/-/react-components-0.0.9.tgz#0130f7a8640560ab015d6975c138b6c5110e0ac3"
-  integrity sha512-j5JXcvFcubKUJ+P60r+PCNf23a7zT04mvF5D7pFKvk78VLVgK2INyw4TPooHeuhtOLR3gWfbyINAV1HxHL7Lrw==
 
 "@vocdoni/react-hooks@0.15.0":
   version "0.15.0"
