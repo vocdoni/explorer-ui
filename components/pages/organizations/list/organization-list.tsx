@@ -1,8 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 
-import { EntitiesFilter, IFilterEntity } from '../components/entities-filter';
+import { OrganizationsFilter, IFilterEntity } from '../components/organizations-filter';
 import { useEntityList } from '@hooks/use-entities';
-import { DashboardEntityListItem } from './entity-list-item';
+import { DashboardEntityListItem } from './organization-list-item';
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import {
   FilteredPaginatedList,
@@ -50,7 +50,7 @@ export const DashboardEntityList = ({ pageSize = 8, totalCount, title }: IDashbo
   return (
     <>
       <InlineTitleChildrenContainer title={title}>
-        <EntitiesFilter onEnableFilter={enableFilter}></EntitiesFilter>
+        <OrganizationsFilter onEnableFilter={enableFilter}></OrganizationsFilter>
       </InlineTitleChildrenContainer>
 
       <FilteredPaginatedList
