@@ -204,8 +204,6 @@
       "organization_processes": "Processos de l'organització"
     },
     "filter": {
-      "search": "Cercar",
-      "search_by_processId_or_organization": "Cerca per procés o organització",
       "search_by_org_address": "Cerca per id de l'organització"
     },
     "list": {
