@@ -9,8 +9,7 @@
     },
     "filter": {
       "search": "buscar",
-      "search_by_processId_or_organization": "Buscar por proceso u organización",
-      "search_by_org_address": "Buscar por id de organización"
+      "search_by_processId_or_organization": "Buscar por proceso u organización"
     },
     "list": {
       "blocks": "Bloques",
@@ -206,7 +205,7 @@
       "organization_processes": "Procesos de la organización"
     },
     "filter": {
-      "search": "Buscar"
+      "search_by_org_address": "Buscar por id de organización"
     },
     "list": {
       "organizations_list_title": "Lista de organizaciones",
