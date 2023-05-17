@@ -1,4 +1,5 @@
 import { ChainAPI, ClientOptions, ElectionAPI, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
+import { IElectionListFilter } from '../../VocdoniStack/vocdoni-sdk/src';
 
 export class ExtendedSDKClient extends VocdoniSDKClient {
   constructor(opts: ClientOptions) {
@@ -16,4 +17,5 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
   electionVotesList = (electionId: string, page?: number) => ElectionAPI.votesList(this.url, electionId, page);
   electionVotesCount = (electionId: string) => ElectionAPI.votesCount(this.url, electionId);
+  electionList = (page: number, filter?: IElectionListFilter) => ElectionAPI.electionsList(this.url, page, filter);
 }

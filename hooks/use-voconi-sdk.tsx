@@ -3,6 +3,7 @@ import { useClient } from '@vocdoni/chakra-components';
 import { ExtendedSDKClient } from '@lib/client';
 import { useAlertMessage } from './message-alert';
 import i18n from '@i18n';
+import { IElectionListFilter } from '../../VocdoniStack/vocdoni-sdk/src';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -136,4 +137,13 @@ export const useTransactionCount = () => {
 export const useTxList = ({ page }: { page?: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.txList, args: [page] });
+};
+
+export const useElectionList = ({
+  page,
+  filter,
+  ...rest
+}: { page: number; filter?: IElectionListFilter } & IHookOpts) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.electionList, args: [page, filter], ...rest });
 };
