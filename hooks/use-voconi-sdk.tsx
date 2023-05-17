@@ -66,7 +66,7 @@ export const useOrganizationList = ({
   organizationId,
   ...rest
 }: { page: number; organizationId?: string } & IHookOpts) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
+  const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.organizationList, args: [page, organizationId], ...rest });
 };
 
