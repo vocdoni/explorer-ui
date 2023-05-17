@@ -1,13 +1,16 @@
 import React, { ReactNode, useState } from 'react';
 
 import { OrganizationsFilter, IFilterEntity } from '../components/organizations-filter';
-import { useEntityList } from '@hooks/use-entities';
-import { DashboardEntityListItem } from './organization-list-item';
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import {
   FilteredPaginatedList,
   useFilteredPaginatedList,
+  useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
+import { useOrganizationList } from '@hooks/use-voconi-sdk';
+import { IChainOrganizationResponse } from '../../../../../VocdoniStack/vocdoni-sdk/src';
+import { OrganizationProvider } from '@vocdoni/chakra-components';
+import { OrganizationCard } from '@components/blocks/card/entity-card';
 
 interface IDashboardProcessListProps {
   loading?: boolean;
@@ -18,33 +21,32 @@ interface IDashboardProcessListProps {
 
 export const DashboardEntityList = ({ pageSize = 8, totalCount, title }: IDashboardProcessListProps) => {
   // Render item on the list from it summary
-  const renderProcessItem = (identity: string) => {
+  const renderProcessItem = (identity: IChainOrganizationResponse, i: number) => {
     return (
-      <div key={identity}>
-        <DashboardEntityListItem entityId={identity} />
+      <div key={i}>
+        <OrganizationProvider id={identity.organizationID}>
+          <OrganizationCard electionCount={identity.electionCount} organizationId={identity.organizationID} />
+        </OrganizationProvider>
       </div>
     );
   };
   const [filter, setFilter] = useState<IFilterEntity>({});
-  const [dataPagination, setDataPagination] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { entitiesList, loading } = useEntityList({
-    from: dataPagination,
-    searchTerm: filter?.searchTerm,
-    listSize: pageSize,
-    reverse: true,
+  const { data, loading } = useOrganizationList({
+    page: currentPage - 1,
+    organizationId: filter?.searchTerm,
   });
+
+  const entitiesList = data?.organizations ?? [];
 
   // View logic
   const {
-    currentPage,
-    methods: { enableFilter, setCurrentPage },
-  } = useFilteredPaginatedList<IFilterEntity>({
-    pageSize,
+    methods: { enableFilter },
+  } = useFilteredSDKPaginatedList<IFilterEntity>({
     filter,
     setFilter,
-    setDataPagination,
-    lastElement: totalCount + 1,
+    setCurrentPage,
   });
 
   return (

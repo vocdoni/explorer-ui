@@ -11,6 +11,7 @@ import { getOrganizationPath } from '@components/pages/app/components/get-links'
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
+import { useOrganization } from '@vocdoni/chakra-components';
 
 export const ReducedOrganizationNameWithIcon = ({
   icon,
@@ -63,19 +64,20 @@ export const OrganizationCardMedium = ({ icon, entityId, md, children }: Organiz
 };
 
 export const OrganizationCard = ({
-  entityId,
-  entityLogo,
-  entityName,
-  processCount,
-  link,
+  organizationId,
+  electionCount,
 }: {
-  entityId: string;
-  entityLogo: string;
-  entityName: string;
-  processCount: number;
-  link: string;
+  organizationId?: string;
+  electionCount?: number;
 }) => {
   const { i18n } = useTranslation();
+  const { organization } = useOrganization();
+  const link = getOrganizationPath(organizationId);
+
+  const id = organization?.address ?? organizationId ?? '';
+  const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
+  const entityLogo = organization?.account?.logo;
+  const electionIndex = organization?.electionIndex ?? electionCount ?? '';
 
   const w = '40px';
 
@@ -88,31 +90,23 @@ export const OrganizationCard = ({
   const Body = () => (
     <BodyWrapper>
       <BreakWord>
-        <CardItemTitle>{entityName}</CardItemTitle>
+        <CardItemTitle>{orgName}</CardItemTitle>
       </BreakWord>
       <OrganizationWrapper>
         <ReducedTextAndCopy
-          toCopy={entityId}
-          text={entityId}
+          toCopy={id}
+          text={id}
           copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')}
         ></ReducedTextAndCopy>
       </OrganizationWrapper>
       <CardItemSubTitle>
-        <strong>{i18n.t('organizations.list.processes')}: </strong> {processCount}
+        <strong>{i18n.t('organizations.list.processes')}: </strong> {electionIndex}
       </CardItemSubTitle>
     </BodyWrapper>
   );
 
-  // const Footer = () => (
-  //
-  // )
-
   return (
-    <GenericCardWrapper
-      left={<EntityLogo />}
-      link={link}
-      // footer={<Footer />}
-    >
+    <GenericCardWrapper left={<EntityLogo />} link={link}>
       <Body />
     </GenericCardWrapper>
   );
