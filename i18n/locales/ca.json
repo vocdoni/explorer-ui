@@ -261,6 +261,7 @@
     "filter": {
       "search": "Cercar",
       "show_only_processes_with_results": "Mostrar només processos amb resultats",
+      "search_by_processId_or_organization": "Cerca per procés o organització",
       "status_selector": {
         "all": "Tots",
         "ended": "Finalitzats",
