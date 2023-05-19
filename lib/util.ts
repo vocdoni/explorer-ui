@@ -1,6 +1,3 @@
-import { ProcessSummary, VochainProcessStatus as ProcessStatus } from 'dvote-js';
-import { ElectionStatus } from '@vocdoni/sdk';
-
 export const areAllNumbers = (slice: any[]) => {
   for (let i = 0; i < slice.length; i++) {
     if (typeof slice[i] !== 'number') {
@@ -59,50 +56,6 @@ export function waitBlockFraction(factor = 1) {
 
   return new Promise((resolve) => setTimeout(resolve, Math.floor(delay)));
 }
-
-export enum VoteStatus {
-  Unknown = -1,
-  Active,
-  Paused,
-  Ended,
-  Canceled,
-  Upcoming,
-}
-
-export const getVoteStatus = (state: ProcessSummary, currentBlock?): ElectionStatus => {
-  if (state === undefined || currentBlock === undefined) return ElectionStatus.PROCESS_UNKNOWN;
-
-  const processStatus = state.status;
-  const startBlock = state.startBlock;
-  const endBlock = state.endBlock;
-
-  switch (processStatus) {
-    case ProcessStatus.READY:
-      if (startBlock == undefined || currentBlock == undefined) return ElectionStatus.PROCESS_UNKNOWN;
-      if (startBlock > currentBlock) return ElectionStatus.UPCOMING;
-      if (currentBlock > endBlock) return ElectionStatus.ENDED;
-
-      return ElectionStatus.ONGOING;
-    // todo(kon): this is how the sdk solve this, meanwhile the RPC return startDate always undefined, so lets continue using this way.
-    // This function will be deprecated when migrating all to the SDK
-    // return state.startDate <= new Date() ? ElectionStatus.ONGOING : ElectionStatus.UPCOMING;
-
-    case ProcessStatus.ENDED:
-      return ElectionStatus.ENDED;
-
-    case ProcessStatus.PAUSED:
-      return ElectionStatus.PAUSED;
-
-    case ProcessStatus.CANCELED:
-      return ElectionStatus.CANCELED;
-
-    case ProcessStatus.RESULTS:
-      return ElectionStatus.ENDED;
-
-    default:
-      return ElectionStatus.PROCESS_UNKNOWN;
-  }
-};
 
 export function hasDuplicates<T>(values: T[]): boolean {
   const seen: T[] = [];
