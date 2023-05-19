@@ -33,12 +33,11 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
 
   // Get processes
   const { data: processes, loading } = useElectionList({
-    page: 35, // todo(kon)
+    page: 0, // todo(kon)
     filter: {
       electionId: filter?.searchTerm,
       status: filter?.status,
       withResults: filter?.withResults,
-      organizationId: filter?.searchTerm,
     },
   });
 
