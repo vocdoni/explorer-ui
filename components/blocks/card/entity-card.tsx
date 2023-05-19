@@ -20,7 +20,9 @@ export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizati
   const entityName =
     organization?.account?.name?.default && organization?.account?.name?.default.length > 0
       ? organization?.account?.name?.default
-      : ensure0x(organizationId);
+      : organizationId
+      ? ensure0x(organizationId)
+      : '';
 
   const w = '25px';
   return (
