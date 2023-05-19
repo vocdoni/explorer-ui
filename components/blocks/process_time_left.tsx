@@ -22,6 +22,13 @@ export const ProcessTimeLeft = ({
       break;
     }
 
+    case ElectionStatus.RESULTS: {
+      if (new Date(endDate) < new Date()) {
+        date = i18n.t('dashboard.process_ended');
+      } else date = localizedDateDiff(endDate);
+      break;
+    }
+
     case ElectionStatus.ENDED:
       date = i18n.t('dashboard.process_ended');
       break;
