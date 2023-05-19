@@ -186,3 +186,47 @@ export function useFilteredSDKPaginatedList<Filter>({
     },
   };
 }
+
+interface IUsePaginatedSDKListProps<Filter> {
+  setCurrentPage: (newIndex: number) => void;
+  filter: Filter;
+  setFilter: (Filter: Filter) => void;
+}
+
+export function useFilteredSDKPaginatedList<Filter>({
+  filter,
+  setFilter,
+  setCurrentPage,
+}: IUsePaginatedSDKListProps<Filter>) {
+  // Return true if two JSON.stringify objects are equal
+  const compareJSONObjects = (obj1, obj2) => JSON.stringify(obj1) === JSON.stringify(obj2);
+
+  // Set the page at initial state
+  const resetPage = useCallback(() => {
+    setCurrentPage(0);
+  }, [setCurrentPage]);
+
+  const enableFilter = (tempFilter) => {
+    if (!compareJSONObjects(filter, tempFilter)) {
+      resetPage();
+      setFilter({ ...tempFilter });
+    }
+  };
+
+  const disableFilter = (tempFilter, resetForm: { (): void }) => {
+    resetForm();
+    if (
+      Object.keys(filter).length !== 0 // Check if filter is already reset
+    ) {
+      resetPage();
+      setFilter({} as Filter);
+    }
+  };
+
+  return {
+    methods: {
+      enableFilter,
+      disableFilter,
+    },
+  };
+}
