@@ -12,25 +12,23 @@ import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
 import { useOrganization } from '@vocdoni/chakra-components';
+import { ensure0x } from '@vocdoni/common';
 
-export const ReducedOrganizationNameWithIcon = ({
-  icon,
-  entityName,
-  entityId,
-  iconWidth,
-}: {
-  entityName: string;
-  entityId: string;
-  icon: string;
-  iconWidth?: string;
-}) => {
-  const w = iconWidth ?? '25px';
+export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
+  const { organization } = useOrganization();
+
+  const entityName =
+    organization?.account?.name?.default && organization?.account?.name?.default.length > 0
+      ? organization?.account?.name?.default
+      : ensure0x(organizationId);
+
+  const w = '25px';
   return (
     <OrganizationNameAndLogoWrapper>
       <ImageContainer width={w} height={w}>
-        <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+        <Image src={organization?.account?.logo || FALLBACK_ACCOUNT_ICON} />
       </ImageContainer>
-      <ReducedTextAndCopy toCopy={entityId} text={entityName} />
+      <ReducedTextAndCopy toCopy={organizationId} text={entityName} />
     </OrganizationNameAndLogoWrapper>
   );
 };
