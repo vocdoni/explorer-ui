@@ -1,5 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { SummaryProcess, useProcesses } from '@vocdoni/react-hooks';
+import React, { ReactNode, useState } from 'react';
 
 import { ProcessFilter } from '../components/process-filter';
 import {
@@ -7,14 +6,14 @@ import {
   FilteredPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
 import { useElectionList } from '@hooks/use-voconi-sdk';
-import { IElectionListFilter, IElectionListResponse, IElectionSummary } from '@vocdoni/sdk';
+import { IElectionListFilter, IElectionSummary } from '@vocdoni/sdk';
 import { ElectionCard } from '@components/blocks/card/process-card';
 
-type StatusType = IElectionListFilter['status'];
+export type ElectionStatusType = IElectionListFilter['status'];
 
 // Used to send filter to the useProcessesList hook
 export interface IFilterProcesses {
-  status?: StatusType;
+  status?: ElectionStatusType;
   withResults?: boolean;
   searchTerm?: string;
   entityId?: string;

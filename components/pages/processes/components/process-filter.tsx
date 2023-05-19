@@ -1,5 +1,4 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { VochainProcessStatus } from 'dvote-js';
 import { useTranslation } from 'react-i18next';
 import { Column, ColumnDiv, Grid } from '@components/elements/grid';
 import { colors } from '@theme/colors';
@@ -7,13 +6,14 @@ import { InputSearch } from '@components/elements/inputs';
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { Checkbox } from '@components/elements/checkbox';
-import { IFilterProcesses } from '../list/process-list';
+import { ElectionStatusType, IFilterProcesses } from '../list/process-list';
 import { DivWithMarginChildren } from '@components/elements/styled-divs';
 import { FilterForm } from '@components/pages/app/page-templates/filter-form';
 import { isInValidEntityId } from '@lib/util';
 import { DELAY_BOUNCE_TIME } from '@const/filters';
 import { TopDiv } from '@components/pages/app/page-templates/list-page';
 import { IRadioOpts, RadioGroup } from '@components/elements/radio';
+import { ElectionStatus, ElectionStatusReady } from '@vocdoni/sdk';
 
 export const ProcessFilter = ({
   onEnableFilter,
@@ -117,19 +117,19 @@ const ProcessStatusSelector = ({
   const opts: IRadioOpts[] = [
     {
       label: i18n.t('processes.filter.status_selector.all'),
-      key: 'ALL',
+      key: null,
     },
     {
       label: i18n.t('processes.filter.status_selector.active'),
-      key: 'RESULTS',
+      key: ElectionStatusReady.READY,
     },
     {
       label: i18n.t('processes.filter.status_selector.paused'),
-      key: 'PAUSED',
+      key: ElectionStatus.PAUSED,
     },
     {
       label: i18n.t('processes.filter.status_selector.ended'),
-      key: 'ENDED',
+      key: ElectionStatus.ENDED,
     },
   ];
 
@@ -139,10 +139,7 @@ const ProcessStatusSelector = ({
         name={'process-filter'}
         defaultValue={'ALL'}
         onChange={(value) => {
-          if (value === 'ALL') tempFilter.status = null;
-          else {
-            tempFilter.status = VochainProcessStatus[value as string] as unknown as VochainProcessStatus;
-          }
+          tempFilter.status = value as ElectionStatusType;
           setTempFilter(Object.assign({}, tempFilter));
         }}
         options={opts}
