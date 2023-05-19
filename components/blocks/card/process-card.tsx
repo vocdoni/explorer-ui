@@ -30,17 +30,19 @@ export const ElectionCard = ({ electionId, ...rest }: ProcessCardProps) => {
 };
 
 const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: ProcessCardProps) => {
-  const { election } = useElection();
+  const { election, loading: electionLoading } = useElection();
   const link = getPath(PROCESS_DETAILS, {
     electionId: electionId,
   });
 
   const anonymous = election?.electionType?.anonymous ?? false;
-  const startDate = election?.startDate ?? new Date(electionSummary.startDate);
-  const endDate = election?.endDate ?? new Date(electionSummary.endDate);
-  const title = election?.title?.default ?? electionSummary.electionId;
-  const organizationId = election?.organizationId ?? electionSummary.organizationId;
-  const status = election?.status ?? getVoteStatus(electionSummary.status, startDate); // todo(kon): fix types here
+  const startDate = election?.startDate ?? new Date(electionSummary?.startDate) ?? null;
+  const endDate = election?.endDate ?? new Date(electionSummary?.endDate) ?? null;
+  const title = election?.title?.default ?? electionId;
+  const organizationId = election?.organizationId ?? electionSummary?.organizationId ?? null;
+  const status = election?.status ?? getVoteStatus(electionSummary?.status, startDate) ?? null;
+
+  const loading = electionLoading && !electionSummary;
 
   const Top = () => (
     <TopWrapper>
@@ -59,11 +61,13 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
   );
 
   return (
-    <GenericCardWrapper link={link} top={<Top />} footer={<Footer />} {...rest}>
-      <BodyWrapper>
-        <CardItemTitle>{title}</CardItemTitle>
-      </BodyWrapper>
-    </GenericCardWrapper>
+    !loading && (
+      <GenericCardWrapper link={link} top={<Top />} footer={<Footer />} {...rest}>
+        <BodyWrapper>
+          <CardItemTitle>{title}</CardItemTitle>
+        </BodyWrapper>
+      </GenericCardWrapper>
+    )
   );
 };
 
