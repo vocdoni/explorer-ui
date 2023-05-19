@@ -109,7 +109,11 @@ export const useElectionList = ({
   page,
   filter,
   ...rest
-}: { page: number; filter?: IElectionListFilter } & IHookOpts) => {
+}: { page: number; filter: IElectionListFilter } & IHookOpts) => {
   const { client } = useClient<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.electionList, args: [page, filter], ...rest });
+  return useSDKFunction({
+    promiseFn: client.electionList,
+    args: [page, filter.electionId, filter.organizationId, filter.status, filter.withResults],
+    ...rest,
+  });
 };

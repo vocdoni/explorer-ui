@@ -15,5 +15,11 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
   electionVotesList = (electionId: string, page?: number) => ElectionAPI.votesList(this.url, electionId, page);
   electionVotesCount = (electionId: string) => ElectionAPI.votesCount(this.url, electionId);
-  electionList = (page: number, filter?: IElectionListFilter) => ElectionAPI.electionsList(this.url, page, filter);
+  electionList = (page: number, electionId?: string, organizationId?: string, status?: any, withResults?: boolean) =>
+    ElectionAPI.electionsList(this.url, page, {
+      electionId,
+      organizationId,
+      status,
+      withResults,
+    });
 }
