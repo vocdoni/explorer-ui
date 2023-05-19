@@ -2,8 +2,8 @@ import React, { ReactNode, useState } from 'react';
 
 import { ProcessFilter } from '../components/process-filter';
 import {
-  useFilteredPaginatedList,
   FilteredPaginatedList,
+  useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
 import { useElectionList } from '@hooks/use-voconi-sdk';
 import { IElectionListFilter, IElectionSummary } from '@vocdoni/sdk';
@@ -28,11 +28,11 @@ interface IDashboardProcessListProps {
 
 export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDashboardProcessListProps) => {
   const [filter, setFilter] = useState<IFilterProcesses>({});
-  const [dataPagination, setDataPagination] = useState<number>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Get processes
   const { data: processes, loading } = useElectionList({
-    page: 0, // todo(kon)
+    page: currentPage - 1,
     filter: {
       electionId: filter?.searchTerm,
       status: filter?.status,
@@ -51,28 +51,15 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
 
   // View logic
   const {
-    currentPage,
-    methods: { enableFilter, setCurrentPage },
-  } = useFilteredPaginatedList<IFilterProcesses>({
-    pageSize: pageSize,
+    methods: { enableFilter },
+  } = useFilteredSDKPaginatedList<IFilterProcesses>({
     filter: filter,
     setFilter: setFilter,
-    setDataPagination: setDataPagination,
-    lastElement: totalProcessCount + 1,
+    setCurrentPage: setCurrentPage,
   });
 
   const isUsingFilter =
     filter?.entityId?.length > 0 || filter?.searchTerm?.length > 0 || filter?.withResults || filter?.status != null;
-
-  // const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   // if (loadingProcessList || loadingProcessesDetails || (processIds && processes.length === 0)) {
-  //   if (loadingProcessList || loadingProcessesDetails || (processIds && processes.length === 0)) {
-  //     setLoading(true);
-  //   } else {
-  //     setLoading(false);
-  //   }
-  // }, [loadingProcessList, processIds, loadingProcessesDetails, processes]);
 
   return (
     <>
