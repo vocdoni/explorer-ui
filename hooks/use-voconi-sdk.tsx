@@ -76,6 +76,11 @@ export const useOrganizationCount = ({ ...rest }: IHookOpts = {}) => {
   return useSDKFunction({ promiseFn: client.organizationCount, ...rest });
 };
 
+export const useElectionCount = ({ ...rest }: IHookOpts = {}) => {
+  const { data, ...more } = useChainInfo({ ...rest });
+  return { count: data?.electionCount, ...more };
+};
+
 export const useValidators = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.validatorsList, ...rest });
