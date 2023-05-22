@@ -1,4 +1,4 @@
-import { ChainAPI, ClientOptions, ElectionAPI, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
+import { AccountAPI, ChainAPI, ClientOptions, ElectionAPI, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
 
 export class ExtendedSDKClient extends VocdoniSDKClient {
   constructor(opts: ClientOptions) {
@@ -9,6 +9,8 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   organizationList = (page?: number, organizationId?: string) =>
     ChainAPI.organizationList(this.url, page, organizationId);
   organizationCount = () => ChainAPI.organizationCount(this.url);
+  organizationElectionsList = (organizationId: string, page?: number) =>
+    AccountAPI.electionsList(this.url, organizationId, page);
   validatorsList = () => ChainAPI.validatorsList(this.url);
   chainInfo = () => ChainAPI.info(this.url);
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
