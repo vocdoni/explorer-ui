@@ -6,7 +6,6 @@ import { Grid, Column } from '@components/elements/grid';
 import { PageCard } from '@components/elements/cards';
 import { CardImageHeader } from '@components/blocks/card/image-header';
 import { useTranslation } from 'react-i18next';
-import { getProcessDetailsPath } from '@components/pages/app/components/get-links';
 import { BreakWord } from '@components/elements/styled-divs';
 import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionCard } from '@components/blocks/card/process-card';
@@ -63,7 +62,7 @@ export const EntityView = ({ address, metadata, processes }: IEntityViewProps) =
           <Typography variant={TypographyVariant.Body1}>
             {i18n.t('organizations.details.organization_processes')}{' '}
           </Typography>
-          {processes.map((election, index) => {
+          {processes.map((election) => {
             return (
               <div key={election.id}>
                 <ElectionCard
