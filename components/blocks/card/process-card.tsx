@@ -6,12 +6,7 @@ import { ReducedOrganizationNameWithIcon } from './entity-card';
 import { ensure0x } from '@vocdoni/common';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
 import { ElectionProvider, useElection, OrganizationProvider } from '@vocdoni/chakra-components';
-import {
-  AllElectionStatus,
-  ElectionStatus,
-  ElectionStatusReady,
-  IElectionSummary,
-} from '../../../../VocdoniStack/vocdoni-sdk';
+import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
 import { PROCESS_DETAILS } from '@const/routes';
 import { getPath } from '@components/pages/app/components/get-links';
 
@@ -40,7 +35,7 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
   const endDate = election?.endDate ?? new Date(electionSummary?.endDate) ?? null;
   const title = election?.title?.default ?? electionId;
   const organizationId = election?.organizationId ?? electionSummary?.organizationId ?? null;
-  const status = election?.status ?? getVoteStatus(electionSummary?.status, startDate) ?? null;
+  const status = election?.status ?? PublishedElection.getStatus(electionSummary?.status, startDate) ?? null;
 
   const loading = electionLoading && !electionSummary;
 
@@ -87,12 +82,3 @@ const TopWrapper = styled.div`
   padding: 0px;
   gap: 16px;
 `;
-
-// todo(kon): use SDK to do this conversion
-export const getVoteStatus = (status: AllElectionStatus, startDate: Date): ElectionStatus => {
-  return status === ElectionStatusReady.READY
-    ? startDate <= new Date()
-      ? ElectionStatus.ONGOING
-      : ElectionStatus.UPCOMING
-    : status;
-};
