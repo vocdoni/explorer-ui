@@ -52,13 +52,17 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
     </TopWrapper>
   );
 
-  const Footer = () => (
-    <OrganizationProvider id={organizationId}>
-      <EntityWrapper>
-        <ReducedOrganizationNameWithIcon organizationId={organizationId}></ReducedOrganizationNameWithIcon>
-      </EntityWrapper>
-    </OrganizationProvider>
-  );
+  const Footer = () => {
+    return (
+      !hideEntity && (
+        <OrganizationProvider id={organizationId}>
+          <EntityWrapper>
+            <ReducedOrganizationNameWithIcon organizationId={organizationId} />
+          </EntityWrapper>
+        </OrganizationProvider>
+      )
+    );
+  };
 
   return (
     !loading && (
