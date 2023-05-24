@@ -1,27 +1,39 @@
 import { Loader } from '@components/blocks/loader';
-import { useBlockHeight, useEntity } from '@vocdoni/react-hooks';
 import { useUrlHash } from 'use-url-hash';
-import { EntityView } from '@components/pages/organizations/details/index';
-import { useProcessesFromAccount } from '@hooks/use-processes';
+import { OrganizationView } from '@components/pages/organizations/details/index';
 import { ensure0x } from '@vocdoni/common';
 import { Else, If, Then } from 'react-if';
+import { OrganizationProvider, useOrganization } from '@vocdoni/chakra-components';
+import { useTranslation } from 'react-i18next';
 
 const OrganizationsDetailPage = () => {
-  const entityId = useUrlHash().slice(1);
-
-  const { metadata, loading } = useEntity(ensure0x(entityId));
-  const { processes, loadingProcessList, loadingProcessesDetails } = useProcessesFromAccount(entityId);
+  const { organization, loading, error } = useOrganization();
+  const { i18n } = useTranslation();
 
   return (
-    <If condition={!loading && !loadingProcessList && !loadingProcessesDetails}>
-      <Then>
-        <EntityView address={entityId} metadata={metadata} processes={processes} />
-      </Then>
+    <If condition={error}>
+      <Then>{i18n.t('organizations.details.organization_not_found')}</Then>
       <Else>
-        <Loader visible />
+        <If condition={!loading}>
+          <Then>
+            <OrganizationView id={organization?.address} />
+          </Then>
+          <Else>
+            <Loader visible />
+          </Else>
+        </If>
       </Else>
     </If>
   );
 };
 
-export default OrganizationsDetailPage;
+const OrganizationHome = () => {
+  const organizationId = useUrlHash().slice(1);
+  return (
+    <OrganizationProvider id={ensure0x(organizationId)}>
+      <OrganizationsDetailPage />
+    </OrganizationProvider>
+  );
+};
+
+export default OrganizationHome;

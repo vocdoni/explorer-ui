@@ -6,37 +6,38 @@ import { Grid, Column } from '@components/elements/grid';
 import { PageCard } from '@components/elements/cards';
 import { CardImageHeader } from '@components/blocks/card/image-header';
 import { useTranslation } from 'react-i18next';
+import { ElectionCard } from '@components/blocks/card/process-card';
 import { BreakWord } from '@components/elements/styled-divs';
 import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionCard } from '@components/blocks/card/process-card';
 import React from 'react';
+import { useOrganization } from '@vocdoni/chakra-components';
+import { useOrganizationElectionsList } from '@hooks/use-voconi-sdk';
 
-interface IEntityViewProps {
-  address: string;
-  metadata: EntityMetadata;
-  processes: SummaryProcess[];
-}
-export const EntityView = ({ address, metadata, processes }: IEntityViewProps) => {
-  const correctedAddress = address.startsWith('0x') ? address : '0x' + address;
-  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${correctedAddress}`;
+export const OrganizationView = ({ id }: { id: string }) => {
+  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;
+  const { data: electionsList } = useOrganizationElectionsList({ organizationId: id, page: 0 });
+
   const { i18n } = useTranslation();
+  const { organization } = useOrganization();
+
+  const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
+  const avatar = organization?.account?.avatar;
+  const header = organization?.account?.header;
+  const description = organization?.account?.description.default;
+  const elections = electionsList?.elections ?? [];
 
   return (
     <PageCard>
-      <CardImageHeader
-        title={metadata?.name.default}
-        processImage={metadata?.media.header}
-        // subtitle={entity?.name.default}
-        entityImage={metadata?.media.avatar}
-      />
+      <CardImageHeader title={orgName} processImage={header} entityImage={avatar} />
 
-      {metadata?.description.default && (
+      {description && (
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.Body1}>
               {i18n.t('organizations.details.organization_description')}
             </Typography>
-            <Typography variant={TypographyVariant.Small}>{metadata?.description.default}</Typography>
+            <Typography variant={TypographyVariant.Small}>{description}</Typography>
           </Column>
         </Grid>
       )}
@@ -48,7 +49,7 @@ export const EntityView = ({ address, metadata, processes }: IEntityViewProps) =
           </Typography>
           <Typography variant={TypographyVariant.Small}>
             <BreakWord>
-              <CopyButton toCopy={correctedAddress} text={correctedAddress} />
+              <CopyButton toCopy={id} text={id} />
               <a href={plazaUrl} target="blank">
                 ({i18n.t('organization.home.view_profile')})
               </a>
@@ -62,22 +63,17 @@ export const EntityView = ({ address, metadata, processes }: IEntityViewProps) =
           <Typography variant={TypographyVariant.Body1}>
             {i18n.t('organizations.details.organization_processes')}{' '}
           </Typography>
-          {processes.map((election) => {
+          {elections.map((election, index) => {
             return (
-              <div key={election.id}>
-                <ElectionCard
-                  electionId={election.id}
-                  // electionSummary={election}
-                  hideEntity={true}
-                />
-              </div>
+              <ElectionCard key={index} electionId={election.electionId} electionSummary={election} hideEntity={true} />
             );
           })}
-          {processes.length <= 0 && (
-            <Typography variant={TypographyVariant.Small}>
-              {i18n.t('organizations.details.no_processes_yet')}{' '}
-            </Typography>
-          )}
+          {!electionsList ||
+            (elections.length <= 0 && (
+              <Typography variant={TypographyVariant.Small}>
+                {i18n.t('organizations.details.no_processes_yet')}{' '}
+              </Typography>
+            ))}
         </Column>
       </Grid>
     </PageCard>
