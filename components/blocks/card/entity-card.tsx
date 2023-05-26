@@ -76,14 +76,14 @@ export const OrganizationCard = ({
 
   const id = organization?.address ?? organizationId ?? '';
   const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
-  const entityLogo = organization?.account?.logo;
+  const organizationAvatar = organization?.account?.avatar;
   const electionIndex = organization?.electionIndex ?? electionCount ?? '';
 
   const w = '40px';
 
-  const EntityLogo = () => (
+  const OrganizationAvatar = () => (
     <ImageContainer width={w} height={w}>
-      <Image src={entityLogo || FALLBACK_ACCOUNT_ICON} />
+      <Image src={organizationAvatar || FALLBACK_ACCOUNT_ICON} />
     </ImageContainer>
   );
 
@@ -106,7 +106,7 @@ export const OrganizationCard = ({
   );
 
   return (
-    <GenericCardWrapper left={<EntityLogo />} link={link}>
+    <GenericCardWrapper left={<OrganizationAvatar />} link={link}>
       <Body />
     </GenericCardWrapper>
   );
