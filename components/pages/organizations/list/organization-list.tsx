@@ -4,11 +4,10 @@ import { OrganizationsFilter, IFilterEntity } from '../components/organizations-
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import {
   FilteredPaginatedList,
-  useFilteredPaginatedList,
   useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
 import { useOrganizationList } from '@hooks/use-voconi-sdk';
-import { IChainOrganizationResponse } from '../../../../../VocdoniStack/vocdoni-sdk/src';
+import { IChainOrganizationResponse } from '@vocdoni/sdk';
 import { OrganizationProvider } from '@vocdoni/chakra-components';
 import { OrganizationCard } from '@components/blocks/card/entity-card';
 
