@@ -2653,10 +2653,10 @@
     "@vocdoni/common" "^1.15.1"
     "@vocdoni/voting" "^1.16.3"
 
-"@vocdoni/sdk@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.0.7.tgz#cb4e6bdad784f0213d4af96688b298b2667bc23a"
-  integrity sha512-sYoTvRNNXkO6GDi578hRzdXXh9FhloH7BcpDc/i/KEYrUZdtb37TJsolQ6D6XOUPdsD6sRMmMID+eLM3FaJEVA==
+"@vocdoni/sdk@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.0.12.tgz#9d4ef2a4e21a9a2763f141702349851ad9f5ab3a"
+  integrity sha512-PvQmlU17R/YAr1wi//jXLJLONxQR20od8K2oXe6VrZbTnY+ULQ2OXbO349Kz75fO4MiKsiw8QK77/c2mxEGwIQ==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
