@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
-import { AdminTx, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
+import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
 import { useDateAtBlock } from '@vocdoni/react-hooks';
 import Link from 'next/link';
 import { OverflowScroll } from '@components/elements/styled-divs';
@@ -29,9 +29,11 @@ export const TransactionDetails = ({
   let belongsToEntity = '';
   let belongsToProcess = '';
   let votePackage = '';
-  const txType = Object.keys(transactionData)[0] as TransactionType;
+  const txPayload = transactionData['tx'];
+  const txType = Object.keys(transactionData['tx'])[0] as TransactionType;
 
-  const ignoreKeys: string[] = [];
+  const rawTx: Tx = JSON.parse(JSON.stringify(transactionData));
+  objectB64StringsToHex(rawTx, ['txInfo']);
 
   // todo: for some reason, response payload converted transactions have some
   // values into base64 string. This values, on the interface declaration are
@@ -41,14 +43,13 @@ export const TransactionDetails = ({
   // is solved checking regex.
   switch (txType) {
     case 'vote': {
-      const tx = transactionData['vote'] as VoteEnvelope;
-      ignoreKeys.push('votePackage');
+      const tx = txPayload['vote'] as VoteEnvelope;
       try {
-        tx.votePackage =
+        votePackage =
           tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0
             ? tx.votePackage
-            : atob(tx.votePackage as any as string);
-        votePackage = tx.votePackage;
+            : Buffer.from(tx.votePackage, 'base64').toString('ascii');
+        (rawTx['tx']['vote'] as VoteEnvelope).votePackage = votePackage;
       } catch (e) {
         console.error(e);
       }
@@ -68,7 +69,7 @@ export const TransactionDetails = ({
       break;
     }
     case 'newProcess': {
-      const tx = transactionData['newProcess'] as NewProcessTx;
+      const tx = txPayload['newProcess'] as NewProcessTx;
       if (tx.process?.processId) {
         belongsToProcess = b64ToHex(tx.process?.processId as any as string);
       }
@@ -76,12 +77,12 @@ export const TransactionDetails = ({
       break;
     }
     case 'admin': {
-      const tx = transactionData['admin'] as AdminTx;
+      const tx = txPayload['admin'] as AdminTx;
       belongsToProcess = b64ToHex(tx.processId as any as string);
       break;
     }
     case 'setProcess': {
-      const tx = transactionData['setProcess'] as SetProcessTx;
+      const tx = txPayload['setProcess'] as SetProcessTx;
       belongsToProcess = b64ToHex(tx.processId as any as string);
 
       if (tx?.results?.entityId) {
@@ -90,13 +91,9 @@ export const TransactionDetails = ({
       break;
     }
     default: {
-      //statements;
       break;
     }
   }
-
-  const rawTx = JSON.parse(JSON.stringify(transactionData));
-  objectB64StringsToHex(rawTx, ignoreKeys);
 
   return (
     <PageCard>
@@ -130,16 +127,7 @@ export const TransactionDetails = ({
             </>
           }
           dateText={localizedDateDiff(date)}
-          link={
-            null
-            //   blockData?.height && !moreDetails
-            //     ? RouterService.instance.get(BLOCKS_DETAILS, {
-            //         blockHeight: blockData?.height?.toString(),
-            //       })
-            //     : null
-          }
-          title={'todo hash'} // todo(kon): tx hash is not actually present on Tx object
-          // title={'0x' + transactionData?.hash}
+          title={ensure0x(transactionData.txInfo.transactionHash)}
         >
           <OverflowScroll>
             {belongsToProcess?.length > 0 && (
