@@ -158,7 +158,7 @@ export function useFilteredSDKPaginatedList<Filter>({
 
   // Set the page at initial state
   const resetPage = useCallback(() => {
-    setCurrentPage(0);
+    setCurrentPage(1);
   }, [setCurrentPage]);
 
   const enableFilter = (tempFilter) => {
