@@ -54,7 +54,7 @@ export const Paginator = ({
 
   const InnerButtonsDesktop = () => (
     <>
-      {totalPageCount > 1 && <NumberButton page={1}></NumberButton>}
+      {totalPageCount > 1 || (totalPageCount === undefined && <NumberButton page={1}></NumberButton>)}
 
       {currentPage > 3 && <ThreePoints />}
 
