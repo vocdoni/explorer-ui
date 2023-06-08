@@ -7,11 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { ensure0x } from 'dvote-js';
 import Link from 'next/link';
 import { IChainBlockInfoResponse } from '@vocdoni/sdk';
+import { getPath } from '@components/pages/app/components/get-links';
+import { BLOCKS_DETAILS } from '@const/routes';
 
 export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse }) => {
   const { i18n } = useTranslation();
   const txs = blockData?.data.txs;
-  const blockHeight = +blockData?.header.height; // todo: on new sdk version this is a number
+  const blockHeight = blockData?.header.height;
   return (
     <PageCard>
       <Grid>
@@ -20,7 +22,7 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
         </Column>
       </Grid>
       <BlockCard
-        blockHeight={+blockData.header.height} // todo: on new sdk versions this will be a number
+        blockHeight={blockData.header.height}
         blockTime={blockData.header.time}
         proposer={blockData.header.proposerAddress}
       />
@@ -29,14 +31,22 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
       ) : null}
       <>
         <p>{i18n.t('blocks.transactions', { transactions: txs.length })}</p>
-        <p>
-          {/*todo: appHash is not block hash*/}
-          {i18n.t('blocks.details.hash', { hash: `0x${blockData?.header.appHash}` })}
-        </p>
+        <p>{i18n.t('blocks.details.hash', { hash: ensure0x(blockData?.['hash']) })}</p>
         <p>
           {i18n.t('blocks.details.last_block_hash')}
-          <Link href={`#/${(blockHeight - 1).toString()}`}>
-            <code> {ensure0x(blockData?.lastCommit.blockId.hash)})</code>
+          {/*I used the link  legacyBehavior here because for some reason the NextJS Link component changes the url but the
+           useUrlHash hook doesn't detect the change, so it does not update to previous block data. Is a problem related to
+           useUrlHash hook */}
+          <Link
+            href={getPath(BLOCKS_DETAILS, {
+              blockHeight: blockHeight.toString(),
+            })}
+            passHref
+            legacyBehavior
+          >
+            <a target="_blank" rel="noopener noreferrer">
+              <code> {ensure0x(blockData?.lastCommit.blockId.hash)}</code>
+            </a>
           </Link>
         </p>
         <p>{i18n.t('blocks.details.proposer', { proposer: ensure0x(blockData?.header.proposerAddress) })}</p>
