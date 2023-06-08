@@ -16,7 +16,14 @@ interface IDashboardBlockListProps {
 export const DashboardBlockList = ({ pageSize, blockHeight, title }: IDashboardBlockListProps) => {
   // Render item on the list from it summary
   const renderBlockItem = (block: IChainBlockInfoResponse) => {
-    return <BlockCard blockData={blockData} />;
+    return (
+      <BlockCard
+        key={block.header.height}
+        blockHeight={block.header.height}
+        blockTime={block.header.time}
+        proposer={block.header.proposerAddress}
+      />
+    );
   };
   // // Current paginator page
   const [filter, setFilter] = useState<IFilterBlocks>({});
