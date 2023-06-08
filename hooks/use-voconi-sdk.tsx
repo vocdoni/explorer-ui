@@ -182,11 +182,11 @@ export const useBlockList = ({ from }: { from: number }) => {
 };
 
 export const useBlockByHash = ({ hash }: { hash: string }) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction(client.blockByHash, hash);
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.blockByHash, args: [hash] });
 };
 
 export const useBlockByHeight = ({ height }: { height: number }) => {
-  const { client } = useClientContext<ExtendedSDKClient>();
-  return useSDKFunction(client.blockByHeight, height);
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.blockByHeight, args: [height] });
 };
