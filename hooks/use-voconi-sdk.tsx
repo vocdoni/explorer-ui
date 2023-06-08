@@ -168,10 +168,10 @@ export const useElectionList = ({
 
 export const useBlockByHash = ({ hash }: { hash: string }) => {
   const { client } = useClient<ExtendedSDKClient>();
-  return useSDKFunction(client.blockByHash, hash);
+  return useSDKFunction({ promiseFn: client.blockByHash, args: [hash] });
 };
 
 export const useBlockByHeight = ({ height }: { height: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
-  return useSDKFunction(client.blockByHeight, height);
+  return useSDKFunction({ promiseFn: client.blockByHeight, args: [height] });
 };
