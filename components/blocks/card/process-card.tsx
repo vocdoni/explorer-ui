@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge';
 import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic';
 import { ReducedOrganizationNameWithIcon } from './entity-card';
-import { ensure0x } from '@vocdoni/common';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
 import { ElectionProvider, useElection, OrganizationProvider } from '@vocdoni/chakra-components';
 import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
