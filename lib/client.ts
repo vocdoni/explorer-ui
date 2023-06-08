@@ -18,16 +18,17 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
   electionVotesList = (electionId: string, page?: number) => ElectionAPI.votesList(this.url, electionId, page);
   electionVotesCount = (electionId: string) => ElectionAPI.votesCount(this.url, electionId);
-  blockByHeight = (height: number) => ChainAPI.blockByHeight(this.url, height);
+  // todo: this method will be fixed backend side, see https://github.com/vocdoni/interoperability/issues/33
   blockList = (from: number, listSize: number | null = 10): Promise<IChainBlockInfoResponse[]> => {
     const promises: Promise<IChainBlockInfoResponse>[] = [];
+    // If is not a number bigger than 0
+    if (isNaN(from)) return Promise.all(promises);
     for (let i = 0; i < listSize; i++) {
-      // todo: this method will be fixed backend side, see https://github.com/vocdoni/interoperability/issues/33
-      promises.push(this.blockByHeight(from + i));
+      if (i > 0) promises.push(this.blockByHeight(from + i));
     }
     return Promise.all(promises).then((blockInfo) => {
       // flatten the array[][] into array[]
-      return blockInfo.reduce((prev, cur) => prev.concat(cur), []);
+      return blockInfo.reduce((prev, cur) => prev.concat(cur), []).reverse();
     });
   };
 }

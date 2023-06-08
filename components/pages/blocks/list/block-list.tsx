@@ -1,11 +1,8 @@
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import { JumpToPaginatedList, useJumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
-import { useBlocks } from '@hooks/use-blocks';
-import { BlockInfo } from '@lib/types';
 import React, { ReactNode, useEffect, useState } from 'react';
 
 import { BlocksFilter, IFilterBlocks } from '../components/block-filter';
-import { DashboardBlockItem } from './block-list-item';
 import { useBlockList } from '@hooks/use-voconi-sdk';
 import { IChainBlockInfoResponse } from '@vocdoni/sdk';
 import { BlockCard } from '@components/blocks/card/block-card';
@@ -19,7 +16,14 @@ interface IDashboardBlockListProps {
 export const DashboardBlockList = ({ pageSize, blockHeight, title }: IDashboardBlockListProps) => {
   // Render item on the list from it summary
   const renderBlockItem = (block: IChainBlockInfoResponse) => {
-    return <BlockCard blockData={blockData} />;
+    return (
+      <BlockCard
+        key={block.header.height}
+        blockHeight={block.header.height}
+        blockTime={block.header.time}
+        proposer={block.header.proposerAddress}
+      />
+    );
   };
   // // Current paginator page
   const [filter, setFilter] = useState<IFilterBlocks>({});
