@@ -54,18 +54,6 @@ export const TransactionDetails = ({
         console.error(e);
       }
       belongsToProcess = b64ToHex(tx.processId as any as string);
-      // For the moment, this is not needed. Let this here for future uses,
-      // maybe will be needed.
-      // switch(tx.proof.payload.$case){
-      //   case 'graviton':
-      //   break
-      //   case 'ethereumStorage':
-      //   break
-      //   case 'iden3':
-      //   break
-      //   default:
-      //     console.debug("Other proof type")
-      // }
       break;
     }
     case 'newProcess': {
@@ -88,9 +76,6 @@ export const TransactionDetails = ({
       if (tx?.results?.entityId) {
         belongsToEntity = b64ToHex(tx.results?.entityId as any as string);
       }
-      break;
-    }
-    default: {
       break;
     }
   }
