@@ -39,7 +39,7 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
            useUrlHash hook */}
           <Link
             href={getPath(BLOCKS_DETAILS, {
-              blockHeight: blockHeight.toString(),
+              blockHeight: (blockHeight - 1).toString(),
             })}
             passHref
             legacyBehavior
