@@ -1,5 +1,4 @@
 import { AccountAPI, ChainAPI, ClientOptions, ElectionAPI, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
-import { IElectionListFilter } from '../../VocdoniStack/vocdoni-sdk/src';
 
 export class ExtendedSDKClient extends VocdoniSDKClient {
   constructor(opts: ClientOptions) {

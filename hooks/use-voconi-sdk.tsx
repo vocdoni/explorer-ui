@@ -3,6 +3,7 @@ import { useClient } from '@vocdoni/chakra-components';
 import { ExtendedSDKClient } from '@lib/client';
 import { useAlertMessage } from './message-alert';
 import i18n from '@i18n';
+import { IElectionListFilter } from '@vocdoni/sdk';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
