@@ -1,5 +1,12 @@
-import { AccountAPI, ChainAPI, ClientOptions, ElectionAPI, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
-import { ChainAPI, ClientOptions, ElectionAPI, IChainBlockInfoResponse, VocdoniSDKClient, VoteAPI } from '@vocdoni/sdk';
+import {
+  AccountAPI,
+  ChainAPI,
+  ClientOptions,
+  ElectionAPI,
+  VocdoniSDKClient,
+  VoteAPI,
+  IChainBlockInfoResponse,
+} from '@vocdoni/sdk';
 
 export class ExtendedSDKClient extends VocdoniSDKClient {
   constructor(opts: ClientOptions) {
