@@ -261,7 +261,7 @@
     "filter": {
       "search": "Buscar",
       "show_only_processes_with_results": "Mostrar solo procesos con resultados",
-      "search_by_processId_or_organization": "Buscar por proceso u organización",
+      "search_by_election_id_or_organization": "Buscar por proceso u organización",
       "status_selector": {
         "all": "Todos",
         "ended": "Finalizados",

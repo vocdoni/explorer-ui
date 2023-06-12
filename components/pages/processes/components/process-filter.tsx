@@ -81,7 +81,7 @@ const CheckBoxAndSearchBar = ({
       <DivWithMarginChildren>
         <InputSearch
           wide
-          placeholder={i18n.t('processes.filter.search_by_processId_or_organization')}
+          placeholder={i18n.t('processes.filter.search_by_election_id_or_organization')}
           value={searchTerm}
           onChange={(ev) => {
             setSearchTerm(ev.target.value);

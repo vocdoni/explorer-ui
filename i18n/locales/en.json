@@ -261,7 +261,7 @@
     "filter": {
       "search": "Search",
       "show_only_processes_with_results": "Show only processes with results",
-      "search_by_processId_or_organization": "Search by process or organization",
+      "search_by_election_id_or_organization": "Search by process or organization",
       "status_selector": {
         "all": "All",
         "ended": "Ended",
