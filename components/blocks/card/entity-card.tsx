@@ -12,7 +12,7 @@ import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
 import { useOrganization } from '@vocdoni/chakra-components';
-import { ensure0x } from '@vocdoni/common';
+import { ensure0x } from '@vocdoni/sdk';
 
 export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
   const { organization } = useOrganization();
