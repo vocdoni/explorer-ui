@@ -14,7 +14,7 @@
       "blocks": "Blocks",
       "count": "Count"
     },
-    "transactions": "Transactions"
+    "transactions": "Transactions: {{ transactions }}"
   },
   "components": {
     "block_card": {
