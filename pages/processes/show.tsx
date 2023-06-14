@@ -3,7 +3,8 @@ import ProcessDetailPage from '@components/pages/processes/details';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
-import { ElectionProvider, useElection } from '@vocdoni/chakra-components';
+import { ElectionProvider, useElection, OrganizationProvider } from '@vocdoni/chakra-components';
+import { ensure0x } from '@vocdoni/sdk';
 
 const ProcessesDetailPage = () => {
   const { loading, election } = useElection();
@@ -17,7 +18,9 @@ const ProcessesDetailPage = () => {
       <Else>
         <If condition={election !== undefined && !loading}>
           <Then>
-            <ProcessDetailPage />
+            <OrganizationProvider id={ensure0x(election?.organizationId ?? '')}>
+              <ProcessDetailPage />
+            </OrganizationProvider>
           </Then>
           <Else>
             <h1>{i18n.t('processes.details.process_not_found')}</h1>

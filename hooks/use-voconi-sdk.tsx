@@ -3,7 +3,7 @@ import { useClient } from '@vocdoni/chakra-components';
 import { ExtendedSDKClient } from '@lib/client';
 import { useAlertMessage } from './message-alert';
 import i18n from '@i18n';
-import { IElectionListFilter } from '@vocdoni/sdk';
+import { IChainGetInfoResponse, IElectionListFilter } from '@vocdoni/sdk';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -56,6 +56,29 @@ function useSDKFunction<T, U>({
 
   return { data, error, loading };
 }
+
+/**
+ * Generic hook to get single properties from Vochain stats by its name
+ * @param property the name on the property present on `IChainGetInfoResponse`
+ */
+const useChainInfoProperty = <K extends keyof IChainGetInfoResponse>(property: K) => {
+  // const [propertyState, setPropertyState] = useState<string | number | boolean | number[]>();
+  const [propertyState, setPropertyState] = useState<IChainGetInfoResponse[K]>();
+  const { data: stats, loading } = useChainInfo();
+
+  const getPropertyFromStats = useCallback(() => {
+    setPropertyState(stats[property]);
+  }, [stats?.[property]]);
+
+  useEffect(() => {
+    if (!loading && stats) getPropertyFromStats();
+  }, [stats, loading, getPropertyFromStats]);
+
+  return {
+    propertyState,
+    loading,
+  };
+};
 
 export const useTxByHash = ({ txHash, ...rest }: { txHash: string } & IHookOpts) => {
   const { client } = useClient<ExtendedSDKClient>();
@@ -131,21 +154,8 @@ export const useChainInfo = ({ ...rest }: IHookOpts = {}) => {
  * @returns transaction count from stats
  */
 export const useTransactionCount = () => {
-  const [transactionCount, setTransactionCount] = useState<number>();
-  const { data: stats, loading } = useChainInfo();
-
-  const getHeightFromStats = useCallback(() => {
-    setTransactionCount(stats.transactionCount);
-  }, [stats?.transactionCount]);
-
-  useEffect(() => {
-    if (!loading && stats) getHeightFromStats();
-  }, [stats, loading, getHeightFromStats]);
-
-  return {
-    transactionCount,
-    loading,
-  };
+  const { propertyState: transactionCount, loading } = useChainInfoProperty('transactionCount');
+  return { transactionCount, loading };
 };
 
 export const useTxList = ({ page }: { page?: number }) => {
@@ -179,4 +189,13 @@ export const useBlockByHeight = ({ height }: { height: number }) => {
 export const useBlockList = ({ from }: { from: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.blockList, args: [from] });
+};
+
+/**
+ *
+ * @returns Vochain block height from stats
+ */
+export const useBlockHeight = () => {
+  const { propertyState: blockHeight, loading } = useChainInfoProperty('height');
+  return { blockHeight, loading };
 };

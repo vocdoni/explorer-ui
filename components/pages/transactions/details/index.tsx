@@ -9,7 +9,6 @@ import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
-import { useDateAtBlock } from '@vocdoni/react-hooks';
 import Link from 'next/link';
 import { OverflowScroll } from '@components/elements/styled-divs';
 import { Tx } from '@vocdoni/sdk';
@@ -24,7 +23,8 @@ export const TransactionDetails = ({
   blockHeight: number;
 }) => {
   const { i18n } = useTranslation();
-  const { date } = useDateAtBlock(blockHeight);
+  // const { date } = useDateAtBlock(blockHeight);
+  const date = new Date(); // todo(kon): useDateAtBlock method is not implemented on the new API
 
   let belongsToEntity = '';
   let belongsToProcess = '';

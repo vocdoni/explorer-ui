@@ -1,25 +1,5 @@
-import {
-  EntityMetadata,
-  ProcessSummary,
-  ProcessMetadata,
-  Tx,
-  ProcessCensusOrigin,
-  ProcessResultsSingleChoice,
-} from 'dvote-js';
-import { BigNumber } from 'ethers';
 import { Vochain } from '@vocdoni/proto';
 import { TransactionType } from '@vocdoni/sdk';
-
-// Stats types
-
-export type BlockInfo = {
-  hash: string;
-  height: number;
-  lastBlockHash: string;
-  numTxs: number;
-  proposerAddress: string;
-  timestamp: string;
-};
 
 export type TxForBlock = {
   hash: string;
@@ -27,6 +7,7 @@ export type TxForBlock = {
   type: TransactionType;
 };
 
+// todo(kon): this can be replaced?
 export interface ElectionRaw {
   electionId: string;
   type: string;

@@ -2,7 +2,6 @@ import { Col, Row } from '@components/elements-v2/grid';
 import { Spacer } from '@components/elements-v2/spacer';
 import { Text } from '@components/elements-v2/text';
 import { theme } from '@theme/global';
-import { MultiLanguage } from 'dvote-js';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { useIsMobile } from '@hooks/use-window-size';
@@ -12,7 +11,7 @@ import { BreakWord } from '@components/elements/styled-divs';
 import { Progress } from '@chakra-ui/react';
 import { ProgressProps } from '@chakra-ui/progress/dist/progress';
 import useExtendedElection from '@hooks/use-extended-election';
-import { ElectionStatus, IQuestion } from '@vocdoni/sdk';
+import { ElectionStatus, IChoice, IQuestion } from '@vocdoni/sdk';
 
 export type QuestionsResultsProps = {
   question: IQuestion;
@@ -25,7 +24,7 @@ type StyledCardProps = {
 };
 
 type ChoiceResult = {
-  title: MultiLanguage<string>;
+  title: IChoice['title'];
   votes: BigNumber;
 };
 

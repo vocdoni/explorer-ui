@@ -4,9 +4,8 @@ import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { TransactionListForBlock } from './transaction-list-for-block';
 import { useTranslation } from 'react-i18next';
-import { ensure0x } from 'dvote-js';
 import Link from 'next/link';
-import { IChainBlockInfoResponse } from '@vocdoni/sdk';
+import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk';
 import { getPath } from '@components/pages/app/components/get-links';
 import { BLOCKS_DETAILS } from '@const/routes';
 

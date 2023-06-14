@@ -1,4 +1,4 @@
-import { TextAlign, Typography, TypographyVariant } from '@components/elements/typography';
+import { Typography, TypographyVariant } from '@components/elements/typography';
 import { Grid, Column } from '@components/elements/grid';
 import { PageCard } from '@components/elements/cards';
 import { CardImageHeader } from '@components/blocks/card/image-header';
@@ -7,10 +7,11 @@ import { ElectionCard } from '@components/blocks/card/process-card';
 import { BreakWord } from '@components/elements/styled-divs';
 import { CopyButton } from '@components/blocks/copy-button';
 import React from 'react';
-import { useOrganization, OrganizationDescription } from '@vocdoni/chakra-components';
+import { useOrganization, OrganizationDescription, OrganizationHeader } from '@vocdoni/chakra-components';
 import { useOrganizationElectionsList } from '@hooks/use-voconi-sdk';
 import styled from 'styled-components';
 import { colors } from '@theme/colors';
+import { CustomOrganizationAvatar } from '@components/blocks/card/entity-card';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;
@@ -20,14 +21,12 @@ export const OrganizationView = ({ id }: { id: string }) => {
   const { organization } = useOrganization();
 
   const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
-  const avatar = organization?.account?.avatar;
-  const header = organization?.account?.header;
   const description = organization?.account?.description.default;
   const elections = electionsList?.elections ?? [];
 
   return (
     <PageCard>
-      <CardImageHeader title={orgName} processImage={header} entityImage={avatar} />
+      <CardImageHeader title={orgName} logo={<CustomOrganizationAvatar />} header={<OrganizationHeader />} />
 
       {description && (
         <Grid>

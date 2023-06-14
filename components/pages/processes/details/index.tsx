@@ -1,15 +1,13 @@
 import React from 'react';
-import { useEntity } from '@vocdoni/react-hooks';
 
 import { BadgeColumn, Grid } from '@components/elements/grid';
 import { PageCard, StatusCard } from '@components/elements/cards';
-import { CardImageHeader } from '@components/blocks/card/image-header';
-import { EntityMetadata } from 'dvote-js';
+import { CardImageHeader, CustomElectionHeader } from '@components/blocks/card/image-header';
 import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';
-import { OrganizationCardMedium } from '@components/blocks/card/entity-card';
+import { CustomOrganizationAvatar, OrganizationCardMedium } from '@components/blocks/card/entity-card';
 import { EnvelopeTypeBadge } from '../components/envelope-type-badge';
 import { CensusOriginBadge } from '../components/process-censusorigin-badge';
 import { ProcessModeBadge } from '../components/process-processmode-badge';
@@ -21,7 +19,7 @@ import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
-import { Markdown } from '@vocdoni/chakra-components';
+import { Markdown, useOrganization } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 
@@ -32,8 +30,6 @@ const ProcessesDetailPage = () => {
   const organizationId = election.organizationId;
 
   const { i18n } = useTranslation();
-  const { metadata } = useEntity(election.organizationId);
-  const entityMetadata = metadata as EntityMetadata;
 
   const defaultTab = election.status === ElectionStatus.ENDED || election.status === ElectionStatus.ONGOING ? 1 : 0;
 
@@ -41,13 +37,13 @@ const ProcessesDetailPage = () => {
     <PageCard>
       <CardImageHeader
         title={election.title.default}
-        processImage={election.header}
+        header={<CustomElectionHeader />}
+        logo={<CustomOrganizationAvatar />}
         subtitle={
           <>
             <CopyButton toCopy={id} text={i18n.t('processes.details.id', { id: id })} color={colors.link} />
           </>
         }
-        entityImage={entityMetadata?.media?.avatar}
       />
 
       {/* Created on and ends on */}
@@ -77,9 +73,7 @@ const ProcessesDetailPage = () => {
 
       {/* Three cards grid with various info */}
       <Grid>
-        <OrganizationCardMedium md={6} icon={entityMetadata?.media?.avatar} entityId={organizationId}>
-          {entityMetadata?.name?.default ? entityMetadata?.name?.default : organizationId}
-        </OrganizationCardMedium>
+        <OrganizationCardMedium md={6} organizationId={organizationId} />
         <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
           <h2>{election.voteCount || 0}</h2>
         </StatusCard>

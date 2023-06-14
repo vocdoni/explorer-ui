@@ -1,7 +1,7 @@
 import { ListPage } from '@components/pages/app/page-templates/list-page';
-import { useBlockHeight } from '@vocdoni/react-hooks';
 import { DashboardBlockList } from './block-list';
 import { useTranslation } from 'react-i18next';
+import { useBlockHeight } from '@hooks/use-voconi-sdk';
 
 export const DashboardShowBlocks = () => {
   const { blockHeight } = useBlockHeight();

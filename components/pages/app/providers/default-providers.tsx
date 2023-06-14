@@ -1,6 +1,4 @@
 import React, { ReactNode } from 'react';
-import { UseBlockStatusProvider, UseEntityProvider, UsePoolProvider, UseProcessProvider } from '@vocdoni/react-hooks';
-import { EthNetworkID, VocdoniEnvironment } from 'dvote-js';
 
 import { UseAlertMessageProvider } from '@hooks/message-alert';
 import { UseLoadingAlertProvider } from '@hooks/loading-alert';
@@ -15,36 +13,18 @@ interface IDefaultProvidersProps {
 }
 
 export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
-  const bootnodeUri = process.env.BOOTNODES_URL;
-  const networkId = process.env.ETH_NETWORK_ID as EthNetworkID;
-  const environment = process.env.VOCDONI_ENVIRONMENT as VocdoniEnvironment;
-  const discoveryTimeout = Number(process.env.DISCOVERY_TIMEOUT);
-  const discoveryPoolSize = Number(process.env.DISCOVERY_POOL_SIZE);
+  const environment = process.env.VOCDONI_ENVIRONMENT as EnvOptions;
 
   const sdkClient = new ExtendedSDKClient({
-    env: environment as EnvOptions,
+    env: environment,
   });
 
   return (
     <UseAlertMessageProvider>
       <UseLoadingAlertProvider>
-        <UsePoolProvider
-          bootnodeUri={bootnodeUri}
-          networkId={networkId}
-          environment={environment}
-          discoveryTimeout={discoveryTimeout}
-          minNumGateways={discoveryPoolSize}
-        >
-          <UseBlockStatusProvider>
-            <UseProcessProvider>
-              <UseEntityProvider>
-                <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
-                  <ClientProvider client={sdkClient}>{children}</ClientProvider>
-                </ChakraProvider>
-              </UseEntityProvider>
-            </UseProcessProvider>
-          </UseBlockStatusProvider>
-        </UsePoolProvider>
+        <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
+          <ClientProvider client={sdkClient}>{children}</ClientProvider>
+        </ChakraProvider>
       </UseLoadingAlertProvider>
     </UseAlertMessageProvider>
   );

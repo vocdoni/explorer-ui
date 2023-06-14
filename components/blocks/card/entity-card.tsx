@@ -5,14 +5,15 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { ImageContainer } from '@components/elements/images';
-import { Image } from '@components/elements/image';
 import { StatusCard } from '@components/elements/cards';
 import { getOrganizationPath } from '@components/pages/app/components/get-links';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
 import { BreakWord } from '@components/elements/styled-divs';
-import { useOrganization } from '@vocdoni/chakra-components';
+import { useOrganization, OrganizationAvatar, OrganizationName } from '@vocdoni/chakra-components';
 import { ensure0x } from '@vocdoni/sdk';
+
+export const CustomOrganizationAvatar = () => <OrganizationAvatar fallbackSrc={FALLBACK_ACCOUNT_ICON} />;
 
 export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
   const { organization } = useOrganization();
@@ -28,7 +29,7 @@ export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizati
   return (
     <OrganizationNameAndLogoWrapper>
       <ImageContainer width={w} height={w}>
-        <Image src={organization?.account?.logo || FALLBACK_ACCOUNT_ICON} />
+        <CustomOrganizationAvatar />
       </ImageContainer>
       <ReducedTextAndCopy toCopy={organizationId} text={entityName} />
     </OrganizationNameAndLogoWrapper>
@@ -37,27 +38,27 @@ export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizati
 
 type OrganizationCardMediumProps = {
   md: number;
-  entityId: string;
-  children: ReactNode;
-  icon: string;
+  organizationId: string;
 };
 
 // Wrap a entityId into a link to its entity page and an icon.
-export const OrganizationCardMedium = ({ icon, entityId, md, children }: OrganizationCardMediumProps) => {
+export const OrganizationCardMedium = ({ organizationId, md }: OrganizationCardMediumProps) => {
   const { i18n } = useTranslation();
   return (
     <StatusCard
       title={i18n.t('components.organization_card_medium.host_organization')}
-      href={getOrganizationPath(entityId)}
+      href={getOrganizationPath(organizationId)}
       md={md}
     >
       <FlexContainer alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start}>
         <CenterLogo>
           <ImageContainer width="30px" height="30px">
-            <Image src={icon || FALLBACK_ACCOUNT_ICON} />
+            <CustomOrganizationAvatar />
           </ImageContainer>
         </CenterLogo>
-        <OrganizationNameBig>{children}</OrganizationNameBig>
+        <OrganizationNameBig>
+          <OrganizationName />
+        </OrganizationNameBig>
       </FlexContainer>
     </StatusCard>
   );
@@ -83,7 +84,7 @@ export const OrganizationCard = ({
 
   const OrganizationAvatar = () => (
     <ImageContainer width={w} height={w}>
-      <Image src={organizationAvatar || FALLBACK_ACCOUNT_ICON} />
+      <CustomOrganizationAvatar />
     </ImageContainer>
   );
 

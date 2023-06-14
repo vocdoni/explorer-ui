@@ -9,13 +9,13 @@ import { localizedDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
 import { Section, BlockContainer } from '@components/elements/styled-divs';
 import { BlockCard } from '@components/blocks/card/block-card';
-import { useBlocks } from '@hooks/use-blocks';
 import { capitalize } from '@lib/util';
 import { MdSpeed } from 'react-icons/md';
 import { VscGraphLine } from 'react-icons/vsc';
 import { HomePageButton } from '@components/elements/button';
 import Link from 'next/link';
 import { IChainGetInfoResponse } from '@vocdoni/sdk';
+import { useBlockList } from '@hooks/use-voconi-sdk';
 
 const BLOCK_LIST_SIZE = 4;
 
@@ -27,10 +27,8 @@ const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
     blockHeight = stats.height - BLOCK_LIST_SIZE;
   }
 
-  const { recentBlocks } = useBlocks({
+  const { data: recentBlocks } = useBlockList({
     from: blockHeight,
-    listSize: BLOCK_LIST_SIZE,
-    reverse: true,
   });
 
   const syncing = stats?.syncing ? i18n.t('stats.syncing') : i18n.t('stats.in_sync');
@@ -43,14 +41,14 @@ const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
             <Card md={6}>
               <VerticallyCenter>
                 <CardTitle title={i18n.t('stats.latest_block')} icon={<VscGraphLine />}></CardTitle>
-                {recentBlocks.length ? (
-                  recentBlocks.map((item) => (
+                {recentBlocks?.length ? (
+                  recentBlocks.map((item, i) => (
                     <BlockCard
-                      key={item.height}
+                      key={i}
                       style={{ border: '1px solid #E4E7EB' }}
-                      blockHeight={item.height}
-                      blockTime={item.timestamp}
-                      proposer={item.proposerAddress}
+                      blockHeight={item.header.height}
+                      blockTime={item.header.time}
+                      proposer={item.header.proposerAddress}
                     />
                   ))
                 ) : (
