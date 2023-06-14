@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
 import { ItemDate } from '@components/elements/styled-divs';
-import { ensure0x } from 'dvote-js';
 import styled from 'styled-components';
 import { ReducedTextAndCopy } from '../copy-button';
+import { ensure0x } from '@vocdoni/sdk';
 
 export const BlockCard = ({
   blockHeight,

@@ -1,14 +1,15 @@
 import { StatusCard } from '@components/elements/cards';
 import { Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { useProcessKeys } from '@hooks/use-process-keys';
 import { colors } from '@theme/colors';
 import { useTranslation } from 'react-i18next';
 
 export const EncryptionKeys = ({ processId }: { processId: string }) => {
   const { i18n } = useTranslation();
-  const { loadingProcessKeys, processKeys } = useProcessKeys({ processId: processId });
-
+  // todo(kon): implement encryption keys hook and interface properly
+  // const { loadingProcessKeys, processKeys } = useProcessKeys({ processId: processId });
+  const processKeys = { encryptionPubKeys: [], encryptionPrivKeys: [] };
+  const loadingProcessKeys = true;
   return (
     <>
       {!loadingProcessKeys && (

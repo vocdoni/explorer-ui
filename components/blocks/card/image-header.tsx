@@ -7,33 +7,24 @@ import { SectionText, SectionTitle, TextAlign } from '@components/elements/text'
 import { PageCardHeader } from '@components/elements/cards';
 import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote';
 import { Grid, Column } from '@components/elements/grid';
-
-import { Image } from '../../elements/image';
 import { BreakWord } from '@components/elements/styled-divs';
+import { ElectionHeader } from '@vocdoni/chakra-components';
+
+export const CustomElectionHeader = () => <ElectionHeader fallbackSrc={FALLBACK_VOTE_HEADER_IMAGE} />;
 
 interface ICardImageHeader {
   title: string;
   subtitle?: ReactNode;
-  entityImage?: string;
-  processImage?: string;
+  header?: ReactNode;
+  logo?: ReactNode;
 }
 
-export const CardImageHeader = ({ title, subtitle, entityImage, processImage }: ICardImageHeader) => {
-  const { i18n } = useTranslation();
-  const headerImageSrc = processImage || FALLBACK_VOTE_HEADER_IMAGE;
-  const entityImageSrc = entityImage || '';
-
+export const CardImageHeader = ({ title, subtitle, header, logo }: ICardImageHeader) => {
   return (
-    <CardImageHeaderContainer>
-      <PageCardHeader>
-        <Image src={headerImageSrc} alt={i18n.t('components.cardimage.vote_process_image_alt')} />
-      </PageCardHeader>
+    <>
+      <PageCardHeader>{header}</PageCardHeader>
 
-      {entityImageSrc.length > 0 && (
-        <EntityLogoWrapper>
-          <Image src={entityImageSrc} alt={i18n.t('components.cardimage.organization_logo_alt')} />
-        </EntityLogoWrapper>
-      )}
+      <LogoWrapper>{logo}</LogoWrapper>
 
       <Grid>
         <Column>
@@ -45,13 +36,11 @@ export const CardImageHeader = ({ title, subtitle, entityImage, processImage }: 
           )}
         </Column>
       </Grid>
-    </CardImageHeaderContainer>
+    </>
   );
 };
 
-const CardImageHeaderContainer = styled.div``;
-
-const EntityLogoWrapper = styled.div`
+const LogoWrapper = styled.div`
   overflow: hidden;
   border-radius: 50%;
   width: 130px;

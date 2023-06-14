@@ -3,10 +3,9 @@ import { TRANSACTIONS_DETAILS } from '@const/routes';
 import { useTranslation } from 'react-i18next';
 import { TransactionTypeBadge } from '../badges/transaction-type-badge';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
-import { ensure0x } from '@vocdoni/common';
 import styled from 'styled-components';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
-import { IChainTxReference } from '@vocdoni/sdk';
+import { ensure0x, IChainTxReference } from '@vocdoni/sdk';
 
 export const TransactionCard = ({
   tx,
