@@ -26,10 +26,11 @@ const BlocksPage = () => {
   const [targetBlock, setTargetBlock] = useState<number>();
   const [targetDate, setTargetDate] = useState<Date>();
 
-  const { data: blockHeightData, loading } = useDateToBlock({ date: targetDate ?? new Date() });
-  const estimatedBlockNumber = blockHeightData?.height ?? 1;
+  const { data: blockHeightData, loading } = useDateToBlock({ date: targetDate });
+  let estimatedBlockNumber: number;
+  if (blockHeightData?.height) estimatedBlockNumber = blockHeightData?.height;
 
-  const { data: dateData } = useBlockToDate({ height: targetBlock ?? 0 });
+  const { data: dateData } = useBlockToDate({ height: targetBlock });
   let date: Date;
   if (dateData?.date) date = new Date(dateData?.date);
 
@@ -76,7 +77,7 @@ const BlocksPage = () => {
       <FiChevronRight />
     </>
   );
-  console.log('AAAAXXXX');
+
   return (
     <PageCard>
       <Grid>
