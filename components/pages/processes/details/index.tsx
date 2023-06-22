@@ -83,7 +83,7 @@ const ProcessesDetailPage = () => {
       </Grid>
 
       {/* If encrypted votes show reveal keys status */}
-      {electionRaw.voteMode.encryptedVotes && <EncryptionKeys processId={id} />}
+      {electionRaw.voteMode.encryptedVotes && <EncryptionKeys electionId={id} />}
 
       {/* Technical details */}
       <Typography variant={TypographyVariant.H3} color={colors.blueText}>
