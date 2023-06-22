@@ -14,7 +14,7 @@ interface IPaginatedListTemplateProps<Elements> {
   totalElementsCount: number;
   pageSize?: number;
   // Function that render map of elements
-  renderElementFunction: (element: any) => ReactNode;
+  renderElementFunction: (element: any, i: number) => ReactNode;
   currentPage: number;
   setCurrentPage: (x: number) => void;
 }

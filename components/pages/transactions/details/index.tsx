@@ -12,6 +12,7 @@ import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, VoteEnv
 import Link from 'next/link';
 import { OverflowScroll } from '@components/elements/styled-divs';
 import { Tx } from '@vocdoni/sdk';
+import { useBlockToDate } from '@hooks/use-voconi-sdk';
 
 export const TransactionDetails = ({
   txIndex,
@@ -23,8 +24,8 @@ export const TransactionDetails = ({
   blockHeight: number;
 }) => {
   const { i18n } = useTranslation();
-  // const { date } = useDateAtBlock(blockHeight);
-  const date = new Date(); // todo(kon): useDateAtBlock method is not implemented on the new API
+  const { data } = useBlockToDate({ height: blockHeight });
+  const date = new Date(data?.date);
 
   let belongsToEntity = '';
   let belongsToProcess = '';
