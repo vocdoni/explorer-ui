@@ -27,6 +27,7 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   voteInfo = (voteId: string) => VoteAPI.info(this.url, voteId);
   electionVotesList = (electionId: string, page?: number) => ElectionAPI.votesList(this.url, electionId, page);
   electionVotesCount = (electionId: string) => ElectionAPI.votesCount(this.url, electionId);
+  electionKeys = (electionId: string) => ElectionAPI.keys(this.url, electionId);
   electionList = (page: number, electionId?: string, organizationId?: string, status?: any, withResults?: boolean) =>
     ElectionAPI.electionsList(this.url, page, {
       electionId,
@@ -34,6 +35,7 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
       status,
       withResults,
     });
+  blockTransactions = (height: number, page?: number) => ChainAPI.blockTransactions(this.url, height, page);
   blockByHeight = (height: number) => ChainAPI.blockByHeight(this.url, height);
   // todo: this method will be fixed backend side, see https://github.com/vocdoni/interoperability/issues/33
   blockList = (from: number, listSize: number | null = 10): Promise<IChainBlockInfoResponse[]> => {
@@ -47,5 +49,10 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
       // flatten the array[][] into array[]
       return blockInfo.reduce((prev, cur) => prev.concat(cur), []).reverse();
     });
+  };
+  blockToDate = (height?: number) => ChainAPI.blockToDate(this.url, height);
+  dateToBlock = (date?: Date) => {
+    const epoch = Math.floor(date.getTime() / 1000);
+    return ChainAPI.dateToBlock(this.url, epoch);
   };
 }

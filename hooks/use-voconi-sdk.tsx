@@ -144,6 +144,11 @@ export const useElectionVotesCount = ({ electionId, ...rest }: { electionId: str
   return useSDKFunction({ promiseFn: client.electionVotesCount, args: [electionId], ...rest });
 };
 
+export const useElectionKeys = ({ electionId }: { electionId: string }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.electionKeys, args: [electionId] });
+};
+
 export const useChainInfo = ({ ...rest }: IHookOpts = {}) => {
   const { client } = useClient<ExtendedSDKClient>();
   return useSDKFunction({ promiseFn: client.chainInfo, interval: rest.interval ? rest.interval : 15 * 1000 });
@@ -176,9 +181,14 @@ export const useElectionList = ({
   });
 };
 
-export const useBlockByHash = ({ hash }: { hash: string }) => {
+export const useBlockByHash = ({ hash, ...rest }: { hash: string } & IHookOpts) => {
   const { client } = useClient<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.blockByHash, args: [hash] });
+  return useSDKFunction({ promiseFn: client.blockByHash, args: [hash], ...rest });
+};
+
+export const useBlockTransactions = ({ height, page, ...rest }: { height: number; page?: number } & IHookOpts) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.blockTransactions, args: [height, page], ...rest });
 };
 
 export const useBlockByHeight = ({ height }: { height: number }) => {
@@ -198,4 +208,14 @@ export const useBlockList = ({ from }: { from: number }) => {
 export const useBlockHeight = () => {
   const { propertyState: blockHeight, loading } = useChainInfoProperty('height');
   return { blockHeight, loading };
+};
+
+export const useBlockToDate = ({ height }: { height: number }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.blockToDate, args: [height] });
+};
+
+export const useDateToBlock = ({ date }: { date: Date }) => {
+  const { client } = useClient<ExtendedSDKClient>();
+  return useSDKFunction({ promiseFn: client.dateToBlock, args: [date] });
 };
