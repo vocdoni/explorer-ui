@@ -3,13 +3,12 @@ import { GenericListItemWithBadge } from '@components/blocks/list-items';
 import { Card, PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { BlockLink, EntityLink, getProcessDetailsPath } from '@components/pages/app/components/get-links';
+import { BlockLink, EntityLink, ProcessLink } from '@components/pages/app/components/get-links';
 import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
-import Link from 'next/link';
 import { OverflowScroll } from '@components/elements/styled-divs';
 import { Tx } from '@vocdoni/sdk';
 import { useBlockToDate } from '@hooks/use-voconi-sdk';
@@ -119,7 +118,7 @@ export const TransactionDetails = ({
             {belongsToProcess?.length > 0 && (
               <p>
                 {i18n.t('transactions.details.belongs_to_process')}:{' '}
-                <Link href={getProcessDetailsPath(belongsToProcess)}>0x{belongsToProcess}</Link>
+                <ProcessLink processId={belongsToProcess}>{ensure0x(belongsToProcess)}</ProcessLink>
               </p>
             )}
             {belongsToEntity?.length > 0 && (
