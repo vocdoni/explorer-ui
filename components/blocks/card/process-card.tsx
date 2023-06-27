@@ -26,7 +26,7 @@ export const ElectionCard = ({ electionId, ...rest }: ProcessCardProps) => {
 const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: ProcessCardProps) => {
   const { election, loading: electionLoading } = useElection();
   const link = getPath(PROCESS_DETAILS, {
-    electionId: electionId,
+    processId: electionId,
   });
 
   const anonymous = election?.electionType?.anonymous ?? false;
