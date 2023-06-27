@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { ensure0x } from '@vocdoni/sdk';
 
 const OrganizationsDetailPage = () => {
-  const { organization, loading, error } = useOrganization();
+  const { organization, loading, errors } = useOrganization();
   const { i18n } = useTranslation();
 
   return (
-    <If condition={error}>
+    <If condition={errors.load || errors.update}>
       <Then>{i18n.t('organizations.details.organization_not_found')}</Then>
       <Else>
         <If condition={!loading}>
