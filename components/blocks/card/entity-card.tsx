@@ -1,5 +1,5 @@
 import { FALLBACK_ACCOUNT_ICON } from '@const/account';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from
 import { BreakWord } from '@components/elements/styled-divs';
 import { useOrganization, OrganizationAvatar, OrganizationName } from '@vocdoni/chakra-components';
 import { ensure0x } from '@vocdoni/sdk';
+import { theme } from '@theme/global';
 
 export const CustomOrganizationAvatar = () => <OrganizationAvatar fallbackSrc={FALLBACK_ACCOUNT_ICON} />;
 
@@ -56,9 +57,14 @@ export const OrganizationCardMedium = ({ organizationId, md }: OrganizationCardM
             <CustomOrganizationAvatar />
           </ImageContainer>
         </CenterLogo>
-        <OrganizationNameBig>
-          <OrganizationName />
-        </OrganizationNameBig>
+        <OrganizationName
+          fontWeight={'bold'}
+          as={'h4'}
+          overflow={'hidden'}
+          textOverflow={'ellipsis'}
+          whiteSpace={'nowrap'}
+          textColor={theme.textAccent1}
+        />
       </FlexContainer>
     </StatusCard>
   );
@@ -77,7 +83,6 @@ export const OrganizationCard = ({
 
   const id = organization?.address ?? organizationId ?? '';
   const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
-  const organizationAvatar = organization?.account?.avatar;
   const electionIndex = organization?.electionIndex ?? electionCount ?? '';
 
   const w = '40px';
@@ -114,14 +119,6 @@ export const OrganizationCard = ({
 };
 
 const OrganizationWrapper = styled.div`
-  color: ${(props) => props.theme.textAccent1};
-`;
-
-const OrganizationNameBig = styled.h4`
-  display: inline-block;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: ${(props) => props.theme.textAccent1};
 `;
 
