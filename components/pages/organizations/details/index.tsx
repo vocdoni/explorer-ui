@@ -52,7 +52,7 @@ export const OrganizationView = ({ id }: { id: string }) => {
         </Column>
       </Grid>
       <When condition={id && organization?.electionIndex > 0}>
-        <OrganizationElections organizationId={id} />
+        <OrganizationElections organizationId={id} electionCount={organization?.electionIndex} />
       </When>
     </PageCard>
   );
