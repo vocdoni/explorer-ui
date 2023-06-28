@@ -52,9 +52,8 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
   };
   blockToDate = (height?: number) => ChainAPI.blockToDate(this.url, height);
   dateToBlock = (date?: Date) => {
-    if (date) {
-      const epoch = Math.floor(date.getTime() / 1000);
-      return ChainAPI.dateToBlock(this.url, epoch);
-    }
+    if (!date) date = new Date();
+    const epoch = Math.floor(date.getTime() / 1000);
+    return ChainAPI.dateToBlock(this.url, epoch);
   };
 }
