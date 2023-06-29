@@ -196,9 +196,9 @@ export const useBlockByHeight = ({ height }: { height: number }) => {
   return useSDKFunction({ promiseFn: client.blockByHeight, args: [height] });
 };
 
-export const useBlockList = ({ from }: { from: number }) => {
+export const useBlockList = ({ from, listSize }: { from: number; listSize?: number }) => {
   const { client } = useClient<ExtendedSDKClient>();
-  return useSDKFunction({ promiseFn: client.blockList, args: [from] });
+  return useSDKFunction({ promiseFn: client.blockList, args: [from, listSize] });
 };
 
 /**

@@ -16,20 +16,45 @@ import { HomePageButton } from '@components/elements/button';
 import Link from 'next/link';
 import { IChainGetInfoResponse } from '@vocdoni/sdk';
 import { useBlockList } from '@hooks/use-voconi-sdk';
+import { When } from 'react-if';
 
 const BLOCK_LIST_SIZE = 4;
+
+const BlockList = ({ blockHeight }: { blockHeight: number }) => {
+  const { i18n } = useTranslation();
+  const firstBlock = blockHeight - (BLOCK_LIST_SIZE - 1);
+
+  const { data: blocks } = useBlockList({
+    from: firstBlock,
+    listSize: BLOCK_LIST_SIZE,
+  });
+
+  return (
+    <>
+      {blocks?.length ? (
+        blocks.map((item, i) => (
+          <BlockCard
+            key={i}
+            style={{ border: '1px solid #E4E7EB' }}
+            blockHeight={item.header.height}
+            blockTime={item.header.time}
+            proposer={item.header.proposerAddress}
+          />
+        ))
+      ) : (
+        <h3>{i18n.t('stats.getting_block_info')}</h3>
+      )}
+    </>
+  );
+};
 
 const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
   const { i18n } = useTranslation();
 
   let blockHeight: number;
-  if (stats && stats?.height !== blockHeight) {
-    blockHeight = stats.height - BLOCK_LIST_SIZE;
+  if (stats && stats?.height) {
+    blockHeight = stats.height;
   }
-
-  const { data: recentBlocks } = useBlockList({
-    from: blockHeight,
-  });
 
   const syncing = stats?.syncing ? i18n.t('stats.syncing') : i18n.t('stats.in_sync');
 
@@ -41,19 +66,9 @@ const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
             <Card md={6}>
               <VerticallyCenter>
                 <CardTitle title={i18n.t('stats.latest_block')} icon={<VscGraphLine />}></CardTitle>
-                {recentBlocks?.length ? (
-                  recentBlocks.map((item, i) => (
-                    <BlockCard
-                      key={i}
-                      style={{ border: '1px solid #E4E7EB' }}
-                      blockHeight={item.header.height}
-                      blockTime={item.header.time}
-                      proposer={item.header.proposerAddress}
-                    />
-                  ))
-                ) : (
-                  <h3>{i18n.t('stats.getting_block_info')}</h3>
-                )}
+                <When condition={blockHeight !== null}>
+                  <BlockList blockHeight={blockHeight} />
+                </When>
                 <HomePageButton>
                   <Link href={'blocks/'} passHref>
                     {i18n.t('stats.view_all_blocks')}
@@ -141,7 +156,7 @@ const Subtitle = styled.p`
 const VerticallyCenter = styled.div`
   margin: 30px 0;
   padding-left: 15px;
-  min-height: 485px;
+  min-height: 500px;
 `;
 
 const TitleSubtitleList = styled.div`
