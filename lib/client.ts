@@ -43,7 +43,7 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
     // If is not a number bigger than 0
     if (isNaN(from)) return Promise.all(promises);
     for (let i = 0; i < listSize; i++) {
-      if (i > 0) promises.push(this.blockByHeight(from + i));
+      if (from + i > 0) promises.push(this.blockByHeight(from + i));
     }
     return Promise.all(promises).then((blockInfo) => {
       // flatten the array[][] into array[]
