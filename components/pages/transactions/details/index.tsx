@@ -8,9 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
-import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, VoteEnvelope } from '@vocdoni/sdk';
+import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk';
 import { OverflowScroll } from '@components/elements/styled-divs';
-import { Tx } from '@vocdoni/sdk';
 import { useBlockToDate } from '@hooks/use-voconi-sdk';
 
 export const TransactionDetails = ({
@@ -44,14 +43,9 @@ export const TransactionDetails = ({
   switch (txType) {
     case 'vote': {
       const tx = txPayload['vote'] as VoteEnvelope;
-      try {
-        votePackage =
-          tx.encryptionKeyIndexes !== undefined && tx.encryptionKeyIndexes.length > 0
-            ? tx.votePackage
-            : Buffer.from(tx.votePackage, 'base64').toString('ascii');
-        (rawTx['tx']['vote'] as VoteEnvelope).votePackage = votePackage;
-      } catch (e) {
-        console.error(e);
+      if (tx.votePackage) {
+        votePackage = Buffer.from(tx.votePackage, 'base64').toString('ascii');
+        (rawTx['tx']['vote'] as VoteEnvelope).votePackage = JSON.parse(votePackage);
       }
       belongsToProcess = b64ToHex(tx.processId as any as string);
       break;
