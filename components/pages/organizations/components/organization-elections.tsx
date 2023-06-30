@@ -1,12 +1,9 @@
 import { Column, Grid } from '@components/elements/grid';
-import { Typography, TypographyVariant } from '@components/elements/typography';
 import { ElectionCard } from '@components/blocks/card/process-card';
-import React, { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useBlockList, useOrganizationElectionsList } from '@hooks/use-voconi-sdk';
-import { IChainBlockInfoResponse, IElectionSummary } from '@vocdoni/sdk';
-import { IFilterBlocks } from '@components/pages/blocks/components/block-filter';
-import { JumpToPaginatedList, useJumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
+import React, { useState } from 'react';
+import { useOrganizationElectionsList } from '@hooks/use-voconi-sdk';
+import { IElectionSummary } from '@vocdoni/sdk';
+import { JumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
 
 export const OrganizationElections = ({
   organizationId,
@@ -39,16 +36,6 @@ export const OrganizationElections = ({
           currentPage={paginatorPage}
           setCurrentPage={setPaginatorPage}
         />
-        {/*<Typography variant={TypographyVariant.Body1}>*/}
-        {/*  {i18n.t('organizations.details.organization_processes')}{' '}*/}
-        {/*</Typography>*/}
-        {/*{elections.map((election, index) => {})}*/}
-        {/*{!electionsList ||*/}
-        {/*  (elections.length <= 0 && (*/}
-        {/*    <Typography variant={TypographyVariant.Small}>*/}
-        {/*      {i18n.t('organizations.details.no_processes_yet')}{' '}*/}
-        {/*    </Typography>*/}
-        {/*  ))}*/}
       </Column>
     </Grid>
   );
