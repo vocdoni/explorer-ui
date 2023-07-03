@@ -3,9 +3,9 @@ import {
   ChainAPI,
   ClientOptions,
   ElectionAPI,
+  IChainBlockInfoResponse,
   VocdoniSDKClient,
   VoteAPI,
-  IChainBlockInfoResponse,
 } from '@vocdoni/sdk';
 
 export class ExtendedSDKClient extends VocdoniSDKClient {
@@ -50,10 +50,14 @@ export class ExtendedSDKClient extends VocdoniSDKClient {
       return blockInfo.reduce((prev, cur) => prev.concat(cur), []).reverse();
     });
   };
-  blockToDate = (height?: number) => ChainAPI.blockToDate(this.url, height);
-  dateToBlock = (date?: Date) => {
-    if (!date) date = new Date();
-    const epoch = Math.floor(date.getTime() / 1000);
-    return ChainAPI.dateToBlock(this.url, epoch);
+  blockToDate = (height?: number): ReturnType<typeof ChainAPI.blockToDate> => {
+    return height ? ChainAPI.blockToDate(this.url, height) : Promise.resolve({ date: undefined });
+  };
+  dateToBlock = (date?: Date): ReturnType<typeof ChainAPI.dateToBlock> => {
+    if (date) {
+      const epoch = Math.floor(date.getTime() / 1000);
+      return ChainAPI.dateToBlock(this.url, epoch);
+    }
+    return Promise.resolve({ height: undefined });
   };
 }
