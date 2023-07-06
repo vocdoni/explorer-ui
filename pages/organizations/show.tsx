@@ -1,29 +1,28 @@
-import { Loader } from '@components/blocks/loader';
 import { useUrlHash } from 'use-url-hash';
-import { OrganizationView } from '@components/pages/organizations/details/index';
-import { Else, If, Then } from 'react-if';
 import { OrganizationProvider, useOrganization } from '@vocdoni/chakra-components';
 import { useTranslation } from 'react-i18next';
 import { ensure0x } from '@vocdoni/sdk';
+import LoaderPage from '@components/pages/app/layout/loader-page';
+import React from 'react';
+import { OrganizationView } from '@components/pages/organizations/details';
 
 const OrganizationsDetailPage = () => {
-  const { organization, loading, errors } = useOrganization();
+  const { organization, loading, errors, loaded } = useOrganization();
   const { i18n } = useTranslation();
 
+  const error = errors.load?.length > 0 || errors.update?.length > 0;
+  const hasContent = !!organization;
+  const isLoading = loading || !loaded;
+
   return (
-    <If condition={errors.load || errors.update}>
-      <Then>{i18n.t('organizations.details.organization_not_found')}</Then>
-      <Else>
-        <If condition={!loading}>
-          <Then>
-            <OrganizationView id={organization?.address} />
-          </Then>
-          <Else>
-            <Loader visible />
-          </Else>
-        </If>
-      </Else>
-    </If>
+    <LoaderPage
+      loading={isLoading}
+      error={error}
+      hasContent={hasContent}
+      errorMessage={i18n.t('organizations.details.organization_not_found')}
+    >
+      <OrganizationView id={organization?.address} />
+    </LoaderPage>
   );
 };
 

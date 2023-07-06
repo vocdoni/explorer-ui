@@ -1,33 +1,28 @@
-import { Loader } from '@components/blocks/loader';
 import ProcessDetailPage from '@components/pages/processes/details';
-import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
-import { ElectionProvider, useElection, OrganizationProvider } from '@vocdoni/chakra-components';
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/chakra-components';
 import { ensure0x } from '@vocdoni/sdk';
+import LoaderPage from '@components/pages/app/layout/loader-page';
 
 const ProcessesDetailPage = () => {
-  const { loading, election } = useElection();
+  const { loading, election, error } = useElection(); // todo(kon): when suported by chakra-components, add loaded
   const { i18n } = useTranslation();
 
+  const hasError = error?.length > 0;
+  const hasContent = !!election;
+
   return (
-    <If condition={loading}>
-      <Then>
-        <Loader visible />
-      </Then>
-      <Else>
-        <If condition={election !== undefined && !loading}>
-          <Then>
-            <OrganizationProvider id={ensure0x(election?.organizationId ?? '')}>
-              <ProcessDetailPage />
-            </OrganizationProvider>
-          </Then>
-          <Else>
-            <h1>{i18n.t('processes.details.process_not_found')}</h1>
-          </Else>
-        </If>
-      </Else>
-    </If>
+    <LoaderPage
+      loading={loading}
+      error={hasError}
+      hasContent={hasContent}
+      errorMessage={i18n.t('processes.details.process_not_found')}
+    >
+      <OrganizationProvider id={ensure0x(election?.organizationId ?? '')}>
+        <ProcessDetailPage />
+      </OrganizationProvider>
+    </LoaderPage>
   );
 };
 
