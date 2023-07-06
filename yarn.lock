@@ -1668,7 +1668,7 @@
     "@ethersproject/rlp" "^5.7.0"
     "@ethersproject/signing-key" "^5.7.0"
 
-"@ethersproject/units@5.7.0":
+"@ethersproject/units@5.7.0", "@ethersproject/units@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@ethersproject/units/-/units-5.7.0.tgz#637b563d7e14f42deeee39245275d477aae1d8b1"
   integrity sha512-pD3xLMy3SJu9kG5xDGI7+xhTEmGXlEqXU4OfNapmfnxLVY4EMSSRp7j1k7eezutBPH7RBN/7QPnwR7hzNlEFeg==
@@ -2445,10 +2445,10 @@
     "@typescript-eslint/types" "5.54.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vocdoni/chakra-components@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.2.9.tgz#a6c5822dc920288b933fa7ff7a9c1b98f0171757"
-  integrity sha512-UVwI6wkx9sfbSxjFFtFiNaIXbbmggH8OHm7W1SWctiMU77jQHh8kFEOSPXS/uZShET9ZOGPSQaZHaJ+U2B1F+A==
+"@vocdoni/chakra-components@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.3.0.tgz#434f68e1549967b7d6eefa0851acdfa2a5136d5b"
+  integrity sha512-4g18xsdrjAMzAGNPezFz0VIlbd3dToGNx7wLhUsdTq5ygtiK8EGX7Ff3y4SkdAKy2m0zgDfoJZPD/hTsLpxjng==
 
 "@vocdoni/proto@1.14.1":
   version "1.14.1"
@@ -2469,6 +2469,30 @@
     "@ethersproject/keccak256" "^5.7.0"
     "@ethersproject/providers" "^5.7.1"
     "@ethersproject/signing-key" "^5.7.0"
+    "@ethersproject/wallet" "^5.7.0"
+    "@size-limit/file" "^8.2.4"
+    "@vocdoni/proto" "1.14.1"
+    axios "0.27.2"
+    blakejs "^1.2.1"
+    blindsecp256k1 "^0.0.9"
+    iso-language-codes "^1.1.0"
+    tiny-invariant "^1.3.1"
+    tweetnacl "^1.0.3"
+    yup "^0.32.11"
+
+"@vocdoni/sdk@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.0.16.tgz#7f72705d01373f105ac085cc66b1810605f8788b"
+  integrity sha512-VRznsOiOs7jbP5gKp2GAUNAYe8w8pL2nnTlic1AU3YjkOAqsFl7yUk6SnmT6Ll7SpHFR//FIuT1MhzjfgravLA==
+  dependencies:
+    "@ethersproject/abstract-signer" "^5.7.0"
+    "@ethersproject/address" "^5.7.0"
+    "@ethersproject/bignumber" "^5.7.0"
+    "@ethersproject/bytes" "^5.7.0"
+    "@ethersproject/keccak256" "^5.7.0"
+    "@ethersproject/providers" "^5.7.1"
+    "@ethersproject/signing-key" "^5.7.0"
+    "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
     "@size-limit/file" "^8.2.4"
     "@vocdoni/proto" "1.14.1"
