@@ -200,6 +200,7 @@
     "details": {
       "no_processes_yet": "No processes yet",
       "organization_address": "Organization address",
+      "organization_not_found": "Organization not found",
       "organization_description": "Organization description",
       "organization_processes": "Organization processes"
     },

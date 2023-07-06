@@ -22,6 +22,7 @@ function useSDKFunction<T, U>({
   const [data, setData] = useState<PromiseReturnType<ReturnType<typeof promiseFn>> | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false); // True after first load attempt
   const { setAlertMessage } = useAlertMessage();
 
   // Use useMemo to memoize the arguments and recompute only when they change
@@ -41,6 +42,7 @@ function useSDKFunction<T, U>({
       })
       .finally(() => {
         setLoading(false);
+        if (!loaded) setLoaded(true);
       });
   }, [memorizedArgs, promiseFn]);
 
@@ -54,7 +56,7 @@ function useSDKFunction<T, U>({
     doCall();
   }, [promiseFn, memorizedArgs, doCall, interval]);
 
-  return { data, error, loading };
+  return { data, error, loading, loaded };
 }
 
 /**

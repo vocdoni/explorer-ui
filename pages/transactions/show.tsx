@@ -1,9 +1,9 @@
-import { Loader } from '@components/blocks/loader';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { TransactionDetails } from '@components/pages/transactions/details';
 import { useTranslation } from 'react-i18next';
 import { useTxByBlock, useTxByHash } from '@hooks/use-voconi-sdk';
+import LoaderPage from '@components/pages/app/layout/loader-page';
 
 const TransactionByHeightAndIndex = ({
   blockHeight,
@@ -16,27 +16,27 @@ const TransactionByHeightAndIndex = ({
   loading?: boolean;
   error?: boolean;
 }) => {
-  const { data: tx, loading: txLoading } = useTxByBlock({ blockHeight: blockHeight, txIndex: txIndex });
+  const {
+    data: tx,
+    loading: txLoading,
+    loaded,
+    error: errorByBlock,
+  } = useTxByBlock({ blockHeight: blockHeight, txIndex: txIndex });
   const { i18n } = useTranslation();
-  const loading = l || txLoading;
+
+  const loading = l || txLoading || !loaded;
+  const hasError = error || !!errorByBlock;
 
   return (
     <>
-      <If condition={loading || (tx === undefined && !error)}>
-        <Then>
-          <Loader visible />
-        </Then>
-      </If>
-      <Else>
-        <If condition={tx != null && !error}>
-          <Then>
-            <TransactionDetails txIndex={txIndex} blockHeight={blockHeight} transactionData={tx} />
-          </Then>
-          <Else>
-            <h1>{i18n.t('transactions.details.transaction_not_found')}</h1>
-          </Else>
-        </If>
-      </Else>
+      <LoaderPage
+        loading={loading}
+        error={hasError}
+        hasContent={!!tx}
+        errorMessage={i18n.t('transactions.details.transaction_not_found')}
+      >
+        <TransactionDetails txIndex={txIndex} blockHeight={blockHeight} transactionData={tx} />
+      </LoaderPage>
     </>
   );
 };

@@ -203,7 +203,8 @@
       "no_processes_yet": "Aún no hay procesos",
       "organization_address": "Dirección de la organización",
       "organization_description": "Descripción de la organización",
-      "organization_processes": "Procesos de la organización"
+      "organization_processes": "Procesos de la organización",
+      "organization_not_found": "Organización no encontrada"
     },
     "filter": {
       "search_by_org_address": "Buscar por id de organización"
