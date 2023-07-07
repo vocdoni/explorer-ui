@@ -27,21 +27,6 @@ const EnvelopeDetailPage = () => {
     >
       <EnvelopeDetails envelope={envelope} />
     </LoaderPage>
-    // <If condition={envelope && !loading}>
-    //   <Then>
-    //     <EnvelopeDetails envelope={envelope} />
-    //   </Then>
-    //   <Else>
-    //     <If condition={envelope === null && !loading}>
-    //       <Then>
-    //         <h1>{i18n.t('envelopes.details.envelope_not_found')}</h1>
-    //       </Then>
-    //       <Else>
-    //         <Loader visible />
-    //       </Else>
-    //     </If>
-    //   </Else>
-    // </If>
   );
 };
 
