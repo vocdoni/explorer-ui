@@ -23,7 +23,9 @@ export const DefaultProviders = ({ children }: IDefaultProvidersProps) => {
     <UseAlertMessageProvider>
       <UseLoadingAlertProvider>
         <ChakraProvider resetCSS={false} theme={chakraDefaultTheme}>
-          <ClientProvider client={sdkClient}>{children}</ClientProvider>
+          <ClientProvider locale={null} client={sdkClient}>
+            {children}
+          </ClientProvider>
         </ChakraProvider>
       </UseLoadingAlertProvider>
     </UseAlertMessageProvider>
