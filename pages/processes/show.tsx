@@ -6,15 +6,16 @@ import { ensure0x } from '@vocdoni/sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
 
 const ProcessesDetailPage = () => {
-  const { loading, election, error } = useElection(); // todo(kon): when suported by chakra-components, add loaded
+  const { loading, election, error, loaded } = useElection();
   const { i18n } = useTranslation();
 
   const hasError = error?.length > 0;
   const hasContent = !!election;
+  const isLoading = loading || !loaded;
 
   return (
     <LoaderPage
-      loading={loading}
+      loading={isLoading}
       error={hasError}
       hasContent={hasContent}
       errorMessage={i18n.t('processes.details.process_not_found')}
