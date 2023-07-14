@@ -1,9 +1,9 @@
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import { JumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
 import React, { ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
-import { IFilterTransactions, TransactionsFilter } from '../components/transactions-filter';
+import { IFilterTransactions, TransactionsFilter } from '../components/TransactionsFilter';
 import { useTxList } from '@hooks/use-voconi-sdk';
-import { TransactionCard } from '@components/blocks/card/transaction-card';
+import { TransactionCard } from '@components/pages/transactions/components/TransactionCard';
 import { IChainTxReference } from '@vocdoni/sdk';
 
 interface IDashboardTransactionsListProps {

@@ -5,7 +5,7 @@ import { BlockLink, ProcessLink, TransactionLink } from '@components/pages/app/c
 import { useTranslation } from 'react-i18next';
 import { colors } from '@theme/colors';
 import { BreakWordAll, CenterText, ItemDate, OverflowScroll } from '@components/elements/styled-divs';
-import { EncryptionKeysIndexesBadge } from '@components/blocks/badges/envelope_encryption_keys';
+import { EncryptionKeysIndexesBadge } from '@components/pages/envelopes/components/EnvelopeEncryptionKeys';
 import { localizedDateDiff } from '@lib/date';
 import { useState } from 'react';
 import { Button } from '@components/elements/button';

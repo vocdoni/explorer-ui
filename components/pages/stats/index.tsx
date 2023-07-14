@@ -7,8 +7,8 @@ import { Card } from '@components/elements/cards';
 
 import { localizedDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
-import { Section, BlockContainer } from '@components/elements/styled-divs';
-import { BlockCard } from '@components/blocks/card/block-card';
+import { BlockContainer, Section } from '@components/elements/styled-divs';
+import { BlockCard } from '@components/pages/blocks/components/BlockCard';
 import { capitalize } from '@lib/util';
 import { MdSpeed } from 'react-icons/md';
 import { VscGraphLine } from 'react-icons/vsc';

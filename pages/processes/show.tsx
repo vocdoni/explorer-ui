@@ -1,4 +1,4 @@
-import ProcessDetailPage from '@components/pages/processes/details';
+import ProcessDetailPage from '@components/pages/elections/details';
 import { useUrlHash } from 'use-url-hash';
 import { useTranslation } from 'react-i18next';
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/chakra-components';

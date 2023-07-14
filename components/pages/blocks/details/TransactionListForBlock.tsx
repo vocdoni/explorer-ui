@@ -1,4 +1,4 @@
-import { TransactionTypeBadge } from '@components/blocks/badges/transaction-type-badge';
+import { TransactionTypeBadge } from '@components/pages/transactions/components/TransactionTypeBadge';
 import { GenericListItemWithBadge } from '@components/blocks/list-items';
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';

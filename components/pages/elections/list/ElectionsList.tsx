@@ -1,13 +1,13 @@
 import React, { ReactNode, useState } from 'react';
 
-import { ProcessFilter } from '../components/process-filter';
+import { ProcessFilter } from '../components/ElectionFilter';
 import {
   FilteredPaginatedList,
   useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
 import { useElectionList } from '@hooks/use-voconi-sdk';
 import { IElectionListFilter, IElectionSummary } from '@vocdoni/sdk';
-import { ElectionCard } from '@components/blocks/card/process-card';
+import { ElectionCard } from '@components/pages/elections/components/ElectionCard';
 
 export type ElectionStatusType = IElectionListFilter['status'];
 

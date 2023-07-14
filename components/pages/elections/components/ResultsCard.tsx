@@ -1,5 +1,5 @@
-import { If, Then, Else } from 'react-if';
-import { Row, Col } from '@components/elements-v2';
+import { Else, If, Then } from 'react-if';
+import { Col, Row } from '@components/elements-v2';
 import { NoResultsCard } from '@components/blocks/NoResultsCard';
 import { useTranslation } from 'react-i18next';
 import { QuestionResults } from '@components/blocks/question-results';

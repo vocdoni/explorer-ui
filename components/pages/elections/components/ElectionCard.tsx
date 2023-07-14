@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AnonVoteBadge, ProcessStatusBadge } from '../badges/process-status-badge';
-import { BodyWrapper, CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '../../elements/card-generic';
-import { ReducedOrganizationNameWithIcon } from './entity-card';
+import { AnonVoteBadge, ElectionStatusBadge } from './ElectionStatusBadge';
+import {
+  BodyWrapper,
+  CardItemTitle,
+  GenericCardWrapper,
+  GenericCardWrapperProps,
+} from '../../../elements/card-generic';
+import { ReducedOrganizationNameWithIcon } from '../../organizations/components/OrganizationCard';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
-import { ElectionProvider, useElection, OrganizationProvider } from '@vocdoni/chakra-components';
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/chakra-components';
 import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
 import { PROCESS_DETAILS } from '@const/routes';
 import { getPath } from '@components/pages/app/components/get-links';
@@ -40,7 +45,7 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
 
   const Top = () => (
     <TopWrapper>
-      <ProcessStatusBadge status={status} />
+      <ElectionStatusBadge status={status} />
       {anonymous && <AnonVoteBadge />}
       <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />
     </TopWrapper>

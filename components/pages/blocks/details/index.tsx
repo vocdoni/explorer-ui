@@ -1,8 +1,8 @@
-import { BlockCard } from '@components/blocks/card/block-card';
+import { BlockCard } from '@components/pages/blocks/components/BlockCard';
 import { PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { TransactionListForBlock } from './transaction-list-for-block';
+import { TransactionListForBlock } from './TransactionListForBlock';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk';
