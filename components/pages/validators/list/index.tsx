@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { InlineTitleChildrenContainer, ListPage } from '@components/pages/app/page-templates/list-page';
-import { ValidatorCard } from '@components/blocks/card/validator-card';
+import { ValidatorCard } from '@components/pages/validators/components/ValidatorCard';
 import { IChainValidatorsListResponse } from '@vocdoni/sdk';
 
 export const DashboardShowValidators = ({ validators }: IChainValidatorsListResponse) => {

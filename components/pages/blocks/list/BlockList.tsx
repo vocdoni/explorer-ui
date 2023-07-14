@@ -2,10 +2,10 @@ import { InlineTitleChildrenContainer } from '@components/pages/app/page-templat
 import { JumpToPaginatedList, useJumpToPaginatedList } from '@components/pages/app/page-templates/list-page-jump-to';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-import { BlocksFilter, IFilterBlocks } from '../components/block-filter';
+import { BlocksFilter, IFilterBlocks } from '../components/BlockFilter';
 import { useBlockList } from '@hooks/use-voconi-sdk';
 import { IChainBlockInfoResponse } from '@vocdoni/sdk';
-import { BlockCard } from '@components/blocks/card/block-card';
+import { BlockCard } from '@components/pages/blocks/components/BlockCard';
 
 interface IDashboardBlockListProps {
   pageSize?: number;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DashboardProcessList } from './process-list';
+import { DashboardProcessList } from './ElectionsList';
 import { useTranslation } from 'react-i18next';
 import { ListPage } from '@components/pages/app/page-templates/list-page';
 import { useElectionCount } from '@hooks/use-voconi-sdk';

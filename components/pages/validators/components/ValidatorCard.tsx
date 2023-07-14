@@ -5,7 +5,7 @@ import { useIsMobile } from '@hooks/use-window-size';
 import { theme } from '@theme/global';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { CopyButton } from '../copy-button';
+import { CopyButton } from '../../../blocks/copy-button';
 import { IChainValidator } from '@vocdoni/sdk';
 
 export const ValidatorCard = ({

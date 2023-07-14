@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { ListPage } from '@components/pages/app/page-templates/list-page';
-import { DashboardEntityList } from './organization-list';
+import { DashboardEntityList } from './OrganizationList';
 import { useOrganizationCount } from '@hooks/use-voconi-sdk';
 
 export const DashboardShowEntities = () => {

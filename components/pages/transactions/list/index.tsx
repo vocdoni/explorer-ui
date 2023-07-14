@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { ListPage } from '@components/pages/app/page-templates/list-page';
-import { DashboardTransactionsList } from './transaction-list';
+import { DashboardTransactionsList } from './TransactionList';
 import { useTransactionCount } from '@hooks/use-voconi-sdk';
 
 export const DashboardShowTransactions = () => {

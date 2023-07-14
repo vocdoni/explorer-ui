@@ -1,5 +1,5 @@
 import { ListPage } from '@components/pages/app/page-templates/list-page';
-import { DashboardBlockList } from './block-list';
+import { DashboardBlockList } from './BlockList';
 import { useTranslation } from 'react-i18next';
 import { useBlockHeight } from '@hooks/use-voconi-sdk';
 

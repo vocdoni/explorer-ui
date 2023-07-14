@@ -1,16 +1,10 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import { useTranslation } from 'react-i18next';
-
 import { SectionText, SectionTitle, TextAlign } from '@components/elements/text';
 import { PageCardHeader } from '@components/elements/cards';
-import { FALLBACK_VOTE_HEADER_IMAGE } from '@const/vote';
-import { Grid, Column } from '@components/elements/grid';
+import { Column, Grid } from '@components/elements/grid';
 import { BreakWord } from '@components/elements/styled-divs';
-import { ElectionHeader } from '@vocdoni/chakra-components';
-
-export const CustomElectionHeader = () => <ElectionHeader fallbackSrc={FALLBACK_VOTE_HEADER_IMAGE} />;
 
 interface ICardImageHeader {
   title: string;

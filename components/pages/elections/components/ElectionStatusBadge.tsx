@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { ElectionStatus } from '@vocdoni/sdk';
 
-export const ProcessStatusBadge = ({ status }: { status: ElectionStatus }) => {
+export const ElectionStatusBadge = ({ status }: { status: ElectionStatus }) => {
   const { i18n } = useTranslation();
 
   switch (status) {

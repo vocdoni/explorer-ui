@@ -1,4 +1,4 @@
-import { TransactionTypeBadge } from '@components/blocks/badges/transaction-type-badge';
+import { TransactionTypeBadge } from '@components/pages/transactions/components/TransactionTypeBadge';
 import { GenericListItemWithBadge } from '@components/blocks/list-items';
 import { Card, PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';

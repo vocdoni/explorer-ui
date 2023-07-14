@@ -1,7 +1,7 @@
 import { getPath } from '@components/pages/app/components/get-links';
 import { TRANSACTIONS_DETAILS } from '@const/routes';
 import { useTranslation } from 'react-i18next';
-import { TransactionTypeBadge } from '../badges/transaction-type-badge';
+import { TransactionTypeBadge } from './TransactionTypeBadge';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
 import styled from 'styled-components';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';

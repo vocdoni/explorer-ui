@@ -5,7 +5,7 @@ import { localizedDateDiff } from '@lib/date';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
 import { ItemDate } from '@components/elements/styled-divs';
 import styled from 'styled-components';
-import { ReducedTextAndCopy } from '../copy-button';
+import { ReducedTextAndCopy } from '../../../blocks/copy-button';
 import { ensure0x } from '@vocdoni/sdk';
 
 export const BlockCard = ({
