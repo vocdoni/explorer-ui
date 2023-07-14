@@ -1,5 +1,5 @@
 import { Column, Grid } from '@components/elements/grid';
-import { ElectionCard } from '@components/blocks/card/process-card';
+import { ElectionCard } from '@components/pages/elections/components/ElectionCard';
 import React, { useState } from 'react';
 import { useOrganizationElectionsList } from '@hooks/use-voconi-sdk';
 import { IElectionSummary } from '@vocdoni/sdk';

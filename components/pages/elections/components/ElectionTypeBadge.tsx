@@ -5,7 +5,7 @@ interface EnvelopeTypeBadgeProps {
   encryptedVotes: boolean;
 }
 
-export const EnvelopeTypeBadge = ({ encryptedVotes }: EnvelopeTypeBadgeProps) => {
+export const ElectionTypeBadge = ({ encryptedVotes }: EnvelopeTypeBadgeProps) => {
   const { i18n } = useTranslation();
 
   return (

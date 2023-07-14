@@ -2,26 +2,30 @@ import React from 'react';
 
 import { BadgeColumn, Grid } from '@components/elements/grid';
 import { PageCard, StatusCard } from '@components/elements/cards';
-import { CardImageHeader, CustomElectionHeader } from '@components/blocks/card/image-header';
+import { CardImageHeader } from '@components/blocks/image-header';
 import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';
-import { CustomOrganizationAvatar, OrganizationCardMedium } from '@components/blocks/card/entity-card';
-import { EnvelopeTypeBadge } from '../components/envelope-type-badge';
-import { CensusOriginBadge } from '../components/process-censusorigin-badge';
-import { ProcessModeBadge } from '../components/process-processmode-badge';
-import { AnonVoteBadge, ProcessStatusBadge } from '@components/blocks/badges/process-status-badge';
-import { EnvelopeExplorer } from '../components/process-envelope-explorer';
-import { ResultsCard } from '../components/results-card';
-import { EncryptionKeys } from '../components/process_keys';
+import {
+  CustomOrganizationAvatar,
+  OrganizationCardMedium,
+} from '@components/pages/organizations/components/OrganizationCard';
+import { ElectionTypeBadge } from '../components/ElectionTypeBadge';
+import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
+import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
+import { AnonVoteBadge, ElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
+import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
+import { ResultsCard } from '../components/ResultsCard';
+import { EncryptionKeys } from '../components/ElectionKeys';
 import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
-import { Markdown, useOrganization } from '@vocdoni/chakra-components';
+import { Markdown } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
+import { CustomElectionHeader } from '@components/pages/elections/components/ElectionHeader';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -51,7 +55,7 @@ const ProcessesDetailPage = () => {
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
           {i18n.t('processes.details.process_details')}
         </Typography>
-        <ProcessStatusBadge status={election.status} />
+        <ElectionStatusBadge status={election.status} />
       </FlexRowWrapper>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         {dateDiffStr}
@@ -66,7 +70,7 @@ const ProcessesDetailPage = () => {
         <BadgeColumn>
           <CensusOriginBadge censusOrigin={Vochain.CensusOrigin[electionRaw.census.censusOrigin]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
-          <EnvelopeTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
+          <ElectionTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
           {electionRaw.voteMode.anonymous && <AnonVoteBadge />}
         </BadgeColumn>
       </Grid>

@@ -1,17 +1,17 @@
 import { Typography, TypographyVariant } from '@components/elements/typography';
-import { Grid, Column } from '@components/elements/grid';
+import { Column, Grid } from '@components/elements/grid';
 import { PageCard } from '@components/elements/cards';
-import { CardImageHeader } from '@components/blocks/card/image-header';
+import { CardImageHeader } from '@components/blocks/image-header';
 import { useTranslation } from 'react-i18next';
 import { BreakWord } from '@components/elements/styled-divs';
 import { CopyButton } from '@components/blocks/copy-button';
 import React from 'react';
-import { useOrganization, OrganizationDescription, OrganizationHeader } from '@vocdoni/chakra-components';
+import { OrganizationDescription, OrganizationHeader, useOrganization } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { colors } from '@theme/colors';
-import { CustomOrganizationAvatar } from '@components/blocks/card/entity-card';
+import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationCard';
 import { When } from 'react-if';
-import { OrganizationElections } from '@components/pages/organizations/components/organization-elections';
+import { OrganizationElections } from '@components/pages/organizations/components/OrganizationElections';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;

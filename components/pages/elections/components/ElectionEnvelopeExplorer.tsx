@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { Paginator } from '@components/blocks/paginator';
 import { Else, If, Then } from 'react-if';
-import { renderCardSkeleton, EnvelopeCard } from '@components/blocks/card/envelope-card';
+import { EnvelopeCard, renderCardSkeleton } from '@components/pages/envelopes/components/EnvelopeCard';
 import { useElectionVotesCount, useElectionVotesList } from '@hooks/use-voconi-sdk';
 
 const ENVELOPES_PER_PAGE = 10;

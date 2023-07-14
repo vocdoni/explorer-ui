@@ -6,7 +6,7 @@ import { InputSearch } from '@components/elements/inputs';
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { Checkbox } from '@components/elements/checkbox';
-import { ElectionStatusType, IFilterProcesses } from '../list/process-list';
+import { ElectionStatusType, IFilterProcesses } from '../list/ElectionsList';
 import { DivWithMarginChildren } from '@components/elements/styled-divs';
 import { FilterForm } from '@components/pages/app/page-templates/filter-form';
 import { isInValidEntityId } from '@lib/util';

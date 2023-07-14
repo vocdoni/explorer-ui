@@ -1,4 +1,4 @@
-import { DashboardShowProcesses } from '@components/pages/processes/list';
+import { DashboardShowProcesses } from '@components/pages/elections/list';
 
 const ProcessesPage = () => {
   return <DashboardShowProcesses></DashboardShowProcesses>;
