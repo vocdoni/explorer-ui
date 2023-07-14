@@ -1,20 +1,16 @@
-import { FALLBACK_ACCOUNT_ICON } from '@const/account';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
-import { ImageContainer } from '@components/elements/images';
 import { StatusCard } from '@components/elements/cards';
 import { getOrganizationPath } from '@components/pages/app/components/get-links';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
-import { BodyWrapper, CardItemSubTitle, CardItemTitle, GenericCardWrapper } from '@components/elements/card-generic';
-import { BreakWord } from '@components/elements/styled-divs';
-import { useOrganization, OrganizationAvatar, OrganizationName } from '@vocdoni/chakra-components';
+import { BodyWrapper, CardItemSubTitle, GenericCardWrapper } from '@components/elements/card-generic';
+import { OrganizationName, useOrganization } from '@vocdoni/chakra-components';
 import { ensure0x } from '@vocdoni/sdk';
 import { theme } from '@theme/global';
-
-export const CustomOrganizationAvatar = () => <OrganizationAvatar fallbackSrc={FALLBACK_ACCOUNT_ICON} />;
+import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
 
 export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
   const { organization } = useOrganization();
@@ -29,9 +25,7 @@ export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizati
   const w = '25px';
   return (
     <OrganizationNameAndLogoWrapper>
-      <ImageContainer width={w} height={w}>
-        <CustomOrganizationAvatar />
-      </ImageContainer>
+      <CustomOrganizationAvatar height={w} width={w} />
       <ReducedTextAndCopy toCopy={organizationId} text={entityName} />
     </OrganizationNameAndLogoWrapper>
   );
@@ -53,9 +47,7 @@ export const OrganizationCardMedium = ({ organizationId, md }: OrganizationCardM
     >
       <FlexContainer alignItem={FlexAlignItem.Start} justify={FlexJustifyContent.Start}>
         <CenterLogo>
-          <ImageContainer width="30px" height="30px">
-            <CustomOrganizationAvatar />
-          </ImageContainer>
+          <CustomOrganizationAvatar width="30px" height="30px" />
         </CenterLogo>
         <OrganizationName
           fontWeight={'bold'}
@@ -82,22 +74,15 @@ export const OrganizationCard = ({
   const link = getOrganizationPath(organizationId);
 
   const id = organization?.address ?? organizationId ?? '';
-  const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
+  // const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
   const electionIndex = organization?.electionIndex ?? electionCount ?? '';
 
   const w = '40px';
 
-  const OrganizationAvatar = () => (
-    <ImageContainer width={w} height={w}>
-      <CustomOrganizationAvatar />
-    </ImageContainer>
-  );
-
   const Body = () => (
     <BodyWrapper>
-      <BreakWord>
-        <CardItemTitle>{orgName}</CardItemTitle>
-      </BreakWord>
+      <OrganizationName as={'h3'} margin={'0'} wordBreak={'break-word'} />
+
       <OrganizationWrapper>
         <ReducedTextAndCopy
           toCopy={id}
@@ -112,7 +97,7 @@ export const OrganizationCard = ({
   );
 
   return (
-    <GenericCardWrapper left={<OrganizationAvatar />} link={link}>
+    <GenericCardWrapper left={<CustomOrganizationAvatar width={w} height={w} />} link={link}>
       <Body />
     </GenericCardWrapper>
   );
