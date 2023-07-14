@@ -6,12 +6,15 @@ import { useTranslation } from 'react-i18next';
 import { BreakWord } from '@components/elements/styled-divs';
 import { CopyButton } from '@components/blocks/copy-button';
 import React from 'react';
-import { OrganizationDescription, OrganizationHeader, useOrganization } from '@vocdoni/chakra-components';
+import { OrganizationDescription, useOrganization } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { colors } from '@theme/colors';
-import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationCard';
 import { When } from 'react-if';
 import { OrganizationElections } from '@components/pages/organizations/components/OrganizationElections';
+import {
+  CustomOrganizationAvatar,
+  CustomOrganizationHeader,
+} from '@components/pages/organizations/components/OrganizationImages';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;
@@ -24,7 +27,7 @@ export const OrganizationView = ({ id }: { id: string }) => {
 
   return (
     <PageCard>
-      <CardImageHeader title={orgName} logo={<CustomOrganizationAvatar />} header={<OrganizationHeader />} />
+      <CardImageHeader title={orgName} logo={<CustomOrganizationAvatar />} header={<CustomOrganizationHeader />} />
 
       {description && (
         <Grid>
@@ -32,7 +35,6 @@ export const OrganizationView = ({ id }: { id: string }) => {
             <Typography variant={TypographyVariant.Body1}>
               {i18n.t('organizations.details.organization_description')}
             </Typography>
-            {/*<Typography variant={TypographyVariant.Small}>{description}</Typography>*/}
             <OrganizationDescription />
           </Column>
         </Grid>

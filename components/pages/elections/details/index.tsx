@@ -7,10 +7,7 @@ import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib
 import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';
-import {
-  CustomOrganizationAvatar,
-  OrganizationCardMedium,
-} from '@components/pages/organizations/components/OrganizationCard';
+import { OrganizationCardMedium } from '@components/pages/organizations/components/OrganizationCard';
 import { ElectionTypeBadge } from '../components/ElectionTypeBadge';
 import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
 import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
@@ -26,6 +23,7 @@ import { Markdown } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 import { CustomElectionHeader } from '@components/pages/elections/components/ElectionHeader';
+import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
