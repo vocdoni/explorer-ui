@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { Switch, Case, Default } from 'react-if';
-import { BaseStatusBadge } from '@components/elements/card-badge';
+import { Case, Default, Switch } from 'react-if';
+import { CustomTag } from '@components/elements/CustomTag';
 
 export const EncryptionKeysIndexesBadge = ({ type }: { type: number }) => {
   const { i18n } = useTranslation();
   return (
     <Switch>
       <Case condition={type > 0}>
-        <BaseStatusBadge>{type}</BaseStatusBadge>
+        <CustomTag>{type}</CustomTag>
       </Case>
       <Default>
-        <BaseStatusBadge>{i18n.t('envelopes.encryption_keys.none')}</BaseStatusBadge>
+        <CustomTag>{i18n.t('envelopes.encryption_keys.none')}</CustomTag>
       </Default>
     </Switch>
   );

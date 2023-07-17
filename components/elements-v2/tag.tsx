@@ -1,8 +1,6 @@
 import { colorsV2 } from '@theme/colors-v2';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { Col, Row } from './grid';
-import { Text } from '.';
 
 interface ITagProps {
   variant?: 'neutral' | 'success' | 'error' | 'info' | 'warning';
@@ -14,22 +12,22 @@ interface ITagProps {
    */
   children?: ReactNode;
 }
-export const Tag = (props: ITagProps) => {
-  return (
-    <Row align="center">
-      <Col align="center">
-        <StyledTag {...props}>{props.children}</StyledTag>
-      </Col>
-      {props.label && (
-        <StyledLabel>
-          <Text size="xs" weight="medium" color="dark-blue">
-            {props.label}
-          </Text>
-        </StyledLabel>
-      )}
-    </Row>
-  );
-};
+// export const Tag = (props: ITagProps) => {
+//   return (
+//     <Row align="center">
+//       <Col align="center">
+//         <StyledTag {...props}>{props.children}</StyledTag>
+//       </Col>
+//       {props.label && (
+//         <StyledLabel>
+//           <Text size="xs" weight="medium" color="dark-blue">
+//             {props.label}
+//           </Text>
+//         </StyledLabel>
+//       )}
+//     </Row>
+//   );
+// };
 const cosmeticProps = ['variant', 'size', 'fontWeight', 'label'];
 const styledConfig = {
   shouldForwardProp: (prop) => !cosmeticProps.includes(prop),
