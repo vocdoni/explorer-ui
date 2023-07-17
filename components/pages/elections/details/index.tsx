@@ -8,10 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { colors } from '@theme/colors';
 import { OrganizationCardMedium } from '@components/pages/organizations/components/OrganizationCard';
-import { ElectionTypeBadge } from '../components/ElectionTypeBadge';
+import { AnonVoteBadge, ElectionTypeBadge } from '../components/ElectionTypeBadge';
 import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
 import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
-import { AnonVoteBadge, ElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
 import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
 import { ResultsCard } from '../components/ResultsCard';
 import { EncryptionKeys } from '../components/ElectionKeys';
@@ -19,11 +18,12 @@ import { CopyButton } from '@components/blocks/copy-button';
 import { ElectionStatus } from '@vocdoni/sdk';
 import useExtendedElection from '@hooks/use-extended-election';
 import { Vochain } from '@vocdoni/proto';
-import { Markdown } from '@vocdoni/chakra-components';
 import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
 import { CustomElectionHeader } from '@components/pages/elections/components/ElectionHeader';
 import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
+import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
+import { ElectionDescription } from '@vocdoni/chakra-components';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -53,7 +53,7 @@ const ProcessesDetailPage = () => {
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
           {i18n.t('processes.details.process_details')}
         </Typography>
-        <ElectionStatusBadge status={election.status} />
+        <CustomElectionStatusBadge status={election.status} />
       </FlexRowWrapper>
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         {dateDiffStr}
@@ -104,7 +104,7 @@ const ProcessesDetailPage = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Markdown>{election.description.default}</Markdown>
+            <ElectionDescription />
           </TabPanel>
           <TabPanel>
             <Grid>
@@ -122,7 +122,6 @@ const ProcessesDetailPage = () => {
 
 // todo: move this somewhere
 function resolveLocalizedDateDiff(initDate: Date, endDate: Date, voteStatus: ElectionStatus) {
-  ElectionStatus;
   if (
     initDate &&
     (voteStatus == ElectionStatus.ONGOING || voteStatus == ElectionStatus.PAUSED || voteStatus == ElectionStatus.ENDED)

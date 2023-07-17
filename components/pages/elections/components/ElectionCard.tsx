@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AnonVoteBadge, ElectionStatusBadge } from './ElectionStatusBadge';
 import {
   BodyWrapper,
   CardItemTitle,
@@ -9,10 +8,13 @@ import {
 } from '../../../elements/card-generic';
 import { ReducedOrganizationNameWithIcon } from '../../organizations/components/OrganizationCard';
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
-import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/chakra-components';
+import { ElectionProvider, OrganizationProvider } from '@vocdoni/chakra-components';
 import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
 import { PROCESS_DETAILS } from '@const/routes';
 import { getPath } from '@components/pages/app/components/get-links';
+import useExtendedElection from '@hooks/use-extended-election';
+import { AnonVoteBadge } from '@components/pages/elections/components/ElectionTypeBadge';
+import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
 
 type ProcessCardProps = GenericCardWrapperProps & {
   electionId: string;
@@ -29,12 +31,11 @@ export const ElectionCard = ({ electionId, ...rest }: ProcessCardProps) => {
 };
 
 const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: ProcessCardProps) => {
-  const { election, loading: electionLoading } = useElection();
+  const { election, loading: electionLoading, anonymous } = useExtendedElection();
   const link = getPath(PROCESS_DETAILS, {
     processId: electionId,
   });
 
-  const anonymous = election?.electionType?.anonymous ?? false;
   const startDate = election?.startDate ?? new Date(electionSummary?.startDate) ?? null;
   const endDate = election?.endDate ?? new Date(electionSummary?.endDate) ?? null;
   const title = election?.title?.default ?? electionId;
@@ -45,7 +46,7 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
 
   const Top = () => (
     <TopWrapper>
-      <ElectionStatusBadge status={status} />
+      <CustomElectionStatusBadge status={status} />
       {anonymous && <AnonVoteBadge />}
       <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />
     </TopWrapper>

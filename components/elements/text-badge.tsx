@@ -1,29 +1,17 @@
-import styled from 'styled-components';
-import { BaseStatusBadge } from '@components/elements/card-badge';
+import { CustomTag } from '@components/elements/CustomTag';
+import React, { ReactNode } from 'react';
+import { colors } from '@theme/colors';
 
-const ActiveBadge = styled(BaseStatusBadge)`
-  background-color: ${({ theme }) => theme.accent1C};
-  color: ${(props) => props.theme.text};
-`;
+const ActiveBadge = ({ children }: { children: ReactNode }) => (
+  <CustomTag bg={colors.accent1C} color={colors.text}>
+    {children}
+  </CustomTag>
+);
 
-const UpcomingBadge = styled(BaseStatusBadge)`
-  background-color: ${({ theme }) => theme.accent1B};
-  color: ${(props) => props.theme.text};
-`;
+const UpcomingBadge = ({ children }: { children: ReactNode }) => (
+  <CustomTag bg={colors.accent1B} color={colors.text}>
+    {children}
+  </CustomTag>
+);
 
-const EndedBadge = styled(BaseStatusBadge)`
-  background-color: ${({ theme }) => theme.textAccent2};
-  color: ${(props) => props.theme.text};
-`;
-
-const EndedBadgeLight = styled(BaseStatusBadge)`
-  background-color: ${({ theme }) => theme.textAccent2B};
-  color: ${(props) => props.theme.text};
-`;
-
-const CanceledBadge = styled(BaseStatusBadge)`
-  background-color: ${({ theme }) => theme.danger};
-  color: ${(props) => props.theme.text};
-`;
-
-export { ActiveBadge, UpcomingBadge, EndedBadge, CanceledBadge, EndedBadgeLight };
+export { ActiveBadge, UpcomingBadge };
