@@ -1,9 +1,9 @@
 import { Tag } from '@chakra-ui/tag';
-import React, { ReactNode } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 type TagProps = React.ComponentProps<typeof Tag>;
 
-export const CustomTag = ({ children, ...rest }: { children: ReactNode } & TagProps) => (
+export const CustomTag = ({ children, ...rest }: PropsWithChildren<TagProps>) => (
   <Tag variant={'vocdoni'} {...rest}>
     {children}
   </Tag>
