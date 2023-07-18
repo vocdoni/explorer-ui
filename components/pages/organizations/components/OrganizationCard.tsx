@@ -74,7 +74,6 @@ export const OrganizationCard = ({
   const link = getOrganizationPath(organizationId);
 
   const id = organization?.address ?? organizationId ?? '';
-  // const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
   const electionIndex = organization?.electionIndex ?? electionCount ?? '';
 
   const w = '40px';
