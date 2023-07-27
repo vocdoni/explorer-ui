@@ -1,40 +1,52 @@
 {
-    "transactions": {
+    "blocks": {
         "badge": {
-            "ADD_ORACLE": "Add oracle",
-            "ADD_VALIDATOR": "Add validator",
-            "CANCEL_PROCESS": "Cancel process",
-            "NEW_PROCESS": "New process",
-            "REMOVE_ORACLE": "Remove oracle",
-            "REMOVE_VALIDATOR": "Remove validator",
-            "SET_PROCESS": "Set process",
-            "VOTE": "Vote",
-            "collectFaucet": "",
-            "mintTokens": "",
-            "newProcess": "",
-            "registerKey": "",
-            "sendTokens": "",
-            "setAccountDelegateTx": "",
-            "setAccountInfo": "",
-            "setKeykeeper": "",
-            "setProcess": "",
-            "setTransactionCosts": "",
-            "UNKNOWN": ""
-        },
-        "ADMIN": "Admin",
-        "details": {
-            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}"
+            "n_transactions": "{{ transactions }} transactions"
         },
         "filter": {
-            "search_by_transaction_height": "Search by transaction height"
+            "search_by_block_height": "Search by block height"
         },
-        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
-        "transactions_list_title": "Transactions list"
-    },
-    "transaction": {
-        "card": {
-            "index": "Index"
+        "list": {
+            "blocks_list_title": "Blocks list",
+            "current_block_heigh": "Current block height: {{ blockHeight }}"
         }
+    },
+    "components": {
+        "block_card": {
+            "hash": "Hash",
+            "height_n": "#{{ blockHeight }}",
+            "last_block_hash": "Last block hash"
+        },
+        "cardimage": {
+            "organization_logo_alt": "Organization logo",
+            "vote_process_image_alt": "Voting process image"
+        },
+        "filters": {
+            "apply_filters": "Apply",
+            "clear_filters": "Clear"
+        },
+        "organization_card_medium": {
+            "host_explore": "Explore"
+        },
+        "paginator": {
+            "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
+        },
+        "question_results": {
+            "number_votes": "Number of votes: {{ number }}"
+        },
+        "transaction_card": {
+            "number": "Number"
+        },
+        "vote_question_card": {
+            "no_results_available": "No results available",
+            "question": "Question"
+        }
+    },
+    "converter": {
+        "conversion_between_block_and_dates": "Conversion between block and dates"
+    },
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": "The link has been copied to the clipboard"
     },
     "elections": {
         "badge": {
@@ -46,216 +58,38 @@
             "encryptedVotes": "Encrypted votes",
             "notEncryptedVotes": "Not encrypted votes"
         },
+        "envelope_type_badge": {
+            "encryptedVotes": "",
+            "notEncryptedVotes": ""
+        },
         "ERC1155": "",
         "ERC20": "",
         "ERC721": "",
         "ERC777": "",
         "MINI_ME": "",
-        "UNRECOGNIZED": "",
-        "envelope_type_badge": {
-            "encryptedVotes": "",
-            "notEncryptedVotes": ""
-        }
-    },
-    "processes": {
-        "details": {
-            "process_not_found": {
-                "0": "P",
-                "1": "r",
-                "2": "o",
-                "3": "c",
-                "4": "e",
-                "5": "s",
-                "6": "s",
-                "7": " ",
-                "8": "n",
-                "9": "o",
-                "10": "t",
-                "11": " ",
-                "12": "f",
-                "13": "o",
-                "14": "u",
-                "15": "n",
-                "16": "d",
-                "bold": "\u001b[1mProcess not found\u001b[22m",
-                "strip": "Process not found",
-                "stripColors": "Process not found",
-                "trap": "ǷɌø©ҼϨ§ ÑʘŁ ӺǾƱÑԀ",
-                "zalgo": "P̶̧̛̬̣͙̖̭͉̦͕̠̗͓͈͈̼̬̟͎̲͓̰̠̗̮̞̺̦͇̞̮̗̩̬̮͇̰̥̗̱̲͉̝̯͙̣͓̲̌ͭ͑͗͑̓̒ͮͨ͆͌ͧ͐ͯ͑̃r̸̳̖̫̰̜̼͖̠̘̲̘̳̙͈̖̣̰̲̻̜̯̥̣̺̰̟̩͓̰̻̥̠̬͌ͣͨ̑̍ͦ̎̾̒̐̕ͅͅo̧͆͊̓ͨͮ͛̇̚͢͢ ҉͎͉̰͈͍͓̲̳̖̖̟͙͖͉̗̝̞̺̯̜̱̦̯͓͉͔̙̗͖̖͕̳̯̦̬̭̝̘̣̝͇̟̘̭̠̖͙͉̣̱̣̯̩̖̭̞̝̞͖̻̬͍̖̫ͅc̨ͪ͐̇̂̃ͤ͗̔͐͡ ҉̹̯͎͖̥̳̱̟̲̥͍̭̥̼͍̪̞͕̥̪̤̟̪̤̤̲̦̩̩̤͈̻̖̖̱͖̳͕̻̘̥̠̜̝̙͇͉͉̥͎̺͓͍̼͓ͅͅͅͅe̤̺̖͈͇͓̣̽͂͋̎̐͋ͨ̏̈̇̓̀ͨ̓̅̈̓ͨ̕͝ͅs̷͗̎̌ͪ̀̾͋ͬ ҉̰̜͇̣̭̠̦̘͖̬̼̘͕̱̦̜̲͔̞̩̳̭͖̲̣̜͖͈̪͎̟͕̟͖̜̝̥̻̦͠s͂͂̓̎̐̍͛ͤͥ ҉̜̭̘̼̰͇̗͖͎̝͔̻̭̠̜͖̜͔̼͎͎͇̘̬͚̥͉̝͔̮̰̺̮͓̮͢ͅͅ ̵̺̹̻̩͇̟̱͓̮̝̹̗̬̫̮͕̹̙̗̘̺̮̣̺̻̹̰̲̖̻͍̟̩ͤ͑ͬͥͧ̆͌ͥ͌̑̋͑́̕͠͠n̶̸͉̳̘̱̪͕̙̲̥̞̝̲̠̯̺̱̺̦̠̞͔̞͖̪̪̪͈̰̠̟͙̺͍͚͓̦̼̝͓͍͈̦̖͇̮̭̩͙̺̥̬ͫ̐͌ͯͫ͊͐͜ͅo̧̦͔̠͈̣̩̗̬̒͛̆̉ͣ̆̇ͣͭ̉ͬ͒̌ͫ͊̈́ͧ͠t̷̸̂̉͐̌͛ͨ͊ͦͤ̄́͡ ҉̩̝̝͖̝͉̲̝̩̼̲͖̖̝̘̲̣̪̙̗̫̘̪̰̗̙̪̰̦͓̺̩͙͈̦̳͉ͅ ̍̓ͦͨͧ͒́̔͊͑͋ͬ́͢ ҉͓͔̦̪̩͎͖͈̫͍͕̝̤̜͔̮̹̪̦͎͇͓͈f̟̮͈̠͕̭͓̦̖̠̙̣̫͉̥̺̹̘̳͖̦̪̬ͣ̿̓͆ͮͦͯ̊͆͛ͨͮ̽̔̐͊͞͝ͅo͚͔̥̯̦̘̥͙̩̭͙̩̥͈̩͙̹̟̼̮̫̻͚͔̺ͬ̈͐ͨͭ͢͡ͅͅͅư͍̙͕͓̪̜̩̭̜͈̰̹̹̠̬̖̜̯͔̖̲̗͎͇͖̯̗̲͕̰͙̮͓͙̥͐̎ͤ͊̓̽ͦ͌̃ͭ̌͘͝͝n̖͖̟̞̘̣̣̼̠͚͎͗ͮͥ̔ͨ͑ͭ̈͌̈̊͟͞ḑ͈̭̞͖̺̙͖̣̞͖͇̰͖͈̹̱̳̲͚̬̫̱̺͚̲̻̤̻̬̦̫̞̻̱̘̻͓̰̮͖̩͖̙̪̋ͦͣ̆̾̆̈͒̽ͩ̐͟ͅͅ",
-                "zebra": "P\u001b[7mr\u001b[27mo\u001b[7mc\u001b[27me\u001b[7ms\u001b[27ms\u001b[7m \u001b[27mn\u001b[7mo\u001b[27mt\u001b[7m \u001b[27mf\u001b[7mo\u001b[27mu\u001b[7mn\u001b[27md",
-                "rainbow": "\u001b[31mP\u001b[39m\u001b[33mr\u001b[39m\u001b[32mo\u001b[39m\u001b[34mc\u001b[39m\u001b[35me\u001b[39m\u001b[31ms\u001b[39m\u001b[33ms\u001b[39m \u001b[34mn\u001b[39m\u001b[35mo\u001b[39m\u001b[31mt\u001b[39m \u001b[32mf\u001b[39m\u001b[34mo\u001b[39m\u001b[35mu\u001b[39m\u001b[31mn\u001b[39m\u001b[33md\u001b[39m",
-                "random": "\u001b[92mP\u001b[39m\u001b[96mr\u001b[39m\u001b[96mo\u001b[39m\u001b[36mc\u001b[39m\u001b[31me\u001b[39m\u001b[94ms\u001b[39m\u001b[92ms\u001b[39m \u001b[31mn\u001b[39m\u001b[33mo\u001b[39m\u001b[37mt\u001b[39m \u001b[32mf\u001b[39m\u001b[34mo\u001b[39m\u001b[32mu\u001b[39m\u001b[36mn\u001b[39m\u001b[93md\u001b[39m",
-                "america": "\u001b[31mP\u001b[39m\u001b[37mr\u001b[39m\u001b[34mo\u001b[39m\u001b[31mc\u001b[39m\u001b[37me\u001b[39m\u001b[34ms\u001b[39m\u001b[31ms\u001b[39m \u001b[34mn\u001b[39m\u001b[31mo\u001b[39m\u001b[37mt\u001b[39m \u001b[31mf\u001b[39m\u001b[37mo\u001b[39m\u001b[34mu\u001b[39m\u001b[31mn\u001b[39m\u001b[37md\u001b[39m",
-                "reset": "\u001b[0mProcess not found\u001b[0m",
-                "dim": "\u001b[2mProcess not found\u001b[22m",
-                "italic": "\u001b[3mProcess not found\u001b[23m",
-                "underline": "\u001b[4mProcess not found\u001b[24m",
-                "inverse": "\u001b[7mProcess not found\u001b[27m",
-                "hidden": "\u001b[8mProcess not found\u001b[28m",
-                "strikethrough": "\u001b[9mProcess not found\u001b[29m",
-                "black": "\u001b[30mProcess not found\u001b[39m",
-                "red": "\u001b[31mProcess not found\u001b[39m",
-                "green": "\u001b[32mProcess not found\u001b[39m",
-                "yellow": "\u001b[33mProcess not found\u001b[39m",
-                "blue": "\u001b[34mProcess not found\u001b[39m",
-                "magenta": "\u001b[35mProcess not found\u001b[39m",
-                "cyan": "\u001b[36mProcess not found\u001b[39m",
-                "white": "\u001b[37mProcess not found\u001b[39m",
-                "gray": "\u001b[90mProcess not found\u001b[39m",
-                "grey": "\u001b[90mProcess not found\u001b[39m",
-                "brightRed": "\u001b[91mProcess not found\u001b[39m",
-                "brightGreen": "\u001b[92mProcess not found\u001b[39m",
-                "brightYellow": "\u001b[93mProcess not found\u001b[39m",
-                "brightBlue": "\u001b[94mProcess not found\u001b[39m",
-                "brightMagenta": "\u001b[95mProcess not found\u001b[39m",
-                "brightCyan": "\u001b[96mProcess not found\u001b[39m",
-                "brightWhite": "\u001b[97mProcess not found\u001b[39m",
-                "bgBlack": "\u001b[40mProcess not found\u001b[49m",
-                "bgRed": "\u001b[41mProcess not found\u001b[49m",
-                "bgGreen": "\u001b[42mProcess not found\u001b[49m",
-                "bgYellow": "\u001b[43mProcess not found\u001b[49m",
-                "bgBlue": "\u001b[44mProcess not found\u001b[49m",
-                "bgMagenta": "\u001b[45mProcess not found\u001b[49m",
-                "bgCyan": "\u001b[46mProcess not found\u001b[49m",
-                "bgWhite": "\u001b[47mProcess not found\u001b[49m",
-                "bgGray": "\u001b[100mProcess not found\u001b[49m",
-                "bgGrey": "\u001b[100mProcess not found\u001b[49m",
-                "bgBrightRed": "\u001b[101mProcess not found\u001b[49m",
-                "bgBrightGreen": "\u001b[102mProcess not found\u001b[49m",
-                "bgBrightYellow": "\u001b[103mProcess not found\u001b[49m",
-                "bgBrightBlue": "\u001b[104mProcess not found\u001b[49m",
-                "bgBrightMagenta": "\u001b[105mProcess not found\u001b[49m",
-                "bgBrightCyan": "\u001b[106mProcess not found\u001b[49m",
-                "bgBrightWhite": "\u001b[107mProcess not found\u001b[49m",
-                "blackBG": "\u001b[40mProcess not found\u001b[49m",
-                "redBG": "\u001b[41mProcess not found\u001b[49m",
-                "greenBG": "\u001b[42mProcess not found\u001b[49m",
-                "yellowBG": "\u001b[43mProcess not found\u001b[49m",
-                "blueBG": "\u001b[44mProcess not found\u001b[49m",
-                "magentaBG": "\u001b[45mProcess not found\u001b[49m",
-                "cyanBG": "\u001b[46mProcess not found\u001b[49m",
-                "whiteBG": "\u001b[47mProcess not found\u001b[49m",
-                "renderShowOrganizationPage": "",
-                "renderShowEntityPage": ""
-            },
-            "encrypted_keys": "Encrypted keys",
-            "total_votes": "Total votes"
-        },
-        "filter": {
-            "check_with_results": "Check with results",
-            "search_by_organization_id": "Search by organization id",
-            "search_by_search_term": "Search by search term",
-            "select_by_vote_status": "Select by vote status",
-            "search_by_search_term_or_organization_details": "",
-            "search_by_term_or_organization_details": "",
-            "search_by_term_or_organization_address": "Search by term / Organization address",
-            "status_selector": {
-                "active": "Active"
-            }
-        },
-        "envelope_explorer": {
-            "back": "Back",
-            "envelope_on_block": "Block: {{block}}",
-            "next": "Next",
-            "page": "Page",
-            "envelope_details": "Envelope details",
-            "transaction_details": "Transaction details"
-        },
-        "list": {
-            "processes_list_title": "Processes list",
-            "total_n_processes": "Total nº of processes: {{processCount}}",
-            "votes_submitted": "Votes submitted"
-        },
-        "status_badge": {
-            "canceled": "Canceled",
-            "ended": "Ended",
-            "paused": "Paused",
-            "ready": "Ready",
-            "results": "Results"
-        }
-    },
-    "components": {
-        "question_results": {
-            "number_votes": "Number of votes: {{ number }}"
-        },
-        "vote_question_card": {
-            "no_results_available": "No results available",
-            "question": "Question"
-        },
-        "paginator": {
-            "page_n_of_n": "Page {{ currentPage }} of {{ totalPage }}"
-        },
-        "block_card": {
-            "height_n": "#{{ blockHeight }}"
-        },
-        "transaction_card": {
-            "number": "Number"
-        }
+        "UNRECOGNIZED": ""
     },
     "envelopes": {
         "details": {
+            "belongs_to_transaction": "Belongs to transaction",
             "block_height": "Block height",
-            "nullifier": "Nullifier",
-            "process_id": "Process id",
-            "tx_id": "Transaction id",
-            "vote_package": "Vote package",
             "envelope_height": "Envelope height",
             "envelope_is_registered": "Envelope is registered",
             "envelope_not_registered": "Envelope is not registered",
-            "belongs_to_transaction": "Belongs to transaction"
+            "nullifier": "Nullifier",
+            "process_id": "Process id",
+            "tx_id": "Transaction id",
+            "vote_package": "Vote package"
         },
         "nonce": "Nonce"
     },
-    "verify": {
-        "introduce_vote_id_below_to_verify_your_vote": "Introduce vote id below to verify your vote"
+    "error": {
+        "could_not_fetch_organizations_count": "Could not fetch organizations count",
+        "could_not_fetch_processes_count": "Could not fetch processes count"
     },
-    "stats": {
-        "stats_not_found": "Stats not found",
-        "network_details": "Network details",
-        "number_of_validators": "Number of validators",
-        "recent_blocks": "Recent blocks",
-        "the_last_four_blocks": "The last four blocks",
-        "total_organizations": "Total organizations",
-        "total_processes": "Total processes",
-        "total_transactions": "Total transactions",
-        "total_votes": "Total votes"
-    },
-    "process": {
-        "filter": {
-            "status_selector": {
-                "active": "",
-                "all": "",
-                "ended": "",
-                "paused": ""
-            }
-        }
-    },
-    "vote": {
-        "badge": {
-            "canceled_vote": "Canceled vote",
-            "paused_vote": "Paused vote"
-        }
-    },
-    "blocks": {
-        "filter": {
-            "search_by_block_height": "Search by block height"
-        },
-        "list": {
-            "blocks_list_title": "Blocks list",
-            "current_block_heigh": "Current block height: {{ blockHeight }}"
-        }
-    },
-    "organizations": {
-        "filter": {
-            "search_by_organization_id": "Search by organization id"
-        },
-        "total_n_organizations": "Total nº organizations:"
-    },
-    "validators_list": {
-        "validators_list_title": "Validators list"
-    },
-    "converter": {
-        "conversion_between_block_and_dates": "Conversion between block and dates"
+    "errors": {
+        "the_list_of_organizations_cannot_be_loaded": "The list of organizations cannot be loaded",
+        "the_list_of_votes_cannot_be_loaded": "The list of votes cannot be loaded"
     },
     "featured": {
         "all_in_one_image_alt": "All in one solution image",
@@ -274,7 +108,221 @@
     "home": {
         "explore_the_vochain": "Explore the Vochain"
     },
-    "error": {
-        "could_not_fetch_organizations_count": "Could not fetch organizations count"
+    "organizations": {
+        "details": {
+            "no_processes_yet": "No processes yet",
+            "organization_processes": "Organization processes"
+        },
+        "filter": {
+            "search_by_organization_id": "Search by organization id"
+        },
+        "total_n_organizations": "Total nº organizations:"
+    },
+    "process": {
+        "filter": {
+            "status_selector": {
+                "active": "",
+                "all": "",
+                "ended": "",
+                "paused": ""
+            }
+        }
+    },
+    "processes": {
+        "details": {
+            "encrypted_keys": "Encrypted keys",
+            "process_not_found": {
+                "0": "P",
+                "1": "r",
+                "2": "o",
+                "3": "c",
+                "4": "e",
+                "5": "s",
+                "6": "s",
+                "7": " ",
+                "8": "n",
+                "9": "o",
+                "10": "t",
+                "11": " ",
+                "12": "f",
+                "13": "o",
+                "14": "u",
+                "15": "n",
+                "16": "d",
+                "america": "\u001b[31mP\u001b[39m\u001b[37mr\u001b[39m\u001b[34mo\u001b[39m\u001b[31mc\u001b[39m\u001b[37me\u001b[39m\u001b[34ms\u001b[39m\u001b[31ms\u001b[39m \u001b[34mn\u001b[39m\u001b[31mo\u001b[39m\u001b[37mt\u001b[39m \u001b[31mf\u001b[39m\u001b[37mo\u001b[39m\u001b[34mu\u001b[39m\u001b[31mn\u001b[39m\u001b[37md\u001b[39m",
+                "bgBlack": "\u001b[40mProcess not found\u001b[49m",
+                "bgBlue": "\u001b[44mProcess not found\u001b[49m",
+                "bgBrightBlue": "\u001b[104mProcess not found\u001b[49m",
+                "bgBrightCyan": "\u001b[106mProcess not found\u001b[49m",
+                "bgBrightGreen": "\u001b[102mProcess not found\u001b[49m",
+                "bgBrightMagenta": "\u001b[105mProcess not found\u001b[49m",
+                "bgBrightRed": "\u001b[101mProcess not found\u001b[49m",
+                "bgBrightWhite": "\u001b[107mProcess not found\u001b[49m",
+                "bgBrightYellow": "\u001b[103mProcess not found\u001b[49m",
+                "bgCyan": "\u001b[46mProcess not found\u001b[49m",
+                "bgGray": "\u001b[100mProcess not found\u001b[49m",
+                "bgGreen": "\u001b[42mProcess not found\u001b[49m",
+                "bgGrey": "\u001b[100mProcess not found\u001b[49m",
+                "bgMagenta": "\u001b[45mProcess not found\u001b[49m",
+                "bgRed": "\u001b[41mProcess not found\u001b[49m",
+                "bgWhite": "\u001b[47mProcess not found\u001b[49m",
+                "bgYellow": "\u001b[43mProcess not found\u001b[49m",
+                "black": "\u001b[30mProcess not found\u001b[39m",
+                "blackBG": "\u001b[40mProcess not found\u001b[49m",
+                "blue": "\u001b[34mProcess not found\u001b[39m",
+                "blueBG": "\u001b[44mProcess not found\u001b[49m",
+                "bold": "\u001b[1mProcess not found\u001b[22m",
+                "brightBlue": "\u001b[94mProcess not found\u001b[39m",
+                "brightCyan": "\u001b[96mProcess not found\u001b[39m",
+                "brightGreen": "\u001b[92mProcess not found\u001b[39m",
+                "brightMagenta": "\u001b[95mProcess not found\u001b[39m",
+                "brightRed": "\u001b[91mProcess not found\u001b[39m",
+                "brightWhite": "\u001b[97mProcess not found\u001b[39m",
+                "brightYellow": "\u001b[93mProcess not found\u001b[39m",
+                "cyan": "\u001b[36mProcess not found\u001b[39m",
+                "cyanBG": "\u001b[46mProcess not found\u001b[49m",
+                "dim": "\u001b[2mProcess not found\u001b[22m",
+                "gray": "\u001b[90mProcess not found\u001b[39m",
+                "green": "\u001b[32mProcess not found\u001b[39m",
+                "greenBG": "\u001b[42mProcess not found\u001b[49m",
+                "grey": "\u001b[90mProcess not found\u001b[39m",
+                "hidden": "\u001b[8mProcess not found\u001b[28m",
+                "inverse": "\u001b[7mProcess not found\u001b[27m",
+                "italic": "\u001b[3mProcess not found\u001b[23m",
+                "magenta": "\u001b[35mProcess not found\u001b[39m",
+                "magentaBG": "\u001b[45mProcess not found\u001b[49m",
+                "rainbow": "\u001b[31mP\u001b[39m\u001b[33mr\u001b[39m\u001b[32mo\u001b[39m\u001b[34mc\u001b[39m\u001b[35me\u001b[39m\u001b[31ms\u001b[39m\u001b[33ms\u001b[39m \u001b[34mn\u001b[39m\u001b[35mo\u001b[39m\u001b[31mt\u001b[39m \u001b[32mf\u001b[39m\u001b[34mo\u001b[39m\u001b[35mu\u001b[39m\u001b[31mn\u001b[39m\u001b[33md\u001b[39m",
+                "random": "\u001b[92mP\u001b[39m\u001b[96mr\u001b[39m\u001b[96mo\u001b[39m\u001b[36mc\u001b[39m\u001b[31me\u001b[39m\u001b[94ms\u001b[39m\u001b[92ms\u001b[39m \u001b[31mn\u001b[39m\u001b[33mo\u001b[39m\u001b[37mt\u001b[39m \u001b[32mf\u001b[39m\u001b[34mo\u001b[39m\u001b[32mu\u001b[39m\u001b[36mn\u001b[39m\u001b[93md\u001b[39m",
+                "red": "\u001b[31mProcess not found\u001b[39m",
+                "redBG": "\u001b[41mProcess not found\u001b[49m",
+                "renderShowEntityPage": "",
+                "renderShowOrganizationPage": "",
+                "reset": "\u001b[0mProcess not found\u001b[0m",
+                "strikethrough": "\u001b[9mProcess not found\u001b[29m",
+                "strip": "Process not found",
+                "stripColors": "Process not found",
+                "trap": "ǷɌø©ҼϨ§ ÑʘŁ ӺǾƱÑԀ",
+                "underline": "\u001b[4mProcess not found\u001b[24m",
+                "white": "\u001b[37mProcess not found\u001b[39m",
+                "whiteBG": "\u001b[47mProcess not found\u001b[49m",
+                "yellow": "\u001b[33mProcess not found\u001b[39m",
+                "yellowBG": "\u001b[43mProcess not found\u001b[49m",
+                "zalgo": "P̶̧̛̬̣͙̖̭͉̦͕̠̗͓͈͈̼̬̟͎̲͓̰̠̗̮̞̺̦͇̞̮̗̩̬̮͇̰̥̗̱̲͉̝̯͙̣͓̲̌ͭ͑͗͑̓̒ͮͨ͆͌ͧ͐ͯ͑̃r̸̳̖̫̰̜̼͖̠̘̲̘̳̙͈̖̣̰̲̻̜̯̥̣̺̰̟̩͓̰̻̥̠̬͌ͣͨ̑̍ͦ̎̾̒̐̕ͅͅo̧͆͊̓ͨͮ͛̇̚͢͢ ҉͎͉̰͈͍͓̲̳̖̖̟͙͖͉̗̝̞̺̯̜̱̦̯͓͉͔̙̗͖̖͕̳̯̦̬̭̝̘̣̝͇̟̘̭̠̖͙͉̣̱̣̯̩̖̭̞̝̞͖̻̬͍̖̫ͅc̨ͪ͐̇̂̃ͤ͗̔͐͡ ҉̹̯͎͖̥̳̱̟̲̥͍̭̥̼͍̪̞͕̥̪̤̟̪̤̤̲̦̩̩̤͈̻̖̖̱͖̳͕̻̘̥̠̜̝̙͇͉͉̥͎̺͓͍̼͓ͅͅͅͅe̤̺̖͈͇͓̣̽͂͋̎̐͋ͨ̏̈̇̓̀ͨ̓̅̈̓ͨ̕͝ͅs̷͗̎̌ͪ̀̾͋ͬ ҉̰̜͇̣̭̠̦̘͖̬̼̘͕̱̦̜̲͔̞̩̳̭͖̲̣̜͖͈̪͎̟͕̟͖̜̝̥̻̦͠s͂͂̓̎̐̍͛ͤͥ ҉̜̭̘̼̰͇̗͖͎̝͔̻̭̠̜͖̜͔̼͎͎͇̘̬͚̥͉̝͔̮̰̺̮͓̮͢ͅͅ ̵̺̹̻̩͇̟̱͓̮̝̹̗̬̫̮͕̹̙̗̘̺̮̣̺̻̹̰̲̖̻͍̟̩ͤ͑ͬͥͧ̆͌ͥ͌̑̋͑́̕͠͠n̶̸͉̳̘̱̪͕̙̲̥̞̝̲̠̯̺̱̺̦̠̞͔̞͖̪̪̪͈̰̠̟͙̺͍͚͓̦̼̝͓͍͈̦̖͇̮̭̩͙̺̥̬ͫ̐͌ͯͫ͊͐͜ͅo̧̦͔̠͈̣̩̗̬̒͛̆̉ͣ̆̇ͣͭ̉ͬ͒̌ͫ͊̈́ͧ͠t̷̸̂̉͐̌͛ͨ͊ͦͤ̄́͡ ҉̩̝̝͖̝͉̲̝̩̼̲͖̖̝̘̲̣̪̙̗̫̘̪̰̗̙̪̰̦͓̺̩͙͈̦̳͉ͅ ̍̓ͦͨͧ͒́̔͊͑͋ͬ́͢ ҉͓͔̦̪̩͎͖͈̫͍͕̝̤̜͔̮̹̪̦͎͇͓͈f̟̮͈̠͕̭͓̦̖̠̙̣̫͉̥̺̹̘̳͖̦̪̬ͣ̿̓͆ͮͦͯ̊͆͛ͨͮ̽̔̐͊͞͝ͅo͚͔̥̯̦̘̥͙̩̭͙̩̥͈̩͙̹̟̼̮̫̻͚͔̺ͬ̈͐ͨͭ͢͡ͅͅͅư͍̙͕͓̪̜̩̭̜͈̰̹̹̠̬̖̜̯͔̖̲̗͎͇͖̯̗̲͕̰͙̮͓͙̥͐̎ͤ͊̓̽ͦ͌̃ͭ̌͘͝͝n̖͖̟̞̘̣̣̼̠͚͎͗ͮͥ̔ͨ͑ͭ̈͌̈̊͟͞ḑ͈̭̞͖̺̙͖̣̞͖͇̰͖͈̹̱̳̲͚̬̫̱̺͚̲̻̤̻̬̦̫̞̻̱̘̻͓̰̮͖̩͖̙̪̋ͦͣ̆̾̆̈͒̽ͩ̐͟ͅͅ",
+                "zebra": "P\u001b[7mr\u001b[27mo\u001b[7mc\u001b[27me\u001b[7ms\u001b[27ms\u001b[7m \u001b[27mn\u001b[7mo\u001b[27mt\u001b[7m \u001b[27mf\u001b[7mo\u001b[27mu\u001b[7mn\u001b[27md"
+            },
+            "total_votes": "Total votes"
+        },
+        "envelope_explorer": {
+            "back": "Back",
+            "envelope_details": "Envelope details",
+            "envelope_on_block": "Block: {{block}}",
+            "next": "Next",
+            "page": "Page",
+            "transaction_details": "Transaction details"
+        },
+        "filter": {
+            "check_with_results": "Check with results",
+            "search": "Search",
+            "search_by_organization_id": "Search by organization id",
+            "search_by_search_term": "Search by search term",
+            "search_by_search_term_or_organization_details": "",
+            "search_by_term_or_organization_address": "Search by term / Organization address",
+            "search_by_term_or_organization_details": "",
+            "select_by_vote_status": "Select by vote status"
+        },
+        "list": {
+            "processes_list_title": "Processes list",
+            "total_n_processes": "Total nº of processes: {{processCount}}",
+            "votes_submitted": "Votes submitted"
+        },
+        "status_badge": {
+            "canceled": "Canceled",
+            "ended": "Ended",
+            "paused": "Paused",
+            "ready": "Ready",
+            "results": "Results"
+        }
+    },
+    "stats": {
+        "network_details": "Network details",
+        "number_of_validators": "Number of validators",
+        "recent_blocks": "Recent blocks",
+        "stats_not_found": "Stats not found",
+        "the_last_four_blocks": "The last four blocks",
+        "total_organizations": "Total organizations",
+        "total_processes": "Total processes",
+        "total_transactions": "Total transactions",
+        "total_votes": "Total votes"
+    },
+    "status": {
+        "the_vote_has_ended": "The vote has ended",
+        "the_vote_is_canceled": "The vote is canceled",
+        "the_vote_is_open_for_voting": "The vote is open for voting",
+        "the_vote_is_paused": "The vote is paused",
+        "the_vote_will_start_soon": "The vote will start soon"
+    },
+    "transaction": {
+        "card": {
+            "index": "Index"
+        }
+    },
+    "transactions": {
+        "ADMIN": "Admin",
+        "badge": {
+            "ADD_ORACLE": "Add oracle",
+            "ADD_VALIDATOR": "Add validator",
+            "CANCEL_PROCESS": "Cancel process",
+            "collectFaucet": "",
+            "mintTokens": "",
+            "NEW_PROCESS": "New process",
+            "newProcess": "",
+            "registerKey": "",
+            "REMOVE_ORACLE": "Remove oracle",
+            "REMOVE_VALIDATOR": "Remove validator",
+            "sendTokens": "",
+            "set_account_delegate_tx": "Set account delegate transaction",
+            "SET_PROCESS": "Set process",
+            "setAccountDelegateTx": "",
+            "setAccountInfo": "",
+            "setKeykeeper": "",
+            "setProcess": "",
+            "setTransactionCosts": "",
+            "UNKNOWN": "",
+            "VOTE": "Vote"
+        },
+        "details": {
+            "n_transaction_for_block_n": "Nº of transactions for block {{blockHeight}}: {{txIndex}}"
+        },
+        "filter": {
+            "search_by_transaction_height": "Search by transaction height"
+        },
+        "total_n_transactions": "Total nº of transactions: {{ transactionCount }}",
+        "transactions_list_title": "Transactions list"
+    },
+    "validators": {
+        "badge": {
+            "voting_power": "Voting power"
+        }
+    },
+    "validators_list": {
+        "validators_list_title": "Validators list"
+    },
+    "verify": {
+        "introduce_vote_id_below_to_verify_your_vote": "Introduce vote id below to verify your vote"
+    },
+    "vote": {
+        "badge": {
+            "active_vote": "Active vote",
+            "canceled_vote": "Canceled vote",
+            "ended_vote": "Ended",
+            "ongoing_vote": "Ongoing",
+            "paused_vote": "Paused vote",
+            "paused_vote_or_canceled": "Paused/Canceled",
+            "results": "Results",
+            "upcoming_vote": "Upcoming"
+        },
+        "total_votes_submited": "Total votes submited",
+        "vote_count": "{{count}} votes",
+        "vote_count_plural": "Votes"
     }
 }

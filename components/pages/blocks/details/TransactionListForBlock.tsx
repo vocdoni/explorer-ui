@@ -35,7 +35,7 @@ export const TransactionListForBlock = ({
         lg={8}
         link={getTransactionLink(blockHeight, tx.transactionIndex)}
       >
-        <h4>{i18n.t('transaction.card.block:') + tx.transactionHash}</h4>
+        <h4>{i18n.t('transaction.card.block') + tx.transactionHash}</h4>
       </GenericListItemWithBadge>
     );
   };

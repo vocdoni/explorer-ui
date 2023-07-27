@@ -1,93 +1,63 @@
 {
+    "blocks": {
+        "badge": {
+            "n_transactions": "{{ transactions }} transacciones"
+        },
+        "filter": {
+            "search_by_block_height": ""
+        },
+        "list": {
+            "blocks_list_title": "",
+            "current_block_heigh": ""
+        }
+    },
     "components": {
         "block_card": {
-            "number": "",
-            "height_n": ""
+            "hash": "Hash: {{ hash }}",
+            "height_n": "",
+            "number": ""
         },
         "cardimage": {
-            "entity_logo_alt": ""
+            "entity_logo_alt": "",
+            "organization_logo_alt": "Logotipo de la organización",
+            "vote_process_image_alt": "Imagen del proceso de votación"
         },
         "entity_card_medium": {
             "host_explore": "",
             "host_organization": ""
         },
-        "question_results": {
-            "number_votes": ""
+        "filters": {
+            "apply_filters": "Aplicar",
+            "clear_filters": "Borrar"
         },
-        "vote_question_card": {
-            "no_results_available": "",
-            "question": ""
+        "organization_card_medium": {
+            "host_explore": "Explorar"
         },
         "paginator": {
             "page_n_of_n": ""
         },
+        "question_results": {
+            "number_votes": ""
+        },
         "transaction_card": {
             "number": ""
+        },
+        "vote_question_card": {
+            "no_results_available": "",
+            "question": ""
         }
     },
     "converter": {
-        "current_enviorment ": "",
-        "conversion_between_block_and_dates": ""
+        "conversion_between_block_and_dates": "",
+        "current_enviorment ": ""
     },
-    "transactions": {
-        "badge": {
-            "ADD_ORACLE": "",
-            "ADD_VALIDATOR": "",
-            "CANCEL_PROCESS": "",
-            "NEW_PROCESS": "",
-            "REMOVE_ORACLE": "",
-            "REMOVE_VALIDATOR": "",
-            "SET_PROCESS": "",
-            "VOTE": "",
-            "collectFaucet": "",
-            "mintTokens": "",
-            "newProcess": "",
-            "registerKey": "",
-            "sendTokens": "",
-            "setAccountDelegateTx": "",
-            "setAccountInfo": "",
-            "setKeykeeper": "",
-            "setProcess": "",
-            "setTransactionCosts": "",
-            "UNKNOWN": ""
-        },
-        "ADMIN": "",
-        "details": {
-            "n_transaction_for_block_n": "",
-            "belong_to_entity": ""
-        },
-        "filter": {
-            "search_by_transaction_height": ""
-        },
-        "total_n_transactions": "",
-        "transactions_list_title": ""
-    },
-    "transaction": {
-        "card": {
-            "index": ""
-        }
+    "copy": {
+        "the_link_has_been_copied_to_the_clipboard": "El enlace ha sido copiado al portapapeles"
     },
     "elections": {
         "badge": {
             "CENSUS_UNKNOWN": "",
             "OFF_CHAIN": ""
-        },
-        "CENSUS_UNKNOWN": "",
-        "enevelope_type_badge": {
-            "encryptedVotes": "",
-            "notEncryptedVotes": ""
-        },
-        "ERC1155": "",
-        "ERC20": "",
-        "ERC721": "",
-        "ERC777": "",
-        "MINI_ME": "",
-        "UNRECOGNIZED": "",
-        "envelope_type_badge": {
-            "encryptedVotes": "",
-            "notEncryptedVotes": "",
-            "encrypted_votes": "",
-            "not_encrypted_votes": ""
         },
         "census_origin_badge": {
             "CENSUS_UNKNOWN": "",
@@ -99,6 +69,7 @@
             "OFF_CHAIN": "",
             "UNRECOGNIZED": ""
         },
+        "CENSUS_UNKNOWN": "",
         "details": {
             "created_on": "",
             "detailed_data": "",
@@ -112,6 +83,10 @@
             "total_questions": "",
             "total_votes": ""
         },
+        "enevelope_type_badge": {
+            "encryptedVotes": "",
+            "notEncryptedVotes": ""
+        },
         "envelope_explorer": {
             "back": "",
             "envelope_details": "",
@@ -123,6 +98,16 @@
             "transaction_details": "",
             "tx_number": ""
         },
+        "envelope_type_badge": {
+            "encrypted_votes": "",
+            "encryptedVotes": "",
+            "not_encrypted_votes": "",
+            "notEncryptedVotes": ""
+        },
+        "ERC1155": "",
+        "ERC20": "",
+        "ERC721": "",
+        "ERC777": "",
         "filter": {
             "check_with_results": "",
             "search_by_entity_id": "",
@@ -133,6 +118,7 @@
             "elections_list_title": "",
             "total_n_processes": ""
         },
+        "MINI_ME": "",
         "process_mode_badge": {
             "autostart": "",
             "notAutostart": ""
@@ -143,75 +129,8 @@
             "paused": "",
             "ready": "",
             "results": ""
-        }
-    },
-    "error": {
-        "could_not_fetch_elections_count": "",
-        "could_not_fetch_entities_count": "",
-        "could_not_fetch_organizations_count": ""
-    },
-    "home": {
-        "n_elections": "",
-        "total_elections": "",
-        "explore_the_vochain": ""
-    },
-    "links": {
-        "elections": ""
-    },
-    "stats": {
-        "total_elections": "",
-        "stats_not_found": "",
-        "network_details": "",
-        "number_of_validators": "",
-        "recent_blocks": "",
-        "the_last_four_blocks": "",
-        "total_organizations": "",
-        "total_processes": "",
-        "total_transactions": "",
-        "total_votes": ""
-    },
-    "processes": {
-        "details": {
-            "election_not_found": "",
-            "process_not_found": {
-                "renderShowEntityPage": ""
-            },
-            "encrypted_keys": "",
-            "total_votes": ""
         },
-        "filter": {
-            "search_by_entity_id": "",
-            "check_with_results": "",
-            "search_by_organization_id": "",
-            "search_by_search_term": "",
-            "select_by_vote_status": "",
-            "search_by_search_term_or_organization_details": "",
-            "search_by_term_or_organization_details": "",
-            "search_by_term_or_organization_address": "",
-            "status_selector": {
-                "active": ""
-            }
-        },
-        "envelope_explorer": {
-            "back": "",
-            "envelope_on_block": "",
-            "next": "",
-            "page": "",
-            "envelope_details": "",
-            "transaction_details": ""
-        },
-        "list": {
-            "processes_list_title": "",
-            "total_n_processes": "",
-            "votes_submitted": ""
-        },
-        "status_badge": {
-            "canceled": "",
-            "ended": "",
-            "paused": "",
-            "ready": "",
-            "results": ""
-        }
+        "UNRECOGNIZED": ""
     },
     "entities": {
         "details": {
@@ -236,59 +155,30 @@
             "view_profile": ""
         }
     },
-    "errors": {
-        "the_list_of_entities_cannot_be_loaded": ""
-    },
     "envelopes": {
         "details": {
+            "belongs_to_transaction": "",
             "block_height": "",
-            "nullifier": "",
-            "process_id": "",
-            "tx_id": "",
-            "vote_package": "",
             "envelope_height": "",
             "envelope_is_registered": "",
             "envelope_not_registered": "",
-            "belongs_to_transaction": ""
+            "nullifier": "",
+            "process_id": "",
+            "tx_id": "",
+            "vote_package": ""
         },
         "nonce": ""
     },
-    "verify": {
-        "introduce_vote_id_below_to_verify_your_vote": ""
+    "error": {
+        "could_not_fetch_elections_count": "",
+        "could_not_fetch_entities_count": "",
+        "could_not_fetch_organizations_count": "",
+        "could_not_fetch_processes_count": "No se puede obtener el número de procesos"
     },
-    "process": {
-        "filter": {
-            "status_selector": {
-                "active": "",
-                "all": "",
-                "ended": "",
-                "paused": ""
-            }
-        }
-    },
-    "vote": {
-        "badge": {
-            "canceled_vote": "",
-            "paused_vote": ""
-        }
-    },
-    "blocks": {
-        "filter": {
-            "search_by_block_height": ""
-        },
-        "list": {
-            "blocks_list_title": "",
-            "current_block_heigh": ""
-        }
-    },
-    "organizations": {
-        "filter": {
-            "search_by_organization_id": ""
-        },
-        "total_n_organizations": ""
-    },
-    "validators_list": {
-        "validators_list_title": ""
+    "errors": {
+        "the_list_of_entities_cannot_be_loaded": "",
+        "the_list_of_organizations_cannot_be_loaded": "No se puede cargar la lista de organizaciones.",
+        "the_list_of_votes_cannot_be_loaded": "No se puede cargar la lista de votos"
     },
     "featured": {
         "all_in_one_image_alt": "",
@@ -303,5 +193,158 @@
         "time_frame_image_alt": "",
         "you_and_your_social_base_will_be_able_to_se_the_results": "",
         "you_cant_set_the_start_and_end_dates": ""
+    },
+    "home": {
+        "explore_the_vochain": "",
+        "n_elections": "",
+        "total_elections": ""
+    },
+    "links": {
+        "elections": ""
+    },
+    "organizations": {
+        "details": {
+            "no_processes_yet": "Aún no hay procesos",
+            "organization_processes": "Procesos de la organización"
+        },
+        "filter": {
+            "search_by_organization_id": ""
+        },
+        "total_n_organizations": ""
+    },
+    "process": {
+        "filter": {
+            "status_selector": {
+                "active": "",
+                "all": "",
+                "ended": "",
+                "paused": ""
+            }
+        }
+    },
+    "processes": {
+        "details": {
+            "election_not_found": "",
+            "encrypted_keys": "",
+            "process_not_found": {
+                "renderShowEntityPage": ""
+            },
+            "total_votes": ""
+        },
+        "envelope_explorer": {
+            "back": "",
+            "envelope_details": "",
+            "envelope_on_block": "",
+            "next": "",
+            "page": "",
+            "transaction_details": ""
+        },
+        "filter": {
+            "check_with_results": "",
+            "search": "Buscar",
+            "search_by_entity_id": "",
+            "search_by_organization_id": "",
+            "search_by_search_term": "",
+            "search_by_search_term_or_organization_details": "",
+            "search_by_term_or_organization_address": "",
+            "search_by_term_or_organization_details": "",
+            "select_by_vote_status": ""
+        },
+        "list": {
+            "processes_list_title": "",
+            "total_n_processes": "",
+            "votes_submitted": ""
+        },
+        "status_badge": {
+            "canceled": "",
+            "ended": "",
+            "paused": "",
+            "ready": "",
+            "results": ""
+        }
+    },
+    "stats": {
+        "network_details": "",
+        "number_of_validators": "",
+        "recent_blocks": "",
+        "stats_not_found": "",
+        "the_last_four_blocks": "",
+        "total_elections": "",
+        "total_organizations": "",
+        "total_processes": "",
+        "total_transactions": "",
+        "total_votes": ""
+    },
+    "status": {
+        "the_vote_has_ended": "La votación ha terminado",
+        "the_vote_is_canceled": "La votación está cancelada",
+        "the_vote_is_open_for_voting": "La votación está abierta para votar",
+        "the_vote_is_paused": "La votación está en pausa",
+        "the_vote_will_start_soon": "La votación comenzará pronto"
+    },
+    "transaction": {
+        "card": {
+            "index": ""
+        }
+    },
+    "transactions": {
+        "ADMIN": "",
+        "badge": {
+            "ADD_ORACLE": "",
+            "ADD_VALIDATOR": "",
+            "CANCEL_PROCESS": "",
+            "collectFaucet": "",
+            "mintTokens": "",
+            "NEW_PROCESS": "",
+            "newProcess": "",
+            "registerKey": "",
+            "REMOVE_ORACLE": "",
+            "REMOVE_VALIDATOR": "",
+            "sendTokens": "",
+            "set_account_delegate_tx": "Establecer transacción de delegado de cuenta",
+            "SET_PROCESS": "",
+            "setAccountDelegateTx": "",
+            "setAccountInfo": "",
+            "setKeykeeper": "",
+            "setProcess": "",
+            "setTransactionCosts": "",
+            "UNKNOWN": "",
+            "VOTE": ""
+        },
+        "details": {
+            "belong_to_entity": "",
+            "n_transaction_for_block_n": ""
+        },
+        "filter": {
+            "search_by_transaction_height": ""
+        },
+        "total_n_transactions": "",
+        "transactions_list_title": ""
+    },
+    "validators": {
+        "badge": {
+            "voting_power": "Poder de voto"
+        }
+    },
+    "validators_list": {
+        "validators_list_title": ""
+    },
+    "verify": {
+        "introduce_vote_id_below_to_verify_your_vote": ""
+    },
+    "vote": {
+        "badge": {
+            "active_vote": "Votación activa",
+            "canceled_vote": "",
+            "ended_vote": "Finalizada",
+            "ongoing_vote": "En curso",
+            "paused_vote": "",
+            "paused_vote_or_canceled": "Pausada/Cancelada",
+            "results": "Con resultados",
+            "upcoming_vote": "Próxima"
+        },
+        "total_votes_submited": "Total de votos enviados",
+        "vote_count": "{{count}} votos",
+        "vote_count_plural": "Votos"
     }
 }
