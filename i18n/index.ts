@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 
 const i18n = i18next.createInstance();
 
-export const supportedLanguages = ['ca', 'en', 'eo', 'es'];
+export const supportedLanguages = ['ca', 'en', 'es'];
 
 i18n.use(initReactI18next).init({
   debug: process.env.NODE_ENV === 'development',
