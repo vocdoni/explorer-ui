@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useCallback, useEffect } from 'react';
 import { HiLanguage } from 'react-icons/hi2';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 type LanguageOption = {
   code: string;
@@ -17,17 +18,18 @@ const languages: LanguageOption[] = [
 const LanguageSelector = ({ bg = 'transparent', size, color }: { bg?: string; size?: string; color?: string }) => {
   const { i18n } = useTranslation();
 
+  const languageDetector = new LanguageDetector();
+
   useEffect(() => {
-    const usrLang =
-      typeof window !== 'undefined' && typeof window.navigator.language !== 'undefined'
-        ? window.navigator.language.substr(0, 2).toLowerCase()
-        : process.env.LANG;
-    i18n.changeLanguage(usrLang);
+    languageDetector.init();
+    const lng = languageDetector.detect();
+    i18n.changeLanguage(typeof lng === 'string' ? lng : lng[0]);
   }, []);
 
   const handleLanguageChange = useCallback(
     (languageCode: string) => {
       i18n.changeLanguage(languageCode);
+      languageDetector.cacheUserLanguage(languageCode);
     },
     [i18n]
   );
