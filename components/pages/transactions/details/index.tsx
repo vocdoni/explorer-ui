@@ -1,6 +1,6 @@
 import { TransactionTypeBadge } from '@components/pages/transactions/components/TransactionTypeBadge';
 import { GenericListItemWithBadge } from '@components/blocks/list-items';
-import { Card, PageCard } from '@components/elements/cards';
+import { PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { BlockLink, EntityLink, ProcessLink } from '@components/pages/app/components/get-links';
@@ -11,6 +11,7 @@ import { colors } from '@theme/colors';
 import { AdminTx, ensure0x, NewProcessTx, SetProcessTx, TransactionType, Tx, VoteEnvelope } from '@vocdoni/sdk';
 import { OverflowScroll } from '@components/elements/styled-divs';
 import { useBlockToDate } from '@hooks/use-voconi-sdk';
+import { RawContent } from '@components/blocks/RawContent';
 
 export const TransactionDetails = ({
   txIndex,
@@ -47,28 +48,28 @@ export const TransactionDetails = ({
         votePackage = Buffer.from(tx.votePackage, 'base64').toString('ascii');
         (rawTx['tx']['vote'] as VoteEnvelope).votePackage = JSON.parse(votePackage);
       }
-      belongsToProcess = b64ToHex(tx.processId as any as string);
+      belongsToProcess = b64ToHex(tx.processId);
       break;
     }
     case 'newProcess': {
       const tx = txPayload['newProcess'] as NewProcessTx;
       if (tx.process?.processId) {
-        belongsToProcess = b64ToHex(tx.process?.processId as any as string);
+        belongsToProcess = b64ToHex(tx.process?.processId as unknown as string);
       }
-      belongsToEntity = b64ToHex(tx.process.entityId as any as string);
+      belongsToEntity = b64ToHex(tx.process.entityId as unknown as string);
       break;
     }
     case 'admin': {
       const tx = txPayload['admin'] as AdminTx;
-      belongsToProcess = b64ToHex(tx.processId as any as string);
+      belongsToProcess = b64ToHex(tx.processId as unknown as string);
       break;
     }
     case 'setProcess': {
       const tx = txPayload['setProcess'] as SetProcessTx;
-      belongsToProcess = b64ToHex(tx.processId as any as string);
+      belongsToProcess = b64ToHex(tx.processId as unknown as string);
 
       if (tx?.results?.entityId) {
-        belongsToEntity = b64ToHex(tx.results?.entityId as any as string);
+        belongsToEntity = b64ToHex(tx.results?.entityId as unknown as string);
       }
       break;
     }
@@ -129,12 +130,7 @@ export const TransactionDetails = ({
           </OverflowScroll>
         </GenericListItemWithBadge>
 
-        {rawTx && (
-          <Card>
-            <h3>{i18n.t('transactions.details.raw_contents')}</h3>
-            <OverflowScroll>{JSON.stringify(rawTx, null, 2)}</OverflowScroll>
-          </Card>
-        )}
+        {rawTx && <RawContent content={rawTx} title={i18n.t('transactions.details.raw_contents')} />}
       </>
     </PageCard>
   );

@@ -3,6 +3,7 @@
         "details": {
             "block_details": "Detalles del bloque",
             "block_not_found": "Bloque no encontrado",
+            "block_raw_content": "Datos en bruto del bloque",
             "hash": "Hash: {{ hash }}",
             "last_block_hash": "Hash del bloque anterior:",
             "proposer": "Propositor: {{ proposer }}"
@@ -22,6 +23,9 @@
         },
         "organization_card_medium": {
             "host_organization": "Organización"
+        },
+        "raw_content": {
+            "label": "Datos"
         },
         "transaction_card": {
             "hash": "Hash"
@@ -176,6 +180,9 @@
         "verify_vote": "Verificar Voto"
     },
     "organization": {
+        "details": {
+            "organization_raw_content": "Datos en bruto de la organización"
+        },
         "home": {
             "view_profile": "Ver el perfil"
         }
@@ -217,6 +224,7 @@
             "created_on": "Creado el",
             "detailed_data": "Detalles",
             "election_encryption_keys": "Claves de cifrado de la elección",
+            "election_raw_content": "Datos en bruto de la elección",
             "id": "Id: {{id}}",
             "process_details": "Detalles del proceso",
             "process_not_found": "Proceso no encontrado",
@@ -301,7 +309,7 @@
         "details": {
             "belong_to_organization": "Pertenece a la organización",
             "belongs_to_process": "Pertenece al proceso",
-            "raw_contents": "Contenido sin procesar",
+            "raw_contents": "Datos en bruto de la transacción",
             "transaction_details": "Detalles de la transacción",
             "transaction_not_found": "Transacción no encontrada",
             "vote_package": "Paquete de voto"

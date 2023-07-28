@@ -3,6 +3,7 @@
         "details": {
             "block_details": "Block details",
             "block_not_found": "Block not found",
+            "block_raw_content": "Block raw content",
             "hash": "",
             "last_block_hash": "",
             "proposer": ""
@@ -22,6 +23,9 @@
         },
         "organization_card_medium": {
             "host_organization": "Organization"
+        },
+        "raw_content": {
+            "label": "raw"
         },
         "transaction_card": {
             "hash": "Hash"
@@ -176,6 +180,9 @@
         "verify_vote": "Verify Vote"
     },
     "organization": {
+        "details": {
+            "organization_raw_content": "Organization raw content"
+        },
         "home": {
             "view_profile": "View profile"
         }
@@ -217,6 +224,7 @@
             "created_on": "Created ",
             "detailed_data": "Detailed data",
             "election_encryption_keys": "Election encryption keys",
+            "election_raw_content": "Election raw content",
             "id": "Id: {{id}}",
             "process_details": "Process details",
             "process_not_found": "Process not found",
@@ -301,7 +309,7 @@
         "details": {
             "belong_to_organization": "Belongs to organization",
             "belongs_to_process": "Belongs to process",
-            "raw_contents": "Raw contents",
+            "raw_contents": "Transaction raw content",
             "transaction_details": "Transaction details",
             "transaction_not_found": "Transaction not found",
             "vote_package": "Vote package"
