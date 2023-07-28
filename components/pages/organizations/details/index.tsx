@@ -15,6 +15,7 @@ import {
   CustomOrganizationAvatar,
   CustomOrganizationHeader,
 } from '@components/pages/organizations/components/OrganizationImages';
+import { RawContentBtn } from '@components/blocks/RawContent';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;
@@ -56,6 +57,7 @@ export const OrganizationView = ({ id }: { id: string }) => {
       <When condition={id && organization?.electionIndex > 0}>
         <OrganizationElections organizationId={id} electionCount={organization?.electionIndex} />
       </When>
+      <RawContentBtn content={organization} title={i18n.t('organization.details.organization_raw_content')} />
     </PageCard>
   );
 };

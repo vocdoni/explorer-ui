@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk';
 import { getPath } from '@components/pages/app/components/get-links';
 import { BLOCKS_DETAILS } from '@const/routes';
+import { RawContentBtn } from '@components/blocks/RawContent';
 
 export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse }) => {
   const { i18n } = useTranslation();
@@ -50,6 +51,7 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
         </p>
         <p>{i18n.t('blocks.details.proposer', { proposer: ensure0x(blockData?.header.proposerAddress) })}</p>
       </>
+      <RawContentBtn content={blockData} title={i18n.t('blocks.details.block_raw_content')} />
     </PageCard>
   );
 };
