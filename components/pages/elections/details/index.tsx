@@ -24,6 +24,7 @@ import { CustomElectionHeader } from '@components/pages/elections/components/Ele
 import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
 import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
 import { ElectionDescription } from '@vocdoni/chakra-components';
+import { RawContent, RawContentBtnLabel } from '@components/blocks/RawContent';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -101,6 +102,9 @@ const ProcessesDetailPage = () => {
           <Tab>{i18n.t('processes.details.show_description')}</Tab>
           <Tab>{i18n.t('processes.details.show_questions')}</Tab>
           <Tab>{i18n.t('processes.details.show_envelopes')}</Tab>
+          <Tab>
+            <RawContentBtnLabel />
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -113,6 +117,9 @@ const ProcessesDetailPage = () => {
           </TabPanel>
           <TabPanel>
             <EnvelopeExplorer electionId={id} />
+          </TabPanel>
+          <TabPanel>
+            <RawContent content={electionRaw} title={i18n.t('processes.details.election_raw_content')} />
           </TabPanel>
         </TabPanels>
       </Tabs>

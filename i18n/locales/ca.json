@@ -3,6 +3,7 @@
         "details": {
             "block_details": "Detalls del bloc",
             "block_not_found": "Bloc no trobat",
+            "block_raw_content": "Dades en brut del block",
             "hash": "Hash: {{ hash }}",
             "last_block_hash": "Hash del bloc anterior:",
             "proposer": "Propositor: {{ proposer }}"
@@ -22,6 +23,9 @@
         },
         "organization_card_medium": {
             "host_organization": "Organització"
+        },
+        "raw_content": {
+            "label": "Dades"
         },
         "transaction_card": {
             "hash": "Hash"
@@ -176,6 +180,9 @@
         "verify_vote": "Verificar vot"
     },
     "organization": {
+        "details": {
+            "organization_raw_content": "Dades en brut de la organització"
+        },
         "home": {
             "view_profile": "Veure perfil"
         }
@@ -217,6 +224,7 @@
             "created_on": "Creat el",
             "detailed_data": "Detalls",
             "election_encryption_keys": "Claus de xifrat de l'elecció",
+            "election_raw_content": "Dades en brut de l'elecció",
             "id": "Id: {{id}}",
             "process_details": "Detalls del procés",
             "process_not_found": "Procés no trobat",
@@ -301,7 +309,7 @@
         "details": {
             "belong_to_organization": "Pertany a l'organització",
             "belongs_to_process": "Pertany al procés",
-            "raw_contents": "Contingut sense processar",
+            "raw_contents": "Dades en brut de la transacció",
             "transaction_details": "Detalls de la transacció",
             "transaction_not_found": "Transacció no trobada",
             "vote_package": "Paquet de vot"
