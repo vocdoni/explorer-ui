@@ -45,8 +45,13 @@ export const TransactionDetails = ({
     case 'vote': {
       const tx = txPayload['vote'] as VoteEnvelope;
       if (tx.votePackage) {
-        votePackage = Buffer.from(tx.votePackage, 'base64').toString('ascii');
-        (rawTx['tx']['vote'] as VoteEnvelope).votePackage = JSON.parse(votePackage);
+        try {
+          votePackage = Buffer.from(tx.votePackage, 'base64').toString('ascii');
+          (rawTx['tx']['vote'] as VoteEnvelope).votePackage = JSON.parse(votePackage);
+        } catch (e) {
+          // Prevent page crashing if votePackage is broken backend side
+          votePackage = i18n.t('transactions.error_decoding_vote_package');
+        }
       }
       belongsToProcess = b64ToHex(tx.processId);
       break;

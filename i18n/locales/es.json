@@ -314,6 +314,7 @@
             "transaction_not_found": "Transacción no encontrada",
             "vote_package": "Paquete de voto"
         },
+        "error_decoding_vote_package": "Error decodificando el paquete de voto",
         "filter": {
             "search": "Buscar"
         },
