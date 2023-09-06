@@ -1,4 +1,11 @@
-import React from 'react';
+import { ProcessTimeLeft } from '@components/blocks/process_time_left';
+import { getPath } from '@components/pages/app/components/get-links';
+import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
+import { AnonVoteBadge } from '@components/pages/elections/components/ElectionTypeBadge';
+import { PROCESS_DETAILS } from '@const/routes';
+import useExtendedElection from '@hooks/use-extended-election';
+import { ElectionProvider, OrganizationProvider } from '@vocdoni/react-providers';
+import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
 import styled from 'styled-components';
 import {
   BodyWrapper,
@@ -7,14 +14,6 @@ import {
   GenericCardWrapperProps,
 } from '../../../elements/card-generic';
 import { ReducedOrganizationNameWithIcon } from '../../organizations/components/OrganizationCard';
-import { ProcessTimeLeft } from '@components/blocks/process_time_left';
-import { ElectionProvider, OrganizationProvider } from '@vocdoni/chakra-components';
-import { IElectionSummary, PublishedElection } from '@vocdoni/sdk';
-import { PROCESS_DETAILS } from '@const/routes';
-import { getPath } from '@components/pages/app/components/get-links';
-import useExtendedElection from '@hooks/use-extended-election';
-import { AnonVoteBadge } from '@components/pages/elections/components/ElectionTypeBadge';
-import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
 
 type ProcessCardProps = GenericCardWrapperProps & {
   electionId: string;

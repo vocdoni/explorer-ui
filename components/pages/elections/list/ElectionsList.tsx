@@ -1,13 +1,13 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
-import { ProcessFilter } from '../components/ElectionFilter';
 import {
   FilteredPaginatedList,
   useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
+import { ElectionCard } from '@components/pages/elections/components/ElectionCard';
 import { useElectionList } from '@hooks/use-voconi-sdk';
 import { IElectionListFilter, IElectionSummary } from '@vocdoni/sdk';
-import { ElectionCard } from '@components/pages/elections/components/ElectionCard';
+import { ProcessFilter } from '../components/ElectionFilter';
 
 export type ElectionStatusType = IElectionListFilter['status'];
 
@@ -66,7 +66,7 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
       <ProcessFilter onEnableFilter={enableFilter} title={title}></ProcessFilter>
       <FilteredPaginatedList
         loading={loading}
-        elementsList={process === undefined || !processes?.elections?.length ? [] : processes.elections}
+        elementsList={processes === undefined || !processes?.elections?.length ? [] : processes.elections}
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
           isUsingFilter ? null : totalProcessCount

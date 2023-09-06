@@ -1,16 +1,15 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-
-import styled from 'styled-components';
-import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
-import { StatusCard } from '@components/elements/cards';
-import { getOrganizationPath } from '@components/pages/app/components/get-links';
 import { ReducedTextAndCopy } from '@components/blocks/copy-button';
 import { BodyWrapper, CardItemSubTitle, GenericCardWrapper } from '@components/elements/card-generic';
-import { OrganizationName, useOrganization } from '@vocdoni/chakra-components';
-import { ensure0x } from '@vocdoni/sdk';
-import { theme } from '@theme/global';
+import { StatusCard } from '@components/elements/cards';
+import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
+import { getOrganizationPath } from '@components/pages/app/components/get-links';
 import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
+import { theme } from '@theme/global';
+import { OrganizationName } from '@vocdoni/chakra-components';
+import { useOrganization } from '@vocdoni/react-providers';
+import { ensure0x } from '@vocdoni/sdk';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
 export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
   const { organization } = useOrganization();

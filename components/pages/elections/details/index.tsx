@@ -1,30 +1,27 @@
-import React from 'react';
-
-import { BadgeColumn, Grid } from '@components/elements/grid';
-import { PageCard, StatusCard } from '@components/elements/cards';
-import { CardImageHeader } from '@components/blocks/CardImageHeader';
-import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
-import { useTranslation } from 'react-i18next';
-import { Typography, TypographyVariant } from '@components/elements/typography';
-import { colors } from '@theme/colors';
-import { OrganizationCardMedium } from '@components/pages/organizations/components/OrganizationCard';
-import { AnonVoteBadge, ElectionTypeBadge } from '../components/ElectionTypeBadge';
-import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
-import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
-import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
-import { ResultsCard } from '../components/ResultsCard';
-import { EncryptionKeys } from '../components/ElectionKeys';
-import { CopyButton } from '@components/blocks/copy-button';
-import { ElectionStatus } from '@vocdoni/sdk';
-import useExtendedElection from '@hooks/use-extended-election';
-import { Vochain } from '@vocdoni/proto';
-import styled from 'styled-components';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/tabs';
-import { CustomElectionHeader } from '@components/pages/elections/components/ElectionHeader';
-import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
-import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
-import { ElectionDescription } from '@vocdoni/chakra-components';
+import { CardImageHeader } from '@components/blocks/CardImageHeader';
 import { RawContent, RawContentBtnLabel } from '@components/blocks/RawContent';
+import { CopyButton } from '@components/blocks/copy-button';
+import { PageCard, StatusCard } from '@components/elements/cards';
+import { BadgeColumn, Grid } from '@components/elements/grid';
+import { Typography, TypographyVariant } from '@components/elements/typography';
+import { CustomElectionHeader } from '@components/pages/elections/components/ElectionHeader';
+import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
+import { OrganizationCardMedium } from '@components/pages/organizations/components/OrganizationCard';
+import { CustomOrganizationAvatar } from '@components/pages/organizations/components/OrganizationImages';
+import useExtendedElection from '@hooks/use-extended-election';
+import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
+import { colors } from '@theme/colors';
+import { ElectionDescription } from '@vocdoni/chakra-components';
+import { CensusOrigin, ElectionStatus } from '@vocdoni/sdk';
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
+import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
+import { EncryptionKeys } from '../components/ElectionKeys';
+import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
+import { AnonVoteBadge, ElectionTypeBadge } from '../components/ElectionTypeBadge';
+import { ResultsCard } from '../components/ResultsCard';
 
 const ProcessesDetailPage = () => {
   const { election, electionRaw } = useExtendedElection();
@@ -67,7 +64,7 @@ const ProcessesDetailPage = () => {
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
-          <CensusOriginBadge censusOrigin={Vochain.CensusOrigin[electionRaw.census.censusOrigin]} />
+          <CensusOriginBadge censusOrigin={CensusOrigin[electionRaw.census.censusOrigin as string]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
           <ElectionTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
           {electionRaw.voteMode.anonymous && <AnonVoteBadge />}

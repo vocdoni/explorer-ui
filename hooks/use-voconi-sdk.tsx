@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useClient } from '@vocdoni/chakra-components';
-import { ExtendedSDKClient } from '@lib/client';
-import { useAlertMessage } from './message-alert';
 import i18n from '@i18n';
+import { ExtendedSDKClient } from '@lib/client';
+import { useClient } from '@vocdoni/react-providers';
 import { IChainGetInfoResponse, IElectionListFilter } from '@vocdoni/sdk';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useAlertMessage } from './message-alert';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -42,7 +42,7 @@ function useSDKFunction<T, U>({
       })
       .finally(() => {
         setLoading(false);
-        if (!loaded) setLoaded(true);
+        setLoaded(true);
       });
   }, [memorizedArgs, promiseFn]);
 

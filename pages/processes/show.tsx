@@ -1,12 +1,17 @@
-import ProcessDetailPage from '@components/pages/elections/details';
-import { useUrlHash } from 'use-url-hash';
-import { useTranslation } from 'react-i18next';
-import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/chakra-components';
-import { ensure0x } from '@vocdoni/sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
+import ProcessDetailPage from '@components/pages/elections/details';
+import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers';
+import { ensure0x } from '@vocdoni/sdk';
+import { useTranslation } from 'react-i18next';
+import { useUrlHash } from 'use-url-hash';
 
 const ProcessesDetailPage = () => {
-  const { loading, election, error, loaded } = useElection();
+  const {
+    loading: { election: loading },
+    election,
+    errors: { election: error },
+    loaded,
+  } = useElection();
   const { i18n } = useTranslation();
 
   const hasError = error?.length > 0;
