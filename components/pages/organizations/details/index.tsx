@@ -1,21 +1,21 @@
-import { Typography, TypographyVariant } from '@components/elements/typography';
-import { Column, Grid } from '@components/elements/grid';
-import { PageCard } from '@components/elements/cards';
 import { CardImageHeader } from '@components/blocks/CardImageHeader';
-import { useTranslation } from 'react-i18next';
-import { BreakWord } from '@components/elements/styled-divs';
+import { RawContentBtn } from '@components/blocks/RawContent';
 import { CopyButton } from '@components/blocks/copy-button';
-import React from 'react';
-import { OrganizationDescription, useOrganization } from '@vocdoni/chakra-components';
-import styled from 'styled-components';
-import { colors } from '@theme/colors';
-import { When } from 'react-if';
+import { PageCard } from '@components/elements/cards';
+import { Column, Grid } from '@components/elements/grid';
+import { BreakWord } from '@components/elements/styled-divs';
+import { Typography, TypographyVariant } from '@components/elements/typography';
 import { OrganizationElections } from '@components/pages/organizations/components/OrganizationElections';
 import {
   CustomOrganizationAvatar,
   CustomOrganizationHeader,
 } from '@components/pages/organizations/components/OrganizationImages';
-import { RawContentBtn } from '@components/blocks/RawContent';
+import { colors } from '@theme/colors';
+import { OrganizationDescription } from '@vocdoni/chakra-components';
+import { useOrganization } from '@vocdoni/react-providers';
+import { useTranslation } from 'react-i18next';
+import { When } from 'react-if';
+import styled from 'styled-components';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;

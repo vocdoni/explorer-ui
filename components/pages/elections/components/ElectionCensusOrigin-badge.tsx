@@ -1,10 +1,10 @@
+import { CustomTag } from '@components/elements/CustomTag';
+import { CensusOrigin } from '@vocdoni/sdk';
 import { useTranslation } from 'react-i18next';
 import { Case, Default, Switch } from 'react-if';
-import { Vochain } from '@vocdoni/proto';
-import { CustomTag } from '@components/elements/CustomTag';
 
 interface CensusOriginBadgeProps {
-  censusOrigin: Vochain.CensusOrigin;
+  censusOrigin: CensusOrigin;
 }
 
 export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
@@ -12,45 +12,41 @@ export const CensusOriginBadge = ({ censusOrigin }: CensusOriginBadgeProps) => {
 
   return (
     <Switch>
-      <Case
-        condition={
-          censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_TREE || censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_CA
-        }
-      >
+      <Case condition={censusOrigin == CensusOrigin.OFF_CHAIN_TREE || censusOrigin == CensusOrigin.OFF_CHAIN_CA}>
         <CustomTag>{i18n.t('processes.census_origin_badge.OFF_CHAIN')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_TREE_WEIGHTED}>
+      <Case condition={censusOrigin == CensusOrigin.OFF_CHAIN_TREE_WEIGHTED}>
         <CustomTag>{i18n.t('processes.census_origin_badge.OFF_CHAIN_TREE_WEIGHTED')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.CENSUS_UNKNOWN}>
+      <Case condition={censusOrigin == CensusOrigin.CENSUS_UNKNOWN}>
         <CustomTag>{i18n.t('processes.census_origin_badge.CENSUS_UNKNOWN')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.UNRECOGNIZED}>
+      <Case condition={censusOrigin == CensusOrigin.UNRECOGNIZED}>
         <CustomTag>{i18n.t('processes.census_origin_badge.UNRECOGNIZED')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.MINI_ME}>
+      <Case condition={censusOrigin == CensusOrigin.MINI_ME}>
         <CustomTag>{i18n.t('processes.census_origin_badge.MINI_ME')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.ERC1155}>
+      <Case condition={censusOrigin == CensusOrigin.ERC1155}>
         <CustomTag> {i18n.t('processes.census_origin_badge.ERC1155')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.ERC20}>
+      <Case condition={censusOrigin == CensusOrigin.ERC20}>
         <CustomTag>{i18n.t('processes.census_origin_badge.ERC20')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.ERC721}>
+      <Case condition={censusOrigin == CensusOrigin.ERC721}>
         <CustomTag>{i18n.t('processes.census_origin_badge.ERC721')}</CustomTag>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.ERC777}>
+      <Case condition={censusOrigin == CensusOrigin.ERC777}>
         <CustomTag>{i18n.t('processes.census_origin_badge.ERC777')}</CustomTag>
       </Case>
-      {/* <Case condition={censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_CA}>
+      {/* <Case condition={censusOrigin == CensusOrigin.OFF_CHAIN_CA}>
         <ActiveBadge>{i18n.t('processes.OFF_CHAIN_CA')}</ActiveBadge>
       </Case>
-      <Case condition={censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_TREE}>
+      <Case condition={censusOrigin == CensusOrigin.OFF_CHAIN_TREE}>
         <ActiveBadge>{i18n.t('processes.OFF_CHAIN_TREE')}</ActiveBadge>
       </Case>
       <Case
-        condition={censusOrigin == Vochain.CensusOrigin.OFF_CHAIN_TREE_WEIGHTED}
+        condition={censusOrigin == CensusOrigin.OFF_CHAIN_TREE_WEIGHTED}
       >
         <ActiveBadge>{i18n.t('processes.OFF_CHAIN_TREE_WEIGHTED')}</ActiveBadge>
       </Case> */}

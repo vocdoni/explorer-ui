@@ -1,15 +1,15 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
-import { IFilterEntity, OrganizationsFilter } from '../components/OrganizationsFilter';
 import { InlineTitleChildrenContainer } from '@components/pages/app/page-templates/list-page';
 import {
   FilteredPaginatedList,
   useFilteredSDKPaginatedList,
 } from '@components/pages/app/page-templates/list-page-filtered';
-import { useOrganizationList } from '@hooks/use-voconi-sdk';
-import { IChainOrganizationResponse } from '@vocdoni/sdk';
-import { OrganizationProvider } from '@vocdoni/chakra-components';
 import { OrganizationCard } from '@components/pages/organizations/components/OrganizationCard';
+import { useOrganizationList } from '@hooks/use-voconi-sdk';
+import { OrganizationProvider } from '@vocdoni/react-providers';
+import { IChainOrganizationResponse } from '@vocdoni/sdk';
+import { IFilterEntity, OrganizationsFilter } from '../components/OrganizationsFilter';
 
 interface IDashboardProcessListProps {
   loading?: boolean;

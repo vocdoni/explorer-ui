@@ -1,7 +1,7 @@
-import { useElection } from '@vocdoni/chakra-components';
 import { ElectionRaw } from '@lib/types';
-import { BigNumber } from 'ethers';
 import { Vochain } from '@vocdoni/proto';
+import { useElection } from '@vocdoni/react-providers';
+import { BigNumber } from 'ethers';
 
 const useExtendedElection = () => {
   const electionData = useElection();

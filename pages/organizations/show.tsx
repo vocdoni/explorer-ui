@@ -1,10 +1,9 @@
-import { useUrlHash } from 'use-url-hash';
-import { OrganizationProvider, useOrganization } from '@vocdoni/chakra-components';
-import { useTranslation } from 'react-i18next';
-import { ensure0x } from '@vocdoni/sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
-import React from 'react';
 import { OrganizationView } from '@components/pages/organizations/details';
+import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers';
+import { ensure0x } from '@vocdoni/sdk';
+import { useTranslation } from 'react-i18next';
+import { useUrlHash } from 'use-url-hash';
 
 const OrganizationsDetailPage = () => {
   const { organization, loading, errors, loaded } = useOrganization();
