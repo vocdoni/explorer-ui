@@ -33,10 +33,6 @@ const ProcessesDetailPage = () => {
 
   const defaultTab = election.status === ElectionStatus.ENDED || election.status === ElectionStatus.ONGOING ? 1 : 0;
 
-  console.log('AAAAAAA', electionRaw.census.censusOrigin);
-  // console.log('BBBBB', CensusOrigin[electionRaw.census.censusOrigin as string]);
-  console.log('ccccccccc', CensusTypeEnum[electionRaw.census.censusOrigin as string]);
-
   return (
     <PageCard>
       <CardImageHeader
