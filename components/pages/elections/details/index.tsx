@@ -13,7 +13,7 @@ import useExtendedElection from '@hooks/use-extended-election';
 import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
 import { colors } from '@theme/colors';
 import { ElectionDescription } from '@vocdoni/chakra-components';
-import { CensusOrigin, ElectionStatus } from '@vocdoni/sdk';
+import { CensusTypeEnum, ElectionStatus } from '@vocdoni/sdk';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
@@ -32,6 +32,10 @@ const ProcessesDetailPage = () => {
   const { i18n } = useTranslation();
 
   const defaultTab = election.status === ElectionStatus.ENDED || election.status === ElectionStatus.ONGOING ? 1 : 0;
+
+  console.log('AAAAAAA', electionRaw.census.censusOrigin);
+  // console.log('BBBBB', CensusOrigin[electionRaw.census.censusOrigin as string]);
+  console.log('ccccccccc', CensusTypeEnum[electionRaw.census.censusOrigin as string]);
 
   return (
     <PageCard>
@@ -64,7 +68,7 @@ const ProcessesDetailPage = () => {
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
-          <CensusOriginBadge censusOrigin={CensusOrigin[electionRaw.census.censusOrigin as string]} />
+          <CensusOriginBadge censusOrigin={CensusTypeEnum[electionRaw.census.censusOrigin as string]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
           <ElectionTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />
           {electionRaw.voteMode.anonymous && <AnonVoteBadge />}
