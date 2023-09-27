@@ -14,8 +14,8 @@ const VERIFY_SINGLE_PAGE = isTrueEnv(process.env.VERIFY_SINGLE_PAGE) || false
 let plaza, apiUrl;
 switch (VOCDONI_ENVIRONMENT) {
   case 'stg':
-    plaza = `https://stg.vocdoni.app`
-    apiUrl = `https://gw1.stg.vocdoni.net/v2`
+    plaza = `https://127.0.0.1:8080`
+    apiUrl = `https://127.0.0.1:8081/v2`
     break
   case 'prod':
     plaza = `https://vocdoni.app`
