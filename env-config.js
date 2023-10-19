@@ -50,10 +50,7 @@ module.exports = {
   BLOCK_TIME: process.env.BLOCK_TIME || '12',
 
   // GATEWAYS
-  BOOTNODES_URL: process.env.BOOTNODES_URL || bootnodes,
-  DISCOVERY_TIMEOUT: process.env.DISCOVERY_TIMEOUT || 3000,// in milliseconds
-  DISCOVERY_POOL_SIZE: process.env.DISCOVERY_POOL_SIZE || 1,
-  PLAZA_URL: process.env.PLAZA_URL || plaza,
+  PLAZA_URL: process.env.PLAZA_URL || plaza, // Deprecated see https://github.com/vocdoni/explorer-ui/issues/163
   API_URL: process.env.API_URL || apiUrl,
 
   // HELPSCOUT
