@@ -25,6 +25,7 @@ To deploy using [Docker Compose](https://docs.docker.com/compose) follow the ins
 
 Configure the `.env` file with the following variables:
 
+-   `API_URL` Api url for the Vocdoni API
 -   `VOCDONI_UI_TAG` Docker tag of the image (master, stg, release)
 -   `VOCDONI_ENVIRONMENT` Enviromnent type (dev, stg, prod)
 -   `ETH_NETWORK_ID` Ethereum nework ID (xdai, goerli...)
@@ -44,3 +45,9 @@ Deploy all services
 `docker-compose up -d`
 
 After a while, the UI should be ready at https://<yourdomain>
+
+#### Using GH actions
+
+The actions actually build the image and push it to the registry. The deployment is done using docker-compose.
+
+The changes pushed to `ghcr.io` are for the branches `master`, `stg` and any starting by `release`.
