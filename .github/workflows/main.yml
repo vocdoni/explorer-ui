@@ -1,14 +1,14 @@
 ---
 name: Main
 
-on: 
+on:
   push:
     paths-ignore:
       - '.github/**'
   pull_request:
     paths-ignore:
       - '.github/**'
-      
+
 jobs:
   node-tests-and-build:
     runs-on: self-hosted
@@ -72,7 +72,6 @@ jobs:
           build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.GIT_HASH_SHORT }}
             VOCDONI_ENVIRONMENT=dev
-            DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=goerli
           tags: |
             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static
@@ -90,13 +89,12 @@ jobs:
           build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.GIT_HASH_SHORT }}
             VOCDONI_ENVIRONMENT=stg
-            DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=goerli
           tags: |
             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:commit-${{ steps.vars.outputs.GIT_HASH_SHORT }}
             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}-static-${{ steps.vars.outputs.DATE_IN_SECS }}
-      
+
       - name: Push to ghcr.io (prod, static)
         uses: docker/build-push-action@v4
         if: startsWith(github.ref, 'refs/heads/release')
@@ -108,7 +106,6 @@ jobs:
           build-args: |
             COMMIT_SHA=${{ steps.vars.outputs.GIT_HASH_SHORT }}
             VOCDONI_ENVIRONMENT=prod
-            DISCOVERY_POOL_SIZE=1
             ETH_NETWORK_ID=xdai
           tags: |
             ghcr.io/vocdoni/${{ github.event.repository.name }}:${{ steps.vars.outputs.BRANCH_NAME }}
