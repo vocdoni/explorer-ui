@@ -2437,32 +2437,30 @@
     "@typescript-eslint/types" "5.54.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vocdoni/chakra-components@^0.5.10":
-  version "0.5.10"
-  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.5.10.tgz#fea8406ac3b9284322b41067ede91d9d6ea95eb2"
-  integrity sha512-jNHDZrQq1zOi552dGOjuRx3xj2uzNFRfSggUSWzr/o7MZpDalgCcNfbZAuYP7q1Dg4ms42OvKyFIEoNJmlVbrw==
+"@vocdoni/chakra-components@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@vocdoni/chakra-components/-/chakra-components-0.6.0.tgz#7dd78d1f59c7ad95c26ab5d7bdc047a04b8a1ab4"
+  integrity sha512-6JyFR4jYruPvvpN8ODGb+U0RyTFYy0S94+5aPJYC38gcaw/zQBF/XKQI60NAXbv0PWl2VyyPoh9n/4bvMnMYIA==
   dependencies:
-    "@vocdoni/react-providers" "0.1.7"
+    "@vocdoni/react-providers" "~0.2.0"
 
-"@vocdoni/proto@1.15.3":
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.15.3.tgz#205fddbd4a754747ebcf5a87d85daee38e08a72f"
-  integrity sha512-2ieY2vm7IVpMuPRUEOuslWcqlUPfI0hTcTz5rReyYLIXEQ//tkjWUIQCa5c5eSo05+iPf7GPJMpkVBkOgH3kXw==
+"@vocdoni/proto@1.15.4":
+  version "1.15.4"
+  resolved "https://registry.yarnpkg.com/@vocdoni/proto/-/proto-1.15.4.tgz#455402d597e1dad425fa27c41b3ccd7fc15002a4"
+  integrity sha512-UbIMfRjSGdQdmOEBTVR1LnvqabVBF8TDpI44V+AC0oCn/E6WRo3y8zgGXKZw00SbqCGkFKvqTyWRvsK5Rky1qA==
   dependencies:
     long "^5.2.1"
     protobufjs "^7.1.2"
 
-"@vocdoni/react-providers@0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.1.7.tgz#b1805af7dc61d48e97d991ee0223823e5f3ac6ae"
-  integrity sha512-OQ8bftWfKH2Ip4f+WVcPy6WCYQezZklURoQlNjHhAHGfgcD/4Mc68wfWeE7vdQRx+4eQODwOboEPt/0HrgThAA==
-  dependencies:
-    "@vocdoni/sdk" "^0.1.1"
+"@vocdoni/react-providers@0.2.1", "@vocdoni/react-providers@~0.2.0":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.2.1.tgz#3c5728a828fed4cf19edfe529a7bc89442772251"
+  integrity sha512-lBNqMzwfyWpFgjfmTY04Xi2zL0h7mWplQx2/y3rRYtF2SFWaUdCv1lI3smRW5s134dkzQKqCGekjmKSag2o+YQ==
 
-"@vocdoni/sdk@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.1.1.tgz#ebb40164c09a516a77f9222b92d912c578c224af"
-  integrity sha512-Z673X4lukKNO7EHFriI2JA0JVMfJ+AdS+UusawcZzNAdHAmCPdzrskjsL9MiYLRwOIYX+0osa/YsfnLvx/FwqA==
+"@vocdoni/sdk@0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.5.3.tgz#0b631361775985a93b7ef03d0dad5d5867627ef4"
+  integrity sha512-cA7dIzOshUEjFn6+MTjpC0WkNEsY3VPL0SFuzyidRcTuwjmLofB7mm0xYXDt1idvBHsIfetyMElrhQuk/ZEbTw==
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
@@ -2476,7 +2474,7 @@
     "@ethersproject/units" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
     "@size-limit/file" "^8.2.4"
-    "@vocdoni/proto" "1.15.3"
+    "@vocdoni/proto" "1.15.4"
     axios "0.27.2"
     blake2b "^2.1.4"
     iso-language-codes "^1.1.0"
