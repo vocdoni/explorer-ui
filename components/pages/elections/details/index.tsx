@@ -20,7 +20,7 @@ import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
 import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
 import { EncryptionKeys } from '../components/ElectionKeys';
 import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
-import { AnonVoteBadge, ElectionTypeBadge } from '../components/ElectionTypeBadge';
+import { AnonVoteBadge, ElectionTypeBadge, ArchivedBadge } from '../components/ElectionTypeBadge';
 import { ResultsCard } from '../components/ResultsCard';
 
 const ProcessesDetailPage = () => {
@@ -36,7 +36,7 @@ const ProcessesDetailPage = () => {
   return (
     <PageCard>
       <CardImageHeader
-        title={election.title.default}
+        title={election.title?.default || election.id }
         header={<CustomElectionHeader />}
         logo={<CustomOrganizationAvatar />}
         subtitle={
@@ -64,6 +64,7 @@ const ProcessesDetailPage = () => {
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
+          {election.fromArchive && <ArchivedBadge />}
           <CensusOriginBadge censusOrigin={CensusTypeEnum[electionRaw.census.censusOrigin as string]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />
           <ElectionTypeBadge encryptedVotes={electionRaw.voteMode.encryptedVotes} />

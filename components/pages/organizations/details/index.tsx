@@ -23,8 +23,8 @@ export const OrganizationView = ({ id }: { id: string }) => {
   const { i18n } = useTranslation();
   const { organization } = useOrganization();
 
-  const orgName = organization?.account?.name.default.length === 0 ? id : organization?.account?.name.default;
-  const description = organization?.account?.description.default;
+  const orgName = organization?.account?.name?.default || id;
+  const description = organization?.account?.description?.default;
 
   return (
     <PageCard>

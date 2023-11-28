@@ -28,3 +28,12 @@ export const AnonVoteBadge = () => {
     </CustomTag>
   );
 };
+
+export const ArchivedBadge = () => {
+  const { i18n } = useTranslation();
+  return (
+    <CustomTag bg={'#68672e'}>
+      {i18n.t('vote.badge.archived')}
+    </CustomTag>
+  );
+};

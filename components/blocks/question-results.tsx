@@ -87,13 +87,13 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
             </Col>
             <Col xs={12}>
               <Text size="2xl" color="dark-blue" weight="bold">
-                {props.question.title.default}
+                {props.question.title?.default}
               </Text>
             </Col>
             {props.question.description && (
               <Col xs={12}>
                 <Text size="sm" color="dark-gray" weight="regular">
-                  {props.question.description.default}
+                  {props.question.description?.default}
                 </Text>
               </Col>
             )}
@@ -114,7 +114,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                 <Row gutter={isMobile ? 'xs' : 'lg'} align="center">
                   <Col xs={10} md={4}>
                     <Text size="lg" weight={index === 0 && hasWinner ? 'bold' : 'regular'} color="dark-blue">
-                      {choice.title.default}
+                      {choice.title?.default}
                     </Text>
                   </Col>
                   {/* SHOW RESULTS */}

@@ -338,7 +338,8 @@
     },
     "vote": {
         "badge": {
-            "anonymous": "Anònim"
+            "anonymous": "Anònim",
+            "archived": "Archivat"
         },
         "loading_results": "Carregant resultats",
         "no_questions_yet": "Encara no hi ha preguntes",

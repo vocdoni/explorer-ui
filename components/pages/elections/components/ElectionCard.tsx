@@ -1,7 +1,7 @@
 import { ProcessTimeLeft } from '@components/blocks/process_time_left';
 import { getPath } from '@components/pages/app/components/get-links';
 import { CustomElectionStatusBadge } from '@components/pages/elections/components/ElectionStatusBadge';
-import { AnonVoteBadge } from '@components/pages/elections/components/ElectionTypeBadge';
+import { AnonVoteBadge, ArchivedBadge } from '@components/pages/elections/components/ElectionTypeBadge';
 import { PROCESS_DETAILS } from '@const/routes';
 import useExtendedElection from '@hooks/use-extended-election';
 import { ElectionProvider, OrganizationProvider } from '@vocdoni/react-providers';
@@ -45,9 +45,13 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
 
   const Top = () => (
     <TopWrapper>
-      <CustomElectionStatusBadge status={status} />
+      {election?.fromArchive ?
+      (<ArchivedBadge/>)
+      : (
+        <CustomElectionStatusBadge status={status} />
+      )}
+      {!election?.fromArchive &&  <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />}
       {anonymous && <AnonVoteBadge />}
-      <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />
     </TopWrapper>
   );
 
