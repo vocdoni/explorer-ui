@@ -36,7 +36,7 @@ const ProcessesDetailPage = () => {
   return (
     <PageCard>
       <CardImageHeader
-        title={election.title?.default || election.id }
+        title={election.title?.default || election.id}
         header={<CustomElectionHeader />}
         logo={<CustomOrganizationAvatar />}
         subtitle={

@@ -45,12 +45,8 @@ const InnerCard = ({ electionId, electionSummary, hideEntity, ...rest }: Process
 
   const Top = () => (
     <TopWrapper>
-      {election?.fromArchive ?
-      (<ArchivedBadge/>)
-      : (
-        <CustomElectionStatusBadge status={status} />
-      )}
-      {!election?.fromArchive &&  <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />}
+      {election?.fromArchive ? <ArchivedBadge /> : <CustomElectionStatusBadge status={status} />}
+      {!election?.fromArchive && <ProcessTimeLeft status={status} endDate={endDate} startDate={startDate} />}
       {anonymous && <AnonVoteBadge />}
     </TopWrapper>
   );
