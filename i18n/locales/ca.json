@@ -254,7 +254,7 @@
             "search_by_election_id_or_organization": "Cerca per procés o organització",
             "show_only_processes_with_results": "Mostrar només processos amb resultats",
             "status_selector": {
-                "active": "",
+                "active": "Actius",
                 "all": "Tots",
                 "ended": "Finalitzats",
                 "paused": "Pausats"
@@ -339,7 +339,7 @@
     "vote": {
         "badge": {
             "anonymous": "Anònim",
-            "archived": "Archivat"
+            "archived": "Arxivat"
         },
         "loading_results": "Carregant resultats",
         "no_questions_yet": "Encara no hi ha preguntes",
