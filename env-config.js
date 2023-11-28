@@ -4,8 +4,7 @@
 const LANG = process.env.APP_LANG || 'en';
 const DEVELOPMENT = process.env.NODE_ENV !== 'production';
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development';
-const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev';
-let bootnodes = 'https://bootnodes.vocdoni.net/gateways.json';
+const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'prod';
 
 const isTrueEnv = (env) => env === 'true' || env === true;
 
@@ -14,15 +13,15 @@ const VERIFY_SINGLE_PAGE = isTrueEnv(process.env.VERIFY_SINGLE_PAGE) || false;
 let plaza, apiUrl;
 switch (VOCDONI_ENVIRONMENT) {
   case 'stg':
-    plaza = `https://stg.vocdoni.app`;
-    apiUrl = `https://gw1.stg.vocdoni.net/v2`;
+    plaza = `https://app-stg.vocdoni.io`;
+    apiUrl = `https://api-stg.vocdoni.net/v2`;
     break;
   case 'prod':
-    plaza = `https://vocdoni.app`;
+    plaza = `https://app.vocdoni.io`;
     apiUrl = `https://api.vocdoni.net/v2`;
     break;
   default:
-    plaza = `https://dev.vocdoni.app`;
+    plaza = `https://app-dev.vocdoni.io`;
     apiUrl = `https://api-dev.vocdoni.net/v2`;
     break;
 }
