@@ -119,7 +119,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     </Text>
                   </Col>
                   {/* SHOW RESULTS */}
-                  {showResults ? (
+                  {showResults && choice?.votes ? (
                     <>
                       <Col hiddenSmAndDown md={2}>
                         <Text size="lg" weight="bold" color="dark-blue">
@@ -152,7 +152,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                             <Text size="sm" color="dark-gray" weight="regular">
                               <BreakWord>
                                 {i18n.t('vote.vote_count', {
-                                  count: getResults(choice.votes, decimals).toString() as never,
+                                  count: getResults(choice.votes, decimals).toString() as any,
                                 })}
                               </BreakWord>
                             </Text>
