@@ -74,7 +74,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     (status === ElectionStatus.ENDED || status === ElectionStatus.RESULTS || liveResults) &&
     props.results !== undefined;
 
-  const decimals = (election.meta as any)?.token?.decimals || 0
+  const decimals = (election.meta as any)?.token?.decimals || 0;
   return (
     <Card isMobile={isMobile}>
       {/* TITLE */}
@@ -127,7 +127,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         </Text>
                         <Text size="sm" color="dark-gray" weight="regular">
                           <BreakWord>
-                            {i18n.t('vote.vote_count', { count: getResults(choice.votes, decimals).toString() as never })}
+                            {i18n.t('vote.vote_count', {
+                              count: getResults(choice.votes, decimals).toString() as never,
+                            })}
                           </BreakWord>
                         </Text>
                       </Col>
@@ -149,7 +151,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                           <Col>
                             <Text size="sm" color="dark-gray" weight="regular">
                               <BreakWord>
-                                {i18n.t('vote.vote_count', { count: getResults(choice.votes, decimals).toString() as never })}
+                                {i18n.t('vote.vote_count', {
+                                  count: getResults(choice.votes, decimals).toString() as never,
+                                })}
                               </BreakWord>
                             </Text>
                           </Col>
@@ -176,7 +180,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   );
 };
 const getResults = (result: BigNumber, decimals?: number) =>
-  decimals ? parseInt(formatUnits(result, decimals), 10) : result
+  decimals ? parseInt(formatUnits(result, decimals), 10) : result;
 const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   if (votes.eq(0)) {
     return 1.5;
