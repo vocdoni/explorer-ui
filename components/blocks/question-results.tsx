@@ -11,7 +11,7 @@ import { BreakWord } from '@components/elements/styled-divs';
 import { Progress } from '@chakra-ui/react';
 import { ProgressProps } from '@chakra-ui/progress/dist/progress';
 import useExtendedElection from '@hooks/use-extended-election';
-import { ElectionStatus, IChoice, IQuestion } from '@vocdoni/sdk';
+import { ElectionStatus, IChoice, IQuestion, formatUnits } from '@vocdoni/sdk';
 
 export type QuestionsResultsProps = {
   question: IQuestion;
@@ -74,6 +74,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     (status === ElectionStatus.ENDED || status === ElectionStatus.RESULTS || liveResults) &&
     props.results !== undefined;
 
+  const decimals = (election.meta as any)?.token?.decimals || 0
   return (
     <Card isMobile={isMobile}>
       {/* TITLE */}
@@ -126,7 +127,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         </Text>
                         <Text size="sm" color="dark-gray" weight="regular">
                           <BreakWord>
-                            {i18n.t('vote.vote_count', { count: choice.votes.toString() as never })}
+                            {i18n.t('vote.vote_count', { count: getResults(choice.votes, decimals).toString() as never })}
                           </BreakWord>
                         </Text>
                       </Col>
@@ -148,7 +149,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                           <Col>
                             <Text size="sm" color="dark-gray" weight="regular">
                               <BreakWord>
-                                {i18n.t('vote.vote_count', { count: choice.votes.toString() as never })}
+                                {i18n.t('vote.vote_count', { count: getResults(choice.votes, decimals).toString() as never })}
                               </BreakWord>
                             </Text>
                           </Col>
@@ -174,6 +175,8 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     </Card>
   );
 };
+const getResults = (result: BigNumber, decimals?: number) =>
+  decimals ? parseInt(formatUnits(result, decimals), 10) : result
 const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   if (votes.eq(0)) {
     return 1.5;

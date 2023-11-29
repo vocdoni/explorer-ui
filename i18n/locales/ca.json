@@ -348,6 +348,7 @@
         "results_question": "Pregunta",
         "vote_count_one": "",
         "vote_count_many": "",
-        "vote_count_other": ""
+        "vote_count_other": "",
+        "vote_count": "{{ count }} vots"
     }
 }

@@ -347,6 +347,7 @@
         "no_results_title": "No results",
         "results_question": "Question",
         "vote_count_one": "",
-        "vote_count_other": ""
+        "vote_count_other": "",
+        "vote_count": "{{ count }} votes"
     }
 }
