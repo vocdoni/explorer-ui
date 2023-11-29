@@ -4,7 +4,7 @@
 const LANG = process.env.APP_LANG || 'en';
 const DEVELOPMENT = process.env.NODE_ENV !== 'production';
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development';
-const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'prod';
+const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev';
 
 const isTrueEnv = (env) => env === 'true' || env === true;
 
