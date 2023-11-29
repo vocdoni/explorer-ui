@@ -66,7 +66,16 @@ export const DashboardProcessList = ({ pageSize, totalProcessCount, title }: IDa
       <ProcessFilter onEnableFilter={enableFilter} title={title}></ProcessFilter>
       <FilteredPaginatedList
         loading={loading}
-        elementsList={processes === undefined || !processes?.elections?.length ? [] : processes.elections}
+        elementsList={
+          processes === undefined || !processes?.elections?.length
+            ? []
+            : processes.elections.sort((a, b) => {
+                if (a.startDate && b.startDate) {
+                  return new Date(a.startDate) > new Date(b.startDate) ? -1 : 1;
+                }
+                return 0;
+              })
+        }
         totalElementsCount={
           // When using filters you don't know the total count. So it don't handle last page pagination
           isUsingFilter ? null : totalProcessCount
