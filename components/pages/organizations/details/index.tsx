@@ -13,12 +13,13 @@ import {
 import { colors } from '@theme/colors';
 import { OrganizationDescription } from '@vocdoni/chakra-components';
 import { useOrganization } from '@vocdoni/react-providers';
+import { ensure0x } from '@vocdoni/sdk';
 import { useTranslation } from 'react-i18next';
 import { When } from 'react-if';
 import styled from 'styled-components';
 
 export const OrganizationView = ({ id }: { id: string }) => {
-  const plazaUrl = `${process.env.PLAZA_URL}/entity/#/${id}`;
+  const plazaUrl = `${process.env.PLAZA_URL}/organization/${ensure0x(id)}`;
 
   const { i18n } = useTranslation();
   const { organization } = useOrganization();

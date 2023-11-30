@@ -17,7 +17,7 @@ switch (VOCDONI_ENVIRONMENT) {
     apiUrl = `https://api-stg.vocdoni.net/v2`;
     break;
   case 'prod':
-    plaza = `https://app.vocdoni.io`;
+    plaza = `https://onvote.app`;
     apiUrl = `https://api.vocdoni.net/v2`;
     break;
   default:
