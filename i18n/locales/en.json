@@ -237,7 +237,7 @@
             "show_envelopes": "Show envelopes",
             "show_questions": "Show questions",
             "total_questions": "Total questions",
-            "vote_recount": "Vote recount"
+            "vote_recount": "Envelope recount"
         },
         "envelope_explorer": {
             "block": "Block: {{block}}",
