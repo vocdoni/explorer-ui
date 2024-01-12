@@ -6,6 +6,53 @@ import { HOME_PATH } from '@const/routes';
 
 export const Footer = () => {
   const theme = useTheme();
+
+  const LINKS: HeaderLink[] = [
+    // {
+    //   url: PRIVACY_PATH,
+    //   name: i18n.t("links.privacy_policy"),
+    //   external: true,
+    //   logged: true,
+    //   guest: true
+    // },
+    {
+      url: 'https://blog.vocdoni.io',
+      name: i18n.t('links.blog'),
+      external: true,
+      logged: true,
+      guest: true,
+    },
+    {
+      url: 'https://docs.vocdoni.io',
+      name: i18n.t('links.docs'),
+      external: true,
+      logged: true,
+      guest: true,
+    },
+    {
+      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+      name: i18n.t('links.help'),
+      external: true,
+      logged: true,
+      guest: true,
+    },
+    {
+      // url: ABOUT_PATH,
+      url: 'https://vocdoni.io',
+      name: i18n.t('links.about'),
+      external: false,
+      logged: false,
+      guest: true,
+    },
+    {
+      url: 'https://discord.gg/sQCxgYs',
+      name: i18n.t('links.support'),
+      external: true,
+      logged: true,
+      guest: false,
+    },
+  ];
+
   const links = LINKS.filter((link) => link.guest);
 
   return (
@@ -119,49 +166,3 @@ interface HeaderLink {
   logged?: boolean;
   guest?: boolean;
 }
-
-const LINKS: HeaderLink[] = [
-  // {
-  //   url: PRIVACY_PATH,
-  //   name: i18n.t("links.privacy_policy"),
-  //   external: true,
-  //   logged: true,
-  //   guest: true
-  // },
-  {
-    url: 'https://blog.vocdoni.io',
-    name: i18n.t('links.blog'),
-    external: true,
-    logged: true,
-    guest: true,
-  },
-  {
-    url: 'https://docs.vocdoni.io',
-    name: i18n.t('links.docs'),
-    external: true,
-    logged: true,
-    guest: true,
-  },
-  {
-    url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
-    name: i18n.t('links.help'),
-    external: true,
-    logged: true,
-    guest: true,
-  },
-  {
-    // url: ABOUT_PATH,
-    url: 'https://vocdoni.io',
-    name: i18n.t('links.about'),
-    external: false,
-    logged: false,
-    guest: true,
-  },
-  {
-    url: 'https://discord.gg/sQCxgYs',
-    name: i18n.t('links.support'),
-    external: true,
-    logged: true,
-    guest: false,
-  },
-];
