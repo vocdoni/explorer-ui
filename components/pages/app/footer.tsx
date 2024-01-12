@@ -1,11 +1,12 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import Link from 'next/link';
-import i18n from '../../../i18n';
 import { HOME_PATH } from '@const/routes';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
   const theme = useTheme();
+  const { i18n } = useTranslation();
 
   const LINKS: HeaderLink[] = [
     // {
