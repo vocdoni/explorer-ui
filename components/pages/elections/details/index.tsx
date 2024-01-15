@@ -13,14 +13,14 @@ import useExtendedElection from '@hooks/use-extended-election';
 import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib/date';
 import { colors } from '@theme/colors';
 import { ElectionDescription } from '@vocdoni/chakra-components';
-import { CensusTypeEnum, ElectionStatus } from '@vocdoni/sdk';
+import { CensusTypeEnum, ElectionStatus, InvalidElection } from '@vocdoni/sdk';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
 import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
 import { EncryptionKeys } from '../components/ElectionKeys';
 import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
-import { AnonVoteBadge, ElectionTypeBadge, ArchivedBadge } from '../components/ElectionTypeBadge';
+import { AnonVoteBadge, ArchivedBadge, ElectionTypeBadge, InvalidElectionBadge } from '../components/ElectionTypeBadge';
 import { ResultsCard } from '../components/ResultsCard';
 
 const ProcessesDetailPage = () => {
@@ -28,6 +28,7 @@ const ProcessesDetailPage = () => {
   const dateDiffStr = resolveLocalizedDateDiff(election.startDate, election.endDate, election.status);
   const id = election.id;
   const organizationId = election.organizationId;
+  const isInvalid = election instanceof InvalidElection;
 
   const { i18n } = useTranslation();
 
@@ -53,9 +54,11 @@ const ProcessesDetailPage = () => {
         </Typography>
         <CustomElectionStatusBadge status={election.status} />
       </FlexRowWrapper>
-      <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-        {dateDiffStr}
-      </Typography>
+      {!isInvalid && (
+        <Typography variant={TypographyVariant.Small} color={colors.lightText}>
+          {dateDiffStr}
+        </Typography>
+      )}
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
         <span>{i18n.t('processes.details.created_on')} </span>
         <span>{localizedDateDiff(election.startDate)}</span>
@@ -64,6 +67,7 @@ const ProcessesDetailPage = () => {
       {/* Labels and badges */}
       <Grid>
         <BadgeColumn>
+          {isInvalid && <InvalidElectionBadge />}
           {election.fromArchive && <ArchivedBadge />}
           <CensusOriginBadge censusOrigin={CensusTypeEnum[electionRaw.census.censusOrigin as string]} />
           <ProcessModeBadge autostart={electionRaw.electionMode.autoStart} />

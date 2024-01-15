@@ -33,3 +33,12 @@ export const ArchivedBadge = () => {
   const { i18n } = useTranslation();
   return <CustomTag bg={'#68672e'}>{i18n.t('vote.badge.archived')}</CustomTag>;
 };
+
+export const InvalidElectionBadge = () => {
+  const { i18n } = useTranslation();
+  return (
+    <CustomTag bg={'#c9eaf8'} color={'#f17c7c'}>
+      {i18n.t('vote.badge.invalid')}
+    </CustomTag>
+  );
+};

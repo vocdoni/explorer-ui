@@ -339,7 +339,8 @@
     "vote": {
         "badge": {
             "anonymous": "Anonymous",
-            "archived": "Archived"
+            "archived": "Archived",
+            "invalid": "Invalid"
         },
         "loading_results": "Loading results",
         "no_questions_yet": "No questions yet",
