@@ -1,6 +1,6 @@
 import { Column, ListCardContainer } from '@components/elements/grid';
 import { useTranslation } from 'react-i18next';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { renderSkeleton } from './list-page';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
 import { Else, If, Then } from 'react-if';
@@ -98,30 +98,36 @@ export function useJumpToPaginatedList({
   // Set loading
   useEffect(() => {
     setLoading(loadingElements || dataPagination == null || lastElement == null);
-  }, [loadingElements, dataPagination]);
+  }, [loadingElements, dataPagination, lastElement]);
 
-  const getFirstPageIndex = (page) => {
-    const index = lastElement - page * pageSize;
-    return index < 0 ? 0 : index;
-  };
+  const getFirstPageIndex = useCallback(
+    (page) => {
+      const index = lastElement - page * pageSize;
+      return index < 0 ? 0 : index;
+    },
+    [lastElement, pageSize]
+  );
 
   // Get the page where the block are you searching is
-  const getPageFromPosition = () => {
+  const getPageFromPosition = useCallback(() => {
     const totalPages = Math.ceil(lastElement / pageSize);
     return totalPages - Math.ceil(jumpTo / pageSize);
-  };
+  }, [jumpTo, lastElement, pageSize]);
 
-  const jumpToPosition = (newPos) => {
-    // Calculate new position
-    // const jumpToPosition = (jumpTo + 1) - pageSize
-    // But if paginator is used, page can change but the filter could be still set
-    // As we are using the paginator with pages instead of with positions, we have to handle
-    // the fact that somebody jump to a position and then advance the page.
-    // todo(ritmo): use paginator based on positions and not on pages for easy use.
-    const pageOfPosition = getPageFromPosition();
-    const offset = () => newPos + 1 - getFirstPageIndex(pageOfPosition);
-    setDataPagination(getFirstPageIndex(currentPage) + offset() - pageSize);
-  };
+  const jumpToPosition = useCallback(
+    (newPos) => {
+      // Calculate new position
+      // const jumpToPosition = (jumpTo + 1) - pageSize
+      // But if paginator is used, page can change but the filter could be still set
+      // As we are using the paginator with pages instead of with positions, we have to handle
+      // the fact that somebody jump to a position and then advance the page.
+      // todo(ritmo): use paginator based on positions and not on pages for easy use.
+      const pageOfPosition = getPageFromPosition();
+      const offset = () => newPos + 1 - getFirstPageIndex(pageOfPosition);
+      setDataPagination(getFirstPageIndex(currentPage) + offset() - pageSize);
+    },
+    [currentPage, getFirstPageIndex, getPageFromPosition, pageSize, setDataPagination]
+  );
 
   // Jump to height on filter
   useEffect(() => {
@@ -136,7 +142,7 @@ export function useJumpToPaginatedList({
     } else {
       setCurrentPage(1);
     }
-  }, [jumpTo]);
+  }, [currentPage, getPageFromPosition, jumpTo, jumpToPosition]);
 
   // When current page changed get next blocks
   useEffect(() => {
@@ -146,7 +152,7 @@ export function useJumpToPaginatedList({
         jumpToPosition(jumpTo);
       } else setDataPagination(getFirstPageIndex(currentPage));
     }
-  }, [currentPage, lastElement]);
+  }, [currentPage, getFirstPageIndex, jumpTo, jumpToPosition, lastElement, setDataPagination]);
 
   return {
     loading,

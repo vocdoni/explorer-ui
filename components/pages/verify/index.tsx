@@ -6,11 +6,10 @@ import { DivWithMarginChildren, FakedButton } from '@components/elements/styled-
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import i18n from '@i18n';
 import { colors } from '@theme/colors';
-import { ReactNode, useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { TopDiv } from '../app/page-templates/list-page';
 import { Button } from '@components/elements/button';
-import { useUrlHash } from 'use-url-hash';
 
 const VerifyPage = ({ minified = false, onSubmit }: { minified?: boolean; onSubmit?: (etVoteId: string) => void }) => {
   const [etVoteId, setEtVoteId] = useState(''); // Handle edit text state
