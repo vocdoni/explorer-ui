@@ -9,29 +9,22 @@ export const Footer = () => {
   const { i18n } = useTranslation();
 
   const LINKS: HeaderLink[] = [
-    // {
-    //   url: PRIVACY_PATH,
-    //   name: i18n.t("links.privacy_policy"),
-    //   external: true,
-    //   logged: true,
-    //   guest: true
-    // },
     {
-      url: 'https://blog.vocdoni.io',
+      url: 'https://blog.aragon.org/vocdoni/',
       name: i18n.t('links.blog'),
       external: true,
       logged: true,
       guest: true,
     },
     {
-      url: 'https://docs.vocdoni.io',
+      url: 'https://developer.vocdoni.io',
       name: i18n.t('links.docs'),
       external: true,
       logged: true,
       guest: true,
     },
     {
-      url: 'https://help.aragon.org/collection/54-vocdoni-user-guide',
+      url: 'https://discord.gg/sM7UhAGY53',
       name: i18n.t('links.help'),
       external: true,
       logged: true,
