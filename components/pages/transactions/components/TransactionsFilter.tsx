@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { InputSearch } from '@components/elements/inputs';
 import { InlineFlex } from '@components/elements/flex';
 import { DivWithMarginChildren } from '@components/elements/styled-divs';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FilterForm } from '@components/pages/app/page-templates/filter-form';
 import { DELAY_BOUNCE_TIME } from '@const/filters';
 
@@ -23,16 +23,16 @@ export const TransactionsFilter = ({ setFilter }: { setFilter: (IFilterTransacti
     setSearchTermIT('');
   };
 
-  const _onEnableFilter = () => {
+  const _onEnableFilter = useCallback(() => {
     setFilter(Object.assign({}, tempFilter));
-  };
+  }, [setFilter, tempFilter]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       _onEnableFilter();
     }, DELAY_BOUNCE_TIME);
     return () => clearTimeout(delayDebounceFn);
-  }, [tempFilter]);
+  }, [_onEnableFilter, tempFilter]);
 
   return (
     <FilterForm onEnableFilter={_onEnableFilter}>

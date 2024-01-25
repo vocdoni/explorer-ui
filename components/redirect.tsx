@@ -9,7 +9,7 @@ export const Redirect = ({ to }: IRedirectProps) => {
   const router = useRouter();
   useEffect(() => {
     router.replace(to);
-  }, [to]);
+  }, [router, to]);
 
   return <></>;
 };

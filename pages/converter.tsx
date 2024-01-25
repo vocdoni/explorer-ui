@@ -44,6 +44,8 @@ const BlocksPage = () => {
       setTargetDate(null);
       setTargetBlock(blockInput);
     }
+    // Execute this effect only when blockInput change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blockInput]);
 
   useEffect(() => {
@@ -51,6 +53,8 @@ const BlocksPage = () => {
       setTargetBlock(null);
       setTargetDate(dateInput);
     }
+    // Execute this effect only when dateInput change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateInput]);
 
   const enviormentName = (env) => {

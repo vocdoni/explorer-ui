@@ -1,5 +1,5 @@
 import { Loader } from '@components/blocks/loader';
-import { BannerContainer, HeroBanner } from '@components/pages/home/components/hero-banner';
+import { BannerContainer } from '@components/pages/home/components/hero-banner';
 import StatsPage from '@components/pages/stats';
 import { Else, If, Then } from 'react-if';
 import FeaturedContent from './index/featured';
