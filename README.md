@@ -25,12 +25,7 @@ To deploy using [Docker Compose](https://docs.docker.com/compose) follow the ins
 
 Configure the `.env` file with the following variables:
 
--   `API_URL` Api url for the Vocdoni API
--   `VOCDONI_UI_TAG` Docker tag of the image (master, stg, release)
 -   `VOCDONI_ENVIRONMENT` Enviromnent type (dev, stg, prod)
--   `ETH_NETWORK_ID` Ethereum nework ID (xdai, goerli...)
--   `DOMAIN` Domain name to be served. Used by Traefik to fetch SSL certificates from Let's Encrypt
--   `LE_EMAIL` Email associated to the domain. Used by Traefik to fetch SSL certificates from Let's Encrypt
 
 TBD: Add all remaining variables.
 

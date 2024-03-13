@@ -4,25 +4,22 @@
 const LANG = process.env.APP_LANG || 'en';
 const DEVELOPMENT = process.env.NODE_ENV !== 'production';
 const COMMIT_SHA = process.env.COMMIT_SHA || 'development';
-const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'dev';
+const VOCDONI_ENVIRONMENT = process.env.VOCDONI_ENVIRONMENT || 'stg';
 
 const isTrueEnv = (env) => env === 'true' || env === true;
 
 const VERIFY_SINGLE_PAGE = isTrueEnv(process.env.VERIFY_SINGLE_PAGE) || false;
 
-let plaza, apiUrl;
+let plaza;
 switch (VOCDONI_ENVIRONMENT) {
   case 'stg':
     plaza = `https://app-stg.vocdoni.io`;
-    apiUrl = `https://api-stg.vocdoni.net/v2`;
     break;
   case 'prod':
     plaza = `https://onvote.app`;
-    apiUrl = `https://api.vocdoni.net/v2`;
     break;
   default:
     plaza = `https://app-dev.vocdoni.io`;
-    apiUrl = `https://api-dev.vocdoni.net/v2`;
     break;
 }
 
@@ -37,18 +34,8 @@ module.exports = {
   APP_TAGS: 'vocdoni, blockchain, explorer, organizations, processes, blocks, transactions, vote, votes',
   VERIFY_SINGLE_PAGE,
 
-  // BLOCKCHAIN
-  ETH_NETWORK_ID: process.env.ETH_NETWORK_ID || 'goerli',
-
-  // VOCHAIN
-  BLOCK_TIME: process.env.BLOCK_TIME || '12',
-
   // GATEWAYS
-  PLAZA_URL: process.env.PLAZA_URL || plaza, // Deprecated see https://github.com/vocdoni/explorer-ui/issues/163
-  API_URL: process.env.API_URL || apiUrl,
-
-  // HELPSCOUT
-  HELPSCOUT_PROJECT_ID: '', // TODO:
+  PLAZA_URL: process.env.PLAZA_URL || plaza,
 };
 
 console.log('Building the frontend with ENV:', module.exports);
