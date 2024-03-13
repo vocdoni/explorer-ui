@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/vocdoni/explorer-ui.git"
   },
+  "resolutions": {
+    "web-worker": "1.2.0"
+  },
   "keywords": [],
   "author": "",
   "bugs": {
@@ -38,9 +41,9 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@types/react-dom": "^18.0.11",
-    "@vocdoni/chakra-components": "0.6.0",
-    "@vocdoni/react-providers": "0.2.1",
-    "@vocdoni/sdk": "0.5.3",
+    "@vocdoni/chakra-components": "^0.7.14",
+    "@vocdoni/react-providers": "^0.3.8",
+    "@vocdoni/sdk": "^0.7.5",
     "copy-to-clipboard": "^3.3.1",
     "ethers": "^5.4.1",
     "framer-motion": "^10.0.1",
