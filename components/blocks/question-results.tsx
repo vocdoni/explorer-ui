@@ -79,9 +79,9 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   //Calculate voting weight
   let totalWeightCount = 0;
   sortedChoices.map((choice: ChoiceResult, index: number) => {
-    totalWeightCount = (Number(totalWeightCount) + Number(choice.votes));
+    totalWeightCount = BigInt(totalWeightCount) + BigInt(choice.votes);
   })
-  totalWeightCount = BigNumber.from(totalWeightCount)
+  totalWeightCount = BigNumber.from(totalWeightCount);
 
   return (
     <Card isMobile={isMobile}>
@@ -149,7 +149,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                           disabled={choice.votes.eq(0)}
                         />
                       </Col>
-                      <Col xs={12} hiddenSmAndUp>
+                      <Col xs={12} hiddenMdAndUp>
                         <Row align="end" gutter="md">
                           <Col>
                             <Text size="lg" weight="bold" color="dark-blue">
@@ -189,6 +189,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
 };
 const getResults = (result: BigNumber, decimals?: number) =>
   decimals ? parseInt(formatUnits(result, decimals), 10) : result;
+
 const getBarPercent = (votes: BigNumber, totalVotes: BigNumber): number => {
   if (votes.eq(0)) {
     return 1.5;
@@ -200,7 +201,7 @@ const getPercent = (votes: BigNumber, resultsWeight: BigNumber): number => {
 
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000);
-  return ratio.div(resultsWeight).div(100).toNumber();
+  return ratio.div(resultsWeight)/100;
 };
 const getStringPercent = (percent: number): string => {
   const decimal = percent % 1;
