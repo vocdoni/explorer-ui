@@ -75,6 +75,14 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
     props.results !== undefined;
 
   const decimals = (election.meta as any)?.token?.decimals || 0;
+
+  //Calculate voting weight
+  let totalWeightCount = 0;
+  sortedChoices.map((choice: ChoiceResult, index: number) => {
+    totalWeightCount = (Number(totalWeightCount) + Number(choice.votes));
+  })
+  totalWeightCount = BigNumber.from(totalWeightCount)
+
   return (
     <Card isMobile={isMobile}>
       {/* TITLE */}
@@ -123,7 +131,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     <>
                       <Col hiddenSmAndDown md={2}>
                         <Text size="lg" weight="bold" color="dark-blue">
-                          {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                          {getStringPercent(getPercent(choice.votes, totalWeightCount))}%
                         </Text>
                         <Text size="sm" color="dark-gray" weight="regular">
                           <BreakWord>
@@ -135,7 +143,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                       </Col>
                       <Col xs={12} md={6}>
                         <StyledProgressBar
-                          value={getBarPercent(choice.votes, votesWeight)}
+                          value={getBarPercent(choice.votes, totalWeightCount)}
                           size={isMobile ? 'sm' : 'md'}
                           style={{ background: colorsV2.neutral[100] }}
                           disabled={choice.votes.eq(0)}
@@ -145,7 +153,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         <Row align="end" gutter="md">
                           <Col>
                             <Text size="lg" weight="bold" color="dark-blue">
-                              {getStringPercent(getPercent(choice.votes, votesWeight))}%
+                              {getStringPercent(getPercent(choice.votes, totalWeightCount))}%
                             </Text>
                           </Col>
                           <Col>

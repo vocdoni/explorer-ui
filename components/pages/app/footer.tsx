@@ -10,7 +10,7 @@ export const Footer = () => {
 
   const LINKS: HeaderLink[] = [
     {
-      url: 'https://blog.aragon.org/vocdoni/',
+      url: 'https://blog.vocdoni.io/',
       name: i18n.t('links.blog'),
       external: true,
       logged: true,
@@ -65,9 +65,6 @@ export const Footer = () => {
             </FooterLink>
           </NavItem>
         ))}
-        <AragonLink href="https://aragon.org/" passHref target="_blank">
-          <img src="/images/powered-aragon.svg" alt="Aragon" />
-        </AragonLink>
       </LinksSection>
     </Container>
   );
@@ -136,20 +133,6 @@ const HomeLink = styled(Link)`
   & > img {
     margin-right: 20px;
     height: 54px;
-  }
-`;
-
-const AragonLink = styled(Link)`
-  cursor: pointer;
-  margin-right: 70px;
-
-  & > img {
-    //margin-right: 5px;
-    height: 50px;
-  }
-
-  @media ${({ theme }) => theme.screenMax.mobileL} {
-    margin: 20px auto;
   }
 `;
 
