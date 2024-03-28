@@ -35,7 +35,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   const isMobile = useIsMobile();
   // const [showResults, setSetShowResults] = useState(false);
 
-  const { votesWeight, liveResults, election } = useExtendedElection();
+  const { liveResults, election } = useExtendedElection();
   const status = election.status;
 
   let sortedChoices: ChoiceResult[];
@@ -77,11 +77,10 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   const decimals = (election.meta as any)?.token?.decimals || 0;
 
   //Calculate voting weight
-  let totalWeightCount = 0;
-  sortedChoices.map((choice: ChoiceResult, index: number) => {
-    totalWeightCount = BigInt(totalWeightCount) + BigInt(choice.votes);
-  })
-  totalWeightCount = BigNumber.from(totalWeightCount);
+  let totalWeightCount = BigNumber.from(0);
+  sortedChoices.map((choice: ChoiceResult) => {
+    totalWeightCount = totalWeightCount.add(choice.votes);
+  });
 
   return (
     <Card isMobile={isMobile}>
@@ -201,7 +200,7 @@ const getPercent = (votes: BigNumber, resultsWeight: BigNumber): number => {
 
   // used to avoid losing decimal precision
   const ratio = votes.mul(10000);
-  return ratio.div(resultsWeight)/100;
+  return ratio.div(resultsWeight).toNumber() / 100;
 };
 const getStringPercent = (percent: number): string => {
   const decimal = percent % 1;
