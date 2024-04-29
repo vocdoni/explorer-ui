@@ -79,7 +79,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
   //Calculate voting weight
   let totalWeightCount = BigNumber.from(0);
   sortedChoices.map((choice: ChoiceResult) => {
-    totalWeightCount = totalWeightCount.add(choice.votes);
+    if (choice.votes) totalWeightCount = totalWeightCount.add(choice.votes);
   });
 
   return (
