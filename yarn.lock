@@ -2457,10 +2457,9 @@
   resolved "https://registry.yarnpkg.com/@vocdoni/react-providers/-/react-providers-0.2.1.tgz#3c5728a828fed4cf19edfe529a7bc89442772251"
   integrity sha512-lBNqMzwfyWpFgjfmTY04Xi2zL0h7mWplQx2/y3rRYtF2SFWaUdCv1lI3smRW5s134dkzQKqCGekjmKSag2o+YQ==
 
-"@vocdoni/sdk@0.8.0":
+"@vocdoni/sdk@https://github.com/vocdoni/vocdoni-sdk.git#main":
   version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@vocdoni/sdk/-/sdk-0.8.0.tgz#5a7cbfcf13fbe7e4fb302ecb05071ae63f6ba067"
-  integrity sha512-Kj2RG7b8Ifdspf1r9gcwPdtExojFzkhZg9l35mPRp2VD3P82QtMl1DDbDlRwSZ4ajSHkXH2dWgUZ0KKJH75ySg==
+  resolved "https://github.com/vocdoni/vocdoni-sdk.git#c96f26735391efd4fe2999e145ce8f11e4d192ef"
   dependencies:
     "@ethersproject/abstract-signer" "^5.7.0"
     "@ethersproject/address" "^5.7.0"
@@ -2474,7 +2473,7 @@
     "@ethersproject/wallet" "^5.7.0"
     "@size-limit/file" "^8.2.4"
     "@vocdoni/proto" "1.15.5"
-    axios "0.27.2"
+    axios "0.28.1"
     blake2b "^2.1.4"
     iso-language-codes "^1.1.0"
     js-sha256 "^0.10.1"
@@ -2660,13 +2659,14 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-axios@0.27.2:
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
-  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+axios@0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.28.1.tgz#2a7bcd34a3837b71ee1a5ca3762214b86b703e70"
+  integrity sha512-iUcGA5a7p0mVb4Gm/sy+FSECNkPFT4y7wt6OM/CDpO/OnNCvSs3PoMG8ibrC9jRoGYU0gUK5pXVC4NPXq6lHRQ==
   dependencies:
-    follow-redirects "^1.14.9"
+    follow-redirects "^1.15.0"
     form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 b4a@^1.0.1:
   version "1.6.4"
@@ -3913,10 +3913,10 @@ focus-lock@^0.11.6:
   dependencies:
     tslib "^2.0.3"
 
-follow-redirects@^1.14.9:
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
-  integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
+follow-redirects@^1.15.0:
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
+  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -6175,6 +6175,11 @@ protobufjs@^7.1.2:
     "@protobufjs/utf8" "^1.1.0"
     "@types/node" ">=13.7.0"
     long "^5.0.0"
+
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 pump@^2.0.0:
   version "2.0.1"

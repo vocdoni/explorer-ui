@@ -40,7 +40,7 @@
     "@types/react-dom": "^18.0.11",
     "@vocdoni/chakra-components": "0.6.0",
     "@vocdoni/react-providers": "0.2.1",
-    "@vocdoni/sdk": "0.8.0",
+    "@vocdoni/sdk": "https://github.com/vocdoni/vocdoni-sdk.git#main",
     "copy-to-clipboard": "^3.3.1",
     "ethers": "^5.4.1",
     "framer-motion": "^10.0.1",
@@ -75,6 +75,6 @@
     "typescript": "^4.9.5"
   },
   "resolutions": {
-    "@vocdoni/sdk": "0.8.0"
+    "@vocdoni/sdk": "https://github.com/vocdoni/vocdoni-sdk.git#main"
   }
 }
