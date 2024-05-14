@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { NextComponentType, NextPageContext } from 'next';
 import { AppInitialProps } from 'next/app';
@@ -28,6 +28,7 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
   const appDescr = process.env.APP_DESCRIPTION;
   const apptags = process.env.APP_TAGS;
   const commitSHA = process.env.COMMIT_SHA;
+  const [initialRenderComplete, setInitialRenderComplete] = useState<boolean>(false);
 
   // If the current page component defined a custom layout, use it
   const Layout: FC<ChildrenProps> = Component['Layout'] ? Component['Layout'] : DefaultLayout;
@@ -36,6 +37,11 @@ const VocdoniApp: FC<NextAppProps> = ({ Component, pageProps }) => {
     console.log('these no has default providers');
   }
 
+  useEffect(() => {
+    setInitialRenderComplete(true);
+  }, []);
+
+  if (!initialRenderComplete) return <></>;
   return (
     <ThemeProvider theme={theme}>
       <Providers>
