@@ -1,6 +1,6 @@
 import { Card } from '@components/elements/cards';
 import { BlockLink, EnvelopeLink, TransactionLink } from '@components/pages/app/components/get-links';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import React, { ReactNode } from 'react';
 import { IconContext } from 'react-icons';
 import { BiEnvelope } from 'react-icons/bi';
@@ -29,13 +29,12 @@ const EnvelopeCardSkeleton = ({ children }: { children: ReactNode }) => (
 );
 
 export const EnvelopeCard = ({ envelope, idx }: { envelope: IElectionVote; idx: number }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   return (
     <EnvelopeCardSkeleton>
       <TopDiv>
         <strong>
-          {i18n.t('processes.envelope_explorer.envelope_n', {
+          {t('processes.envelope_explorer.envelope_n', {
             number: idx, // Is not showing tx index, instead show index of map itself
           })}
         </strong>
@@ -55,20 +54,20 @@ export const EnvelopeCard = ({ envelope, idx }: { envelope: IElectionVote; idx: 
       </TopDiv>
       <p>
         <BlockLink blockHeight={envelope.blockHeight}>
-          {i18n.t('processes.envelope_explorer.block', {
+          {t('processes.envelope_explorer.block', {
             block: envelope.blockHeight || 0,
           })}
         </BlockLink>
       </p>
       <p>
         <TransactionLink blockHeight={envelope.blockHeight.toString()} index={envelope.transactionIndex.toString()}>
-          {i18n.t('processes.envelope_explorer.tx_number', {
+          {t('processes.envelope_explorer.tx_number', {
             txNumber: envelope.transactionIndex || 0,
           })}
         </TransactionLink>
       </p>
       <p>
-        <EnvelopeLink nullifier={envelope.voteID}>{i18n.t('processes.envelope_explorer.details')}</EnvelopeLink>
+        <EnvelopeLink nullifier={envelope.voteID}>{t('processes.envelope_explorer.details')}</EnvelopeLink>
       </p>
     </EnvelopeCardSkeleton>
   );

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { InputSearch } from '@components/elements/inputs';
 import { InlineFlex } from '@components/elements/flex';
 import { DivWithMarginChildren } from '@components/elements/styled-divs';
@@ -12,8 +12,7 @@ export interface IFilterEntity {
 }
 
 export const OrganizationsFilter = ({ onEnableFilter }: { onEnableFilter: { (tempFilter: IFilterEntity): void } }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const [searchTermIT, setSearchTermIT] = useState('');
 
   const [tempFilter, setTempFilter] = useState<IFilterEntity>({});
@@ -35,7 +34,7 @@ export const OrganizationsFilter = ({ onEnableFilter }: { onEnableFilter: { (tem
         <DivWithMarginChildren>
           <InputSearch
             wide
-            placeholder={i18n.t('organizations.filter.search_by_org_address')}
+            placeholder={t('organizations.filter.search_by_org_address')}
             value={searchTermIT}
             onChange={(ev) => {
               if (ev.target.value.length === 0) {

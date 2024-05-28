@@ -25,6 +25,7 @@ module.exports = {
     'node_modules',
     'next.config.js',
     'i18next-parser.config.js',
+    'next-i18next.config.js',
     'env-config.*',
     '.*' ],
   rules: {

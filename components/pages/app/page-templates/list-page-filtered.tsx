@@ -2,7 +2,7 @@ import { PaginatorRouterParams } from '@components/blocks/paginator-router-param
 import { FlexContainer, FlexAlignItem, FlexJustifyContent } from '@components/elements/flex';
 import { Column, ListCardContainer } from '@components/elements/grid';
 import { ReactNode, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { Else, If, Then } from 'react-if';
 import { renderSkeleton } from './list-page';
 
@@ -28,8 +28,7 @@ export const FilteredPaginatedList = <Elements,>({
   currentPage,
   setCurrentPage,
 }: IPaginatedListTemplateProps<Elements>) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const paginator = () => (
     <PaginatorRouterParams
       totalCount={totalElementsCount}
@@ -57,7 +56,7 @@ export const FilteredPaginatedList = <Elements,>({
               </>
             </Then>
             <Else>
-              <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
+              <h1>{t('paginated_template.no_elements_found')}</h1>
             </Else>
           </If>
         </Else>

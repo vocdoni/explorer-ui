@@ -2,30 +2,29 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import Link from 'next/link';
 import { HOME_PATH } from '@const/routes';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 export const Footer = () => {
   const theme = useTheme();
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const LINKS: HeaderLink[] = [
     {
       url: 'https://blog.vocdoni.io/',
-      name: i18n.t('links.blog'),
+      name: t('links.blog'),
       external: true,
       logged: true,
       guest: true,
     },
     {
       url: 'https://developer.vocdoni.io',
-      name: i18n.t('links.docs'),
+      name: t('links.docs'),
       external: true,
       logged: true,
       guest: true,
     },
     {
       url: 'https://discord.gg/sM7UhAGY53',
-      name: i18n.t('links.help'),
+      name: t('links.help'),
       external: true,
       logged: true,
       guest: true,
@@ -33,14 +32,14 @@ export const Footer = () => {
     {
       // url: ABOUT_PATH,
       url: 'https://vocdoni.io',
-      name: i18n.t('links.about'),
+      name: t('links.about'),
       external: false,
       logged: false,
       guest: true,
     },
     {
       url: 'https://discord.gg/sQCxgYs',
-      name: i18n.t('links.support'),
+      name: t('links.support'),
       external: true,
       logged: true,
       guest: false,

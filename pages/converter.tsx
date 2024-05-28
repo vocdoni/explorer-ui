@@ -6,7 +6,7 @@ import { Typography, TypographyVariant } from '@components/elements/typography';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FlexAlignItem, FlexContainer, FlexDirection, FlexJustifyContent } from '@components/elements/flex';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { capitalize } from '@lib/util';
 
@@ -14,10 +14,17 @@ import { FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronUp } from 'react
 import { useIsMobile } from '@hooks/use-window-size';
 import DateTimePicker from '@components/elements/date-picker';
 import { useBlockHeight, useBlockToDate, useChainInfo, useDateToBlock } from '@hooks/use-voconi-sdk';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const BlocksPage = () => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const { blockHeight } = useBlockHeight();
 
   const [blockInput, setBlockInput] = useState<number>();
@@ -86,28 +93,26 @@ const BlocksPage = () => {
     <PageCard>
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.H1}>{i18n.t('converter.date_block_estimation')}</Typography>
-          <MainDescription>
-            {i18n.t('converter.calculate_the_conversion_between_Vochain_blocks_and_dates')}
-          </MainDescription>
+          <Typography variant={TypographyVariant.H1}>{t('converter.date_block_estimation')}</Typography>
+          <MainDescription>{t('converter.calculate_the_conversion_between_Vochain_blocks_and_dates')}</MainDescription>
           <div>
-            <StrongAndText title={i18n.t('converter.current_enviorment') + ': '}>
+            <StrongAndText title={t('converter.current_enviorment') + ': '}>
               {capitalize(enviormentName(process.env.VOCDONI_ENVIRONMENT))}
             </StrongAndText>
           </div>
           <div>
-            <StrongAndText title={i18n.t('converter.genesis_date') + ': '}>
-              {!loadingStats && localizedDateDiff(genesisDate)}
+            <StrongAndText title={t('converter.genesis_date') + ': '}>
+              {!loadingStats && localizedDateDiff(genesisDate, t)}
             </StrongAndText>
           </div>
           <div>
-            <StrongAndText title={i18n.t('converter.block_height') + ': '}>{blockHeight}</StrongAndText>
+            <StrongAndText title={t('converter.block_height') + ': '}>{blockHeight}</StrongAndText>
           </div>
         </Column>
         <ConversorWrapper>
           {/* <Column md={4} sm={6}> */}
           <Column md={4} sm={6}>
-            <InputTitle>{i18n.t('converter.set_date')}</InputTitle>
+            <InputTitle>{t('converter.set_date')}</InputTitle>
             <CalendarContainer>
               <DateTimePicker
                 id={'datetimeid'}
@@ -135,10 +140,10 @@ const BlocksPage = () => {
             </FlexContainer>
           </ColumnBottomAligned>
           <Column md={4} sm={6}>
-            <InputTitle>{i18n.t('converter.set_block')}</InputTitle>
+            <InputTitle>{t('converter.set_block')}</InputTitle>
             <CalendarContainer>
               <Input
-                placeholder={i18n.t('converter.search_by_block_height')}
+                placeholder={t('converter.search_by_block_height')}
                 value={targetBlock ?? estimatedBlockNumber ?? ''}
                 onChange={(ev) => {
                   setBlockInput(+ev.target.value);
@@ -155,7 +160,7 @@ const BlocksPage = () => {
       </Grid>
 
       <LoadingContainer>
-        {loading ? <MainDescription>{i18n.t('converter.loading_info')}</MainDescription> : null}
+        {loading ? <MainDescription>{t('converter.loading_info')}</MainDescription> : null}
       </LoadingContainer>
     </PageCard>
   );

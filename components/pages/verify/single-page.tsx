@@ -28,7 +28,7 @@ const VerifySinglePage = ({ voteId }: { voteId: string }) => {
           <If condition={envelopeNotFound}>
             <Then>
               <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
-                <h2>{i18n.t('envelopes.details.envelope_not_found')}</h2>
+                <h2>{t('envelopes.details.envelope_not_found')}</h2>
               </FlexContainer>
             </Then>
             <Else>

@@ -2,7 +2,7 @@ import { Col, Row } from '@components/elements-v2/grid';
 import { Spacer } from '@components/elements-v2/spacer';
 import { Text } from '@components/elements-v2/text';
 import { theme } from '@theme/global';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 import { useIsMobile } from '@hooks/use-window-size';
 import { BigNumber } from 'ethers';
@@ -29,8 +29,7 @@ type ChoiceResult = {
 };
 
 export const QuestionResults = (props: QuestionsResultsProps) => {
-  const { i18n } = useTranslation();
-  // const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
+  const { t } = useTranslation(); // const [sortedChoices, setSortedChoices] = useState<ChoiceResult[]>([]);
   // const [hasWinner, setHasWinner] = useState<boolean>(false);
   const isMobile = useIsMobile();
   // const [showResults, setSetShowResults] = useState(false);
@@ -90,7 +89,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
           <Row gutter="xs">
             <Col xs={12}>
               <Text size="md" color="primary" weight="bold">
-                {i18n.t('vote.results_question', { index: props.index + 1 })}
+                {t('vote.results_question', { index: props.index + 1 })}
               </Text>
             </Col>
             <Col xs={12}>
@@ -134,7 +133,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                         </Text>
                         <Text size="sm" color="dark-gray" weight="regular">
                           <BreakWord>
-                            {i18n.t('vote.vote_count', {
+                            {t('vote.vote_count', {
                               count: getResults(choice.votes, decimals).toString() as never,
                             })}
                           </BreakWord>
@@ -158,7 +157,7 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                           <Col>
                             <Text size="sm" color="dark-gray" weight="regular">
                               <BreakWord>
-                                {i18n.t('vote.vote_count', {
+                                {t('vote.vote_count', {
                                   count: getResults(choice.votes, decimals).toString() as any,
                                 })}
                               </BreakWord>
@@ -172,8 +171,8 @@ export const QuestionResults = (props: QuestionsResultsProps) => {
                     <Col xs={12} md={6} justify="end">
                       <Text size={isMobile ? 'sm' : 'xl'} color="dark-gray" align="right">
                         {status !== ElectionStatus.ENDED && !liveResults
-                          ? i18n.t('vote.no_results_live')
-                          : i18n.t('vote.loading_results')}
+                          ? t('vote.no_results_live')
+                          : t('vote.loading_results')}
                       </Text>
                     </Col>
                   )}

@@ -1,11 +1,19 @@
 import { Loader } from '@components/blocks/loader';
 import { DashboardShowValidators } from '@components/pages/validators/list';
 import { Else, If, Then } from 'react-if';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useValidators } from '@hooks/use-voconi-sdk';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const Page = () => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const { loading, data: validatorsResponse } = useValidators();
   const validators = validatorsResponse?.validators ?? [];
 
@@ -22,7 +30,7 @@ const Page = () => {
             <DashboardShowValidators validators={validators} />
           </Then>
           <Else>
-            <h1>{i18n.t('validators.no_validators_found')}</h1>
+            <h1>{t('validators.no_validators_found')}</h1>
           </Else>
         </If>
       </Else>

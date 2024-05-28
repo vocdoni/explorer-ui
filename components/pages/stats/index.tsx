@@ -6,7 +6,7 @@ import { Grid } from '@components/elements/grid';
 import { Card } from '@components/elements/cards';
 
 import { localizedDateDiff } from '@lib/date';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { BlockContainer, Section } from '@components/elements/styled-divs';
 import { BlockCard } from '@components/pages/blocks/components/BlockCard';
 import { capitalize } from '@lib/util';
@@ -21,7 +21,7 @@ import { When } from 'react-if';
 const BLOCK_LIST_SIZE = 4;
 
 const BlockList = ({ blockHeight }: { blockHeight: number }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const firstBlock = blockHeight - (BLOCK_LIST_SIZE - 1);
 
   const { data: blocks } = useBlockList({
@@ -42,21 +42,20 @@ const BlockList = ({ blockHeight }: { blockHeight: number }) => {
           />
         ))
       ) : (
-        <h3>{i18n.t('stats.getting_block_info')}</h3>
+        <h3>{t('stats.getting_block_info')}</h3>
       )}
     </>
   );
 };
 
 const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   let blockHeight: number;
   if (stats && stats?.height) {
     blockHeight = stats.height;
   }
 
-  const syncing = stats?.syncing ? i18n.t('stats.syncing') : i18n.t('stats.in_sync');
+  const syncing = stats?.syncing ? t('stats.syncing') : t('stats.in_sync');
 
   return (
     <div>
@@ -65,27 +64,27 @@ const StatsPage = ({ stats }: { stats: IChainGetInfoResponse }) => {
           <Grid>
             <Card md={6}>
               <VerticallyCenter>
-                <CardTitle title={i18n.t('stats.latest_block')} icon={<VscGraphLine />}></CardTitle>
+                <CardTitle title={t('stats.latest_block')} icon={<VscGraphLine />}></CardTitle>
                 <When condition={blockHeight !== null}>
                   <BlockList blockHeight={blockHeight} />
                 </When>
                 <HomePageButton>
                   <Link href={'blocks/'} passHref>
-                    {i18n.t('stats.view_all_blocks')}
+                    {t('stats.view_all_blocks')}
                   </Link>
                 </HomePageButton>
               </VerticallyCenter>
             </Card>
             <Card md={6}>
               <VerticallyCenter>
-                <CardTitle title={i18n.t('stats.blockchain_info')} icon={<MdSpeed />}></CardTitle>
+                <CardTitle title={t('stats.blockchain_info')} icon={<MdSpeed />}></CardTitle>
                 <TitleSubtitleList>
-                  <TitleSubtitle title={i18n.t('stats.network_id')}>{capitalize(stats?.chainId)}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.bloc_height')}>{stats?.height}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.nr_of_validators')}>{stats?.validatorCount}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.sync_status')}>{syncing}</TitleSubtitle>
-                  <TitleSubtitle title={i18n.t('stats.genesis_block_date')}>
-                    {localizedDateDiff(new Date(stats?.genesisTime))}
+                  <TitleSubtitle title={t('stats.network_id')}>{capitalize(stats?.chainId)}</TitleSubtitle>
+                  <TitleSubtitle title={t('stats.bloc_height')}>{stats?.height}</TitleSubtitle>
+                  <TitleSubtitle title={t('stats.nr_of_validators')}>{stats?.validatorCount}</TitleSubtitle>
+                  <TitleSubtitle title={t('stats.sync_status')}>{syncing}</TitleSubtitle>
+                  <TitleSubtitle title={t('stats.genesis_block_date')}>
+                    {localizedDateDiff(new Date(stats?.genesisTime), t)}
                   </TitleSubtitle>
                 </TitleSubtitleList>
               </VerticallyCenter>

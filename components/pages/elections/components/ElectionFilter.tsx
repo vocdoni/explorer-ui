@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { Column, ColumnDiv, Grid } from '@components/elements/grid';
 import { colors } from '@theme/colors';
 import { InputSearch } from '@components/elements/inputs';
@@ -61,7 +61,7 @@ const CheckBoxAndSearchBar = ({
   tempFilter: IFilterProcesses;
   setTempFilter: { (tempFilter: IFilterProcesses): void };
 }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
   return (
@@ -74,14 +74,14 @@ const CheckBoxAndSearchBar = ({
             tempFilter.withResults = ev.target.checked;
             setTempFilter(Object.assign({}, tempFilter));
           }}
-          text={i18n.t('processes.filter.show_only_processes_with_results')}
+          text={t('processes.filter.show_only_processes_with_results')}
           labelColor={colors.text}
         />
       </CheckBoxContainer>
       <DivWithMarginChildren>
         <InputSearch
           wide
-          placeholder={i18n.t('processes.filter.search_by_election_id_or_organization')}
+          placeholder={t('processes.filter.search_by_election_id_or_organization')}
           value={searchTerm}
           onChange={(ev) => {
             setSearchTerm(ev.target.value);
@@ -112,23 +112,22 @@ const ProcessStatusSelector = ({
   tempFilter: IFilterProcesses;
   setTempFilter: { (tempFilter: IFilterProcesses): void };
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const opts: IRadioOpts[] = [
     {
-      label: i18n.t('processes.filter.status_selector.all'),
+      label: t('processes.filter.status_selector.all'),
       key: null,
     },
     {
-      label: i18n.t('processes.filter.status_selector.active'),
+      label: t('processes.filter.status_selector.active'),
       key: ElectionStatusReady.READY,
     },
     {
-      label: i18n.t('processes.filter.status_selector.paused'),
+      label: t('processes.filter.status_selector.paused'),
       key: ElectionStatus.PAUSED,
     },
     {
-      label: i18n.t('processes.filter.status_selector.ended'),
+      label: t('processes.filter.status_selector.ended'),
       key: ElectionStatus.ENDED,
     },
   ];

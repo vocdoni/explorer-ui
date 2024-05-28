@@ -1,5 +1,5 @@
 import { Column, ListCardContainer } from '@components/elements/grid';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { renderSkeleton } from './list-page';
 import { FlexAlignItem, FlexContainer, FlexJustifyContent } from '@components/elements/flex';
@@ -31,8 +31,7 @@ export const JumpToPaginatedList = <Elements,>({
   currentPage,
   setCurrentPage,
 }: IPaginatedListTemplateProps<Elements>) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const paginator = () => (
     <PaginatorRouterParams
       totalCount={totalElementsCount}
@@ -66,7 +65,7 @@ export const JumpToPaginatedList = <Elements,>({
               </>
             </Then>
             <Else>
-              <h1>{i18n.t('paginated_template.no_elements_found')}</h1>
+              <h1>{t('paginated_template.no_elements_found')}</h1>
             </Else>
           </If>
         </Else>

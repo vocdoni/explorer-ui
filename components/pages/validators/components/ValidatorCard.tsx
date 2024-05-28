@@ -3,7 +3,7 @@ import { BreakWord } from '@components/elements/styled-divs';
 import { StrongAndText } from '@components/elements/text';
 import { useIsMobile } from '@hooks/use-window-size';
 import { theme } from '@theme/global';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 import { CopyButton } from '../../../blocks/copy-button';
 import { IChainValidator } from '@vocdoni/sdk';
@@ -14,14 +14,14 @@ export const ValidatorCard = ({
 }: GenericCardWrapperProps & {
   validatorData: IChainValidator;
 }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   const pubKey = validatorData.pubKey;
 
   const Footer = () => {
     return (
       <FooterWrapper>
-        <StrongAndText title={i18n.t('components.validator.Pubkey') + ': '}>
+        <StrongAndText title={t('components.validator.Pubkey') + ': '}>
           <CopyButton
             color={theme.textAccent1}
             text={
@@ -31,11 +31,11 @@ export const ValidatorCard = ({
           ></CopyButton>
         </StrongAndText>
         {validatorData.name && (
-          <StrongAndText title={i18n.t('components.validator.name') + ': '}>
+          <StrongAndText title={t('components.validator.name') + ': '}>
             <div>{validatorData.name}</div>
           </StrongAndText>
         )}
-        <StrongAndText title={i18n.t('components.validator.voting_power') + ': '}>
+        <StrongAndText title={t('components.validator.voting_power') + ': '}>
           <div>{validatorData.power}</div>
         </StrongAndText>
       </FooterWrapper>

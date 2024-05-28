@@ -2,9 +2,17 @@ import LoaderPage from '@components/pages/app/layout/loader-page';
 import ProcessDetailPage from '@components/pages/elections/details';
 import { ElectionProvider, OrganizationProvider, useElection } from '@vocdoni/react-providers';
 import { ensure0x } from '@vocdoni/sdk';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useUrlHash } from 'use-url-hash';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const ProcessesDetailPage = () => {
   const {
     loading: { election: loading },
@@ -12,8 +20,7 @@ const ProcessesDetailPage = () => {
     errors: { election: error },
     loaded,
   } = useElection();
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const hasError = error?.length > 0;
   const hasContent = !!election;
   const isLoading = loading || !loaded;
@@ -23,7 +30,7 @@ const ProcessesDetailPage = () => {
       loading={isLoading}
       error={hasError}
       hasContent={hasContent}
-      errorMessage={i18n.t('processes.details.process_not_found')}
+      errorMessage={t('processes.details.process_not_found')}
     >
       <OrganizationProvider id={ensure0x(election?.organizationId ?? '')}>
         <ProcessDetailPage />

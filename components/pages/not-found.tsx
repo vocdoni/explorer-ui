@@ -1,10 +1,13 @@
-import i18n from '../../i18n';
+import { useTranslation } from 'next-i18next';
 
-const NotFound = () => (
-  <div>
-    <h1>Vocdoni</h1>
-    <p>{i18n.t('errors.page_not_found')}</p>
-  </div>
-);
+const NotFound = () => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <h1>Vocdoni</h1>
+      <p>{t('errors.page_not_found')}</p>
+    </div>
+  );
+};
 
 export default NotFound;

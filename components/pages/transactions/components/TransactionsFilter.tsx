@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { InputSearch } from '@components/elements/inputs';
 import { InlineFlex } from '@components/elements/flex';
 import { DivWithMarginChildren } from '@components/elements/styled-divs';
@@ -12,8 +12,7 @@ export interface IFilterTransactions {
 }
 
 export const TransactionsFilter = ({ setFilter }: { setFilter: (IFilterTransactions) => void }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const [searchTermIT, setSearchTermIT] = useState('');
 
   const [tempFilter, setTempFilter] = useState<IFilterTransactions>({});
@@ -40,7 +39,7 @@ export const TransactionsFilter = ({ setFilter }: { setFilter: (IFilterTransacti
         <DivWithMarginChildren>
           <InputSearch
             wide
-            placeholder={i18n.t('transactions.filter.search')}
+            placeholder={t('transactions.filter.search')}
             value={searchTermIT}
             onChange={(ev) => {
               if (ev.target.value.length === 0) {

@@ -4,7 +4,7 @@ import { PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { BlockLink, EntityLink, ProcessLink } from '@components/pages/app/components/get-links';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { localizedDateDiff } from '@lib/date';
 import { b64ToHex, objectB64StringsToHex } from '@lib/util';
 import { colors } from '@theme/colors';
@@ -22,7 +22,7 @@ export const TransactionDetails = ({
   transactionData: Tx;
   blockHeight: number;
 }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data } = useBlockToDate({ height: blockHeight });
   const date = new Date(data?.date);
 
@@ -80,22 +80,22 @@ export const TransactionDetails = ({
       <>
         <Grid>
           <Column sm={12}>
-            <Typography variant={TypographyVariant.H3}>{i18n.t('transactions.details.transaction_details')}</Typography>
+            <Typography variant={TypographyVariant.H3}>{t('transactions.details.transaction_details')}</Typography>
             <BlockLink blockHeight={blockHeight}>
               <h2>
-                {i18n.t('transactions.on_block_n', {
+                {t('transactions.on_block_n', {
                   blockHeight: blockHeight,
                 })}
               </h2>
             </BlockLink>
             <Typography variant={TypographyVariant.Small} color={colors.lightText}>
               <span>
-                {i18n.t('transactions.transaction_index')}: {txIndex + 1}{' '}
+                {t('transactions.transaction_index')}: {txIndex + 1}{' '}
               </span>
             </Typography>
             <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-              <span>{i18n.t('transactions.created_on')}: </span>
-              <span>{localizedDateDiff(date)}</span>
+              <span>{t('transactions.created_on')}: </span>
+              <span>{localizedDateDiff(date, t)}</span>
             </Typography>
           </Column>
         </Grid>
@@ -106,31 +106,31 @@ export const TransactionDetails = ({
               <TransactionTypeBadge type={txType} />
             </>
           }
-          dateText={localizedDateDiff(date)}
+          dateText={localizedDateDiff(date, t)}
           title={ensure0x(transactionData.txInfo.transactionHash)}
         >
           <OverflowScroll>
             {belongsToProcess?.length > 0 && (
               <p>
-                {i18n.t('transactions.details.belongs_to_process')}:{' '}
+                {t('transactions.details.belongs_to_process')}:{' '}
                 <ProcessLink processId={belongsToProcess}>{ensure0x(belongsToProcess)}</ProcessLink>
               </p>
             )}
             {belongsToEntity?.length > 0 && (
               <p>
-                {i18n.t('transactions.details.belong_to_organization')}:
+                {t('transactions.details.belong_to_organization')}:
                 <EntityLink entityId={belongsToEntity}>0x{belongsToEntity}</EntityLink>
               </p>
             )}
             {votePackage?.length > 0 && (
               <p>
-                {i18n.t('transactions.details.vote_package')}:<pre>{votePackage}</pre>
+                {t('transactions.details.vote_package')}:<pre>{votePackage}</pre>
               </p>
             )}
           </OverflowScroll>
         </GenericListItemWithBadge>
 
-        {rawTx && <RawContent content={rawTx} title={i18n.t('transactions.details.raw_contents')} />}
+        {rawTx && <RawContent content={rawTx} title={t('transactions.details.raw_contents')} />}
       </>
     </PageCard>
   );

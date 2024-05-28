@@ -8,7 +8,7 @@ import { theme } from '@theme/global';
 import { OrganizationName } from '@vocdoni/chakra-components';
 import { useOrganization } from '@vocdoni/react-providers';
 import { ensure0x } from '@vocdoni/sdk';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 
 export const ReducedOrganizationNameWithIcon = ({ organizationId }: { organizationId: string }) => {
@@ -37,10 +37,10 @@ type OrganizationCardMediumProps = {
 
 // Wrap a entityId into a link to its entity page and an icon.
 export const OrganizationCardMedium = ({ organizationId, md }: OrganizationCardMediumProps) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <StatusCard
-      title={i18n.t('components.organization_card_medium.host_organization')}
+      title={t('components.organization_card_medium.host_organization')}
       href={getOrganizationPath(organizationId)}
       md={md}
     >
@@ -68,7 +68,7 @@ export const OrganizationCard = ({
   organizationId?: string;
   electionCount?: number;
 }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const { organization } = useOrganization();
   const link = getOrganizationPath(organizationId);
 
@@ -85,11 +85,11 @@ export const OrganizationCard = ({
         <ReducedTextAndCopy
           toCopy={id}
           text={id}
-          copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')}
+          copyMessage={t('copy.hash_copied_to_the_clipboard')}
         ></ReducedTextAndCopy>
       </OrganizationWrapper>
       <CardItemSubTitle>
-        <strong>{i18n.t('organizations.list.processes')}: </strong> {electionIndex}
+        <strong>{t('organizations.list.processes')}: </strong> {electionIndex}
       </CardItemSubTitle>
     </BodyWrapper>
   );

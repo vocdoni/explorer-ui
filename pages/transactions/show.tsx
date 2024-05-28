@@ -1,10 +1,18 @@
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
 import { TransactionDetails } from '@components/pages/transactions/details';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useTxByBlock, useTxByHash } from '@hooks/use-voconi-sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const TransactionByHeightAndIndex = ({
   blockHeight,
   txIndex,
@@ -22,8 +30,7 @@ const TransactionByHeightAndIndex = ({
     loaded,
     error: errorByBlock,
   } = useTxByBlock({ blockHeight: blockHeight, txIndex: txIndex });
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const loading = l || txLoading || !loaded;
   const hasError = error || !!errorByBlock;
 
@@ -33,7 +40,7 @@ const TransactionByHeightAndIndex = ({
         loading={loading}
         error={hasError}
         hasContent={!!tx}
-        errorMessage={i18n.t('transactions.details.transaction_not_found')}
+        errorMessage={t('transactions.details.transaction_not_found')}
       >
         <TransactionDetails txIndex={txIndex} blockHeight={blockHeight} transactionData={tx} />
       </LoaderPage>

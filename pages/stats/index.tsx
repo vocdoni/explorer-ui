@@ -4,7 +4,15 @@ import { Else, If, Then } from 'react-if';
 import styled from 'styled-components';
 import { useChainInfo } from '@hooks/use-voconi-sdk';
 import { StatsHeroBanner } from '@components/pages/stats/components/stats-hero-banner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const StatsPageIndex = () => {
   const { loading: loadingStats, data: stats } = useChainInfo();
 

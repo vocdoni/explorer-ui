@@ -3,7 +3,7 @@ import { PageCard } from '@components/elements/cards';
 import { Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { TransactionListForBlock } from './TransactionListForBlock';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk';
 import { getPath } from '@components/pages/app/components/get-links';
@@ -11,14 +11,14 @@ import { BLOCKS_DETAILS } from '@const/routes';
 import { RawContentBtn } from '@components/blocks/RawContent';
 
 export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse }) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const txs = blockData?.data.txs;
   const blockHeight = blockData?.header.height;
   return (
     <PageCard>
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>{i18n.t('blocks.details.block_details')}</Typography>
+          <Typography variant={TypographyVariant.Body1}>{t('blocks.details.block_details')}</Typography>
         </Column>
       </Grid>
       <BlockCard
@@ -30,10 +30,10 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
         <TransactionListForBlock totalCount={txs.length} blockHeight={blockHeight}></TransactionListForBlock>
       ) : null}
       <>
-        <p>{i18n.t('blocks.transactions', { transactions: txs.length })}</p>
-        <p>{i18n.t('blocks.details.hash', { hash: ensure0x(blockData?.['hash']) })}</p>
+        <p>{t('blocks.transactions', { transactions: txs.length })}</p>
+        <p>{t('blocks.details.hash', { hash: ensure0x(blockData?.['hash']) })}</p>
         <p>
-          {i18n.t('blocks.details.last_block_hash')}
+          {t('blocks.details.last_block_hash')}
           {/*I used the link  legacyBehavior here because for some reason the NextJS Link component changes the url but the
            useUrlHash hook doesn't detect the change, so it does not update to previous block data. Is a problem related to
            useUrlHash hook */}
@@ -49,9 +49,9 @@ export const BlockView = ({ blockData }: { blockData: IChainBlockInfoResponse })
             </a>
           </Link>
         </p>
-        <p>{i18n.t('blocks.details.proposer', { proposer: ensure0x(blockData?.header.proposerAddress) })}</p>
+        <p>{t('blocks.details.proposer', { proposer: ensure0x(blockData?.header.proposerAddress) })}</p>
       </>
-      <RawContentBtn content={blockData} title={i18n.t('blocks.details.block_raw_content')} />
+      <RawContentBtn content={blockData} title={t('blocks.details.block_raw_content')} />
     </PageCard>
   );
 };

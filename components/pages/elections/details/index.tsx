@@ -14,7 +14,7 @@ import { DateDiffType, localizedDateDiff, localizedStartEndDateDiff } from '@lib
 import { colors } from '@theme/colors';
 import { ElectionDescription } from '@vocdoni/chakra-components';
 import { CensusTypeEnum, ElectionStatus, InvalidElection } from '@vocdoni/sdk';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import styled from 'styled-components';
 import { CensusOriginBadge } from '../components/ElectionCensusOrigin-badge';
 import { EnvelopeExplorer } from '../components/ElectionEnvelopeExplorer';
@@ -22,15 +22,15 @@ import { EncryptionKeys } from '../components/ElectionKeys';
 import { ProcessModeBadge } from '../components/ElectionProcessmodeBadge';
 import { AnonVoteBadge, ArchivedBadge, ElectionTypeBadge, InvalidElectionBadge } from '../components/ElectionTypeBadge';
 import { ResultsCard } from '../components/ResultsCard';
+import { TFunction } from 'next-i18next';
 
 const ProcessesDetailPage = () => {
+  const { t } = useTranslation();
   const { election, electionRaw } = useExtendedElection();
-  const dateDiffStr = resolveLocalizedDateDiff(election.startDate, election.endDate, election.status);
+  const dateDiffStr = resolveLocalizedDateDiff(election.startDate, election.endDate, election.status, t);
   const id = election.id;
   const organizationId = election.organizationId;
   const isInvalid = election instanceof InvalidElection;
-
-  const { i18n } = useTranslation();
 
   const defaultTab = election.status === ElectionStatus.ENDED || election.status === ElectionStatus.ONGOING ? 1 : 0;
 
@@ -42,7 +42,7 @@ const ProcessesDetailPage = () => {
         logo={<CustomOrganizationAvatar />}
         subtitle={
           <>
-            <CopyButton toCopy={id} text={i18n.t('processes.details.id', { id: id })} color={colors.link} />
+            <CopyButton toCopy={id} text={t('processes.details.id', { id: id })} color={colors.link} />
           </>
         }
       />
@@ -50,7 +50,7 @@ const ProcessesDetailPage = () => {
       {/* Created on and ends on */}
       <FlexRowWrapper>
         <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-          {i18n.t('processes.details.process_details')}
+          {t('processes.details.process_details')}
         </Typography>
         <CustomElectionStatusBadge status={election.status} />
       </FlexRowWrapper>
@@ -60,8 +60,8 @@ const ProcessesDetailPage = () => {
         </Typography>
       )}
       <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-        <span>{i18n.t('processes.details.created_on')} </span>
-        <span>{localizedDateDiff(election.startDate)}</span>
+        <span>{t('processes.details.created_on')} </span>
+        <span>{localizedDateDiff(election.startDate, t)}</span>
       </Typography>
 
       {/* Labels and badges */}
@@ -79,10 +79,10 @@ const ProcessesDetailPage = () => {
       {/* Three cards grid with various info */}
       <Grid>
         <OrganizationCardMedium md={6} organizationId={organizationId} />
-        <StatusCard md={3} title={i18n.t('processes.details.vote_recount')}>
+        <StatusCard md={3} title={t('processes.details.vote_recount')}>
           <h2>{election.voteCount || 0}</h2>
         </StatusCard>
-        <StatusCard md={3} title={i18n.t('processes.details.total_questions')}>
+        <StatusCard md={3} title={t('processes.details.total_questions')}>
           <h2>{election.questions.length}</h2>
         </StatusCard>
       </Grid>
@@ -92,18 +92,18 @@ const ProcessesDetailPage = () => {
 
       {/* Technical details */}
       <Typography variant={TypographyVariant.H3} color={colors.blueText}>
-        {i18n.t('processes.details.detailed_data')}
+        {t('processes.details.detailed_data')}
       </Typography>
       <Typography variant={TypographyVariant.Small} color={colors.blueText}>
-        {i18n.t('processes.details.processes_additional_information')}
+        {t('processes.details.processes_additional_information')}
       </Typography>
 
       {/* Tabs */}
       <Tabs variant="vocdoni" defaultIndex={defaultTab}>
         <TabList>
-          <Tab>{i18n.t('processes.details.show_description')}</Tab>
-          <Tab>{i18n.t('processes.details.show_questions')}</Tab>
-          <Tab>{i18n.t('processes.details.show_envelopes')}</Tab>
+          <Tab>{t('processes.details.show_description')}</Tab>
+          <Tab>{t('processes.details.show_questions')}</Tab>
+          <Tab>{t('processes.details.show_envelopes')}</Tab>
           <Tab>
             <RawContentBtnLabel />
           </Tab>
@@ -121,7 +121,7 @@ const ProcessesDetailPage = () => {
             <EnvelopeExplorer electionId={id} />
           </TabPanel>
           <TabPanel>
-            <RawContent content={electionRaw} title={i18n.t('processes.details.election_raw_content')} />
+            <RawContent content={electionRaw} title={t('processes.details.election_raw_content')} />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -130,16 +130,16 @@ const ProcessesDetailPage = () => {
 };
 
 // todo: move this somewhere
-function resolveLocalizedDateDiff(initDate: Date, endDate: Date, voteStatus: ElectionStatus) {
+function resolveLocalizedDateDiff(initDate: Date, endDate: Date, voteStatus: ElectionStatus, t: TFunction) {
   if (
     initDate &&
     (voteStatus == ElectionStatus.ONGOING || voteStatus == ElectionStatus.PAUSED || voteStatus == ElectionStatus.ENDED)
   ) {
     const now = new Date();
     if (initDate > now) {
-      return localizedStartEndDateDiff(DateDiffType.Start, initDate);
+      return localizedStartEndDateDiff(DateDiffType.Start, initDate, t);
     } else {
-      return localizedStartEndDateDiff(DateDiffType.End, endDate);
+      return localizedStartEndDateDiff(DateDiffType.End, endDate, t);
     }
   }
 }

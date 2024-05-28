@@ -1,9 +1,9 @@
-import i18n from '@i18n';
 import { ExtendedSDKClient } from '@lib/client';
 import { useClient } from '@vocdoni/react-providers';
 import { IChainGetInfoResponse, IElectionListFilter } from '@vocdoni/sdk';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAlertMessage } from './message-alert';
+import { useTranslation } from 'next-i18next';
 
 type PromiseReturnType<T> = T extends Promise<infer U> ? U : never;
 
@@ -24,7 +24,7 @@ function useSDKFunction<T, U>({
   const [loading, setLoading] = useState(false);
   const [loaded, setLoaded] = useState(false); // True after first load attempt
   const { setAlertMessage } = useAlertMessage();
-
+  const { t } = useTranslation();
   // Use useMemo to memoize the arguments and recompute only when they change
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const memorizedArgs = useMemo(() => args, args);
@@ -38,7 +38,7 @@ function useSDKFunction<T, U>({
       })
       .catch((err) => {
         setError(err);
-        setAlertMessage(i18n.t('error.could_not_fetch_the_details'));
+        setAlertMessage(t('error.could_not_fetch_the_details'));
       })
       .finally(() => {
         setLoading(false);

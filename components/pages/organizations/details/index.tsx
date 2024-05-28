@@ -14,14 +14,14 @@ import { colors } from '@theme/colors';
 import { OrganizationDescription } from '@vocdoni/chakra-components';
 import { useOrganization } from '@vocdoni/react-providers';
 import { ensure0x } from '@vocdoni/sdk';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { When } from 'react-if';
 import styled from 'styled-components';
 
 export const OrganizationView = ({ id }: { id: string }) => {
   const plazaUrl = `${process.env.PLAZA_URL}/organization/${ensure0x(id)}`;
 
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const { organization } = useOrganization();
 
   const orgName = organization?.account?.name?.default || id;
@@ -35,7 +35,7 @@ export const OrganizationView = ({ id }: { id: string }) => {
         <Grid>
           <Column sm={12}>
             <Typography variant={TypographyVariant.Body1}>
-              {i18n.t('organizations.details.organization_description')}
+              {t('organizations.details.organization_description')}
             </Typography>
             <OrganizationDescription />
           </Column>
@@ -44,13 +44,11 @@ export const OrganizationView = ({ id }: { id: string }) => {
 
       <Grid>
         <Column sm={12}>
-          <Typography variant={TypographyVariant.Body1}>
-            {i18n.t('organizations.details.organization_address')}{' '}
-          </Typography>
+          <Typography variant={TypographyVariant.Body1}>{t('organizations.details.organization_address')} </Typography>
           <IdWrapper>
             <CopyButton toCopy={id} text={id} />
             <a href={plazaUrl} target="blank">
-              ({i18n.t('organization.home.view_profile')})
+              ({t('organization.home.view_profile')})
             </a>
           </IdWrapper>
         </Column>
@@ -58,7 +56,7 @@ export const OrganizationView = ({ id }: { id: string }) => {
       <When condition={id && organization?.electionIndex > 0}>
         <OrganizationElections organizationId={id} electionCount={organization?.electionIndex} />
       </When>
-      <RawContentBtn content={organization} title={i18n.t('organization.details.organization_raw_content')} />
+      <RawContentBtn content={organization} title={t('organization.details.organization_raw_content')} />
     </PageCard>
   );
 };

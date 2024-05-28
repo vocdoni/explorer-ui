@@ -1,7 +1,7 @@
 import { Else, If, Then } from 'react-if';
 import { Col, Row } from '@components/elements-v2';
 import { NoResultsCard } from '@components/blocks/NoResultsCard';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { QuestionResults } from '@components/blocks/question-results';
 import useExtendedElection from '@hooks/use-extended-election';
 
@@ -9,7 +9,7 @@ export const ResultsCard = () => {
   const { election, results } = useExtendedElection();
   const questions = election.questions;
 
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   if (!questions) {
     return null;
   }
@@ -35,7 +35,7 @@ export const ResultsCard = () => {
         </Row>
       </Then>
       <Else>
-        <NoResultsCard title={i18n.t('vote.no_results_title')} subtitle={i18n.t('vote.no_questions_yet')} />
+        <NoResultsCard title={t('vote.no_results_title')} subtitle={t('vote.no_questions_yet')} />
       </Else>
     </If>
   );

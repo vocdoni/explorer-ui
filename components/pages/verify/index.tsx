@@ -22,7 +22,7 @@ const VerifyPage = ({ minified = false, onSubmit }: { minified?: boolean; onSubm
   const voteIdInput = (
     <Input
       wide
-      placeholder={i18n.t('verify.add_vote_id')}
+      placeholder={t('verify.add_vote_id')}
       value={etVoteId}
       onChange={(ev) => {
         setEtVoteId(ev.target.value);
@@ -34,13 +34,13 @@ const VerifyPage = ({ minified = false, onSubmit }: { minified?: boolean; onSubm
 
   const title = (
     <Typography variant={TypographyVariant.H4} color={colors.blueText} margin="20px 0 20px 0 ">
-      {i18n.t('verify.verify_your_vote')}
+      {t('verify.verify_your_vote')}
     </Typography>
   );
 
   const VerifyButton = () => (
     <Button positive small onClick={_onSubmit}>
-      <FakedButton>{i18n.t('verify.verify')}</FakedButton>
+      <FakedButton>{t('verify.verify')}</FakedButton>
     </Button>
   );
 
@@ -75,7 +75,7 @@ const VerifyPage = ({ minified = false, onSubmit }: { minified?: boolean; onSubm
         <VoteImageContainer>{logo}</VoteImageContainer>
         {title}
         <Typography variant={TypographyVariant.Small} color={colors.lightText}>
-          {i18n.t('verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote')}
+          {t('verify.enter_the_voting_receipt_you_received_after_voting_to_verify_your_vote')}
         </Typography>
         <Col align="center">
           <Row align="center">{voteIdInput}</Row>

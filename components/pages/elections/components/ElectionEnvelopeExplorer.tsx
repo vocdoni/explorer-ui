@@ -1,6 +1,6 @@
 import { Card } from '@components/elements/cards';
 import { Grid } from '@components/elements/grid';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { Paginator } from '@components/blocks/paginator';
 import { Else, If, Then } from 'react-if';
@@ -14,8 +14,7 @@ interface EnvelopeExplorerProps {
 }
 
 export const EnvelopeExplorer = ({ electionId }: EnvelopeExplorerProps) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const [paginatorPage, setPaginatorPage] = useState(1);
   const votePage = paginatorPage - 1;
 
@@ -35,7 +34,7 @@ export const EnvelopeExplorer = ({ electionId }: EnvelopeExplorerProps) => {
   return (
     <Card>
       <h4>
-        {i18n.t('processes.envelope_explorer.total_votes', {
+        {t('processes.envelope_explorer.total_votes', {
           totalVotes: envelopeCount?.count || 0,
         })}
       </h4>

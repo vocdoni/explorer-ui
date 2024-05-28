@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BaseParagraphTypography, TextAlign, Typography, TypographyVariant } from '@components/elements/typography';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 import { sizes } from 'theme/sizes';
 import { Column, Grid } from '@components/elements/grid';
@@ -17,40 +17,36 @@ export const HeroBanner = (props: {
   averageBlockTime: number;
   envelopes: number;
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   return (
     <>
       <ContentContainer>
         <div>
           <Title>
-            <strong>{i18n.t('home.vocdoni_explorer')}</strong> <br />
+            <strong>{t('home.vocdoni_explorer')}</strong> <br />
           </Title>
-          <Subtitle>{i18n.t('home.the_most_flexible_and_secure_voting_protocol')}</Subtitle>
+          <Subtitle>{t('home.the_most_flexible_and_secure_voting_protocol')}</Subtitle>
 
           <Grid>
             <HeroCard
-              title={i18n.t('home.average_block_time')}
-              subtitle={i18n.t('home.n_seconds', {
+              title={t('home.average_block_time')}
+              subtitle={t('home.n_seconds', {
                 seconds: Number(props.averageBlockTime || 0).toFixed(1),
               })}
             />
             <HeroCard
-              title={i18n.t('home.total_processes')}
-              subtitle={i18n.t('home.n_processes', {
+              title={t('home.total_processes')}
+              subtitle={t('home.n_processes', {
                 processes: props.processes,
               })}
             />
             <HeroCard
-              title={i18n.t('home.total_organizations')}
-              subtitle={i18n.t('home.n_organizations', {
+              title={t('home.total_organizations')}
+              subtitle={t('home.n_organizations', {
                 organizations: props.organizations,
               })}
             />
-            <HeroCard
-              title={i18n.t('home.total_votes')}
-              subtitle={i18n.t('home.n_votes', { votes: props.envelopes })}
-            />
+            <HeroCard title={t('home.total_votes')} subtitle={t('home.n_votes', { votes: props.envelopes })} />
           </Grid>
         </div>
       </ContentContainer>

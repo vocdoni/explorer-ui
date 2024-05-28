@@ -1,6 +1,6 @@
 import { getPath } from '@components/pages/app/components/get-links';
 import { TRANSACTIONS_DETAILS } from '@const/routes';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { TransactionTypeBadge } from './TransactionTypeBadge';
 import { CardItemTitle, GenericCardWrapper, GenericCardWrapperProps } from '@components/elements/card-generic';
 import styled from 'styled-components';
@@ -12,8 +12,7 @@ export const TransactionCard = ({
 }: GenericCardWrapperProps & {
   tx: IChainTxReference;
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const link = getPath(TRANSACTIONS_DETAILS, {
     blockHeight: tx?.blockHeight?.toString(),
     index: tx?.transactionIndex?.toString() ?? '0',
@@ -30,9 +29,9 @@ export const TransactionCard = ({
     return (
       <FooterWrapper>
         <div id="hash-text">
-          {i18n.t('components.transaction_card.hash')} {': '}
+          {t('components.transaction_card.hash')} {': '}
         </div>
-        <ReducedTextAndCopy text={hash} toCopy={hash} copyMessage={i18n.t('copy.hash_copied_to_the_clipboard')} />
+        <ReducedTextAndCopy text={hash} toCopy={hash} copyMessage={t('copy.hash_copied_to_the_clipboard')} />
       </FooterWrapper>
     );
   };

@@ -4,7 +4,15 @@ import { ViewContext, ViewStrategy } from '@lib/strategy';
 
 import { Loader } from '@components/blocks/loader';
 import { DashboardShowEntities } from '@components/pages/organizations/list';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const EntityPage = () => {
   const strategies: ViewStrategy[] = [];
 

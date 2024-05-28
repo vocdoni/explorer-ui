@@ -1,8 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback } from 'react';
 import { HiLanguage } from 'react-icons/hi2';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import router from 'next/router';
 
 type LanguageOption = {
   code: string;
@@ -16,23 +15,10 @@ const languages: LanguageOption[] = [
 ];
 
 const LanguageSelector = ({ bg = 'transparent', size, color }: { bg?: string; size?: string; color?: string }) => {
-  const { i18n } = useTranslation();
-
-  const languageDetector = useMemo(() => new LanguageDetector(), []);
-
-  useEffect(() => {
-    languageDetector.init();
-    const lng = languageDetector.detect();
-    i18n.changeLanguage(typeof lng === 'string' ? lng : lng[0]);
-  }, [i18n, languageDetector]);
-
-  const handleLanguageChange = useCallback(
-    (languageCode: string) => {
-      i18n.changeLanguage(languageCode);
-      languageDetector.cacheUserLanguage(languageCode);
-    },
-    [i18n, languageDetector]
-  );
+  const handleLanguageChange = useCallback((languageCode: string) => {
+    const { pathname, query } = router;
+    router.push({ pathname, query }, router.asPath, { locale: languageCode });
+  }, []);
 
   return (
     <Menu>

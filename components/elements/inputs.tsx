@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { DefaultTheme, StyledComponentProps } from 'styled-components';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { FiSearch } from 'react-icons/fi';
 
 export interface IInputProps {
@@ -42,7 +42,7 @@ enum InputType {
 }
 
 export const InputPassword = (props: StyledComponentProps<'input', DefaultTheme, IInputProps, never>) => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [inputType, setInputType] = useState<InputType>(InputType.Password);
 
   const handleClick = () => {
@@ -55,7 +55,7 @@ export const InputPassword = (props: StyledComponentProps<'input', DefaultTheme,
       <Input {...props} type={inputType} />
 
       <ShowContainer onClick={handleClick}>
-        {inputType === InputType.Password ? i18n.t('input.show') : i18n.t('input.hide')}
+        {inputType === InputType.Password ? t('input.show') : t('input.hide')}
       </ShowContainer>
     </InputContainer>
   );

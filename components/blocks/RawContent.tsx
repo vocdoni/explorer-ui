@@ -2,7 +2,7 @@ import { Card } from '@components/elements/cards';
 import { OverflowScroll } from '@components/elements/styled-divs';
 import { Button } from '@components/elements/button';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 interface IRawContentProps {
   content: unknown;
@@ -19,8 +19,8 @@ export const RawContent = ({ content, title }: IRawContentProps) => {
 };
 
 export const RawContentBtnLabel = () => {
-  const { i18n } = useTranslation();
-  return <>{i18n.t('components.raw_content.label')}</>;
+  const { t } = useTranslation();
+  return <>{t('components.raw_content.label')}</>;
 };
 
 export const RawContentBtn = (props: IRawContentProps) => {

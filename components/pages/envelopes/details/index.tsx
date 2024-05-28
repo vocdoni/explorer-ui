@@ -2,7 +2,7 @@ import { Card, PageCard } from '@components/elements/cards';
 import { BadgeColumn, Column, Grid } from '@components/elements/grid';
 import { Typography, TypographyVariant } from '@components/elements/typography';
 import { BlockLink, ProcessLink, TransactionLink } from '@components/pages/app/components/get-links';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { colors } from '@theme/colors';
 import { BreakWordAll, CenterText, ItemDate, OverflowScroll } from '@components/elements/styled-divs';
 import { EncryptionKeysIndexesBadge } from '@components/pages/envelopes/components/EnvelopeEncryptionKeys';
@@ -14,8 +14,7 @@ import styled from 'styled-components';
 import { IVoteInfoResponse } from '@vocdoni/sdk';
 
 export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const [showRawContent, setShowRawContent] = useState(false);
 
   const noLinks = process.env.VERIFY_SINGLE_PAGE;
@@ -25,18 +24,18 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
       <>
         <Grid>
           <Column sm={12}>
-            <Typography variant={TypographyVariant.H3}>{i18n.t('envelopes.details.envelope_details')}</Typography>
+            <Typography variant={TypographyVariant.H3}>{t('envelopes.details.envelope_details')}</Typography>
             <VoteImageContainer>
               <img src="/images/vocdoni-vote.png" alt="Vote registered" />
             </VoteImageContainer>
             <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center}>
-              <h2>{i18n.t('envelopes.details.vote_has_been_registered_correctly')}</h2>
+              <h2>{t('envelopes.details.vote_has_been_registered_correctly')}</h2>
             </FlexContainer>
 
             <FlexContainer alignItem={FlexAlignItem.Center} justify={FlexJustifyContent.Center} wrap={FlexWrap.Wrap}>
               <Typography variant={TypographyVariant.H5} color={colors.blueText}>
                 <CenterText>
-                  <strong>{i18n.t('envelopes.details.verifier_code')}</strong>
+                  <strong>{t('envelopes.details.verifier_code')}</strong>
                   <br></br>
                 </CenterText>
                 <BreakWordAll>
@@ -45,10 +44,10 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
               </Typography>
             </FlexContainer>
             <ItemDate>
-              {i18n.t('envelopes.details.emitted')} {localizedDateDiff(new Date(envelope.date))}
+              {t('envelopes.details.emitted')} {localizedDateDiff(new Date(envelope.date), t)}
             </ItemDate>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.encryption_keys_used')}:
+              {t('envelopes.details.encryption_keys_used')}:
               <BadgeColumn>
                 {envelope.encryptionKeys?.length > 0 ? (
                   envelope.encryptionKeys.map((n) => {
@@ -61,14 +60,14 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
             </Typography>
             {envelope.overwriteCount > 0 && (
               <Typography variant={TypographyVariant.Small}>
-                {i18n.t('envelopes.details.overwrite_count')}: {envelope.overwriteCount}
+                {t('envelopes.details.overwrite_count')}: {envelope.overwriteCount}
               </Typography>
             )}
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.envelope_weight')}: {envelope.weight}
+              {t('envelopes.details.envelope_weight')}: {envelope.weight}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.commited_in_block')}:
+              {t('envelopes.details.commited_in_block')}:
               {noLinks ? (
                 '#' + envelope.blockHeight
               ) : (
@@ -76,7 +75,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
               )}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.belongs_to_process')}
+              {t('envelopes.details.belongs_to_process')}
               {': '}
               {noLinks ? (
                 '0x' + envelope.electionID
@@ -85,7 +84,7 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
               )}
             </Typography>
             <Typography variant={TypographyVariant.Small}>
-              {i18n.t('envelopes.details.transaction_hash')}
+              {t('envelopes.details.transaction_hash')}
               {': '}
               {noLinks ? (
                 '0x' + envelope.txHash
@@ -101,11 +100,11 @@ export const EnvelopeDetails = ({ envelope }: { envelope: IVoteInfoResponse }) =
           </Column>
         </Grid>
         <Button small positive onClick={() => setShowRawContent(!showRawContent)}>
-          {i18n.t('processes.details.see_raw_envelopment_content')}
+          {t('processes.details.see_raw_envelopment_content')}
         </Button>
         {showRawContent && (
           <Card>
-            <h3>{i18n.t('transactions.details.raw_contents')}</h3>
+            <h3>{t('transactions.details.raw_contents')}</h3>
             <OverflowScroll>{JSON.stringify(envelope, null, 2)}</OverflowScroll>
           </Card>
         )}

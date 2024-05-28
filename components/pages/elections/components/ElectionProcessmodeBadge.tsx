@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { CustomTag } from '@components/elements/CustomTag';
 
 interface ProcessModeBadgeProps {
@@ -6,13 +6,10 @@ interface ProcessModeBadgeProps {
 }
 
 export const ProcessModeBadge = ({ autostart }: ProcessModeBadgeProps) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   return (
     <CustomTag>
-      {autostart
-        ? i18n.t('processes.process_mode_badge.autostart')
-        : i18n.t('processes.process_mode_badge.notAutostart')}
+      {autostart ? t('processes.process_mode_badge.autostart') : t('processes.process_mode_badge.notAutostart')}
     </CustomTag>
   );
 };

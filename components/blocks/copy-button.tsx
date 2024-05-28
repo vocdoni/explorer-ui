@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import copy from 'copy-to-clipboard';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { IoCopy } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import styled from 'styled-components';
@@ -20,8 +20,7 @@ export const CopyButton = ({
   color?: string;
   copyMessage?: string;
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const { setCopiedMessage, message } = useCopiedMessage();
   const handleCopy = (e) => {
     e.cancelBubble = true;
@@ -29,7 +28,7 @@ export const CopyButton = ({
     e.preventDefault();
     e.target.focus();
     copy(toCopy);
-    setCopiedMessage(copyMessage ?? i18n.t('copy.copied_to_the_clipboard'));
+    setCopiedMessage(copyMessage ?? t('copy.copied_to_the_clipboard'));
   };
 
   return (

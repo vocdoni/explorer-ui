@@ -1,11 +1,20 @@
 import { BlockView } from '@components/pages/blocks/details';
 import { Else, If, Then } from 'react-if';
 import { useUrlHash } from 'use-url-hash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useBlockByHash, useBlockByHeight } from '@hooks/use-voconi-sdk';
 import { ensure0x, IChainBlockInfoResponse } from '@vocdoni/sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 
 const BlockOrLoadingView = ({
   block,
@@ -16,14 +25,13 @@ const BlockOrLoadingView = ({
   loading: boolean;
   error: Error;
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   return (
     <LoaderPage
       loading={loading}
       error={!!error}
       hasContent={!!block}
-      errorMessage={i18n.t('blocks.details.block_not_found')}
+      errorMessage={t('blocks.details.block_not_found')}
     >
       <BlockView blockData={block}></BlockView>
     </LoaderPage>

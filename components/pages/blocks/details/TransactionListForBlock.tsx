@@ -1,6 +1,6 @@
 import { TransactionTypeBadge } from '@components/pages/transactions/components/TransactionTypeBadge';
 import { GenericListItemWithBadge } from '@components/blocks/list-items';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { getTransactionLink } from '@components/pages/app/components/get-links';
 import { renderSkeleton } from '@components/pages/app/page-templates/list-page';
@@ -18,8 +18,7 @@ export const TransactionListForBlock = ({
   blockHeight?: number;
   skeletonItems?: number;
 }) => {
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const [paginatorPage, setPaginatorPage] = useState<number>(1);
 
   const { data, loading } = useBlockTransactions({ height: blockHeight, page: paginatorPage - 1 });
@@ -30,12 +29,12 @@ export const TransactionListForBlock = ({
     return (
       <GenericListItemWithBadge
         key={i}
-        topLeft={i18n.t('transaction.card.index_n', { index: tx.transactionIndex })}
+        topLeft={t('transaction.card.index_n', { index: tx.transactionIndex })}
         badge={<TransactionTypeBadge type={tx.transactionType}></TransactionTypeBadge>}
         lg={8}
         link={getTransactionLink(blockHeight, tx.transactionIndex)}
       >
-        <h4>{i18n.t('transaction.card.block') + tx.transactionHash}</h4>
+        <h4>{t('transaction.card.block') + tx.transactionHash}</h4>
       </GenericListItemWithBadge>
     );
   };
@@ -56,7 +55,7 @@ export const TransactionListForBlock = ({
           />
         </>
       ) : (
-        <h1>{i18n.t('transactions.no_transactions_found')}</h1>
+        <h1>{t('transactions.no_transactions_found')}</h1>
       )}
     </>
   );

@@ -170,7 +170,6 @@
         "docs": "Documentació",
         "help": "Ajuda",
         "organizations": "Organitzacions",
-        "privacy_policy": "Política de privacitat",
         "processes": "Processos",
         "stats": "Estat",
         "support": "Suport",
@@ -217,8 +216,7 @@
             "ERC777": "ERC777",
             "MINI_ME": "Mini me",
             "OFF_CHAIN": "Off Chain",
-            "OFF_CHAIN_TREE_WEIGHTED": "Off Chain Weighted",
-            "UNRECOGNIZED": "Unrecognized"
+            "OFF_CHAIN_TREE_WEIGHTED": "Off Chain Weighted"
         },
         "details": {
             "created_on": "Creat el",
@@ -349,7 +347,6 @@
         "results_question": "Pregunta",
         "vote_count_one": "",
         "vote_count_many": "",
-        "vote_count_other": "",
-        "vote_count": "{{ count }} vots"
+        "vote_count_other": ""
     }
 }

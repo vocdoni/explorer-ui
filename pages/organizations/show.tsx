@@ -2,13 +2,20 @@ import LoaderPage from '@components/pages/app/layout/loader-page';
 import { OrganizationView } from '@components/pages/organizations/details';
 import { OrganizationProvider, useOrganization } from '@vocdoni/react-providers';
 import { ensure0x } from '@vocdoni/sdk';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useUrlHash } from 'use-url-hash';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const OrganizationsDetailPage = () => {
   const { organization, loading, errors, loaded } = useOrganization();
-  const { i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const error = errors.load?.length > 0 || errors.update?.length > 0;
   const hasContent = !!organization;
   const isLoading = loading || !loaded;
@@ -18,7 +25,7 @@ const OrganizationsDetailPage = () => {
       loading={isLoading}
       error={error}
       hasContent={hasContent}
-      errorMessage={i18n.t('organizations.details.organization_not_found')}
+      errorMessage={t('organizations.details.organization_not_found')}
     >
       <OrganizationView id={organization?.address} />
     </LoaderPage>

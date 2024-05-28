@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { Unless } from 'react-if';
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 import {
   HOME_PATH,
@@ -33,7 +33,7 @@ interface IHeaderProps {
 export const Header = ({ children }: IHeaderProps) => {
   const isMobile = useIsMobile();
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const env = process.env.VOCDONI_ENVIRONMENT;
 
   let headerUrl;
@@ -51,38 +51,38 @@ export const Header = ({ children }: IHeaderProps) => {
 
   const LINKS: HeaderLink[] = [
     {
-      name: i18n.t('links.organizations'),
+      name: t('links.organizations'),
       url: ORGANIZATIONS_PATH,
     },
     {
-      name: i18n.t('links.processes'),
+      name: t('links.processes'),
       url: PROCESSES_PATH,
     },
     {
-      name: i18n.t('links.blocks'),
+      name: t('links.blocks'),
       url: BLOCKS_PATH,
     },
     {
-      name: i18n.t('links.transactions'),
+      name: t('links.transactions'),
       url: TRANSACTIONS_PATH,
     },
     {
-      name: i18n.t('links.validators'),
+      name: t('links.validators'),
       url: VALIDATORS_PATH,
     },
     {
-      name: i18n.t('links.stats'),
+      name: t('links.stats'),
       url: STATS_PATH,
     },
     {
-      name: i18n.t('links.tools'),
+      name: t('links.tools'),
       url: TOOLS_PATH,
     },
   ];
 
   const RIGHT_LINKS: HeaderLink[] = [
     {
-      name: i18n.t('links.verify_vote'),
+      name: t('links.verify_vote'),
       url: VERIFY,
     },
   ];

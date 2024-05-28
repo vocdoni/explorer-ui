@@ -5,7 +5,15 @@ import { Else, If, Then } from 'react-if';
 import FeaturedContent from './index/featured';
 import { useChainInfo } from '@hooks/use-voconi-sdk';
 import { StatsHeroBanner } from '@components/pages/stats/components/stats-hero-banner';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 // MAIN COMPONENT
 const IndexPage = () => {
   const { data: stats } = useChainInfo();

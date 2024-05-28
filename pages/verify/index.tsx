@@ -8,7 +8,15 @@ import Router from 'next/router';
 import { getPath } from '@components/pages/app/components/get-links';
 import { VERIFY_DETAILS } from '@const/routes';
 import { useEffect, useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const VerifyIndexPage = () => {
   const urlVoteId = useUrlHash().slice(1);
   const [voteId, setVoteId] = useState('');

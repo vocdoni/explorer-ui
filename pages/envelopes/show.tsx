@@ -1,12 +1,20 @@
 import { EnvelopeDetails } from '@components/pages/envelopes/details';
 import { useUrlHash } from 'use-url-hash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import { useVoteInfo } from '@hooks/use-voconi-sdk';
 import LoaderPage from '@components/pages/app/layout/loader-page';
 import React from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale)),
+    },
+  };
+}
 const EnvelopeDetailPage = () => {
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const voteId: string = useUrlHash().slice(1);
   const {
     loading,
@@ -23,7 +31,7 @@ const EnvelopeDetailPage = () => {
       loading={isLoading}
       error={!!error}
       hasContent={!!envelope}
-      errorMessage={i18n.t('envelopes.details.envelope_not_found')}
+      errorMessage={t('envelopes.details.envelope_not_found')}
     >
       <EnvelopeDetails envelope={envelope} />
     </LoaderPage>
