@@ -58,7 +58,6 @@ const styledConfig = {
   shouldForwardProp: (prop) => !cosmeticProps.includes(prop),
 };
 const BaseText = styled.span.withConfig(styledConfig)<TextProps>`
-  font-family: Manrope;
   font-size: ${getTextSize};
   font-weight: ${getTextWeight};
   color: ${getTextColor};
