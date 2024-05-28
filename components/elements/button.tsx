@@ -343,7 +343,6 @@ export const HomePageButton = styled.button`
   color: white;
   border: none;
 
-  font-family: 'Manrope';
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -351,7 +350,6 @@ export const HomePageButton = styled.button`
 
   a {
     color: white;
-    font-family: 'Manrope';
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
