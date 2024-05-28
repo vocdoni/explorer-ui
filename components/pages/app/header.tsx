@@ -6,14 +6,14 @@ import { Unless } from 'react-if';
 import { useTranslation } from 'react-i18next';
 
 import {
+  BLOCKS_PATH,
   HOME_PATH,
   ORGANIZATIONS_PATH,
   PROCESSES_PATH,
-  BLOCKS_PATH,
-  TRANSACTIONS_PATH,
-  VALIDATORS_PATH,
   STATS_PATH,
   TOOLS_PATH,
+  TRANSACTIONS_PATH,
+  VALIDATORS_PATH,
   VERIFY,
 } from '@const/routes';
 
@@ -290,7 +290,6 @@ const CTAButton = ({ url, children }: ILinkItemProps) => {
 
 const CTA = styled(Link)`
   color: inherit;
-  font-family: 'Manrope';
   font-style: normal;
   font-weight: 700;
   font-size: 12.8px;
